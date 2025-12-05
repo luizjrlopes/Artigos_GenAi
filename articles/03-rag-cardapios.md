@@ -1,6 +1,8 @@
 ﻿# RAG (Retrieval-Augmented Generation) explicado com um exemplo de cardápio
 
-![Capa: RAG com cardápios](../img/artigo_3/capa.png)
+<div align="center">
+  <img src="../img/artigo_3/capa.png" alt="Capa: RAG com cardápios" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 
@@ -24,8 +26,10 @@ Conceitos: Embeddings e Busca Vetorial.
 
 Prática: Um fluxo de busca semântica para encontrar "algo leve para comer".
 
-![Figura 1: Fluxo RAG](../img/artigo_3/figura1.png)
-_Figura 1: O fluxo de dados na arquitetura RAG: Recuperação (Retrieval) antes da Geração._
+<div align="center">
+  <img src="../img/artigo_3/figura1.png" alt="Figura 1: Fluxo RAG" width="70%">
+  <p><em>Figura 1: O fluxo de dados na arquitetura RAG: Recuperação (Retrieval) antes da Geração.</em></p>
+</div>
 
 ### RAG vs. Fine-Tuning: Qual escolher?
 
@@ -50,8 +54,10 @@ Para entender RAG, precisamos de três conceitos:
 
 **3. Retrieval (Recuperação):** O ato de ir ao banco, pegar os dados relevantes para a pergunta do usuário e trazê-los para o contexto.
 
-![Figura 2: Espaço Vetorial](../img/artigo_3/figura2.png)
-_Figura 2: Visualização simplificada do Espaço Vetorial. Itens semanticamente similares ficam próximos._
+<div align="center">
+  <img src="../img/artigo_3/figura2.png" alt="Figura 2: Espaço Vetorial" width="70%">
+  <p><em>Figura 2: Visualização simplificada do Espaço Vetorial. Itens semanticamente similares ficam próximos.</em></p>
+</div>
 
 ### A Fórmula do RAG
 

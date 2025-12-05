@@ -1,6 +1,8 @@
 ﻿# Testes Automatizados para Sistemas de IA: Unitários, Integração e "LLM-as-a-Judge"
 
-![Capa: Testes em Sistemas de IA](../img/artigo_10/capa.png)
+<div align="center">
+  <img src="../img/artigo_10/capa.png" alt="Capa: Testes em Sistemas de IA" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

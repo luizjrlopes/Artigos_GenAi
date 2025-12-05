@@ -1,6 +1,8 @@
 ﻿# Design de APIs para GenAI: Streaming, Async e a morte do Request/Response simples
 
-![Capa: Design de APIs para GenAI](../img/artigo_7/capa.png)
+<div align="center">
+  <img src="../img/artigo_7/capa.png" alt="Capa: Design de APIs para GenAI" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

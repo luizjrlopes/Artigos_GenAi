@@ -1,6 +1,8 @@
 ﻿# Custos de IA: Como escalar sem queimar todo o lucro do delivery
 
-![Capa: Custos de IA](../img/artigo_14/capa.png)
+<div align="center">
+  <img src="../img/artigo_14/capa.png" alt="Capa: Custos de IA" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

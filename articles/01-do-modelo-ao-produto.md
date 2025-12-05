@@ -1,11 +1,15 @@
 # Do modelo ao produto: como uma API de LLM vira funcionalidade em um app de entrega
 
-![Capa: Do modelo ao produto](../img/artigo_1/capa.png)
+<div align="center">
+  <img src="../img/artigo_1/capa.png" alt="Capa: Do modelo ao produto" width="70%">
+</div>
 
 Você já parou para pensar por que grandes apps de delivery parecem "inteligentes" ao resumir avaliações de restaurantes? Não é mágica — é engenharia sólida por trás de um LLM simples. Neste post, vou desmistificar essa jornada: de um protótipo rápido em Jupyter para uma feature robusta em produção, lidando com latência, custos e escalabilidade. Como dev full stack e DevOps, vi isso na prática em apps de alto tráfego. Vamos mergulhar?
 
-![Pipeline de LLM em produção](../img/artigo_1/figura1.png)
-_Figura 1: Pipeline de LLM em produção: de protótipo a feature escalável_
+<div align="center">
+  <img src="../img/artigo_1/figura1.png" alt="Pipeline de LLM em produção" width="70%">
+  <p><em>Figura 1: Pipeline de LLM em produção: de protótipo a feature escalável</em></p>
+</div>
 
 ## 1. Contexto e Propósito: Por que isso importa no mundo real?
 
@@ -116,15 +120,19 @@ async def get_review_summary(restaurant_id: str):
 
 > [!TIP] > **Dica de Performance**: Em produção, troque por chamadas assíncronas (`aiohttp`) para não bloquear o endpoint.
 
-![Fluxo de resumo de reviews](../img/artigo_1/figura2.png)
-_Figura 2: Fluxo de resumo de reviews em app de delivery_
+<div align="center">
+  <img src="../img/artigo_1/figura2.png" alt="Fluxo de resumo de reviews" width="70%">
+  <p><em>Figura 2: Fluxo de resumo de reviews em app de delivery</em></p>
+</div>
 
 ## 5. Métricas, Riscos e Boas Práticas: Lidando com Latência, Custos e Falhas
 
 Código pronto? Ótimo, mas em escala, LLMs são traiçoeiros. Aqui vão os pilares para tornar sua feature _production-ready_:
 
-![Desafios de produção](../img/artigo_1/figura3.png)
-_Figura 3: Desafios de produção_
+<div align="center">
+  <img src="../img/artigo_1/figura3.png" alt="Desafios de produção" width="70%">
+  <p><em>Figura 3: Desafios de produção</em></p>
+</div>
 
 | Desafio               | Problema                               | Solução de Engenharia                                                                          |
 | :-------------------- | :------------------------------------- | :--------------------------------------------------------------------------------------------- |
@@ -139,8 +147,10 @@ _Figura 3: Desafios de produção_
 
 Não confie só no "parece bom". Teste de verdade:
 
-![Métricas de impacto](../img/artigo_1/figura4.png)
-_Figura 4: Métricas de impacto_
+<div align="center">
+  <img src="../img/artigo_1/figura4.png" alt="Métricas de impacto" width="70%">
+  <p><em>Figura 4: Métricas de impacto</em></p>
+</div>
 
 - **A/B Testing**: 50% dos users veem resumo; 50% veem lista raw. Métrica? Aumento em pedidos ou tempo de decisão.
 - **Feedback Loop**: Botões "Útil/Não útil" no app. Use isso para refinar prompts (human-in-the-loop).

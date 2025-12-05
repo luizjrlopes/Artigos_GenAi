@@ -1,6 +1,8 @@
 ﻿# Logging e Métricas para GenAI: O que medir para não falir
 
-![Capa: Logging e Métricas](../img/artigo_13/capa.png)
+<div align="center">
+  <img src="../img/artigo_13/capa.png" alt="Capa: Logging e Métricas" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

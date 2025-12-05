@@ -1,6 +1,8 @@
 ﻿# Interfaces Conversacionais Honestas: UX para não enganar seu usuário
 
-![Capa: Interfaces Conversacionais Honestas](../img/artigo_18/capa.png)
+<div align="center">
+  <img src="../img/artigo_18/capa.png" alt="Capa: Interfaces Conversacionais Honestas" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

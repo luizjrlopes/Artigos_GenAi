@@ -1,6 +1,8 @@
 ﻿# LLMs como Copilotos: Casos Práticos em Times de Delivery
 
-![Capa: LLMs como copilotos](../img/artigo_5/capa.png)
+<div align="center">
+  <img src="../img/artigo_5/capa.png" alt="Capa: LLMs como copilotos" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 
@@ -20,8 +22,10 @@ Vamos focar em três casos de uso onde a IA atua como um multiplicador de senior
 - **Engenharia de Testes:** Geração de casos de borda e testes parametrizados para validação financeira.
 - **SQL & Otimização:** Criação de queries complexas com consciência do schema do banco.
 
-![Figura 1: LLM como Copiloto](../img/artigo_5/figura1.png)
-_Figura 1: Fluxo de trabalho com LLM como copiloto: Contexto → Geração → Revisão → Produção._
+<div align="center">
+  <img src="../img/artigo_5/figura1.png" alt="Figura 1: LLM como Copiloto" width="70%">
+  <p><em>Figura 1: Fluxo de trabalho com LLM como copiloto: Contexto → Geração → Revisão → Produção.</em></p>
+</div>
 
 ## 3. Conceitos Fundamentais
 
@@ -46,8 +50,10 @@ A regra de ouro corporativa. **Nunca cole segredos** (API Keys, PII) em chats p�
 - **Ferramentas "Zero Data Retention"** (Enterprise) - dados não são usados para treino
 - **Ferramentas de treino público** - seu código pode virar exemplo para outros
 
-![Figura 2: Privacy Tiers](../img/artigo_5/figura2.png)
-_Figura 2: Comparação entre modos de uso de LLM (Local, Enterprise, Public)._
+<div align="center">
+  <img src="../img/artigo_5/figura2.png" alt="Figura 2: Privacy Tiers" width="70%">
+  <p><em>Figura 2: Comparação entre modos de uso de LLM (Local, Enterprise, Public).</em></p>
+</div>
 
 ## 4. Mão na Massa: Exemplo Prático
 
@@ -110,8 +116,10 @@ usuários que compraram itens com 'Pizza' E 'Hambúrguer' num intervalo de 7 dia
 
 **Resultado:** O LLM entende as chaves estrangeiras (`user_id`, `order_id`) e monta os JOINs corretamente na primeira tentativa.
 
-![Figura 3: Casos de Uso](../img/artigo_5/figura3.png)
-_Figura 3: Três casos práticos de LLM como copiloto: Refatoração, Testes e SQL._
+<div align="center">
+  <img src="../img/artigo_5/figura3.png" alt="Figura 3: Casos de Uso" width="70%">
+  <p><em>Figura 3: Três casos práticos de LLM como copiloto: Refatoração, Testes e SQL.</em></p>
+</div>
 
 ## 5. Métricas, Riscos e Boas Práticas
 
@@ -145,8 +153,10 @@ O primeiro output raramente é o perfeito. Peça para a IA:
 - "Tratar exceções de conexão"
 - "Adicionar logs de debug"
 
-![Figura 4: Ciclo de Iteração](../img/artigo_5/figura4.png)
-_Figura 4: Ciclo iterativo de refinamento com LLM._
+<div align="center">
+  <img src="../img/artigo_5/figura4.png" alt="Figura 4: Ciclo de Iteração" width="70%">
+  <p><em>Figura 4: Ciclo iterativo de refinamento com LLM.</em></p>
+</div>
 
 ## 6. Evidence & Exploration
 

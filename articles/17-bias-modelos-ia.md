@@ -1,6 +1,8 @@
 ﻿# Viés (Bias) em Modelos de IA: Quando o algoritmo discrimina sem você ver
 
-![Capa: Bias em Modelos de IA](../img/artigo_17/capa.png)
+<div align="center">
+  <img src="../img/artigo_17/capa.png" alt="Capa: Bias em Modelos de IA" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

@@ -1,6 +1,8 @@
 ﻿# A Jornada GenAI em Produtos Digitais: Do Hype à Engenharia Sólida
 
-![Capa: Jornada GenAI](../img/artigo_20/capa.png)
+<div align="center">
+  <img src="../img/artigo_20/capa.png" alt="Capa: Jornada GenAI" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

@@ -1,6 +1,8 @@
 ﻿# Fine-tuning vs Prompt Engineering vs RAG: O Framework de Decisão
 
-![Capa: Fine-tuning vs Prompt vs RAG](../img/artigo_4/capa.png)
+<div align="center">
+  <img src="../img/artigo_4/capa.png" alt="Capa: Fine-tuning vs Prompt vs RAG" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 
@@ -22,8 +24,10 @@ Para facilitar a decisão, manteremos nossos três cenários reais de um app de 
 - **Cenário B:** Classificar milhares de avaliações de texto em tags JSON (Sabor, Entrega, Preço).
 - **Cenário C:** Um chatbot com a personalidade marcante do mascote da marca ("Zequinha do Delivery").
 
-![Figura 1: Framework de Decisão](../img/artigo_4/figura1.png)
-_Figura 1: Árvore de decisão para escolher entre Prompt Engineering, RAG e Fine-Tuning._
+<div align="center">
+  <img src="../img/artigo_4/figura1.png" alt="Figura 1: Framework de Decisão" width="70%">
+  <p><em>Figura 1: Árvore de decisão para escolher entre Prompt Engineering, RAG e Fine-Tuning.</em></p>
+</div>
 
 ## 3. Conceitos Fundamentais
 
@@ -49,8 +53,10 @@ Antes de codar, precisamos alinhar as definições:
 - **Precisa de estilo consistente ou formato rígido?** → Fine-Tuning.
 - **Precisa processar alto volume com baixa latência?** → Fine-Tuning (em modelos pequenos/SLMs).
 
-![Figura 2: Comparação das 3 Abordagens](../img/artigo_4/figura2.png)
-_Figura 2: Tabela comparativa entre Prompt Engineering, RAG e Fine-Tuning._
+<div align="center">
+  <img src="../img/artigo_4/figura2.png" alt="Figura 2: Comparação das 3 Abordagens" width="70%">
+  <p><em>Figura 2: Tabela comparativa entre Prompt Engineering, RAG e Fine-Tuning.</em></p>
+</div>
 
 ## 4. Mão na Massa: Exemplo Prático
 
@@ -90,8 +96,10 @@ SELECT * FROM products WHERE name LIKE '%Coca%' AND stock > 0
 
 **Por que Fine-Tuning?** Para incorporar profundamente a "persona". Com Prompting, você gasta tokens a cada chamada descrevendo quem é o Zequinha. Com Fine-Tuning, o modelo "é" o Zequinha. Isso economiza tokens de entrada e garante que ele nunca "saia do personagem" (jailbreak de estilo).
 
-![Figura 3: Fluxo dos 3 Cenários](../img/artigo_4/figura3.png)
-_Figura 3: Arquitetura de solução para cada cenário (A: RAG, B: Fine-Tuning SLM, C: Fine-Tuning Persona)._
+<div align="center">
+  <img src="../img/artigo_4/figura3.png" alt="Figura 3: Fluxo dos 3 Cenários" width="70%">
+  <p><em>Figura 3: Arquitetura de solução para cada cenário (A: RAG, B: Fine-Tuning SLM, C: Fine-Tuning Persona).</em></p>
+</div>
 
 ## 5. Métricas, Riscos e Boas Práticas
 
@@ -120,8 +128,10 @@ Não coloque um modelo fine-tunado em produção baseado em "feeling". Tenha um 
 - Taxa de alucinação
 - Latência e custo por requisição
 
-![Figura 4: Métricas de Avaliação](../img/artigo_4/figura4.png)
-_Figura 4: Dashboard de métricas para avaliar Fine-Tuning vs Baseline._
+<div align="center">
+  <img src="../img/artigo_4/figura4.png" alt="Figura 4: Métricas de Avaliação" width="70%">
+  <p><em>Figura 4: Dashboard de métricas para avaliar Fine-Tuning vs Baseline.</em></p>
+</div>
 
 ## 6. Evidence & Exploration
 

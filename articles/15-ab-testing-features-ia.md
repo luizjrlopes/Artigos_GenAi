@@ -1,6 +1,8 @@
 ﻿# A/B Testing para Features de IA: Ciência de dados aplicada à Engenharia de Prompt
 
-![Capa: A/B Testing em IA](../img/artigo_15/capa.png)
+<div align="center">
+  <img src="../img/artigo_15/capa.png" alt="Capa: A/B Testing em IA" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

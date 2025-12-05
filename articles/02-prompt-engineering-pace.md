@@ -1,6 +1,8 @@
 # Prompt Engineering na prática: desenhando prompts robustos com PACE
 
-![Capa: Prompt Engineering na prática](../img/artigo_2/capa.png)
+<div align="center">
+  <img src="../img/artigo_2/capa.png" alt="Capa: Prompt Engineering na prática" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 
@@ -32,8 +34,10 @@ Para estruturar prompts robustos, aplicaremos uma metodologia simples que chamo 
 
 Vamos evoluir um prompt de atendimento ao cliente de **"ingênuo"** para **"profissional"**, usando PACE como checklist.
 
-![Metodologia PACE para Prompts](../img/artigo_2/figura1.png)
-_Figura 1: Metodologia PACE aplicada a Prompt Engineering_
+<div align="center">
+  <img src="../img/artigo_2/figura1.png" alt="Metodologia PACE para Prompts" width="70%">
+  <p><em>Figura 1: Metodologia PACE aplicada a Prompt Engineering</em></p>
+</div>
 
 ---
 
@@ -78,8 +82,10 @@ Isso cria um **problema financeiro e de confiança**, porque:
 - O modelo não tem poder para executar reembolso.
 - Você precisa depois "voltar atrás" com o cliente ou arcar com o custo não planejado.
 
-![Comparação de Prompts](../img/artigo_2/figura2.png)
-_Figura 2: Evolução de Prompt Ingênuo para Prompt Estruturado_
+<div align="center">
+  <img src="../img/artigo_2/figura2.png" alt="Comparação de Prompts" width="70%">
+  <p><em>Figura 2: Evolução de Prompt Ingênuo para Prompt Estruturado</em></p>
+</div>
 
 ---
 
@@ -125,8 +131,10 @@ Ao usar essa estrutura, você:
 Projetar um bom prompt é só metade do trabalho.  
 Você também precisa **medir e gerenciar riscos**.
 
-![Riscos e Mitigações](../img/artigo_2/figura3.png)
-_Figura 3: Principais riscos em Prompt Engineering e suas mitigações_
+<div align="center">
+  <img src="../img/artigo_2/figura3.png" alt="Riscos e Mitigações" width="70%">
+  <p><em>Figura 3: Principais riscos em Prompt Engineering e suas mitigações</em></p>
+</div>
 
 ### 5.1 Riscos
 
@@ -177,8 +185,10 @@ Como medir se o prompt é bom?
 
 ## 6. Evidence & Exploration
 
-![Métricas de Qualidade](../img/artigo_2/figura4.png)
-_Figura 4: Dashboard de métricas para avaliar qualidade de prompts_
+<div align="center">
+  <img src="../img/artigo_2/figura4.png" alt="Métricas de Qualidade" width="70%">
+  <p><em>Figura 4: Dashboard de métricas para avaliar qualidade de prompts</em></p>
+</div>
 
 Para sair do "achismo" e ter **evidência real** de que seu prompt é bom, crie um **Golden Dataset**:
 

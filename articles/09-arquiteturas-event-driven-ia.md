@@ -1,6 +1,8 @@
 ﻿# Arquiteturas Event-Driven para IA: Desacoplando a inteligência do fluxo crítico
 
-![Capa: Arquiteturas Event-Driven para IA](../img/artigo_9/capa.png)
+<div align="center">
+  <img src="../img/artigo_9/capa.png" alt="Capa: Arquiteturas Event-Driven para IA" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

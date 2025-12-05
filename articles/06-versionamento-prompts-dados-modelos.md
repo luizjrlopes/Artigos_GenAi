@@ -1,6 +1,8 @@
 ﻿# Versionamento de Prompts, Dados e Modelos: O "Git" da Engenharia de IA
 
-![Capa: Versionamento em IA](../img/artigo_6/capa.png)
+<div align="center">
+  <img src="../img/artigo_6/capa.png" alt="Capa: Versionamento em IA" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

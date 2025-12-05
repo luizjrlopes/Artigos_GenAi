@@ -1,6 +1,8 @@
 ﻿# Tratamento de Erros e Timeouts: Quando o LLM te deixa na mão (e como sobreviver)
 
-![Capa: Tratamento de erros em LLM](../img/artigo_8/capa.png)
+<div align="center">
+  <img src="../img/artigo_8/capa.png" alt="Capa: Tratamento de erros em LLM" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

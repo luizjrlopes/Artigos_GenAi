@@ -1,6 +1,8 @@
 ﻿# Colaboração Humano-IA: Transformando times de Operações com "Superpoderes"
 
-![Capa: Colaboracao Humano-IA](../img/artigo_19/capa.png)
+<div align="center">
+  <img src="../img/artigo_19/capa.png" alt="Capa: Colaboracao Humano-IA" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

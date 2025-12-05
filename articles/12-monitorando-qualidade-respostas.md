@@ -1,6 +1,8 @@
 ﻿# Monitorando a Qualidade das Respostas: Além do "Thumbs Up/Down"
 
-![Capa: Monitorando qualidade](../img/artigo_12/capa.png)
+<div align="center">
+  <img src="../img/artigo_12/capa.png" alt="Capa: Monitorando qualidade" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

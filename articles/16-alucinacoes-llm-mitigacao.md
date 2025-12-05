@@ -1,6 +1,8 @@
 ﻿# Alucinacoes de LLM e Mitigacao: Quando o bot inventa pizza grátis
 
-![Capa: Alucinacoes de LLM](../img/artigo_16/capa.png)
+<div align="center">
+  <img src="../img/artigo_16/capa.png" alt="Capa: Alucinacoes de LLM" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 

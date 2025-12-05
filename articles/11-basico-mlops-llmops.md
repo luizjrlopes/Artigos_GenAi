@@ -1,6 +1,8 @@
 ﻿# Básico de MLOps e LLMOps: Tirando a IA do Jupyter Notebook e levando para a vida real
 
-![Capa: MLOps e LLMOps](../img/artigo_11/capa.png)
+<div align="center">
+  <img src="../img/artigo_11/capa.png" alt="Capa: MLOps e LLMOps" width="70%">
+</div>
 
 ## 1. Contexto e Propósito (Purpose)
 
