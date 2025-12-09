@@ -279,83 +279,78 @@
               <h1
                 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6"
               >
-                LLMs como <br />
+                Fine-Tuning <br />
                 <span
                   class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white"
-                  >Copilotos</span
+                  >vs RAG vs Prompt</span
                 >
               </h1>
               <p
                 class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6"
               >
-                Refatoração, testes e analytics em alta velocidade. O manual de
-                sobrevivência do dev moderno.
+                O guia definitivo para escolher a estratégia certa de
+                customização de LLMs.
               </p>
             </div>
-            <!-- Coluna Direita: Diagrama Visual (Workflow) -->
+            <!-- Coluna Direita: Diagrama Visual (Decision Fork) -->
             <div class="lg:w-1/2 w-full flex items-center justify-center">
               <div class="relative w-full max-w-md">
-                <div class="flex items-center justify-center gap-3 md:gap-6">
-                  <!-- Passo 1: Contexto -->
-                  <div class="flex flex-col items-center gap-3">
+                <div class="flex items-center gap-4">
+                  <!-- Problem (Root) -->
+                  <div class="flex flex-col items-center gap-2">
                     <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
+                      class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-white border border-brand-300"
                     >
-                      <i class="fas fa-file-alt drop-shadow-md"></i>
+                      <i class="fas fa-question"></i>
                     </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >CONTEXT</span
+                    <span class="text-xs font-mono text-brand-200"
+                      >Problem</span
                     >
                   </div>
-                  <!-- Linha 1 -->
-                  <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                  ></div>
-                  <!-- Passo 2: O Núcleo (Copilot) -->
-                  <div class="flex flex-col items-center gap-3">
-                    <div class="relative">
-                      <!-- Glow estático atrás do ícone central -->
-                      <div
-                        class="absolute inset-0 bg-brand-400 blur-xl opacity-40 rounded-full"
-                      ></div>
-                      <div
-                        class="glass-card w-24 h-24 md:w-32 md:h-32 rounded-[1.5rem] flex items-center justify-center text-4xl md:text-5xl text-white shadow-2xl border-brand-300 border-t border-l border-white/40 relative z-10"
-                      >
-                        <i class="fas fa-robot drop-shadow-lg"></i>
-                      </div>
-                      <div
-                        class="absolute -top-2 -right-2 bg-white text-brand-800 rounded-full p-1.5 shadow-lg z-20 border border-gray-100"
-                      >
-                        <i class="fas fa-bolt text-xs"></i>
-                      </div>
-                    </div>
-                    <span
-                      class="text-white font-bold font-mono text-xs md:text-sm tracking-wider"
-                      >COPILOT</span
-                    >
+
+                  <!-- Fork Lines -->
+                  <div class="flex flex-col justify-center h-32 w-12 relative">
+                    <!-- Top Path -->
+                    <div
+                      class="absolute top-4 left-0 w-full h-16 border-l-2 border-t-2 border-brand-400/50 rounded-tl-2xl"
+                    ></div>
+                    <!-- Middle Path -->
+                    <div
+                      class="absolute top-1/2 left-0 w-full h-0.5 bg-brand-400/50 -translate-y-1/2"
+                    ></div>
+                    <!-- Bottom Path -->
+                    <div
+                      class="absolute bottom-4 left-0 w-full h-16 border-l-2 border-b-2 border-brand-400/50 rounded-bl-2xl"
+                    ></div>
                   </div>
-                  <!-- Linha 2 -->
-                  <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                    style="animation-delay: 0.5s"
-                  ></div>
-                  <!-- Passo 3: Output (Code/Review) -->
-                  <div class="flex flex-col items-center gap-3">
+
+                  <!-- Options -->
+                  <div class="flex flex-col gap-4">
+                    <!-- Option 1: Prompt -->
                     <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
+                      class="glass-card px-4 py-2 rounded-lg border border-brand-400/30 flex items-center gap-2 hover:bg-brand-500/20 transition-colors"
                     >
-                      <i class="fas fa-code drop-shadow-md"></i>
+                      <i class="fas fa-terminal text-brand-200 text-xs"></i>
+                      <span class="text-sm text-white font-bold"
+                        >Prompting</span
+                      >
                     </div>
+                    <!-- Option 2: RAG -->
                     <div
-                      class="absolute -bottom-1 -right-1 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg border border-green-400"
+                      class="glass-card px-4 py-2 rounded-lg border border-brand-400/30 flex items-center gap-2 hover:bg-brand-500/20 transition-colors"
                     >
-                      SHIP
+                      <i class="fas fa-database text-brand-200 text-xs"></i>
+                      <span class="text-sm text-white font-bold">RAG</span>
                     </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >REVIEW</span
+                    <!-- Option 3: Fine-Tune -->
+                    <div
+                      class="glass-card px-4 py-2 rounded-lg border border-brand-400/30 flex items-center gap-2 hover:bg-brand-500/20 transition-colors"
                     >
+                      <i class="fas fa-sliders-h text-brand-200 text-xs"></i>
+                      <span class="text-sm text-white font-bold"
+                        >Fine-Tuning</span
+                      >
+                    </div>
                   </div>
                 </div>
               </div>

@@ -331,63 +331,34 @@
               </p>
             </div>
             <div class="lg:w-1/2 w-full flex items-center justify-center">
-              <div class="relative w-full max-w-md">
-                <div class="flex items-center justify-center gap-3 md:gap-6">
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-laptop-code drop-shadow-md"></i>
-                    </div>
-                    <span
-                      class="text-white/80 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >INPUT</span
-                    >
-                  </div>
+              <div
+                class="relative w-full max-w-md h-56 flex items-center justify-center"
+              >
+                <!-- Prism/Filter -->
+                <div
+                  class="glass-card w-32 h-32 rounded-full flex items-center justify-center border border-white/30 relative z-10 backdrop-blur-md"
+                >
+                  <i class="fas fa-filter text-5xl text-white/80"></i>
+                </div>
+
+                <!-- Input Beam (Mixed) -->
+                <div
+                  class="absolute left-0 top-1/2 w-24 h-1 bg-gradient-to-r from-transparent to-white transform -translate-y-1/2"
+                ></div>
+
+                <!-- Output Beams (Separated) -->
+                <div
+                  class="absolute right-0 top-1/2 w-24 h-24 transform -translate-y-1/2"
+                >
                   <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
+                    class="absolute top-0 left-0 w-full h-0.5 bg-red-400 transform -rotate-12 origin-left"
                   ></div>
-                  <div class="flex flex-col items-center gap-3">
-                    <div class="relative">
-                      <div
-                        class="absolute inset-0 bg-white blur-xl opacity-40 rounded-full"
-                      ></div>
-                      <div
-                        class="glass-card w-24 h-24 md:w-32 md:h-32 rounded-[1.5rem] flex items-center justify-center text-4xl md:text-5xl text-white shadow-2xl border-white/40 relative z-10"
-                      >
-                        <i class="fas fa-brain drop-shadow-lg"></i>
-                      </div>
-                      <div
-                        class="absolute -top-2 -right-2 bg-white text-brand-800 rounded-full p-1.5 shadow-lg z-20 border border-gray-100"
-                      >
-                        <i class="fas fa-bolt text-xs"></i>
-                      </div>
-                    </div>
-                    <span
-                      class="text-white font-bold font-mono text-xs md:text-sm tracking-wider"
-                      >CORE</span
-                    >
-                  </div>
                   <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                    style="animation-delay: 0.5s"
+                    class="absolute top-1/2 left-0 w-full h-0.5 bg-green-400 transform origin-left"
                   ></div>
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-mobile-alt drop-shadow-md"></i>
-                    </div>
-                    <div
-                      class="absolute -bottom-1 -right-1 bg-emerald-400 text-emerald-900 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg border border-emerald-300"
-                    >
-                      LIVE
-                    </div>
-                    <span
-                      class="text-white/80 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >OUTPUT</span
-                    >
-                  </div>
+                  <div
+                    class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 transform rotate-12 origin-left"
+                  ></div>
                 </div>
               </div>
             </div>

@@ -292,68 +292,51 @@
                 sem alucinações.
               </p>
             </div>
-            <!-- Coluna Direita: Diagrama Visual -->
+            <!-- Coluna Direita: Diagrama Visual (RAG Search) -->
             <div class="lg:w-1/2 w-full flex items-center justify-center">
               <div class="relative w-full max-w-md">
-                <div class="flex items-center justify-center gap-3 md:gap-6">
-                  <!-- Passo 1: Query -->
-                  <div class="flex flex-col items-center gap-3">
+                <div class="flex items-center justify-center gap-4 relative">
+                  <!-- User Query -->
+                  <div class="flex flex-col items-center gap-2 z-10">
                     <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
+                      class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-brand-100 border border-brand-400/30"
                     >
-                      <i class="fas fa-question drop-shadow-md"></i>
+                      <i class="fas fa-user"></i>
                     </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >QUERY</span
-                    >
+                    <span class="text-xs font-mono text-brand-200">Query</span>
                   </div>
-                  <!-- Linha 1 -->
+                  <!-- Search Beam (Animated) -->
                   <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                  ></div>
-                  <!-- Passo 2: O Núcleo (Retrieval) -->
-                  <div class="flex flex-col items-center gap-3">
+                    class="flex-1 h-16 relative flex items-center justify-center"
+                  >
+                    <div
+                      class="absolute inset-0 bg-brand-500/20 blur-xl rounded-full"
+                    ></div>
+                    <div class="w-full h-1 bg-brand-400/30 rounded-full"></div>
+                    <div
+                      class="absolute left-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg animate-[flowLine_2s_infinite_linear]"
+                    >
+                      <i class="fas fa-search text-brand-600 text-xs"></i>
+                    </div>
+                  </div>
+
+                  <!-- Knowledge Base (Stack) -->
+                  <div class="flex flex-col items-center gap-2 z-10">
                     <div class="relative">
-                      <!-- Glow estático atrás do ícone central -->
                       <div
-                        class="absolute inset-0 bg-brand-400 blur-xl opacity-40 rounded-full"
+                        class="glass-card w-20 h-24 rounded-lg flex items-center justify-center text-3xl text-white border border-brand-300 shadow-[0_0_20px_rgba(245,158,11,0.4)] z-20 relative"
+                      >
+                        <i class="fas fa-database"></i>
+                      </div>
+                      <!-- Stack effect -->
+                      <div
+                        class="absolute top-2 left-2 w-20 h-24 bg-brand-600/50 rounded-lg border border-brand-400/30 z-10"
                       ></div>
                       <div
-                        class="glass-card w-24 h-24 md:w-32 md:h-32 rounded-[1.5rem] flex items-center justify-center text-4xl md:text-5xl text-white shadow-2xl border-brand-300 border-t border-l border-white/40 relative z-10"
-                      >
-                        <i class="fas fa-search-plus drop-shadow-lg"></i>
-                      </div>
-                      <div
-                        class="absolute -top-2 -right-2 bg-white text-brand-800 rounded-full p-1.5 shadow-lg z-20 border border-gray-100"
-                      >
-                        <i class="fas fa-database text-xs"></i>
-                      </div>
+                        class="absolute top-4 left-4 w-20 h-24 bg-brand-800/50 rounded-lg border border-brand-500/30 z-0"
+                      ></div>
                     </div>
-                    <span
-                      class="text-white font-bold font-mono text-xs md:text-sm tracking-wider"
-                      >RETRIEVE</span
-                    >
-                  </div>
-                  <!-- Linha 2 -->
-                  <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                    style="animation-delay: 0.5s"
-                  ></div>
-                  <!-- Passo 3: Output (Context) -->
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-file-invoice drop-shadow-md"></i>
-                    </div>
-                    <div
-                      class="absolute -bottom-1 -right-1 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg border border-green-400"
-                    >
-                      FACTS
-                    </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
+                    <span class="text-xs font-mono text-white font-bold mt-2"
                       >CONTEXT</span
                     >
                   </div>

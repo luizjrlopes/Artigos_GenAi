@@ -260,70 +260,55 @@
                 de 60s em produção.
               </p>
             </div>
-            <!-- Coluna Direita: Diagrama Visual (Linear Stream Flow) -->
+            <!-- Coluna Direita: Diagrama Visual (Streaming Pipeline) -->
             <div class="lg:w-1/2 w-full flex items-center justify-center">
               <div class="relative w-full max-w-md">
-                <div class="flex items-center justify-center gap-3 md:gap-6">
-                  <!-- Passo 1: Request -->
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-paper-plane drop-shadow-md"></i>
-                    </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >REQ</span
-                    >
-                  </div>
-                  <!-- Linha 1 -->
+                <div class="flex items-center justify-between gap-2 relative">
+                  <!-- Connection Line Background -->
                   <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
+                    class="absolute top-1/2 left-0 w-full h-1 bg-sky-900/30 -translate-y-1/2 rounded-full"
                   ></div>
-                  <!-- Passo 2: O Núcleo (API Gateway/Stream) -->
-                  <div class="flex flex-col items-center gap-3">
-                    <div class="relative">
-                      <!-- Glow estático atrás do ícone central -->
-                      <div
-                        class="absolute inset-0 bg-brand-400 blur-xl opacity-40 rounded-full"
-                      ></div>
-                      <div
-                        class="glass-card w-24 h-24 md:w-32 md:h-32 rounded-[1.5rem] flex items-center justify-center text-4xl md:text-5xl text-white shadow-2xl border-brand-300 border-t border-l border-white/40 relative z-10"
-                      >
-                        <i class="fas fa-stream drop-shadow-lg"></i>
-                      </div>
-                      <div
-                        class="absolute -top-2 -right-2 bg-white text-brand-800 rounded-full p-1.5 shadow-lg z-20 border border-gray-100"
-                      >
-                        <i class="fas fa-bolt text-xs"></i>
-                      </div>
-                    </div>
-                    <span
-                      class="text-white font-bold font-mono text-xs md:text-sm tracking-wider"
-                      >STREAM</span
-                    >
-                  </div>
-                  <!-- Linha 2 -->
+
+                  <!-- Animated Stream Dots -->
                   <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                    style="animation-delay: 0.5s"
-                  ></div>
-                  <!-- Passo 3: Output (Chunks) -->
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-mobile-alt drop-shadow-md"></i>
+                    class="absolute top-1/2 left-0 w-full h-1 -translate-y-1/2 overflow-hidden"
+                  >
+                    <div class="flex gap-4 animate-pulse">
+                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
+                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
+                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
+                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
+                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
                     </div>
+                  </div>
+
+                  <!-- Server -->
+                  <div class="relative z-10 flex flex-col items-center gap-2">
                     <div
-                      class="absolute -bottom-1 -right-1 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg border border-green-400"
+                      class="glass-card w-16 h-16 rounded-xl flex items-center justify-center text-2xl text-sky-200 border border-sky-400/30"
                     >
-                      200 OK
+                      <i class="fas fa-server"></i>
                     </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >CLIENT</span
+                    <span class="text-xs font-mono text-sky-200">API</span>
+                  </div>
+
+                  <!-- Stream Processing -->
+                  <div class="relative z-10 flex flex-col items-center gap-2">
+                    <div
+                      class="glass-card w-12 h-12 rounded-full flex items-center justify-center text-xl text-white bg-sky-500/20 border border-sky-400 shadow-[0_0_15px_rgba(14,165,233,0.4)]"
                     >
+                      <i class="fas fa-bolt"></i>
+                    </div>
+                  </div>
+
+                  <!-- Client -->
+                  <div class="relative z-10 flex flex-col items-center gap-2">
+                    <div
+                      class="glass-card w-16 h-16 rounded-xl flex items-center justify-center text-2xl text-sky-100 border border-sky-400/30"
+                    >
+                      <i class="fas fa-laptop"></i>
+                    </div>
+                    <span class="text-xs font-mono text-sky-100">Client</span>
                   </div>
                 </div>
               </div>

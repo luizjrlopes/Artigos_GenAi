@@ -290,7 +290,7 @@
               <div
                 class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
               >
-                <i class="fas fa-piggy-bank text-white text-xs"></i>
+                <i class="fas fa-hand-holding-usd text-white text-xs"></i>
                 <span
                   class="text-xs font-semibold tracking-wider uppercase text-white/80"
                   >Cost Control</span
@@ -312,62 +312,40 @@
               </p>
             </div>
             <div class="lg:w-1/2 w-full flex items-center justify-center">
-              <div class="relative w-full max-w-md">
-                <div class="flex items-center justify-center gap-3 md:gap-6">
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-laptop-code drop-shadow-md"></i>
-                    </div>
-                    <span
-                      class="text-white/80 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >INPUT</span
-                    >
-                  </div>
+              <div
+                class="relative w-full max-w-md h-56 flex items-center justify-center gap-6"
+              >
+                <!-- Stack of Coins (Cost) -->
+                <div class="flex flex-col items-center justify-end h-32 gap-1">
                   <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
+                    class="w-12 h-4 bg-yellow-400/80 rounded-full shadow-lg animate-bounce"
+                    style="animation-delay: 0.1s"
                   ></div>
-                  <div class="flex flex-col items-center gap-3">
-                    <div class="relative">
-                      <div
-                        class="absolute inset-0 bg-white blur-xl opacity-40 rounded-full"
-                      ></div>
-                      <div
-                        class="glass-card w-24 h-24 md:w-32 md:h-32 rounded-[1.5rem] flex items-center justify-center text-4xl md:text-5xl text-white shadow-2xl border-white/40 relative z-10"
-                      >
-                        <i class="fas fa-brain drop-shadow-lg"></i>
-                      </div>
-                      <div
-                        class="absolute -top-2 -right-2 bg-white text-brand-800 rounded-full p-1.5 shadow-lg z-20 border border-gray-100"
-                      >
-                        <i class="fas fa-bolt text-xs"></i>
-                      </div>
-                    </div>
-                    <span
-                      class="text-white font-bold font-mono text-xs md:text-sm tracking-wider"
-                      >CORE</span
-                    >
-                  </div>
                   <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                    style="animation-delay: 0.5s"
+                    class="w-12 h-4 bg-yellow-400/80 rounded-full shadow-lg animate-bounce"
+                    style="animation-delay: 0.2s"
                   ></div>
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-mobile-alt drop-shadow-md"></i>
-                    </div>
-                    <div
-                      class="absolute -bottom-1 -right-1 bg-emerald-400 text-emerald-900 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg border border-emerald-300"
-                    >
-                      LIVE
-                    </div>
-                    <span
-                      class="text-white/80 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >OUTPUT</span
-                    >
+                  <div
+                    class="w-12 h-4 bg-yellow-400/80 rounded-full shadow-lg animate-bounce"
+                    style="animation-delay: 0.3s"
+                  ></div>
+                  <span class="text-white/80 font-mono text-xs mt-2">COST</span>
+                </div>
+
+                <!-- Arrow Down -->
+                <div class="text-4xl text-white/50 animate-pulse">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <!-- Optimization (Chip) -->
+                <div
+                  class="glass-card w-24 h-24 rounded-xl flex items-center justify-center text-4xl text-white border border-white/30 relative"
+                >
+                  <i class="fas fa-microchip"></i>
+                  <div
+                    class="absolute -top-2 -right-2 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded-full shadow-lg"
+                  >
+                    -40%
                   </div>
                 </div>
               </div>

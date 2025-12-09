@@ -288,70 +288,64 @@
                 e modelos.
               </p>
             </div>
-            <!-- Coluna Direita: Diagrama Visual (Pipeline) -->
+            <!-- Coluna Direita: Diagrama Visual (Git Tree) -->
             <div class="lg:w-1/2 w-full flex items-center justify-center">
-              <div class="relative w-full max-w-md">
-                <div class="flex items-center justify-center gap-3 md:gap-6">
-                  <!-- Passo 1: Source (Git) -->
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-code-branch drop-shadow-md"></i>
-                    </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >SOURCE</span
-                    >
-                  </div>
-                  <!-- Linha 1 -->
+              <div class="relative w-full max-w-md p-4">
+                <!-- Tree Structure -->
+                <div class="flex flex-col items-center gap-4 relative">
+                  <!-- Vertical Line -->
                   <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
+                    class="absolute top-0 bottom-0 w-1 bg-cyan-500/20 left-1/2 transform -translate-x-1/2 rounded-full"
                   ></div>
-                  <!-- Passo 2: O Núcleo (Registry) -->
-                  <div class="flex flex-col items-center gap-3">
-                    <div class="relative">
-                      <!-- Glow estático atrás do ícone central -->
-                      <div
-                        class="absolute inset-0 bg-brand-400 blur-xl opacity-40 rounded-full"
-                      ></div>
-                      <div
-                        class="glass-card w-24 h-24 md:w-32 md:h-32 rounded-[1.5rem] flex items-center justify-center text-4xl md:text-5xl text-white shadow-2xl border-brand-300 border-t border-l border-white/40 relative z-10"
-                      >
-                        <i class="fas fa-archive drop-shadow-lg"></i>
-                      </div>
-                      <div
-                        class="absolute -top-2 -right-2 bg-white text-brand-800 rounded-full p-1.5 shadow-lg z-20 border border-gray-100"
-                      >
-                        <i class="fas fa-tag text-xs"></i>
-                      </div>
-                    </div>
-                    <span
-                      class="text-white font-bold font-mono text-xs md:text-sm tracking-wider"
-                      >REGISTRY</span
-                    >
-                  </div>
-                  <!-- Linha 2 -->
+
+                  <!-- Commit 1 (Oldest) -->
                   <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                    style="animation-delay: 0.5s"
-                  ></div>
-                  <!-- Passo 3: Output (Prod) -->
-                  <div class="flex flex-col items-center gap-3">
+                    class="relative z-10 flex items-center gap-4 w-full justify-center opacity-60"
+                  >
                     <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
+                      class="w-24 text-right text-xs text-cyan-300 font-mono"
                     >
-                      <i class="fas fa-rocket drop-shadow-md"></i>
+                      v1.0
                     </div>
                     <div
-                      class="absolute -bottom-1 -right-1 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg border border-green-400"
+                      class="w-4 h-4 rounded-full bg-cyan-900 border-2 border-cyan-500"
+                    ></div>
+                    <div class="w-24 text-xs text-cyan-300/50">Baseline</div>
+                  </div>
+
+                  <!-- Commit 2 -->
+                  <div
+                    class="relative z-10 flex items-center gap-4 w-full justify-center opacity-80"
+                  >
+                    <div
+                      class="w-24 text-right text-xs text-cyan-200 font-mono"
                     >
-                      v2.0
+                      v1.1
                     </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >PROD</span
+                    <div
+                      class="w-4 h-4 rounded-full bg-cyan-800 border-2 border-cyan-400"
+                    ></div>
+                    <div class="w-24 text-xs text-cyan-200/70">Fine-tune</div>
+                  </div>
+
+                  <!-- Commit 3 (Current) -->
+                  <div
+                    class="relative z-10 flex items-center gap-4 w-full justify-center"
+                  >
+                    <div
+                      class="glass-card px-3 py-1 rounded text-xs text-white font-mono border border-cyan-400/50"
                     >
+                      HEAD
+                    </div>
+                    <div
+                      class="w-6 h-6 rounded-full bg-cyan-500 border-4 border-cyan-200 shadow-[0_0_15px_rgba(34,211,238,0.6)] animate-pulse"
+                    ></div>
+                    <div
+                      class="glass-card px-3 py-1 rounded text-xs text-white border border-cyan-400/50"
+                    >
+                      <i class="fas fa-check-circle text-cyan-300 mr-1"></i>
+                      Prod
+                    </div>
                   </div>
                 </div>
               </div>

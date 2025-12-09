@@ -292,70 +292,69 @@
                 sobrevivência do dev moderno.
               </p>
             </div>
-            <!-- Coluna Direita: Diagrama Visual (Workflow) -->
+            <!-- Coluna Direita: Diagrama Visual (Feedback Loop) -->
             <div class="lg:w-1/2 w-full flex items-center justify-center">
-              <div class="relative w-full max-w-md">
-                <div class="flex items-center justify-center gap-3 md:gap-6">
-                  <!-- Passo 1: Contexto -->
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-file-alt drop-shadow-md"></i>
+              <div class="relative w-full max-w-md p-6">
+                <!-- Background Glow -->
+                <div
+                  class="absolute inset-0 bg-indigo-500/20 blur-3xl rounded-full"
+                ></div>
+
+                <div class="relative z-10 flex flex-col gap-6">
+                  <!-- Top Row: Human & AI -->
+                  <div class="flex justify-between items-center">
+                    <!-- Human -->
+                    <div class="flex flex-col items-center gap-2">
+                      <div
+                        class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-indigo-200 border border-indigo-400/30"
+                      >
+                        <i class="fas fa-user"></i>
+                      </div>
+                      <span class="text-xs font-mono text-indigo-200">DEV</span>
                     </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >CONTEXT</span
+
+                    <!-- Connection Arrow -->
+                    <div
+                      class="flex-1 h-0.5 bg-gradient-to-r from-indigo-400/50 to-indigo-400/50 mx-4 relative"
                     >
+                      <i
+                        class="fas fa-chevron-right absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 text-indigo-300 text-xs"
+                      ></i>
+                    </div>
+
+                    <!-- AI -->
+                    <div class="flex flex-col items-center gap-2">
+                      <div
+                        class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-white border border-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.5)] animate-pulse-slow"
+                      >
+                        <i class="fas fa-robot"></i>
+                      </div>
+                      <span class="text-xs font-mono text-white">LLM</span>
+                    </div>
                   </div>
-                  <!-- Linha 1 -->
-                  <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                  ></div>
-                  <!-- Passo 2: O Núcleo (Copilot) -->
-                  <div class="flex flex-col items-center gap-3">
+
+                  <!-- Bottom Row: Code Output -->
+                  <div class="flex justify-center">
                     <div class="relative">
-                      <!-- Glow estático atrás do ícone central -->
+                      <!-- Vertical Line from AI to Code -->
                       <div
-                        class="absolute inset-0 bg-brand-400 blur-xl opacity-40 rounded-full"
+                        class="absolute -top-6 left-1/2 w-0.5 h-6 bg-indigo-400/30 transform -translate-x-1/2"
                       ></div>
+
                       <div
-                        class="glass-card w-24 h-24 md:w-32 md:h-32 rounded-[1.5rem] flex items-center justify-center text-4xl md:text-5xl text-white shadow-2xl border-brand-300 border-t border-l border-white/40 relative z-10"
+                        class="glass-card px-6 py-3 rounded-xl border border-indigo-400/30 flex items-center gap-3"
                       >
-                        <i class="fas fa-robot drop-shadow-lg"></i>
+                        <i class="fas fa-code text-indigo-300"></i>
+                        <div class="flex flex-col gap-1">
+                          <div
+                            class="w-24 h-1.5 bg-indigo-400/20 rounded-full"
+                          ></div>
+                          <div
+                            class="w-16 h-1.5 bg-indigo-400/20 rounded-full"
+                          ></div>
+                        </div>
                       </div>
-                      <div
-                        class="absolute -top-2 -right-2 bg-white text-brand-800 rounded-full p-1.5 shadow-lg z-20 border border-gray-100"
-                      >
-                        <i class="fas fa-bolt text-xs"></i>
-                      </div>
                     </div>
-                    <span
-                      class="text-white font-bold font-mono text-xs md:text-sm tracking-wider"
-                      >COPILOT</span
-                    >
-                  </div>
-                  <!-- Linha 2 -->
-                  <div
-                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
-                    style="animation-delay: 0.5s"
-                  ></div>
-                  <!-- Passo 3: Output (Code/Review) -->
-                  <div class="flex flex-col items-center gap-3">
-                    <div
-                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
-                    >
-                      <i class="fas fa-code drop-shadow-md"></i>
-                    </div>
-                    <div
-                      class="absolute -bottom-1 -right-1 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg border border-green-400"
-                    >
-                      SHIP
-                    </div>
-                    <span
-                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
-                      >REVIEW</span
-                    >
                   </div>
                 </div>
               </div>
