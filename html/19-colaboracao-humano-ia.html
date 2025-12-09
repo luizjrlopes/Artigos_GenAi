@@ -1,0 +1,800 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Colaboração Humano-IA: Superpoderes em Ops</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#fffbeb",
+                100: "#fef3c7",
+                500: "#f59e0b",
+                600: "#d97706", // Amber 600 - Empowerment/Gold theme
+                700: "#b45309",
+                900: "#78350f",
+              },
+              ui: {
+                bg: "#f8fafc",
+                border: "#e2e8f0",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #171717; /* Neutral 900 */
+        color: #e5e5e5;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #262626;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-kw {
+        color: #f59e0b;
+      } /* Amber */
+      .token-fn {
+        color: #60a5fa;
+      } /* Blue */
+      .token-str {
+        color: #86efac;
+      } /* Green */
+      .token-num {
+        color: #fca5a5;
+      } /* Red */
+      .token-cm {
+        color: #737373;
+        font-style: italic;
+      } /* Gray */
+
+      .flow-node {
+        background: white;
+        border: 2px solid #e5e7eb;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        position: relative;
+        transition: all 0.3s;
+        z-index: 10;
+        width: 100%;
+      }
+      .flow-node:hover {
+        border-color: #d97706;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(217, 119, 6, 0.15);
+      }
+      .flow-line {
+        width: 2px;
+        background-color: #d1d5db;
+        height: 20px;
+        margin: 0 auto;
+      }
+
+      /* Analyst UI Mockup */
+      .mockup-container {
+        background: #fff;
+        border: 1px solid #e2e8f0;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+      }
+      .mockup-header {
+        background: #f1f5f9;
+        padding: 10px 16px;
+        border-bottom: 1px solid #e2e8f0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 0.8rem;
+        color: #64748b;
+      }
+      .mockup-body {
+        display: flex;
+        height: 300px;
+      }
+      .mockup-pdf {
+        width: 40%;
+        background: #cbd5e1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #64748b;
+        font-weight: bold;
+        border-right: 1px solid #e2e8f0;
+      }
+      .mockup-form {
+        width: 60%;
+        padding: 20px;
+        background: #fff;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+      .form-group label {
+        display: block;
+        font-size: 0.75rem;
+        color: #64748b;
+        margin-bottom: 4px;
+      }
+      .form-input {
+        width: 100%;
+        padding: 8px;
+        border: 1px solid #e2e8f0;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .confidence-badge {
+        font-size: 0.7rem;
+        padding: 2px 6px;
+        border-radius: 4px;
+        font-weight: 600;
+      }
+      .conf-high {
+        background: #dcfce7;
+        color: #166534;
+      }
+      .conf-low {
+        background: #fef3c7;
+        color: #b45309;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-users-cog"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">
+            Human-AI Collaboration
+          </h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Operações & Pessoas
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-history w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-project-diagram w-6 text-brand-600"></i>
+            Arquitetura HITL
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-brain w-6 text-brand-600"></i> Conceitos
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-laptop-code w-6 text-brand-600"></i> Interface do
+            Analista
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-chart-line w-6 text-brand-600"></i> Métricas & KPIs
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-briefcase w-6 text-brand-600"></i> Cases Reais
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-r from-brand-900 to-brand-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div
+            class="absolute right-0 top-0 p-4 opacity-10 text-9xl transform translate-x-2"
+          >
+            <i class="fas fa-fist-raised"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            Colaboração Humano-IA
+          </h1>
+          <p class="text-brand-100 text-lg mb-6 relative z-10">
+            Transformando times de Operações com "Superpoderes" e
+            Human-in-the-Loop.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Augmented Intelligence</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Active Learning</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >HITL</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              O medo de que "a IA vai substituir empregos" é antigo. Na prática,
+              a IA substitui <em>tarefas repetitivas</em>, liberando humanos
+              para <em>funções estratégicas</em>. Em 2023, a McKinsey apontou
+              que 63% das empresas com IA em operações aumentaram a
+              produtividade, mas apenas 12% reduziram a equipe.
+            </p>
+            <p class="mb-4">
+              Em setores como <strong>Delivery e Logística</strong>, times de
+              Ops gastam milhares de horas revisando cardápios, moderando fotos
+              e respondendo tickets. O objetivo não é demitir o analista, mas
+              dar a ele um "exoesqueleto" de IA que pré-processa o tédio e deixa
+              apenas a decisão crítica para o humano.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-4 mt-6">
+              <div class="bg-brand-50 p-4 rounded-lg border border-brand-100">
+                <h3 class="font-bold text-brand-900 mb-2">Klarna</h3>
+                <p class="text-sm text-brand-800">
+                  IA resolve 70% dos tickets; humanos focam em disputas
+                  complexas. NPS +15.
+                </p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="font-bold text-gray-800 mb-2">Uber Eats</h3>
+                <p class="text-sm text-gray-600">
+                  IA preenche cardápios; humanos revisam apenas itens de baixa
+                  confiança.
+                </p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="font-bold text-gray-800 mb-2">iFood</h3>
+                <p class="text-sm text-gray-600">
+                  Redução de 80% no tempo de onboarding com copiloto de IA.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem:
+              Human-in-the-loop (HITL)
+            </h2>
+
+            <p class="text-gray-600 mb-8">
+              O padrão HITL garante qualidade e ética. A IA faz o trabalho
+              pesado, mas o humano mantém o controle sobre a borda.
+            </p>
+
+            <!-- CSS Diagram: HITL Flow -->
+            <div
+              class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 flex justify-center"
+            >
+              <div class="w-full max-w-lg flex flex-col items-center">
+                <div class="flow-node border-gray-300 bg-gray-100">
+                  <span class="font-bold text-gray-700"
+                    >1. Ingestão de Dados</span
+                  >
+                  <div class="text-xs text-gray-500">PDFs, Imagens, Texto</div>
+                </div>
+                <div class="flow-line"></div>
+
+                <div class="flow-node border-brand-300 bg-brand-50">
+                  <span class="font-bold text-brand-800"
+                    >2. IA: Pré-processamento</span
+                  >
+                  <div class="text-xs text-brand-600">OCR + Classificação</div>
+                </div>
+                <div class="flow-line"></div>
+
+                <div class="w-full flex justify-between gap-4">
+                  <div class="flex flex-col items-center w-1/2">
+                    <div class="flow-node border-green-300 bg-green-50">
+                      <span class="font-bold text-green-800"
+                        >Alta Confiança</span
+                      >
+                      <div class="text-xs text-green-600">> 95%</div>
+                    </div>
+                    <div class="flow-line bg-green-300"></div>
+                    <div class="flow-node border-green-300 bg-white">
+                      <span class="font-bold text-gray-800"
+                        >Publicação Automática</span
+                      >
+                    </div>
+                  </div>
+
+                  <div class="flex flex-col items-center w-1/2 relative">
+                    <div class="flow-node border-orange-300 bg-orange-50">
+                      <span class="font-bold text-orange-800"
+                        >Baixa Confiança</span
+                      >
+                      <div class="text-xs text-orange-600">< 95%</div>
+                    </div>
+                    <div class="flow-line bg-orange-300"></div>
+                    <div
+                      class="flow-node border-orange-300 bg-white shadow-lg ring-2 ring-orange-100"
+                    >
+                      <span class="font-bold text-gray-800"
+                        ><i class="fas fa-user-edit mr-1 text-orange-500"></i>
+                        Revisão Humana</span
+                      >
+                    </div>
+
+                    <!-- Feedback Loop Line -->
+                    <div
+                      class="absolute top-[120px] -right-16 w-20 h-24 border-l-2 border-b-2 border-dashed border-gray-400 rounded-bl-xl"
+                    ></div>
+                    <div
+                      class="absolute top-[80px] -right-24 text-xs font-bold text-gray-500 bg-slate-50 p-1"
+                    >
+                      Active Learning
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="font-bold text-gray-800 mb-2">
+                  <i class="fas fa-rocket mr-2 text-brand-500"></i> Augmented
+                  Intelligence
+                </h3>
+                <p class="text-sm text-gray-600">
+                  IA como extensão da capacidade humana, não substituto.
+                  Benchmark: Times com IA aumentada entregam 3x mais tarefas sem
+                  aumento de erros.
+                </p>
+              </div>
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="font-bold text-gray-800 mb-2">
+                  <i class="fas fa-sync-alt mr-2 text-brand-500"></i> Active
+                  Learning
+                </h3>
+                <p class="text-sm text-gray-600">
+                  As correções feitas pelos humanos não morrem no banco de
+                  dados; elas são usadas para re-treinar o modelo, tornando-o
+                  mais inteligente a cada clique.
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 p-6 rounded-lg border border-slate-200">
+              <h3 class="font-bold text-gray-800 mb-4 text-center">
+                Comparativo: HITL vs Automação Total
+              </h3>
+              <table class="w-full text-sm text-left">
+                <thead
+                  class="text-xs text-gray-500 uppercase border-b border-gray-300"
+                >
+                  <tr>
+                    <th class="pb-2">Critério</th>
+                    <th class="pb-2 text-brand-700">HITL (Copiloto)</th>
+                    <th class="pb-2">100% Auto</th>
+                  </tr>
+                </thead>
+                <tbody class="text-gray-700">
+                  <tr class="border-b border-gray-200">
+                    <td class="py-2 font-medium">Qualidade</td>
+                    <td class="py-2 text-green-600 font-bold">Alta</td>
+                    <td class="py-2 text-yellow-600">Variável</td>
+                  </tr>
+                  <tr class="border-b border-gray-200">
+                    <td class="py-2 font-medium">Risco</td>
+                    <td class="py-2 text-green-600 font-bold">Baixo</td>
+                    <td class="py-2 text-red-600">Alto</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2 font-medium">Satisfação</td>
+                    <td class="py-2 text-green-600 font-bold">Alta</td>
+                    <td class="py-2 text-red-600">Baixa</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Hands On -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: A Interface
+              do Analista
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8">
+              <!-- Code Logic -->
+              <div>
+                <h3
+                  class="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide"
+                >
+                  Backend Logic (Python)
+                </h3>
+                <pre
+                  class="code-block text-xs"
+                ><code><span class="token-kw">def</span> <span class="token-fn">process_menu_item</span>(raw_text):
+    <span class="token-cm"># 1. IA gera rascunho</span>
+    draft = llm.generate_draft(raw_text)
+    
+    <span class="token-cm"># 2. IA calcula confiança (0.0 a 1.0)</span>
+    confidence = calculate_confidence(draft)
+
+    <span class="token-kw">if</span> confidence > <span class="token-num">0.95</span>:
+        <span class="token-cm"># Auto-aprovação</span>
+        save_db(draft, status=<span class="token-str">"published"</span>)
+        <span class="token-kw">return</span> <span class="token-str">"auto_published"</span>
+    <span class="token-kw">else</span>:
+        <span class="token-cm"># Envia para fila humana</span>
+        save_db(draft, status=<span class="token-str">"pending_review"</span>)
+        notify_ops(draft.id)
+        <span class="token-kw">return</span> <span class="token-str">"sent_to_human"</span></code></pre>
+              </div>
+
+              <!-- UI Mockup -->
+              <div>
+                <h3
+                  class="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide"
+                >
+                  Analyst UI Mockup
+                </h3>
+                <div class="mockup-container">
+                  <div class="mockup-header">
+                    <span
+                      ><i class="fas fa-file-pdf mr-1"></i>
+                      menu_restaurante.pdf</span
+                    >
+                    <span
+                      class="bg-brand-100 text-brand-800 px-2 py-1 rounded text-xs font-bold"
+                      >Review Mode</span
+                    >
+                  </div>
+                  <div class="mockup-body">
+                    <div class="mockup-pdf">
+                      <div class="text-center">
+                        <i class="fas fa-file-image text-3xl mb-2"></i>
+                        <p class="text-xs">
+                          Visualização do PDF<br />(OCR Original)
+                        </p>
+                      </div>
+                    </div>
+                    <div class="mockup-form">
+                      <div class="form-group">
+                        <label>Item Name</label>
+                        <div class="form-input">
+                          <span>X-Bacon</span>
+                          <span class="confidence-badge conf-high">99%</span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Description</label>
+                        <div class="form-input">
+                          <span class="italic text-gray-500"
+                            >Delicioso hambúrguer...</span
+                          >
+                          <span class="confidence-badge conf-low">88%</span>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <label>Price</label>
+                        <div class="form-input">
+                          <span>R$ 25,00</span>
+                          <span class="confidence-badge conf-high">99%</span>
+                        </div>
+                      </div>
+                      <div class="flex gap-2 mt-auto">
+                        <button
+                          class="bg-brand-600 text-white px-3 py-1 rounded text-xs w-full hover:bg-brand-700"
+                        >
+                          Aprovar
+                        </button>
+                        <button
+                          class="bg-white border border-gray-300 text-gray-600 px-3 py-1 rounded text-xs w-full hover:bg-gray-50"
+                        >
+                          Editar
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2 text-center">
+                  A IA preenche, o humano valida apenas o necessário.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e Riscos -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Métricas, Riscos e Boas
+            Práticas
+          </h2>
+
+          <div class="overflow-x-auto mb-8">
+            <table class="min-w-full text-sm text-left">
+              <thead class="bg-gray-100 text-gray-700 font-bold">
+                <tr>
+                  <th class="px-6 py-3">Métrica</th>
+                  <th class="px-6 py-3">Definição</th>
+                  <th class="px-6 py-3">Meta Ideal</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 font-bold text-brand-700">
+                    AHT (Average Handling Time)
+                  </td>
+                  <td class="px-6 py-4">Tempo médio para processar um item</td>
+                  <td class="px-6 py-4">< 10 min</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-brand-700">
+                    Auto-Approval Rate
+                  </td>
+                  <td class="px-6 py-4">% de itens que passam direto</td>
+                  <td class="px-6 py-4">> 70%</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-brand-700">
+                    Correction Rate
+                  </td>
+                  <td class="px-6 py-4">% de sugestões da IA corrigidas</td>
+                  <td class="px-6 py-4">< 10%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-red-50 p-5 rounded-lg border border-red-100">
+              <h3 class="font-bold text-red-900 mb-2">
+                Risco: Rubber Stamping
+              </h3>
+              <p class="text-sm text-red-800">
+                O humano começa a confiar demais na IA e aprova tudo sem ler.
+                Solução: Inserir "testes de atenção" (erros propositais) para
+                validar a revisão.
+              </p>
+            </div>
+            <div class="bg-brand-50 p-5 rounded-lg border border-brand-100">
+              <h3 class="font-bold text-brand-900 mb-2">Boas Práticas</h3>
+              <ul class="text-sm text-brand-800 list-disc list-inside">
+                <li>Destaque visualmente a confiança da IA (cores).</li>
+                <li>Use correções para Active Learning (re-treino).</li>
+                <li>Logue todas as decisões para auditoria.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence: Estudos de Caso
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                iFood: Onboarding Cardápios
+              </h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Implementação de IA Copiloto para leitura de PDFs.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                <li>Tempo de onboarding: <strong>2h -> 15min</strong>.</li>
+                <li>
+                  CSAT dos analistas: <strong>+22%</strong> (menos trabalho
+                  braçal).
+                </li>
+                <li>Erros críticos: <strong>Zero</strong> (graças ao HITL).</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">Uber Eats: Moderação</h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Active Learning em escala global.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                <li>100% do feedback humano alimenta o modelo semanalmente.</li>
+                <li>Modelo melhora sozinho em novas categorias de comida.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 p-8 opacity-20 text-9xl transform rotate-12"
+          >
+            <i class="fas fa-hand-sparkles"></i>
+          </div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <p class="text-brand-100 mb-6 italic text-lg">
+              "A melhor IA não é aquela que roda sozinha numa caixa preta, mas
+              sim a que faz o analista júnior performar como um sênior. O futuro
+              do trabalho é colaborativo, transparente e centrado no humano."
+            </p>
+            <p class="text-brand-100 mb-6 text-sm">
+              Com este artigo, fechamos o ciclo de engenharia, qualidade, ética
+              e operações. O próximo passo é olhar para o futuro estratégico.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Medir o
+                  AHT atual do seu time.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Implementar log de feedback humano.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Criar
+                  interface de revisão "verde/amarelo".
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximo Artigo
+              </h3>
+              <div class="bg-brand-800 p-3 rounded-lg text-xs">
+                <span class="font-bold text-white block mb-1"
+                  >Artigo 20: Retrospectiva</span
+                >
+                A Jornada GenAI em Produtos Digitais: do hype à realidade
+                produtiva.
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 AI Ops Series. Empowering Humans.</p>
+      </div>
+    </footer>
+  </body>
+</html>

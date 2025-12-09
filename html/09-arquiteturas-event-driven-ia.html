@@ -1,0 +1,741 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Arquiteturas Event-Driven para IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#f5f3ff",
+                100: "#ede9fe",
+                500: "#8b5cf6",
+                600: "#7c3aed", // Violet 600 - Architecture/Orchestration theme
+                700: "#6d28d9",
+                900: "#4c1d95",
+              },
+              queue: {
+                kafka: "#252525",
+                sqs: "#FF9900",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #1e1b4b; /* Dark Violet/Blue */
+        color: #e2e8f0;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #4338ca;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-keyword {
+        color: #c4b5fd;
+      } /* Light Violet */
+      .token-func {
+        color: #67e8f9;
+      } /* Cyan */
+      .token-string {
+        color: #86efac;
+      } /* Green */
+      .token-comment {
+        color: #94a3b8;
+        font-style: italic;
+      } /* Slate */
+      .token-dec {
+        color: #fca5a5;
+      } /* Red/Pink */
+
+      .arch-node {
+        background: white;
+        border: 2px solid #e5e7eb;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        font-size: 0.9rem;
+        position: relative;
+        transition: all 0.3s;
+        z-index: 10;
+      }
+      .arch-node:hover {
+        border-color: #7c3aed;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(124, 58, 237, 0.2);
+      }
+      .arch-pipe {
+        position: absolute;
+        background-color: #cbd5e1;
+        z-index: 0;
+      }
+
+      /* Pulse animation for data flow */
+      @keyframes flowPulse {
+        0% {
+          box-shadow: 0 0 0 0 rgba(124, 58, 237, 0.4);
+        }
+        70% {
+          box-shadow: 0 0 0 6px rgba(124, 58, 237, 0);
+        }
+        100% {
+          box-shadow: 0 0 0 0 rgba(124, 58, 237, 0);
+        }
+      }
+      .pulse-node {
+        animation: flowPulse 2s infinite;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-project-diagram"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">Event-Driven AI</h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Arquitetura de Sistemas
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-network-wired w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-map w-6 text-brand-600"></i> Abordagem
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-cubes w-6 text-brand-600"></i> Conceitos (DLQ)
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-code w-6 text-brand-600"></i> Implementação
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-chart-area w-6 text-brand-600"></i> Métricas
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-check-double w-6 text-brand-600"></i> Benchmarks
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-r from-violet-900 to-violet-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div
+            class="absolute right-0 top-0 p-4 opacity-10 text-9xl transform translate-x-4 -translate-y-4"
+          >
+            <i class="fas fa-satellite-dish"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            Arquiteturas Event-Driven para IA
+          </h1>
+          <p class="text-violet-100 text-lg mb-6 relative z-10">
+            Desacoplando a inteligência do fluxo crítico para escalar sem
+            quebrar.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Kafka</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >SQS</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Async Workers</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              Segundo o relatório <em>State of AI Infrastructure 2024</em>,
+              <strong>72% dos incidentes críticos</strong> em sistemas GenAI são
+              causados por dependências síncronas. Quando você coloca uma
+              chamada de LLM (que pode levar 10 segundos) no meio de um fluxo de
+              checkout ou de postagem de review, você está criando uma bomba
+              relógio.
+            </p>
+            <p class="mb-4">
+              <strong>Exemplo real:</strong> Em 2023, um grande app de delivery
+              sofreu um outage de 2 horas na OpenAI. Como o sistema de
+              recomendação era síncrono, o carrinho de compras travava esperando
+              a IA responder. Prejuízo estimado: <strong>R$ 1,2 milhão</strong>.
+              Sistemas que usam Event-Driven Architecture (EDA) apenas deixaram
+              de mostrar recomendações, mantendo o fluxo de vendas intacto.
+            </p>
+
+            <div class="overflow-x-auto mt-6 rounded-lg border border-gray-200">
+              <table class="min-w-full text-sm text-left">
+                <thead class="bg-gray-100 text-gray-700 font-bold">
+                  <tr>
+                    <th class="px-6 py-3">Arquitetura</th>
+                    <th class="px-6 py-3">Disponibilidade</th>
+                    <th class="px-6 py-3">Latência (P99)</th>
+                    <th class="px-6 py-3">Impacto no Negócio</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4">Síncrona (HTTP)</td>
+                    <td class="px-6 py-4 text-red-600">97.5%</td>
+                    <td class="px-6 py-4 text-red-600">4.5s</td>
+                    <td class="px-6 py-4">Perda de pedidos, Timeout</td>
+                  </tr>
+                  <tr class="bg-violet-50">
+                    <td class="px-6 py-4 font-bold text-brand-800">
+                      Event-Driven (Async)
+                    </td>
+                    <td class="px-6 py-4 font-bold text-green-600">99.99%</td>
+                    <td class="px-6 py-4 font-bold text-green-600">120ms</td>
+                    <td class="px-6 py-4">Retenção, Resiliência</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: Fire-and-Forget
+            </h2>
+
+            <p class="text-gray-600 mb-8">
+              A IA deve ser um <strong>observador ativo</strong>, nunca um
+              gargalo bloqueante. O fluxo ideal é desacoplado: o app principal
+              dispara um evento e segue a vida. Um worker dedicado processa a
+              inteligência em background.
+            </p>
+
+            <!-- CSS Diagram: EDA Flow -->
+            <div
+              class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 relative min-h-[300px] flex items-center justify-center"
+            >
+              <div
+                class="absolute inset-0 flex items-center justify-center opacity-10 pointer-events-none"
+              >
+                <i class="fas fa-network-wired text-9xl"></i>
+              </div>
+
+              <!-- Nodes -->
+              <div
+                class="flex flex-col md:flex-row items-start justify-between w-full max-w-4xl gap-8 relative z-10"
+              >
+                <!-- App -->
+                <div class="flex flex-col items-center w-32">
+                  <div
+                    class="arch-node bg-white w-full border-blue-300 text-blue-800"
+                  >
+                    <i class="fas fa-mobile-alt mb-2 text-xl"></i><br />App Core
+                  </div>
+                  <div class="text-xs text-gray-500 mt-2 text-center">
+                    Publica Evento<br />(50ms)
+                  </div>
+                </div>
+
+                <!-- Connection -->
+                <div
+                  class="flex-1 h-1 bg-gray-300 self-center relative mx-2 hidden md:block"
+                >
+                  <i
+                    class="fas fa-chevron-right absolute right-0 -top-1.5 text-gray-300"
+                  ></i>
+                  <span
+                    class="absolute -top-6 left-1/2 transform -translate-x-1/2 text-xs font-mono bg-slate-100 px-1 text-gray-500"
+                    >review.created</span
+                  >
+                </div>
+
+                <!-- Bus -->
+                <div class="flex flex-col items-center w-32">
+                  <div
+                    class="arch-node bg-gray-800 text-white w-full border-gray-900 pulse-node"
+                  >
+                    <i class="fas fa-random mb-2 text-xl"></i><br />Event Bus
+                  </div>
+                  <div class="text-xs text-gray-500 mt-2 text-center">
+                    Kafka / SQS
+                  </div>
+                </div>
+
+                <!-- Connection -->
+                <div
+                  class="flex-1 h-1 bg-gray-300 self-center relative mx-2 hidden md:block"
+                >
+                  <i
+                    class="fas fa-chevron-right absolute right-0 -top-1.5 text-gray-300"
+                  ></i>
+                </div>
+
+                <!-- Worker -->
+                <div class="flex flex-col items-center w-32">
+                  <div
+                    class="arch-node bg-brand-50 w-full border-brand-300 text-brand-800"
+                  >
+                    <i class="fas fa-robot mb-2 text-xl"></i><br />AI Worker
+                  </div>
+                  <div class="text-xs text-gray-500 mt-2 text-center">
+                    Processa Batch<br />(Assíncrono)
+                  </div>
+                </div>
+
+                <!-- Connection -->
+                <div
+                  class="flex-1 h-1 bg-gray-300 self-center relative mx-2 hidden md:block"
+                >
+                  <i
+                    class="fas fa-chevron-right absolute right-0 -top-1.5 text-gray-300"
+                  ></i>
+                </div>
+
+                <!-- DB -->
+                <div class="flex flex-col items-center w-32">
+                  <div
+                    class="arch-node bg-green-50 w-full border-green-300 text-green-800"
+                  >
+                    <i class="fas fa-database mb-2 text-xl"></i><br />DB Update
+                  </div>
+                  <div class="text-xs text-gray-500 mt-2 text-center">
+                    Enriquecido
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="font-bold text-brand-700 mb-2">
+                1. Desacoplamento Temporal
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                O produtor do evento (App) não precisa saber se o consumidor
+                (IA) está online ou se está lento. Ele apenas entrega a mensagem
+                e esquece. Isso absorve picos de tráfego.
+              </p>
+
+              <h3 class="font-bold text-brand-700 mb-2">2. Idempotência</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Em sistemas distribuídos, eventos podem ser entregues duas vezes
+                (at-least-once). Seu worker deve estar preparado para processar
+                o mesmo `event_id` sem duplicar a cobrança ou o registro no
+                banco.
+              </p>
+            </div>
+
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+                <i class="fas fa-skull text-gray-500 mr-2"></i> Dead Letter
+                Queue (DLQ)
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Onde os eventos vão para morrer (ou esperar). Se o worker da IA
+                falhar 3 vezes (ex: input malformado), o evento não é
+                descartado; ele é movido para uma fila lateral (DLQ) para
+                análise humana ou reprocessamento posterior.
+              </p>
+              <div
+                class="bg-white p-3 rounded border border-gray-300 text-xs font-mono"
+              >
+                <div>Retry 1: Falha (Timeout)</div>
+                <div>Retry 2: Falha (Timeout)</div>
+                <div>Retry 3: Falha (Timeout)</div>
+                <div class="text-red-600 font-bold">
+                  -> Movido para reviews.dlq
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Hands On -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: Implementação
+            </h2>
+
+            <div class="mb-6">
+              <h3 class="font-bold text-gray-800 mb-2">O Schema do Evento</h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Estrutura JSON padronizada garante contrato entre serviços.
+              </p>
+              <pre class="code-block text-xs"><code>{
+  <span class="token-string">"event_id"</span>: <span class="token-string">"evt_982734"</span>,
+  <span class="token-string">"timestamp"</span>: <span class="token-string">"2025-01-05T12:45:32Z"</span>,
+  <span class="token-string">"entity"</span>: {
+    <span class="token-string">"review_id"</span>: <span class="token-string">192883</span>,
+    <span class="token-string">"text"</span>: <span class="token-string">"Demorou demais. A comida chegou fria."</span>
+  },
+  <span class="token-string">"metadata"</span>: { <span class="token-string">"retries"</span>: <span class="token-string">0</span> }
+}</code></pre>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-gray-800 mb-2">
+                Worker com Batching (Python)
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Processar evento por evento é ineficiente para LLMs. O ideal é
+                agrupar (batch) para otimizar throughput e custos.
+              </p>
+              <pre
+                class="code-block"
+              ><code><span class="token-keyword">import</span> event_bus
+<span class="token-keyword">import</span> llm_client
+
+<span class="token-comment"># Configurações de Batching</span>
+BATCH_SIZE = <span class="token-string">10</span>
+TIMEOUT = <span class="token-string">12</span>
+
+<span class="token-dec">@event_bus.batch_subscribe</span>(<span class="token-string">"reviews.created"</span>, size=BATCH_SIZE)
+<span class="token-keyword">def</span> <span class="token-func">process_batch</span>(events):
+    <span class="token-comment"># 1. Extrai textos do lote de eventos</span>
+    texts = [e[<span class="token-string">"entity"</span>][<span class="token-string">"text"</span>] <span class="token-keyword">for</span> e <span class="token-keyword">in</span> events]
+
+    <span class="token-comment"># 2. Chama LLM em batch (uma única requisição HTTP se possível)</span>
+    <span class="token-comment"># Isso reduz overhead de rede e latência média</span>
+    analysis = llm_client.batch_analyze(texts, timeout=TIMEOUT)
+
+    <span class="token-comment"># 3. Processa resultados</span>
+    <span class="token-keyword">for</span> event, result <span class="token-keyword">in</span> <span class="token-func">zip</span>(events, analysis):
+        <span class="token-comment"># Atualiza metadados no banco de forma assíncrona</span>
+        db.update_review_metadata(
+            event[<span class="token-string">"entity"</span>][<span class="token-string">"review_id"</span>],
+            {
+                <span class="token-string">"sentiment"</span>: result.sentiment,
+                <span class="token-string">"ai_reply"</span>: result.reply
+            }
+        )
+
+        <span class="token-comment"># 4. Pattern: Event Chaining (Eventos geram novos eventos)</span>
+        <span class="token-keyword">if</span> result.sentiment == <span class="token-string">"CRITICAL"</span>:
+            event_bus.publish(<span class="token-string">"reviews.critical_alert"</span>, {
+                <span class="token-string">"id"</span>: event[<span class="token-string">"entity"</span>][<span class="token-string">"review_id"</span>]
+            })</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e Riscos -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Métricas, Riscos e Mitigação
+          </h2>
+
+          <div class="overflow-x-auto mb-8">
+            <table class="min-w-full text-sm text-left">
+              <thead class="bg-gray-100 text-gray-700 font-bold">
+                <tr>
+                  <th class="px-6 py-3">Métrica</th>
+                  <th class="px-6 py-3">Meta</th>
+                  <th class="px-6 py-3 text-red-600">Crítico</th>
+                  <th class="px-6 py-3">Por quê importa?</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 font-mono text-xs">queue_depth</td>
+                  <td class="px-6 py-4 text-green-600">< 5k</td>
+                  <td class="px-6 py-4 text-red-600">> 20k</td>
+                  <td class="px-6 py-4">
+                    Indica se workers estão dando conta.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-mono text-xs">processing_lag</td>
+                  <td class="px-6 py-4 text-green-600">< 8s</td>
+                  <td class="px-6 py-4 text-red-600">> 30s</td>
+                  <td class="px-6 py-4">Impacto na percepção do usuário.</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-mono text-xs">dlq_rate</td>
+                  <td class="px-6 py-4 text-green-600">< 0.2%</td>
+                  <td class="px-6 py-4 text-red-600">> 3%</td>
+                  <td class="px-6 py-4">
+                    Indica bugs sérios ou dados inválidos.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div class="bg-violet-50 p-5 rounded-lg border border-violet-100">
+              <h3 class="font-bold text-violet-900 mb-2">
+                Risco: Inconsistência na UI
+              </h3>
+              <p class="text-sm text-violet-800 mb-2">
+                Usuário posta review, mas a IA ainda não processou. A tela
+                mostra dados antigos.
+              </p>
+              <div
+                class="bg-white p-2 rounded text-xs border border-violet-200 font-semibold"
+              >
+                Solução: UI Optimistic ou Estados (Pendente -> Processado).
+              </div>
+            </div>
+            <div class="bg-red-50 p-5 rounded-lg border border-red-100">
+              <h3 class="font-bold text-red-900 mb-2">
+                Risco: Explosão de Custos
+              </h3>
+              <p class="text-sm text-red-800 mb-2">
+                Um loop infinito gera 1 milhão de eventos que disparam o GPT-4.
+              </p>
+              <div
+                class="bg-white p-2 rounded text-xs border border-red-200 font-semibold"
+              >
+                Solução: Token Budget + Limites por minuto.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence & Exploration
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Benchmark Reprodutível
+              </h3>
+              <ul class="space-y-3 text-sm">
+                <li class="flex justify-between p-2 bg-gray-50 rounded">
+                  <span>Síncrono (HTTP)</span>
+                  <span class="font-mono font-bold text-red-500"
+                    >140 req/s (Limitado)</span
+                  >
+                </li>
+                <li class="flex justify-between p-2 bg-gray-50 rounded">
+                  <span>Async (1 Worker)</span>
+                  <span class="font-mono font-bold text-blue-500"
+                    >2.400 ev/s</span
+                  >
+                </li>
+                <li class="flex justify-between p-2 bg-gray-50 rounded">
+                  <span>Async (5 Workers + HPA)</span>
+                  <span class="font-mono font-bold text-green-500"
+                    >11.200 ev/s</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Caso Real (Anonimizado)
+              </h3>
+              <div
+                class="bg-slate-800 text-slate-300 p-4 rounded-lg text-sm font-mono"
+              >
+                <p class="mb-2 text-green-400"># Antes (Síncrono)</p>
+                <p class="mb-4">2 Outages OpenAI = R$ 1.2M prejuízo</p>
+
+                <p class="mb-2 text-green-400"># Depois (Event-Driven)</p>
+                <p>DLQ recuperou 95% dos eventos.</p>
+                <p>Churn caiu 12% -> 4%.</p>
+                <p>Zero impacto nas vendas.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute -top-10 -right-10 w-48 h-48 bg-brand-500 rounded-full opacity-20 blur-3xl"
+          ></div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <p class="text-brand-100 mb-6 italic text-lg">
+              "EDA não é apenas uma 'moda': é a arquitetura natural da IA
+              moderna. Quando a IA deixa de bloquear o fluxo crítico, ela se
+              transforma de gargalo em multiplicadora de valor."
+            </p>
+            <p class="text-brand-100 mb-6 text-sm">
+              O futuro da IA é agêntico e autônomo. Agentes nada mais são do que
+              workers ouvindo eventos, tomando decisões e publicando novos
+              eventos (ações). Dominar EDA é o pré-requisito para construir
+              agentes que funcionam.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Implementar EDA em 1 fluxo (ex: reviews).
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Criar
+                  biblioteca de Schemas.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Monitorar DLQ Rate.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximo Artigo
+              </h3>
+              <div class="bg-brand-800 p-3 rounded-lg text-xs">
+                <span class="font-bold text-white block mb-1"
+                  >Artigo 10: Testes Automatizados</span
+                >
+                Como testar o que não é determinístico? Unitários, Integração e
+                Regressão Semântica.
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 AI Architecture Series. Async by design.</p>
+      </div>
+    </footer>
+  </body>
+</html>

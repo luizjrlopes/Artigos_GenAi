@@ -1,0 +1,785 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>A/B Testing para Features de IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#faf5ff",
+                100: "#f3e8ff",
+                500: "#a855f7",
+                600: "#9333ea", // Purple 600 - Experimentation theme
+                700: "#7e22ce",
+                900: "#581c87",
+              },
+              code: {
+                bg: "#1e1b4b",
+                text: "#e2e8f0",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #0f172a; /* Slate 900 */
+        color: #e2e8f0;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #1e293b;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-kw {
+        color: #c084fc;
+      } /* Purple */
+      .token-fn {
+        color: #60a5fa;
+      } /* Blue */
+      .token-str {
+        color: #4ade80;
+      } /* Green */
+      .token-num {
+        color: #f472b6;
+      } /* Pink */
+      .token-cm {
+        color: #94a3b8;
+        font-style: italic;
+      } /* Slate */
+
+      .experiment-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 1.5rem;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .experiment-card:hover {
+        border-color: #9333ea;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 10px rgba(147, 51, 234, 0.15);
+      }
+
+      .split-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        background-color: #f3e8ff;
+        color: #9333ea;
+        border-radius: 50%;
+        margin-bottom: 1rem;
+      }
+
+      .stat-bar {
+        height: 6px;
+        border-radius: 3px;
+        background: #e2e8f0;
+        overflow: hidden;
+        margin-top: 4px;
+      }
+      .stat-fill {
+        height: 100%;
+        border-radius: 3px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-flask"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">GenAI A/B Testing</h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Data Science & Product
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-bullseye w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-project-diagram w-6 text-brand-600"></i> Abordagem
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-filter w-6 text-brand-600"></i> Conceitos Chave
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-code w-6 text-brand-600"></i> Implementação
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-chart-bar w-6 text-brand-600"></i> Guardrail
+            Metrics
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-search w-6 text-brand-600"></i> Evidências
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-br from-purple-900 to-purple-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div
+            class="absolute right-0 top-0 p-4 opacity-10 text-9xl transform rotate-12"
+          >
+            <i class="fas fa-vial"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            A/B Testing para Features de IA
+          </h1>
+          <p class="text-purple-100 text-lg mb-6 relative z-10">
+            Ciência de dados aplicada à Engenharia de Prompt: transformando
+            intuição em evidência.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Feature Flags</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Sticky Sessions</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >P-Value</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              Você mudou o prompt de recomendação de pratos para ser "mais
+              engraçado". O time adorou. Mas será que o usuário vai comprar
+              mais? Ou ele vai achar irritante e fechar o app? Em produtos
+              digitais, opinião não escala. <strong>Dados escalam.</strong>
+            </p>
+            <p class="mb-4">
+              Segundo o relatório <em>State of GenAI Experimentation 2024</em>,
+              <strong>74% dos experimentos A/B em IA falham</strong> por falta
+              de rigor estatístico ou coleta inadequada de métricas. Testar IA é
+              mais complexo que testar a cor de um botão, pois a resposta é
+              dinâmica e o impacto varia por contexto.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+              <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+                <h3 class="font-bold text-gray-700 mb-2">Teste Tradicional</h3>
+                <ul class="text-sm text-gray-600 space-y-2">
+                  <li class="flex items-center">
+                    <i class="fas fa-mouse-pointer w-6 text-blue-500"></i>
+                    Variável: Estática (Cor, Texto)
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-ruler w-6 text-blue-500"></i> Métrica: CTR
+                    / Conversão
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-check w-6 text-green-500"></i>
+                    Complexidade: Baixa
+                  </li>
+                </ul>
+              </div>
+              <div class="bg-purple-50 p-5 rounded-lg border border-purple-200">
+                <h3 class="font-bold text-brand-800 mb-2">Teste GenAI</h3>
+                <ul class="text-sm text-brand-900 space-y-2">
+                  <li class="flex items-center">
+                    <i class="fas fa-brain w-6 text-purple-500"></i> Variável:
+                    Dinâmica (Prompt, Modelo)
+                  </li>
+                  <li class="flex items-center">
+                    <i class="fas fa-smile w-6 text-purple-500"></i> Métrica:
+                    Conversão + NPS + Latência
+                  </li>
+                  <li class="flex items-center">
+                    <i
+                      class="fas fa-exclamation-triangle w-6 text-yellow-500"
+                    ></i>
+                    Complexidade: Alta (Viés, Custo)
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: Experimentação
+              Controlada
+            </h2>
+
+            <p class="text-gray-600 mb-8">
+              Para validar se a <strong>Versão B</strong> (Treatment) é melhor
+              que a <strong>Versão A</strong> (Control), precisamos de um
+              pipeline que garanta consistência e isole variáveis.
+            </p>
+
+            <!-- CSS Diagram: Experiment Pipeline -->
+            <div
+              class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 flex flex-col items-center"
+            >
+              <div
+                class="flex flex-col md:flex-row items-center justify-between w-full max-w-4xl gap-6"
+              >
+                <!-- User -->
+                <div class="flex flex-col items-center text-center">
+                  <div
+                    class="w-12 h-12 bg-white rounded-full shadow border border-gray-200 flex items-center justify-center text-gray-600 mb-2"
+                  >
+                    <i class="fas fa-users text-xl"></i>
+                  </div>
+                  <div class="text-sm font-bold">Tráfego</div>
+                </div>
+
+                <i class="fas fa-arrow-right text-gray-300 hidden md:block"></i>
+
+                <!-- Router -->
+                <div class="flex flex-col items-center text-center w-40">
+                  <div
+                    class="bg-purple-100 p-3 rounded-lg border border-purple-300 w-full"
+                  >
+                    <div
+                      class="text-xs font-bold text-purple-800 uppercase mb-1"
+                    >
+                      Feature Flag
+                    </div>
+                    <div class="text-xs text-purple-600">Hashing (Sticky)</div>
+                  </div>
+                </div>
+
+                <!-- Split -->
+                <div class="flex flex-col gap-8 relative">
+                  <div
+                    class="absolute left-[-20px] top-[50%] w-[20px] h-[2px] bg-gray-300 hidden md:block"
+                  ></div>
+
+                  <!-- Variant A -->
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-8 h-8 rounded-full bg-gray-200 text-gray-600 flex items-center justify-center font-bold text-xs"
+                    >
+                      50%
+                    </div>
+                    <div
+                      class="bg-white p-3 rounded shadow-sm border border-gray-200 w-48 text-center"
+                    >
+                      <div class="font-bold text-gray-800">Controle (A)</div>
+                      <div class="text-xs text-gray-500">Prompt Atual</div>
+                    </div>
+                  </div>
+
+                  <!-- Variant B -->
+                  <div class="flex items-center gap-4">
+                    <div
+                      class="w-8 h-8 rounded-full bg-purple-500 text-white flex items-center justify-center font-bold text-xs"
+                    >
+                      50%
+                    </div>
+                    <div
+                      class="bg-white p-3 rounded shadow-sm border border-purple-200 w-48 text-center ring-2 ring-purple-100"
+                    >
+                      <div class="font-bold text-brand-700">Variante (B)</div>
+                      <div class="text-xs text-gray-500">Novo Prompt</div>
+                    </div>
+                  </div>
+                </div>
+
+                <i class="fas fa-arrow-right text-gray-300 hidden md:block"></i>
+
+                <!-- Analysis -->
+                <div class="flex flex-col items-center text-center w-32">
+                  <div class="bg-gray-800 text-white p-3 rounded-lg w-full">
+                    <i class="fas fa-chart-pie mb-1"></i>
+                    <div class="text-xs font-bold">Analytics</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div class="experiment-card">
+                <div class="split-icon"><i class="fas fa-magnet"></i></div>
+                <h3 class="font-bold text-gray-800 mb-2">Sticky Sessions</h3>
+                <p class="text-sm text-gray-600">
+                  Garante que o usuário João sempre veja a variante B durante o
+                  teste. Se ele ver A de manhã e B à tarde, os dados ficam
+                  sujos. Geralmente feito via hashing determinístico
+                  (`hash(user_id) % 100`).
+                </p>
+              </div>
+
+              <div class="experiment-card">
+                <div class="split-icon"><i class="fas fa-shield-alt"></i></div>
+                <h3 class="font-bold text-gray-800 mb-2">Guardrail Metrics</h3>
+                <p class="text-sm text-gray-600">
+                  Métricas que <strong>não podem piorar</strong>. Exemplo: Se a
+                  variante B aumenta conversão em 10%, mas aumenta a latência em
+                  5s ou quebra o layout, o teste deve ser abortado.
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 p-6 rounded-lg border border-slate-200">
+              <h3 class="font-bold text-gray-800 mb-4 text-center">
+                Teste A/A: Validando o Pipeline
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Antes de testar A vs B, teste A vs A (duas variantes iguais). Se
+                houver diferença significativa nos resultados, seu sistema de
+                randomização está quebrado.
+              </p>
+              <div
+                class="flex justify-between items-end h-32 border-b border-gray-300 pb-2 px-4 gap-4"
+              >
+                <div class="w-1/2 flex flex-col justify-end items-center group">
+                  <div class="text-xs text-gray-500 mb-1 font-bold">
+                    Grupo A1
+                  </div>
+                  <div
+                    class="w-full bg-gray-400 rounded-t h-24 relative group-hover:bg-gray-500 transition-colors"
+                  >
+                    <span
+                      class="absolute top-2 w-full text-center text-white text-xs"
+                      >2.5%</span
+                    >
+                  </div>
+                </div>
+                <div class="w-1/2 flex flex-col justify-end items-center group">
+                  <div class="text-xs text-gray-500 mb-1 font-bold">
+                    Grupo A2
+                  </div>
+                  <div
+                    class="w-full bg-gray-400 rounded-t h-24 relative group-hover:bg-gray-500 transition-colors"
+                  >
+                    <span
+                      class="absolute top-2 w-full text-center text-white text-xs"
+                      >2.5%</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <div class="text-center text-xs text-green-600 mt-2 font-bold">
+                <i class="fas fa-check"></i> Sem diferença estatística =
+                Pipeline OK
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Hands On -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: Implementação
+            </h2>
+
+            <div class="mb-8">
+              <h3 class="font-bold text-gray-800 mb-3">
+                1. Router com Hashing Determinístico (Python)
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Como dividir usuários consistentemente sem precisar de banco de
+                dados.
+              </p>
+              <pre
+                class="code-block"
+              ><code><span class="token-kw">import</span> hashlib
+<span class="token-kw">from</span> enum <span class="token-kw">import</span> Enum
+
+<span class="token-kw">class</span> <span class="token-fn">Variant</span>(Enum):
+    CONTROL = <span class="token-str">"gpt-3.5-turbo"</span> <span class="token-cm"># Prompt atual</span>
+    TREATMENT = <span class="token-str">"gpt-4-turbo"</span> <span class="token-cm"># Novo prompt</span>
+
+<span class="token-kw">def</span> <span class="token-fn">get_user_variant</span>(user_id, experiment_salt=<span class="token-str">"exp_desc_v1"</span>):
+    <span class="token-cm"># Hash determinístico: O mesmo user sempre cai no mesmo bucket</span>
+    hash_input = <span class="token-str">f"{user_id}:{experiment_salt}"</span>
+    hash_val = <span class="token-fn">int</span>(hashlib.sha256(hash_input.encode()).hexdigest(), <span class="token-num">16</span>)
+
+    <span class="token-cm"># Split 50/50</span>
+    <span class="token-kw">if</span> hash_val % <span class="token-num">100</span> < <span class="token-num">50</span>:
+        <span class="token-kw">return</span> Variant.CONTROL
+    <span class="token-kw">return</span> Variant.TREATMENT
+
+<span class="token-cm"># Logging é CRUCIAL para análise posterior</span>
+logger.info(<span class="token-str">"exposure"</span>, extra={
+    <span class="token-str">"user_id"</span>: user_id,
+    <span class="token-str">"variant"</span>: variant.value,
+    <span class="token-str">"timestamp"</span>: now()
+})</code></pre>
+            </div>
+
+            <div class="mb-8">
+              <h3 class="font-bold text-gray-800 mb-3">
+                2. Análise SQL (Pós-Experimento)
+              </h3>
+              <pre class="code-block"><code><span class="token-kw">SELECT</span>
+    variant,
+    <span class="token-fn">COUNT</span>(<span class="token-kw">DISTINCT</span> user_id) <span class="token-kw">as</span> users,
+    <span class="token-fn">AVG</span>(conversion_rate) <span class="token-kw">as</span> cvr,
+    <span class="token-fn">AVG</span>(latency_ms) <span class="token-kw">as</span> avg_latency,
+    <span class="token-cm">-- Métrica de Guarda (NPS)</span>
+    <span class="token-fn">AVG</span>(nps_score) <span class="token-kw">as</span> avg_nps
+<span class="token-kw">FROM</span>
+    experiment_logs
+<span class="token-kw">WHERE</span>
+    experiment_id = <span class="token-str">'exp_desc_v1'</span>
+<span class="token-kw">GROUP BY</span>
+    variant;</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e Resultados -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Analisando Resultados: O
+            Dilema
+          </h2>
+
+          <p class="text-gray-600 mb-6">
+            Um exemplo real de análise de trade-offs. O modelo B converte mais,
+            mas é mais lento e caro.
+          </p>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <!-- Control -->
+            <div class="border border-gray-200 rounded-xl p-5">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-gray-700">Controle (GPT-3.5)</h3>
+                <span
+                  class="bg-gray-100 text-gray-600 text-xs px-2 py-1 rounded"
+                  >Baseline</span
+                >
+              </div>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>Conversão</span>
+                    <span class="font-bold">2.5%</span>
+                  </div>
+                  <div class="stat-bar">
+                    <div class="stat-fill bg-gray-400" style="width: 50%"></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>Latência</span>
+                    <span class="font-bold text-green-600">800ms</span>
+                  </div>
+                  <div class="stat-bar">
+                    <div
+                      class="stat-fill bg-green-500"
+                      style="width: 20%"
+                    ></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Variant -->
+            <div class="border-2 border-brand-200 rounded-xl p-5 bg-brand-50">
+              <div class="flex justify-between items-center mb-4">
+                <h3 class="font-bold text-brand-800">Variante (GPT-4)</h3>
+                <span
+                  class="bg-brand-200 text-brand-800 text-xs px-2 py-1 rounded"
+                  >Vencedor?</span
+                >
+              </div>
+              <div class="space-y-4">
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>Conversão</span>
+                    <span class="font-bold text-green-600">2.8% (+12%)</span>
+                  </div>
+                  <div class="stat-bar">
+                    <div
+                      class="stat-fill bg-green-500"
+                      style="width: 60%"
+                    ></div>
+                  </div>
+                </div>
+                <div>
+                  <div class="flex justify-between text-sm mb-1">
+                    <span>Latência</span>
+                    <span class="font-bold text-red-500">4500ms (+460%)</span>
+                  </div>
+                  <div class="stat-bar">
+                    <div class="stat-fill bg-red-500" style="width: 90%"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="bg-yellow-50 border-l-4 border-yellow-400 p-4 rounded-r-lg"
+          >
+            <h3 class="font-bold text-yellow-900 mb-2">
+              Decisão Baseada em Segmentação
+            </h3>
+            <p class="text-sm text-yellow-800">
+              O aumento de conversão paga o custo extra?
+              <strong>Depende.</strong> Segmentando por ticket médio,
+              descobrimos que para pedidos > R$ 50, o lucro compensa a latência.
+              Para fast-food barato, não.
+            </p>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence & Ferramentas
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">Riscos Comuns</h3>
+              <ul class="space-y-3 text-sm text-gray-600">
+                <li class="flex items-start">
+                  <i
+                    class="fas fa-exclamation-circle text-red-500 mt-1 mr-2"
+                  ></i>
+                  <div>
+                    <strong>Efeito Novidade:</strong> O usuário interage mais só
+                    porque mudou. Espere 2 semanas para decidir.
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <i
+                    class="fas fa-exclamation-circle text-red-500 mt-1 mr-2"
+                  ></i>
+                  <div>
+                    <strong>Interferência:</strong> Rodar teste de Prompt junto
+                    com teste de UI. Impossível saber a causa da melhora.
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Ferramentas de Mercado
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >Statsig</span
+                >
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >LaunchDarkly</span
+                >
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >PostHog</span
+                >
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >GrowthBook</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 p-8 opacity-20 text-9xl transform rotate-45"
+          >
+            <i class="fas fa-dna"></i>
+          </div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <p class="text-brand-100 mb-6 italic text-lg">
+              "A intuição é o início da hipótese, mas os dados são o juiz final.
+              Em GenAI, onde tudo parece 'mágico', ser cético e orientado a
+              dados é o que diferencia engenharia de empolgação."
+            </p>
+            <p class="text-brand-100 mb-6 text-sm">
+              Agora que sabemos medir o que funciona, precisamos enfrentar o
+              maior fantasma da IA: quando ela inventa coisas perigosas.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Implementar Feature Flags.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Logar
+                  exposição de experimento.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Rodar
+                  um teste A/A.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximo Artigo
+              </h3>
+              <div class="bg-brand-800 p-3 rounded-lg text-xs">
+                <span class="font-bold text-white block mb-1"
+                  >Artigo 16: Alucinações</span
+                >
+                Como mitigar o risco do bot prometer pizza grátis ou inventar
+                ingredientes.
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 AI Science Series. Experiment boldly.</p>
+      </div>
+    </footer>
+  </body>
+</html>

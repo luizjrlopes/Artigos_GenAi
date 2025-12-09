@@ -1,0 +1,722 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Monitorando a Qualidade das Respostas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#f0fdfa",
+                100: "#ccfbf1",
+                500: "#14b8a6",
+                600: "#0d9488", // Teal 600 - Analytics/Precision theme
+                700: "#0f766e",
+                900: "#134e4a",
+              },
+              code: {
+                bg: "#111827",
+                text: "#e5e7eb",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #111827; /* Gray 900 */
+        color: #e5e7eb;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #1f2937;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-sql {
+        color: #fcd34d;
+      } /* Amber */
+      .token-py {
+        color: #93c5fd;
+      } /* Blue */
+      .token-str {
+        color: #86efac;
+      } /* Green */
+      .token-comment {
+        color: #6b7280;
+        font-style: italic;
+      } /* Gray */
+
+      .metric-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 1.5rem;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .metric-card:hover {
+        border-color: #0d9488;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(13, 148, 136, 0.1);
+      }
+      .metric-icon {
+        position: absolute;
+        right: -10px;
+        bottom: -10px;
+        font-size: 4rem;
+        opacity: 0.05;
+        transform: rotate(-15deg);
+      }
+
+      .pipeline-arrow {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #9ca3af;
+        font-size: 1.2rem;
+        padding: 0.5rem;
+      }
+      @media (max-width: 768px) {
+        .pipeline-arrow {
+          transform: rotate(90deg);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-search-dollar"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">AI Quality Monitoring</h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Observabilidade
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-binoculars w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-layer-group w-6 text-brand-600"></i> Abordagem
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-lightbulb w-6 text-brand-600"></i> Conceitos (HITL)
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-code w-6 text-brand-600"></i> Mão na Massa
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-chart-pie w-6 text-brand-600"></i> KPIs de
+            Qualidade
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-microscope w-6 text-brand-600"></i> Evidências
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-r from-teal-900 to-teal-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div
+            class="absolute right-0 top-0 p-4 opacity-10 text-9xl transform translate-y-2"
+          >
+            <i class="fas fa-thumbs-up"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            Monitorando Qualidade em GenAI
+          </h1>
+          <p class="text-teal-100 text-lg mb-6 relative z-10">
+            Indo além do "Thumbs Up/Down": Métricas semânticas para sistemas
+            reais.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >NPS</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Factualidade</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Sentiment Analysis</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto: O Paradoxo do
+            Dashboard Verde
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              Imagine o cenário: seu dashboard no Grafana está todo verde.
+              Latência baixa, zero erros 500, CPU sobrando. Mas no Twitter, os
+              usuários estão furiosos dizendo que seu chatbot é "burro". Isso
+              acontece porque o
+              <strong>Monitoramento Tradicional (APM)</strong> não captura
+              qualidade semântica.
+            </p>
+            <p class="mb-4">
+              Em sistemas GenAI, o servidor pode retornar um
+              <code>200 OK</code> com sucesso técnico, mas o conteúdo da
+              resposta ser uma alucinação completa ou uma recusa inútil. Segundo
+              o relatório <em>State of AI in Production 2024</em>, 62% das
+              empresas admitem que suas métricas de infraestrutura não refletem
+              a experiência real do usuário.
+            </p>
+
+            <div class="overflow-x-auto mt-6 rounded-lg border border-gray-200">
+              <table class="min-w-full text-sm text-left">
+                <thead class="bg-gray-100 text-gray-700 font-bold">
+                  <tr>
+                    <th class="px-6 py-3">Tipo de Métrica</th>
+                    <th class="px-6 py-3">Exemplo</th>
+                    <th class="px-6 py-3">O que ela falha em detectar</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4 font-bold text-gray-500">
+                      Infraestrutura
+                    </td>
+                    <td class="px-6 py-4">Latência, Status 200</td>
+                    <td class="px-6 py-4 text-red-600">
+                      Alucinações, Respostas Rudes
+                    </td>
+                  </tr>
+                  <tr class="bg-teal-50">
+                    <td class="px-6 py-4 font-bold text-brand-800">
+                      Semântica (Qualidade)
+                    </td>
+                    <td class="px-6 py-4">Factualidade, Tom</td>
+                    <td class="px-6 py-4 text-green-600">
+                      Detecta "Burrice" do modelo
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: Camadas de
+              Monitoramento
+            </h2>
+
+            <p class="text-gray-600 mb-8">
+              Para garantir qualidade real, não existe "bala de prata".
+              Precisamos combinar sinais explícitos (o que o usuário diz) com
+              sinais implícitos (o que ele faz) e auditoria automatizada.
+            </p>
+
+            <!-- CSS Diagram: Monitoring Pipeline -->
+            <div
+              class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 flex flex-col items-center"
+            >
+              <h3
+                class="text-xs font-bold text-gray-400 uppercase tracking-widest mb-6"
+              >
+                Pipeline de Qualidade Contínua
+              </h3>
+
+              <div
+                class="flex flex-col md:flex-row items-center gap-2 w-full justify-center"
+              >
+                <!-- Step 1 -->
+                <div
+                  class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-40"
+                >
+                  <i
+                    class="fas fa-comment-dots text-brand-500 text-2xl mb-2"
+                  ></i>
+                  <div class="font-bold text-sm text-gray-800">Interação</div>
+                  <div class="text-xs text-gray-500">Log Estruturado</div>
+                </div>
+
+                <div class="pipeline-arrow">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <!-- Step 2 -->
+                <div
+                  class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-40"
+                >
+                  <i class="fas fa-thumbs-up text-blue-500 text-2xl mb-2"></i>
+                  <div class="font-bold text-sm text-gray-800">Feedback</div>
+                  <div class="text-xs text-gray-500">Explícito/Implícito</div>
+                </div>
+
+                <div class="pipeline-arrow">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <!-- Step 3 -->
+                <div
+                  class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-40"
+                >
+                  <i class="fas fa-robot text-purple-500 text-2xl mb-2"></i>
+                  <div class="font-bold text-sm text-gray-800">Auto-Audit</div>
+                  <div class="text-xs text-gray-500">LLM-as-a-Judge</div>
+                </div>
+
+                <div class="pipeline-arrow">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <!-- Step 4 -->
+                <div
+                  class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-40"
+                >
+                  <i class="fas fa-users text-orange-500 text-2xl mb-2"></i>
+                  <div class="font-bold text-sm text-gray-800">
+                    Human Review
+                  </div>
+                  <div class="text-xs text-gray-500">Amostragem (HITL)</div>
+                </div>
+              </div>
+
+              <div
+                class="mt-8 w-full max-w-2xl bg-teal-50 border border-teal-200 p-4 rounded text-center"
+              >
+                <div class="font-bold text-teal-800 mb-1">
+                  Resultado: Dashboard Unificado
+                </div>
+                <div class="text-xs text-teal-600">
+                  Combina métricas de máquina com percepção humana
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <div class="metric-card">
+                <i class="fas fa-user-check metric-icon"></i>
+                <h3 class="font-bold text-gray-800 mb-2">
+                  Human-in-the-loop (HITL)
+                </h3>
+                <p class="text-sm text-gray-600">
+                  Processo onde humanos revisam amostras (ex: 50/dia) para
+                  calibrar a qualidade. É essencial para criar o "Golden Set"
+                  que treina os avaliadores automáticos.
+                </p>
+              </div>
+              <div class="metric-card">
+                <i class="fas fa-chart-line metric-icon"></i>
+                <h3 class="font-bold text-gray-800 mb-2">Sentiment Drift</h3>
+                <p class="text-sm text-gray-600">
+                  Mudança gradual no humor dos usuários. Se o NPS cai 10% em uma
+                  semana sem erros técnicos, você tem um problema de "Drift de
+                  Sentimento" (provavelmente respostas piores).
+                </p>
+              </div>
+            </div>
+
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+              <table class="min-w-full text-sm text-left">
+                <thead class="bg-gray-50 text-gray-700">
+                  <tr>
+                    <th class="px-4 py-2">Conceito</th>
+                    <th class="px-4 py-2">Como Medir</th>
+                    <th class="px-4 py-2">Benchmark</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-4 py-2 font-bold">Factualidade</td>
+                    <td class="px-4 py-2">LLM-as-Judge</td>
+                    <td class="px-4 py-2">> 90%</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 font-bold">Utilidade</td>
+                    <td class="px-4 py-2">Pesquisa Pós-chat</td>
+                    <td class="px-4 py-2">> 80%</td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 font-bold">Refusal Rate</td>
+                    <td class="px-4 py-2">Logs de recusa</td>
+                    <td class="px-4 py-2">< 5%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Hands On -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: Implementação
+            </h2>
+
+            <div class="mb-8">
+              <h3 class="font-bold text-gray-800 mb-3">
+                1. Modelagem de Dados (SQL)
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Não jogue logs no stdout. Estruture para análise. Note os campos
+                de feedback e metadados.
+              </p>
+              <pre
+                class="code-block"
+              ><code><span class="token-sql">CREATE TABLE</span> ai_interactions (
+    id UUID PRIMARY KEY,
+    user_id UUID,
+    prompt_version VARCHAR(50),
+    input_text TEXT,
+    output_text TEXT,
+    latency_ms INT,
+    <span class="token-comment">-- Métricas de Qualidade</span>
+    user_feedback_score INT, <span class="token-comment">-- 1 (like) ou -1 (dislike)</span>
+    user_feedback_text TEXT, <span class="token-comment">-- "Resposta inútil!"</span>
+    reprompt_count INT DEFAULT 0, <span class="token-comment">-- Sinal implícito de falha</span>
+    created_at TIMESTAMP DEFAULT NOW()
+);</code></pre>
+            </div>
+
+            <div class="mb-8">
+              <h3 class="font-bold text-gray-800 mb-3">
+                2. Worker de Análise de Causa Raiz
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Quando um dislike chega, use um LLM para categorizar o motivo
+                automaticamente.
+              </p>
+              <pre
+                class="code-block"
+              ><code><span class="token-py">@event_bus.subscribe</span>(<span class="token-str">"ai.feedback.negative"</span>)
+<span class="token-py">def</span> analyze_failure(event):
+    interaction = db.get_interaction(event[<span class="token-str">"id"</span>])
+
+    analysis_prompt = <span class="token-str">f"""
+    O usuário deu dislike.
+    Input: {interaction.input_text}
+    Output: {interaction.output_text}
+
+    Classifique o erro:
+    1. Alucinação
+    2. Recusa Desnecessária
+    3. Tom Rude
+    4. Falta de Contexto
+    """</span>
+
+    reason = gpt4.generate(analysis_prompt)
+    db.save_analysis(event[<span class="token-str">"id"</span>], reason)</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e Riscos -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Métricas, Riscos e Boas
+            Práticas
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="bg-red-50 p-5 rounded-lg border border-red-100">
+              <h3 class="font-bold text-red-900 mb-2">
+                Risco: Viés de Seleção
+              </h3>
+              <p class="text-sm text-red-800">
+                Apenas usuários muito felizes ou muito irritados dão feedback. A
+                "maioria silenciosa" é ignorada. Mitigue com
+                <strong>Amostragem Aleatória</strong> diária.
+              </p>
+            </div>
+            <div class="bg-yellow-50 p-5 rounded-lg border border-yellow-100">
+              <h3 class="font-bold text-yellow-900 mb-2">
+                Risco: Gaming the System
+              </h3>
+              <p class="text-sm text-yellow-800">
+                Se o time for bonificado por "Likes", eles podem criar prompts
+                que imploram por avaliação ("Dê um joinha se ajudei!"), piorando
+                a UX.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-brand-50 p-6 rounded-xl border border-brand-200">
+            <h3 class="font-bold text-brand-900 mb-4 text-center">
+              Checklist de Monitoramento Completo
+            </h3>
+            <div
+              class="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm text-brand-800"
+            >
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i> Feedback
+                Explícito
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i>
+                Re-prompt Rate
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i>
+                LLM-as-a-Judge
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i>
+                Amostragem Humana
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i>
+                Benchmark Semanal
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence & Ferramentas
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Teste Prático: Re-prompting
+              </h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Se o usuário edita a pergunta 3 vezes, ele está frustrado.
+              </p>
+              <pre
+                class="code-block text-xs"
+              ><code><span class="token-py">if</span> edits_in_row >= 3:
+    signals.append(<span class="token-str">"high_frustration"</span>)
+    alert_team()</code></pre>
+              <p class="text-xs text-gray-500 mt-2">
+                Métrica: Se > 5% das sessões tiverem isso, rever o prompt.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Ferramentas Recomendadas
+              </h3>
+              <ul class="space-y-2 text-sm">
+                <li
+                  class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                >
+                  <span>Arize Phoenix</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded"
+                    >Drift & Evals</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                >
+                  <span>LangSmith</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded"
+                    >Tracing & Debug</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                >
+                  <span>WhyLabs</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded"
+                    >Monitoramento Dados</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute -bottom-8 -left-8 w-40 h-40 bg-brand-500 rounded-full opacity-20 blur-3xl"
+          ></div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <p class="text-brand-100 mb-6 italic text-lg">
+              "Qualidade é subjetiva, mas padrões de erro não são. Se 30% dos
+              usuários reclamam da mesma coisa, não é 'gosto pessoal', é um bug
+              sistemático que exige correção."
+            </p>
+            <p class="text-brand-100 mb-6 text-sm">
+              O segredo é instrumentar desde o início. Um simples botão de 👍/👎
+              gera dados que, agregados, revelam a verdade que os logs de
+              servidor escondem.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Adicionar feedback ao UI hoje.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Criar
+                  tabela SQL de logs.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Implementar amostragem humana (50/dia).
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximo Artigo
+              </h3>
+              <div class="bg-brand-800 p-3 rounded-lg text-xs">
+                <span class="font-bold text-white block mb-1"
+                  >Artigo 13: Logging Avançado</span
+                >
+                Como rastrear custo por token, cache hit rate e observabilidade
+                distribuída.
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 AI Observability Series. Quality First.</p>
+      </div>
+    </footer>
+  </body>
+</html>

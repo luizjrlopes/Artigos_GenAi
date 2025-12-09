@@ -1,0 +1,755 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logging e Métricas para GenAI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#eff6ff",
+                100: "#dbeafe",
+                500: "#3b82f6",
+                600: "#2563eb", // Blue 600 - Analytics/Dashboard theme
+                700: "#1d4ed8",
+                900: "#1e3a8a",
+              },
+              code: {
+                bg: "#0f172a",
+                text: "#e2e8f0",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #0f172a; /* Slate 900 */
+        color: #e2e8f0;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #1e293b;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-keyword {
+        color: #c084fc;
+      } /* Purple */
+      .token-func {
+        color: #38bdf8;
+      } /* Light Blue */
+      .token-string {
+        color: #4ade80;
+      } /* Green */
+      .token-comment {
+        color: #64748b;
+        font-style: italic;
+      } /* Slate 500 */
+      .token-num {
+        color: #f472b6;
+      } /* Pink */
+
+      .dashboard-widget {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 1rem;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .dashboard-widget:hover {
+        border-color: #2563eb;
+        box-shadow: 0 4px 6px rgba(37, 99, 235, 0.1);
+      }
+
+      .trace-node {
+        display: flex;
+        align-items: center;
+        margin-bottom: 0.5rem;
+        font-family: "Fira Code", monospace;
+        font-size: 0.8rem;
+      }
+      .trace-bar {
+        height: 8px;
+        border-radius: 4px;
+        margin-left: 10px;
+        position: relative;
+      }
+      .trace-label {
+        min-width: 100px;
+        text-align: right;
+        padding-right: 10px;
+        color: #4b5563;
+      }
+
+      .metric-value {
+        font-size: 1.5rem;
+        font-weight: 700;
+        color: #1e3a8a;
+      }
+      .metric-label {
+        font-size: 0.8rem;
+        color: #6b7280;
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-chart-line"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">GenAI Observability</h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: FinOps & Metrics
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-dollar-sign w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-layer-group w-6 text-brand-600"></i> Pilares
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-book w-6 text-brand-600"></i> Conceitos Chave
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-code w-6 text-brand-600"></i> Instrumentação
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-tachometer-alt w-6 text-brand-600"></i> Dashboard
+            Ideal
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-search w-6 text-brand-600"></i> Evidências
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-r from-blue-900 to-blue-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div
+            class="absolute right-0 top-0 p-4 opacity-10 text-9xl transform translate-x-4"
+          >
+            <i class="fas fa-coins"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            Logging e Métricas para GenAI
+          </h1>
+          <p class="text-blue-100 text-lg mb-6 relative z-10">
+            O que medir para não falir: Custos, Latência e Rastreabilidade.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Token Usage</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >TTFT</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >OpenTelemetry</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              Em sistemas tradicionais, logs são apenas texto:
+              <code>"User logged in"</code>. Em GenAI, logs são literalmente
+              <strong>dinheiro</strong>. Cada token de entrada e saída tem um
+              custo direto e marginal. Uma feature mal otimizada que entra em
+              loop pode queimar centenas de dólares em minutos.
+            </p>
+            <p class="mb-4">
+              Segundo o relatório <em>State of GenAI Observability 2024</em>,
+              <strong>78% das empresas</strong> que não monitoram granularmente
+              o uso de tokens têm surpresas negativas na fatura da nuvem. Além
+              do custo, a latência em IA não é binária. O
+              <strong>Time to First Token (TTFT)</strong> — o tempo até o
+              usuário ver a primeira letra — é mais crítico para a percepção de
+              velocidade do que o tempo total da resposta.
+            </p>
+
+            <div class="overflow-x-auto mt-6 rounded-lg border border-gray-200">
+              <table class="min-w-full text-sm text-left">
+                <thead class="bg-gray-100 text-gray-700 font-bold">
+                  <tr>
+                    <th class="px-6 py-3">Tipo de Log</th>
+                    <th class="px-6 py-3">Impacto no Negócio</th>
+                    <th class="px-6 py-3">Métrica Essencial</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4">Tradicional</td>
+                    <td class="px-6 py-4">Auditoria de acesso</td>
+                    <td class="px-6 py-4 font-mono text-xs">
+                      user_id, status_code
+                    </td>
+                  </tr>
+                  <tr class="bg-blue-50">
+                    <td class="px-6 py-4 font-bold text-brand-800">GenAI</td>
+                    <td class="px-6 py-4 font-bold text-red-600">
+                      Custo Direto & UX
+                    </td>
+                    <td
+                      class="px-6 py-4 font-mono text-xs font-bold text-brand-700"
+                    >
+                      prompt_tokens, ttft, cost_usd
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: Os 3 Pilares
+            </h2>
+
+            <p class="text-gray-600 mb-8">
+              Não basta saber se "funcionou". Precisamos saber quanto custou,
+              quão rápido foi e por onde passou.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+              <div class="dashboard-widget text-center">
+                <div class="text-brand-500 text-3xl mb-2">
+                  <i class="fas fa-stopwatch"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">1. Performance</h3>
+                <p class="text-xs text-gray-500">
+                  TTFT (First Token) e Latência Total. O usuário esperou muito?
+                </p>
+              </div>
+              <div class="dashboard-widget text-center">
+                <div class="text-green-500 text-3xl mb-2">
+                  <i class="fas fa-file-invoice-dollar"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">2. Custos</h3>
+                <p class="text-xs text-gray-500">
+                  Token Usage (Input vs Output). Custo por feature e modelo.
+                </p>
+              </div>
+              <div class="dashboard-widget text-center">
+                <div class="text-purple-500 text-3xl mb-2">
+                  <i class="fas fa-project-diagram"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-1">3. Tracing</h3>
+                <p class="text-xs text-gray-500">
+                  Rastreabilidade ponta a ponta (App -> Cache -> LLM).
+                </p>
+              </div>
+            </div>
+
+            <!-- CSS Diagram: Observability Pipeline -->
+            <div
+              class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 flex flex-col md:flex-row items-center justify-between gap-4"
+            >
+              <div class="flex flex-col items-center gap-2">
+                <div
+                  class="w-10 h-10 rounded-full bg-gray-800 text-white flex items-center justify-center"
+                >
+                  <i class="fas fa-mobile-alt"></i>
+                </div>
+                <span class="text-xs font-bold text-gray-600">User App</span>
+              </div>
+
+              <div class="h-0.5 flex-1 bg-gray-300 w-full relative"></div>
+
+              <div class="flex flex-col items-center gap-2">
+                <div
+                  class="w-10 h-10 rounded-full bg-blue-600 text-white flex items-center justify-center border-4 border-blue-200"
+                >
+                  <i class="fas fa-server"></i>
+                </div>
+                <span class="text-xs font-bold text-blue-700">API Gateway</span>
+              </div>
+
+              <div class="h-0.5 flex-1 bg-gray-300 w-full relative"></div>
+
+              <div
+                class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-48 relative"
+              >
+                <div
+                  class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-yellow-100 text-yellow-800 text-[10px] px-2 rounded-full font-bold"
+                >
+                  INSTRUMENTADO
+                </div>
+                <div class="font-bold text-gray-800 mb-2">Backend IA</div>
+                <div class="flex justify-center gap-2 text-lg text-gray-400">
+                  <i class="fas fa-database" title="VectorDB"></i>
+                  <i class="fas fa-robot" title="LLM"></i>
+                  <i class="fas fa-hdd" title="Cache"></i>
+                </div>
+              </div>
+
+              <div
+                class="h-0.5 flex-1 bg-gray-300 w-full relative border-t-2 border-dashed border-purple-400"
+              ></div>
+
+              <div class="flex flex-col items-center gap-2">
+                <div
+                  class="w-10 h-10 rounded-full bg-purple-600 text-white flex items-center justify-center shadow-lg"
+                >
+                  <i class="fas fa-binoculars"></i>
+                </div>
+                <span class="text-xs font-bold text-purple-700"
+                  >Observability Platform</span
+                >
+                <span class="text-[10px] text-gray-500"
+                  >(LangFuse/Grafana)</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                <h3 class="font-bold text-blue-900 mb-1">Token Economics</h3>
+                <p class="text-sm text-blue-800 mb-2">
+                  Prompt tokens (entrada) são geralmente mais baratos que
+                  Completion tokens (saída).
+                </p>
+                <div
+                  class="bg-white p-2 rounded text-xs font-mono border border-blue-200 text-gray-600"
+                >
+                  GPT-4 Input: $0.03 / 1k<br />
+                  GPT-4 Output: $0.06 / 1k (2x mais caro!)
+                </div>
+              </div>
+
+              <div class="bg-green-50 p-4 rounded-lg border border-green-100">
+                <h3 class="font-bold text-green-900 mb-1">Cache Hit Rate</h3>
+                <p class="text-sm text-green-800">
+                  Percentual de requisições respondidas sem bater no LLM. É
+                  economia pura e latência zero.
+                </p>
+                <div class="w-full bg-gray-200 rounded-full h-2.5 mt-2">
+                  <div
+                    class="bg-green-600 h-2.5 rounded-full"
+                    style="width: 35%"
+                  ></div>
+                </div>
+                <div class="text-xs text-right mt-1 text-gray-500">
+                  Meta: > 30%
+                </div>
+              </div>
+            </div>
+
+            <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+              <h3 class="font-bold text-gray-800 mb-3">
+                Distributed Tracing (Waterfall)
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Visualização em cascata para identificar gargalos. Onde está a
+                demora? No banco ou no modelo?
+              </p>
+
+              <!-- Visual Trace Mock -->
+              <div class="bg-white p-3 rounded border border-gray-300">
+                <div class="trace-node">
+                  <span class="trace-label">Total Request</span>
+                  <div
+                    class="trace-bar bg-blue-200 w-full flex items-center px-1"
+                  >
+                    <span class="text-[10px]">2.5s</span>
+                  </div>
+                </div>
+                <div class="trace-node">
+                  <span class="trace-label">Redis Cache</span>
+                  <div class="trace-bar bg-green-300 w-1/12"></div>
+                </div>
+                <div class="trace-node">
+                  <span class="trace-label">Vector DB</span>
+                  <div class="trace-bar bg-yellow-300 w-2/12 ml-[8%]"></div>
+                </div>
+                <div class="trace-node">
+                  <span class="trace-label">OpenAI LLM</span>
+                  <div
+                    class="trace-bar bg-purple-400 w-8/12 ml-[25%] flex items-center px-1"
+                  >
+                    <span class="text-[10px] text-white">1.8s (Gargalo)</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Hands On -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa:
+              Instrumentação
+            </h2>
+
+            <p class="text-gray-600 mb-4 text-sm">
+              Wrapper Python para logar métricas automaticamente no
+              <strong>OpenTelemetry</strong> e <strong>LangFuse</strong>.
+            </p>
+
+            <pre
+              class="code-block"
+            ><code><span class="token-keyword">from</span> opentelemetry <span class="token-keyword">import</span> trace, metrics
+<span class="token-keyword">import</span> time
+<span class="token-keyword">import</span> langfuse
+
+<span class="token-comment"># Setup do OTel</span>
+tracer = trace.get_tracer(__name__)
+meter = metrics.get_meter(__name__)
+token_counter = meter.create_counter(<span class="token-string">"llm_tokens_total"</span>)
+
+<span class="token-keyword">def</span> <span class="token-func">call_llm_monitored</span>(prompt, model=<span class="token-string">"gpt-4"</span>, feature=<span class="token-string">"summary"</span>):
+    <span class="token-keyword">with</span> tracer.start_as_current_span(<span class="token-string">"llm_call"</span>) <span class="token-keyword">as</span> span:
+        start_time = time.time()
+        
+        <span class="token-comment"># Chamada real ao LLM</span>
+        response = openai.ChatCompletion.create(...) 
+        
+        duration = time.time() - start_time
+        usage = response[<span class="token-string">'usage'</span>]
+
+        <span class="token-comment"># 1. Métricas para Prometheus/Grafana (Agregados)</span>
+        token_counter.add(usage[<span class="token-string">'total_tokens'</span>], {
+            <span class="token-string">"model"</span>: model, 
+            <span class="token-string">"feature"</span>: feature
+        })
+
+        <span class="token-comment"># 2. Atributos no Trace para Debug (Individual)</span>
+        span.set_attribute(<span class="token-string">"llm.model"</span>, model)
+        span.set_attribute(<span class="token-string">"llm.cost"</span>, calculate_cost(usage, model))
+
+        <span class="token-comment"># 3. Log rico para LangFuse (Observabilidade GenAI)</span>
+        langfuse.log_event({
+            <span class="token-string">"name"</span>: <span class="token-string">"llm-generation"</span>,
+            <span class="token-string">"input"</span>: prompt,
+            <span class="token-string">"output"</span>: response.choices[0].message.content,
+            <span class="token-string">"usage"</span>: usage,
+            <span class="token-string">"metadata"</span>: {<span class="token-string">"feature"</span>: feature}
+        })
+        
+        <span class="token-keyword">return</span> response</code></pre>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e KPIs -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> O Dashboard Ideal
+          </h2>
+
+          <p class="text-gray-600 mb-6">
+            O que você deve ver assim que abre o Grafana ou LangFuse:
+          </p>
+
+          <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div class="dashboard-widget">
+              <div class="metric-label">Custo Total (Hoje)</div>
+              <div class="metric-value">$42.50</div>
+              <div class="text-xs text-green-600 mt-1">
+                <i class="fas fa-arrow-down"></i> 12% vs ontem
+              </div>
+              <div class="w-full bg-gray-100 h-1 mt-3">
+                <div class="bg-blue-600 h-1" style="width: 45%"></div>
+              </div>
+            </div>
+            <div class="dashboard-widget">
+              <div class="metric-label">Latência P99</div>
+              <div class="metric-value text-yellow-600">3.2s</div>
+              <div class="text-xs text-red-500 mt-1">
+                <i class="fas fa-arrow-up"></i> Acima do SLA (2s)
+              </div>
+              <div class="w-full bg-gray-100 h-1 mt-3">
+                <div class="bg-yellow-500 h-1" style="width: 80%"></div>
+              </div>
+            </div>
+            <div class="dashboard-widget">
+              <div class="metric-label">Cache Hit Rate</div>
+              <div class="metric-value text-green-600">34%</div>
+              <div class="text-xs text-gray-500 mt-1">
+                Economia est.: $15.00
+              </div>
+              <div class="w-full bg-gray-100 h-1 mt-3">
+                <div class="bg-green-500 h-1" style="width: 34%"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-red-50 p-5 rounded-lg border border-red-100">
+              <h3 class="font-bold text-red-900 mb-2">Alertas de Anomalia</h3>
+              <ul class="text-sm text-red-800 space-y-2 list-disc list-inside">
+                <li>
+                  <strong>Spike de Custo:</strong> Gasto > $50 em 1 hora. (Pega
+                  loop infinito).
+                </li>
+                <li>
+                  <strong>Latência Alta:</strong> P99 > 5s por 5 min. (Modelo
+                  engargalado).
+                </li>
+                <li>
+                  <strong>Error Rate:</strong> > 5% de falhas. (Provider down).
+                </li>
+              </ul>
+            </div>
+            <div class="bg-blue-50 p-5 rounded-lg border border-blue-100">
+              <h3 class="font-bold text-blue-900 mb-2">Tagging de Features</h3>
+              <p class="text-sm text-blue-800">
+                Sempre logue <code>feature="nome"</code>. Isso permite descobrir
+                que o "Resumo de Menu" gasta 80% do budget, enquanto o "Chat
+                Principal" gasta só 20%.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence & Ferramentas
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">Case Real: Fintech</h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Identificaram que 60% do custo vinha de uma única feature mal
+                otimizada.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                <li>
+                  Redução de custo: <strong>R$ 18k -> R$ 7k / mês</strong>.
+                </li>
+                <li>Otimização: Cache + Modelo menor na feature cara.</li>
+                <li>Ferramenta: OpenTelemetry + Grafana.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">Stack Recomendada</h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >LangFuse</span
+                >
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >HoneyHive</span
+                >
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >OpenTelemetry</span
+                >
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >Grafana</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute bottom-0 right-0 p-8 opacity-20 text-9xl transform translate-x-4 translate-y-4"
+          >
+            <i class="fas fa-eye"></i>
+          </div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <p class="text-brand-100 mb-6 italic text-lg">
+              "O que não é medido, vira prejuízo. Observabilidade em GenAI é a
+              diferença entre uma operação sustentável e uma fatura surpresa no
+              final do mês."
+            </p>
+            <p class="text-brand-100 mb-6 text-sm">
+              Agora que temos controle total sobre o que acontece (logs,
+              métricas, erros, qualidade), podemos começar a falar sobre
+              **Otimização de Custos** de forma proativa.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Instalar LangFuse/HoneyHive.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Configurar Alerta de Budget ($50/h).
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Auditar
+                  logs para remover PII.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximo Artigo
+              </h3>
+              <div class="bg-brand-800 p-3 rounded-lg text-xs">
+                <span class="font-bold text-white block mb-1"
+                  >Artigo 14: Custos de IA</span
+                >
+                Estratégias avançadas de caching, modelos menores e otimização
+                de prompts.
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 AI FinOps Series. Measure everything.</p>
+      </div>
+    </footer>
+  </body>
+</html>

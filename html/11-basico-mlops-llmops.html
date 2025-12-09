@@ -1,0 +1,667 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Básico de MLOps e LLMOps</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#fff7ed",
+                100: "#ffedd5",
+                500: "#f97316",
+                600: "#ea580c", // Orange 600 - Ops/Construction theme
+                700: "#c2410c",
+                900: "#7c2d12",
+              },
+              code: {
+                bg: "#1c1917",
+                text: "#e7e5e4",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #1c1917; /* Stone 900 */
+        color: #e7e5e4;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #292524;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-key {
+        color: #fdba74;
+      } /* Orange */
+      .token-str {
+        color: #86efac;
+      } /* Green */
+      .token-cmd {
+        color: #93c5fd;
+      } /* Blue */
+      .token-comment {
+        color: #78716c;
+        font-style: italic;
+      } /* Stone 500 */
+
+      .pipeline-node {
+        background: white;
+        border: 2px solid #e5e7eb;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        position: relative;
+        transition: all 0.3s;
+        z-index: 10;
+      }
+      .pipeline-node:hover {
+        border-color: #ea580c;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(234, 88, 12, 0.15);
+      }
+      .pipeline-line {
+        width: 2px;
+        background-color: #d6d3d1;
+        flex-grow: 1;
+        min-height: 20px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-shipping-fast"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">LLMOps & MLOps Basics</h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Operações & Infra
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-warehouse w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-clipboard-list w-6 text-brand-600"></i> Abordagem
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-book w-6 text-brand-600"></i> Conceitos (Skew)
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-terminal w-6 text-brand-600"></i> CI/CD Pipeline
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-chart-line w-6 text-brand-600"></i> Riscos &
+            Rollback
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-search w-6 text-brand-600"></i> Evidências
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-r from-orange-800 to-orange-600 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div class="absolute right-0 top-0 p-4 opacity-10 text-9xl">
+            <i class="fas fa-boxes"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            Básico de MLOps e LLMOps
+          </h1>
+          <p class="text-orange-100 text-lg mb-6 relative z-10">
+            Tirando a IA do Jupyter Notebook e levando para a vida real em
+            produção.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >CI/CD</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Model Registry</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Feedback Loop</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              Existe um abismo gigante entre "funciona no meu notebook" e
+              "funciona em produção com 1 milhão de usuários". Cientistas de
+              Dados brilham na criação de modelos, mas muitas vezes carecem de
+              ferramentas para empacotar, versionar e escalar essas soluções.
+              Por outro lado, Engenheiros de Software sabem escalar, mas podem
+              tropeçar nas idiossincrasias estocásticas dos modelos
+              probabilísticos.
+            </p>
+            <p class="mb-4">
+              Segundo o relatório <em>State of MLOps 2024</em>,
+              <strong>70% dos incidentes críticos</strong> em GenAI são causados
+              por falta de versionamento e automação. Empresas que implementaram
+              pipelines robustos de LLMOps reduziram o downtime em 80% e
+              aceleraram o rollout em 4x.
+            </p>
+
+            <div class="overflow-x-auto mt-6 rounded-lg border border-gray-200">
+              <table class="min-w-full text-sm text-left">
+                <thead class="bg-gray-100 text-gray-700 font-bold">
+                  <tr>
+                    <th class="px-6 py-3">Métrica</th>
+                    <th class="px-6 py-3 text-red-600">Antes do LLMOps</th>
+                    <th class="px-6 py-3 text-green-600">Após LLMOps</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4">Downtime/mês</td>
+                    <td class="px-6 py-4">6h</td>
+                    <td class="px-6 py-4 font-bold">1h</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4">Tempo de Rollout</td>
+                    <td class="px-6 py-4">14 dias (Manual)</td>
+                    <td class="px-6 py-4 font-bold">3 dias (Automático)</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4">NPS Pós-release</td>
+                    <td class="px-6 py-4">68</td>
+                    <td class="px-6 py-4 font-bold">85</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: O Ciclo
+              Operacional
+            </h2>
+
+            <p class="text-gray-600 mb-8">
+              Para operacionalizar GenAI, precisamos de um ciclo contínuo de
+              deploy, monitoramento e feedback. Não é um projeto com fim, é um
+              produto vivo.
+            </p>
+
+            <!-- CSS Diagram: Ops Flow -->
+            <div
+              class="bg-stone-50 p-8 rounded-xl border border-dashed border-stone-300 flex justify-center"
+            >
+              <div class="flex flex-col items-center w-full max-w-md">
+                <div class="pipeline-node w-full border-blue-200 bg-blue-50">
+                  <div class="font-bold text-blue-800">
+                    <i class="fas fa-code-branch mr-2"></i> 1. Commit / PR
+                  </div>
+                  <div class="text-xs text-blue-600">
+                    Mudança de Prompt/Code
+                  </div>
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div
+                  class="pipeline-node w-full border-purple-200 bg-purple-50"
+                >
+                  <div class="font-bold text-purple-800">
+                    <i class="fas fa-vial mr-2"></i> 2. Testes Automatizados
+                  </div>
+                  <div class="text-xs text-purple-600">Regressão Semântica</div>
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div
+                  class="pipeline-node w-full border-orange-200 bg-orange-50"
+                >
+                  <div class="font-bold text-orange-800">
+                    <i class="fas fa-rocket mr-2"></i> 3. Deploy Automatizado
+                  </div>
+                  <div class="text-xs text-orange-600">Blue/Green Strategy</div>
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-node w-full border-green-200 bg-green-50">
+                  <div class="font-bold text-green-800">
+                    <i class="fas fa-chart-line mr-2"></i> 4. Monitoramento
+                  </div>
+                  <div class="text-xs text-green-600">
+                    Latência, Erro, Custo
+                  </div>
+                </div>
+
+                <div class="pipeline-line"></div>
+
+                <div class="pipeline-node w-full border-stone-200 bg-white">
+                  <div class="font-bold text-stone-800">
+                    <i class="fas fa-sync mr-2"></i> 5. Feedback Loop
+                  </div>
+                  <div class="text-xs text-stone-600">Aprendizado Contínuo</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div class="bg-orange-50 p-5 rounded-lg border border-orange-100">
+                <h3 class="font-bold text-orange-900 mb-2">
+                  <i class="fas fa-cube mr-2"></i> Model Registry
+                </h3>
+                <p class="text-sm text-orange-800 mb-2">
+                  O "Docker Hub" dos modelos. Permite versionar (`v1.2`,
+                  `v2.0`), auditar quem publicou e fazer rollback imediato se
+                  necessário.
+                </p>
+                <div
+                  class="bg-white p-2 rounded text-xs font-mono border border-orange-200"
+                >
+                  v1.2 | Ana | 01/10 | Prod<br />
+                  v2.0 | João | 15/11 | Staging
+                </div>
+              </div>
+
+              <div>
+                <h3 class="font-bold text-gray-800 mb-2">Feedback Loop</h3>
+                <p class="text-sm text-gray-600">
+                  O ciclo virtuoso: Usuário interage -> Feedback
+                  (implícito/explícito) -> Análise -> Novo Treino -> Deploy. Sem
+                  isso, o modelo estagna.
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-stone-50 p-6 rounded-lg border border-stone-200">
+              <h3 class="font-bold text-gray-800 mb-4">
+                <i class="fas fa-random mr-2 text-red-500"></i> Training-Serving
+                Skew
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Quando o ambiente ou dados de treino diferem da realidade de
+                produção. É a principal causa de modelos que "emburrecem" ao ir
+                para o ar.
+              </p>
+              <table class="w-full text-xs text-left">
+                <thead class="bg-gray-200 font-bold">
+                  <tr>
+                    <th class="p-2">Ambiente</th>
+                    <th class="p-2">Dados</th>
+                    <th class="p-2">Acurácia</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white">
+                    <td class="p-2">Treino</td>
+                    <td class="p-2">"pizza", "hambúrguer"</td>
+                    <td class="p-2 text-green-600">95%</td>
+                  </tr>
+                  <tr class="bg-red-50">
+                    <td class="p-2">Produção</td>
+                    <td class="p-2">"pizzza", "humburguer"</td>
+                    <td class="p-2 text-red-600">70%</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Hands On -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: CI/CD para IA
+            </h2>
+
+            <p class="text-gray-600 mb-4 text-sm">
+              Exemplo de pipeline <strong>GitHub Actions</strong> que roda
+              testes semânticos antes de promover para Staging.
+            </p>
+
+            <pre
+              class="code-block"
+            ><code><span class="token-key">name</span>: <span class="token-str">LLMOps Pipeline</span>
+<span class="token-key">on</span>:
+  <span class="token-key">push</span>:
+    <span class="token-key">paths</span>:
+      - <span class="token-str">'prompts/**'</span> <span class="token-comment"># Só roda se mudar prompts</span>
+
+<span class="token-key">jobs</span>:
+  <span class="token-key">test-and-deploy</span>:
+    <span class="token-key">runs-on</span>: <span class="token-str">ubuntu-latest</span>
+    <span class="token-key">steps</span>:
+      - <span class="token-key">uses</span>: <span class="token-str">actions/checkout@v3</span>
+      
+      - <span class="token-key">name</span>: <span class="token-str">Install Dependencies</span>
+        <span class="token-cmd">run</span>: <span class="token-str">pip install pytest openai</span>
+        
+      - <span class="token-key">name</span>: <span class="token-str">Run Semantic Tests (LLM-as-a-Judge)</span>
+        <span class="token-cmd">run</span>: <span class="token-str">pytest tests/ --junitxml=report.xml</span>
+        <span class="token-key">env</span>:
+          <span class="token-key">OPENAI_API_KEY</span>: <span class="token-str">${{ secrets.OPENAI_API_KEY }}</span>
+          
+      - <span class="token-key">name</span>: <span class="token-str">Deploy to Staging</span>
+        <span class="token-key">if</span>: <span class="token-str">success()</span> <span class="token-comment"># Só deploya se testes passarem</span>
+        <span class="token-cmd">run</span>: <span class="token-str">python scripts/deploy_prompt.py --env staging</span></code></pre>
+
+            <div class="mt-8">
+              <h3 class="font-bold text-gray-800 mb-3">
+                Estratégia Blue/Green em Python
+              </h3>
+              <pre
+                class="code-block"
+              ><code><span class="token-comment"># Simulação de roteamento de tráfego seguro</span>
+models = {
+    <span class="token-str">"blue"</span>: <span class="token-str">"/models/recommendation.v1"</span>,  <span class="token-comment"># Versão estável (Atual)</span>
+    <span class="token-str">"green"</span>: <span class="token-str">"/models/recommendation.v2"</span>, <span class="token-comment"># Versão candidata (Nova)</span>
+}
+
+<span class="token-comment"># Roteamento Canary (1% do tráfego para Green)</span>
+<span class="token-key">if</span> user.id % 100 < 1:
+    model_version = <span class="token-str">"green"</span>
+<span class="token-key">else</span>:
+    model_version = <span class="token-str">"blue"</span>
+
+<span class="token-cmd">response</span> = models[model_version].generate(prompt)
+
+<span class="token-comment"># Logar qual versão foi usada é CRUCIAL para monitoramento</span>
+logger.info({<span class="token-str">"user_id"</span>: user.id, <span class="token-str">"version"</span>: model_version, <span class="token-str">"status"</span>: 200})</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e Riscos -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Métricas, Riscos e Boas
+            Práticas
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="bg-red-50 p-5 rounded-lg border border-red-100">
+              <h3 class="font-bold text-red-900 mb-2">
+                Risco: Drift de Conceito
+              </h3>
+              <p class="text-sm text-red-800">
+                O comportamento do usuário muda (ex: pandemia alterou padrões de
+                delivery). O modelo antigo "esquece" a realidade.
+              </p>
+            </div>
+            <div class="bg-yellow-50 p-5 rounded-lg border border-yellow-100">
+              <h3 class="font-bold text-yellow-900 mb-2">
+                Risco: Custo de Infra
+              </h3>
+              <p class="text-sm text-yellow-800">
+                GPUs ociosas queimam dinheiro. Use Auto-scaling baseado em fila
+                de requisições, não apenas CPU.
+              </p>
+            </div>
+          </div>
+
+          <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+            <h3 class="font-bold text-gray-800 mb-4 flex items-center">
+              <i class="fas fa-undo-alt mr-2 text-brand-500"></i> Rollback
+              Automático
+            </h3>
+            <p class="text-gray-600 text-sm mb-2">
+              Se a taxa de erro da versão <strong>Green</strong> subir > 1% nos
+              primeiros 10 minutos pós-deploy, o sistema deve reverter
+              automaticamente para <strong>Blue</strong>.
+            </p>
+            <div
+              class="w-full bg-gray-200 rounded-full h-2.5 dark:bg-gray-700 mt-2"
+            >
+              <div
+                class="bg-green-600 h-2.5 rounded-full"
+                style="width: 99%"
+              ></div>
+            </div>
+            <div class="text-xs text-right mt-1 text-gray-500">
+              Target uptime: 99.9%
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence & Ferramentas
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Case Real: App de Delivery
+              </h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Perda de R$ 500 mil revertida com automação.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                <li>Tempo de recuperação: <strong>1h -> 10min</strong>.</li>
+                <li>Deploys quebrados em prod: <strong>Zero</strong>.</li>
+                <li>Confiança do time: Alta.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Ferramentas Recomendadas
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="bg-gray-100 px-3 py-1 rounded text-sm border"
+                  >MLflow</span
+                >
+                <span class="bg-gray-100 px-3 py-1 rounded text-sm border"
+                  >Weights & Biases</span
+                >
+                <span class="bg-gray-100 px-3 py-1 rounded text-sm border"
+                  >GitHub Actions</span
+                >
+                <span class="bg-gray-100 px-3 py-1 rounded text-sm border"
+                  >Kubeflow</span
+                >
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute bottom-0 right-0 p-8 opacity-10 text-9xl transform translate-x-4 translate-y-4"
+          >
+            <i class="fas fa-infinity"></i>
+          </div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <p class="text-brand-100 mb-6 italic text-lg">
+              "LLMOps transforma a 'mágica' da IA em engenharia confiável. Sem
+              versionamento, rollback e monitoramento, cada deploy é um risco.
+              Com LLMOps, cada deploy é uma oportunidade de melhoria."
+            </p>
+            <p class="text-brand-100 mb-6 text-sm">
+              Mas como saber se o modelo que você deployou está realmente melhor
+              em qualidade, não apenas em latência? O código pode estar verde no
+              Grafana, mas o bot pode estar falando bobagem.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Configurar MLflow local (5 min).
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Automatizar deploy via GitHub Actions.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Implementar Blue/Green.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximo Artigo
+              </h3>
+              <div class="bg-brand-800 p-3 rounded-lg text-xs">
+                <span class="font-bold text-white block mb-1"
+                  >Artigo 12: Monitorando Qualidade</span
+                >
+                Métricas semânticas em tempo real: porque uptime não é tudo.
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 AI Ops Series. Deploy with confidence.</p>
+      </div>
+    </footer>
+  </body>
+</html>

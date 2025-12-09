@@ -1,0 +1,732 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Testes Automatizados para Sistemas de IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#ecfdf5",
+                100: "#d1fae5",
+                500: "#10b981",
+                600: "#059669", // Emerald 600 - Testing/QA/Success theme
+                700: "#047857",
+                900: "#064e3b",
+              },
+              code: {
+                bg: "#0f172a",
+                text: "#e2e8f0",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #0f172a; /* Slate 900 */
+        color: #e2e8f0;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #1e293b;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-keyword {
+        color: #c084fc;
+      } /* Purple */
+      .token-func {
+        color: #38bdf8;
+      } /* Blue */
+      .token-string {
+        color: #4ade80;
+      } /* Green */
+      .token-comment {
+        color: #64748b;
+        font-style: italic;
+      } /* Slate 500 */
+      .token-bool {
+        color: #f472b6;
+      } /* Pink */
+
+      .pipeline-step {
+        background: white;
+        border: 2px solid #e5e7eb;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        position: relative;
+        transition: all 0.3s;
+        width: 100%;
+      }
+      .pipeline-step:hover {
+        border-color: #059669;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 6px rgba(5, 150, 105, 0.1);
+      }
+      .pipeline-arrow {
+        color: #9ca3af;
+        font-size: 1.2rem;
+        margin: 0.5rem 0;
+      }
+      @media (min-width: 768px) {
+        .pipeline-arrow {
+          transform: rotate(-90deg);
+          margin: 0;
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-vial"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">AI Testing Pipeline</h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Qualidade & QA
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-bug w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-layer-group w-6 text-brand-600"></i> Camadas de
+            Teste
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-balance-scale w-6 text-brand-600"></i>
+            LLM-as-a-Judge
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-code w-6 text-brand-600"></i> Código Prático
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-chart-line w-6 text-brand-600"></i> Métricas & KPIs
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-search w-6 text-brand-600"></i> Ferramentas
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-r from-emerald-900 to-emerald-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div class="absolute right-0 top-0 p-4 opacity-10 text-9xl">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            Testes Automatizados para IA
+          </h1>
+          <p class="text-emerald-100 text-lg mb-6 relative z-10">
+            Unitários, Integração e "LLM-as-a-Judge" para sistemas
+            não-determinísticos.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >pytest</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >DeepEval</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Ragas</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              "Como eu sei que a mudança no prompt não quebrou tudo?" Essa é a
+              pergunta de 1 milhão de dólares. Em software tradicional, temos a
+              segurança binária: <code>assert result == expected</code>. Em IA,
+              o resultado muda a cada execução devido à natureza estocástica dos
+              modelos, e "quase igual" pode ser aceitável ou catastrófico
+              dependendo do contexto.
+            </p>
+            <p class="mb-4">
+              Segundo o relatório <em>State of AI Testing 2024</em>,
+              <strong>68% dos bugs críticos</strong> em produção só foram
+              detectados por testes semânticos automatizados. Empresas que
+              implementaram pipelines de testes para IA reduziram incidentes em
+              75%. Sem testes, você tem medo de mexer no prompt. Se tem medo de
+              mexer, seu produto estagna e perde competitividade.
+            </p>
+
+            <div class="overflow-x-auto mt-6 rounded-lg border border-gray-200">
+              <table class="min-w-full text-sm text-left">
+                <thead class="bg-gray-100 text-gray-700 font-bold">
+                  <tr>
+                    <th class="px-6 py-3">Métrica</th>
+                    <th class="px-6 py-3 text-red-600">Sem Testes IA</th>
+                    <th class="px-6 py-3 text-green-600">Com Testes IA</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4">Bugs Críticos (mês)</td>
+                    <td class="px-6 py-4">12</td>
+                    <td class="px-6 py-4 font-bold">3</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4">Tempo de Deploy</td>
+                    <td class="px-6 py-4">10 dias (Medo)</td>
+                    <td class="px-6 py-4 font-bold">3 dias (Confiança)</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4">NPS Pós-Release</td>
+                    <td class="px-6 py-4">65 (Instável)</td>
+                    <td class="px-6 py-4 font-bold">82 (Consistente)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: A Pirâmide de
+              Testes IA
+            </h2>
+
+            <p class="text-gray-600 mb-8">
+              Não basta verificar se o JSON é válido. Precisamos de camadas de
+              defesa que avaliem desde a estrutura até a semântica e a segurança
+              (alucinações).
+            </p>
+
+            <!-- CSS Diagram: Testing Pipeline Flow -->
+            <div
+              class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 flex flex-col items-center"
+            >
+              <div class="w-full max-w-lg space-y-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-8 flex justify-center text-gray-400">
+                    <i class="fas fa-code-branch"></i>
+                  </div>
+                  <div class="pipeline-step bg-gray-100 border-gray-300">
+                    <span class="font-bold text-gray-700">1. Commit / PR</span>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <i class="fas fa-arrow-down text-gray-300"></i>
+                </div>
+
+                <div class="flex items-center gap-4">
+                  <div class="w-8 flex justify-center text-blue-500">
+                    <i class="fas fa-file-code"></i>
+                  </div>
+                  <div class="pipeline-step border-blue-200 bg-blue-50">
+                    <span class="font-bold text-blue-800"
+                      >2. Determinísticos</span
+                    >
+                    <div class="text-xs text-blue-600">
+                      Schema, JSON válido, Estrutura
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <i class="fas fa-arrow-down text-gray-300"></i>
+                </div>
+
+                <div class="flex items-center gap-4">
+                  <div class="w-8 flex justify-center text-purple-500">
+                    <i class="fas fa-brain"></i>
+                  </div>
+                  <div class="pipeline-step border-purple-200 bg-purple-50">
+                    <span class="font-bold text-purple-800"
+                      >3. Semânticos (LLM-as-Judge)</span
+                    >
+                    <div class="text-xs text-purple-600">
+                      Qualidade, Tom, Polidez
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <i class="fas fa-arrow-down text-gray-300"></i>
+                </div>
+
+                <div class="flex items-center gap-4">
+                  <div class="w-8 flex justify-center text-red-500">
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                  <div class="pipeline-step border-red-200 bg-red-50">
+                    <span class="font-bold text-red-800"
+                      >4. Alucinação & Robustez</span
+                    >
+                    <div class="text-xs text-red-600">
+                      Groundedness (RAG), Inputs Adversariais
+                    </div>
+                  </div>
+                </div>
+
+                <div class="flex justify-center">
+                  <i class="fas fa-arrow-down text-gray-300"></i>
+                </div>
+
+                <div class="flex items-center gap-4">
+                  <div class="w-8 flex justify-center text-green-500">
+                    <i class="fas fa-rocket"></i>
+                  </div>
+                  <div class="pipeline-step border-green-200 bg-green-50">
+                    <span class="font-bold text-green-800"
+                      >5. Deploy Seguro</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-4">
+              <div class="bg-purple-50 p-4 rounded-lg border border-purple-100">
+                <h3 class="font-bold text-purple-900 mb-2">
+                  <i class="fas fa-gavel mr-2"></i> LLM-as-a-Judge
+                </h3>
+                <p class="text-sm text-purple-800">
+                  Usar um modelo mais forte (ex: GPT-4) para dar nota (0-5) para
+                  a resposta de um modelo mais rápido (ex: GPT-3.5). É caro, mas
+                  escala melhor que humanos e remove viés de equipe.
+                </p>
+              </div>
+              <div class="bg-yellow-50 p-4 rounded-lg border border-yellow-100">
+                <h3 class="font-bold text-yellow-900 mb-2">
+                  <i class="fas fa-coins mr-2"></i> Golden Dataset
+                </h3>
+                <p class="text-sm text-yellow-800">
+                  Um conjunto curado de "Perguntas + Respostas Ideais"
+                  (Gabarito). Serve para testes de regressão: "O novo prompt
+                  piorou as respostas antigas?"
+                </p>
+              </div>
+            </div>
+
+            <div class="border border-gray-200 rounded-lg overflow-hidden">
+              <table class="min-w-full text-sm text-left">
+                <thead class="bg-gray-50 text-gray-700">
+                  <tr>
+                    <th class="px-4 py-2">Estratégia</th>
+                    <th class="px-4 py-2">Vantagem</th>
+                    <th class="px-4 py-2">Limitação</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-4 py-2 font-bold">Igualdade Exata</td>
+                    <td class="px-4 py-2">Fácil de automatizar</td>
+                    <td class="px-4 py-2 text-red-500">
+                      Frágil para IA (quebra fácil)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 font-bold">Fuzzy Assert</td>
+                    <td class="px-4 py-2">Tolerante a variações</td>
+                    <td class="px-4 py-2 text-yellow-600">
+                      Pode perder sutilezas
+                    </td>
+                  </tr>
+                  <tr>
+                    <td class="px-4 py-2 font-bold">LLM-as-Judge</td>
+                    <td class="px-4 py-2 text-green-600">Avaliação real</td>
+                    <td class="px-4 py-2 text-yellow-600">
+                      Custo e latência altos
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Hands On -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: Implementação
+              com Pytest
+            </h2>
+
+            <p class="text-gray-600 mb-4 text-sm">
+              Exemplo prático de um arquivo de teste que cobre estrutura,
+              semântica e alucinação.
+            </p>
+
+            <pre
+              class="code-block"
+            ><code><span class="token-keyword">import</span> pytest
+
+<span class="token-keyword">import</span> json
+<span class="token-keyword">from</span> my_app <span class="token-keyword">import</span> bot, gpt4
+
+<span class="token-comment"># 1. Teste Determinístico (Estrutura)</span>
+<span class="token-keyword">def</span> <span class="token-func">test_recommendation_structure</span>():
+response = bot.ask(<span class="token-string">"Estou com fome de pizza"</span>)
+data = json.loads(response)
+
+    <span class="token-comment"># Garante que o contrato JSON foi respeitado</span>
+    <span class="token-keyword">assert</span> <span class="token-string">"dishes"</span> <span class="token-keyword">in</span> data
+    <span class="token-keyword">assert</span> <span class="token-func">len</span>(data[<span class="token-string">"dishes"</span>]) > <span class="token-string">0</span>
+    <span class="token-keyword">assert</span> <span class="token-string">"price"</span> <span class="token-keyword">in</span> data[<span class="token-string">"dishes"</span>][<span class="token-string">0</span>]
+
+<span class="token-comment"># 2. Teste Semântico (LLM-as-a-Judge)</span>
+<span class="token-keyword">def</span> <span class="token-func">evaluate_politeness</span>(bot_response):
+judge_prompt = <span class="token-string">f"""
+Avalie se a resposta é educada.
+Resposta: "{bot_response}"
+Responda APENAS com 'SIM' ou 'NAO'.
+"""</span>
+verdict = gpt4.generate(judge_prompt)
+<span class="token-keyword">return</span> verdict.strip() == <span class="token-string">"SIM"</span>
+
+<span class="token-keyword">def</span> <span class="token-func">test_bot_is_polite</span>():
+<span class="token-comment"># Teste de Robustez: Input agressivo</span>
+response = bot.ask(<span class="token-string">"Essa comida é horrível!"</span>)
+<span class="token-keyword">assert</span> evaluate_politeness(response) <span class="token-keyword">is</span> <span class="token-bool">True</span>
+
+<span class="token-comment"># 3. Teste de Alucinação (Groundedness)</span>
+<span class="token-keyword">def</span> <span class="token-func">test_no_hallucination</span>():
+query = <span class="token-string">"Sugira um prato vegano"</span>
+retrieved_docs = retriever.search(query)
+response = bot.ask(query, context=retrieved_docs)
+
+    <span class="token-comment"># Verifica se a resposta contém info que NÃO está nos docs</span>
+    <span class="token-keyword">assert</span> check_groundedness(response, retrieved_docs) <span class="token-keyword">is</span> <span class="token-bool">True</span></code></pre>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e Riscos -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Métricas, Riscos e Mitigação
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="bg-red-50 p-5 rounded-lg border border-red-100">
+              <h3 class="font-bold text-red-900 mb-2">Risco: Custo do Teste</h3>
+              <p class="text-sm text-red-800 mb-2">
+                Rodar GPT-4 para avaliar 1000 prompts a cada commit vai falir o
+                projeto.
+              </p>
+              <div
+                class="bg-white p-2 rounded text-xs border border-red-200 font-semibold text-red-700"
+              >
+                Mitigação: Testes semânticos em Nightly Builds ou apenas em
+                modelos menores.
+              </div>
+            </div>
+            <div class="bg-yellow-50 p-5 rounded-lg border border-yellow-100">
+              <h3 class="font-bold text-yellow-900 mb-2">
+                Risco: Viés do Juiz
+              </h3>
+              <p class="text-sm text-yellow-800 mb-2">
+                O LLM avaliador pode preferir respostas verbosas ou ter vieses
+                próprios.
+              </p>
+              <div
+                class="bg-white p-2 rounded text-xs border border-yellow-200 font-semibold text-yellow-700"
+              >
+                Mitigação: Prompt fixo para avaliação e múltiplos juízes.
+              </div>
+            </div>
+          </div>
+
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left">
+              <thead class="bg-gray-100 text-gray-700 font-bold">
+                <tr>
+                  <th class="px-6 py-3">Métrica</th>
+                  <th class="px-6 py-3">Valor Ideal</th>
+                  <th class="px-6 py-3">Como Medir</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 font-mono">Test Coverage</td>
+                  <td class="px-6 py-4 text-green-600">> 90%</td>
+                  <td class="px-6 py-4">pytest, DeepEval</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-mono">Tempo Execução</td>
+                  <td class="px-6 py-4 text-green-600">< 5 min</td>
+                  <td class="px-6 py-4">Logs CI/CD</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-mono">Custo por Run</td>
+                  <td class="px-6 py-4 text-green-600">< R$ 50</td>
+                  <td class="px-6 py-4">Billing API</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence & Ferramentas
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Case Real: E-commerce
+              </h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Uma plataforma implementou <strong>DeepEval</strong> no
+                pipeline.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                <li>
+                  Redução de bugs críticos: <strong>15 -> 2 / mês</strong>.
+                </li>
+                <li>Aumento de NPS: <strong>+18 pontos</strong>.</li>
+                <li>Confiança para deploy: Diário.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Ferramentas de Benchmark
+              </h3>
+              <ul class="space-y-2 text-sm">
+                <li
+                  class="flex items-center justify-between p-2 bg-gray-50 rounded"
+                >
+                  <span class="font-bold">DeepEval</span>
+                  <span class="text-xs text-gray-500">Cobertura Semântica</span>
+                </li>
+                <li
+                  class="flex items-center justify-between p-2 bg-gray-50 rounded"
+                >
+                  <span class="font-bold">Ragas</span>
+                  <span class="text-xs text-gray-500"
+                    >RAG (Regressão/Groundedness)</span
+                  >
+                </li>
+                <li
+                  class="flex items-center justify-between p-2 bg-gray-50 rounded"
+                >
+                  <span class="font-bold">Promptfoo</span>
+                  <span class="text-xs text-gray-500"
+                    >Comparação de Modelos</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+
+          <div
+            class="bg-gray-900 text-gray-300 p-4 rounded-lg font-mono text-xs"
+          >
+            <p class="mb-2">
+              <span class="text-green-400">$</span> promptfoo test --prompts
+              prompts.yaml --providers gpt-3.5,claude-3
+            </p>
+            <p class="text-gray-500">Running evaluations...</p>
+            <p class="text-gray-500">
+              Done. View report at ./promptfoo/index.html
+            </p>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute bottom-0 right-0 p-8 opacity-10 text-9xl transform translate-x-4 translate-y-4"
+          >
+            <i class="fas fa-microscope"></i>
+          </div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <p class="text-brand-100 mb-6 italic text-lg">
+              "Testar IA é menos sobre 'Passou/Falhou' binário e mais sobre
+              estatística: 'A nota média subiu ou desceu?'. É um jogo de
+              confiança incremental."
+            </p>
+            <p class="text-brand-100 mb-6 text-sm">
+              Agora que garantimos a qualidade técnica com testes, precisamos
+              garantir a operação saudável em produção. Como monitorar esses
+              modelos vivos?
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Criar
+                  Golden Dataset.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Implementar testes determinísticos hoje.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Testar
+                  o Promptfoo.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximo Artigo
+              </h3>
+              <div class="bg-brand-800 p-3 rounded-lg text-xs">
+                <span class="font-bold text-white block mb-1"
+                  >Artigo 11: MLOps & LLMOps</span
+                >
+                Deploy, monitoramento e ciclo de vida de modelos em produção.
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 AI QA Series. Trusted by Pipelines.</p>
+      </div>
+    </footer>
+  </body>
+</html>

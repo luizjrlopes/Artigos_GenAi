@@ -1,0 +1,751 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Custos de IA e FinOps</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#f0fdf4",
+                100: "#dcfce7",
+                500: "#22c55e",
+                600: "#16a34a",
+                700: "#15803d", // Green 700 - Finance/Money theme
+                800: "#166534",
+                900: "#14532d",
+              },
+              money: {
+                bg: "#064e3b",
+                accent: "#4ade80",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #064e3b; /* Dark Green */
+        color: #d1fae5;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #065f46;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-key {
+        color: #6ee7b7;
+      } /* Teal */
+      .token-str {
+        color: #fcd34d;
+      } /* Gold */
+      .token-py {
+        color: #93c5fd;
+      } /* Blue */
+      .token-comment {
+        color: #6b7280;
+        font-style: italic;
+      } /* Gray */
+      .token-num {
+        color: #fca5a5;
+      } /* Red */
+
+      .cost-card {
+        background: white;
+        border: 1px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 1.5rem;
+        transition: all 0.3s;
+        position: relative;
+        overflow: hidden;
+      }
+      .cost-card:hover {
+        border-color: #15803d;
+        transform: translateY(-2px);
+        box-shadow: 0 10px 15px -3px rgba(21, 128, 61, 0.1);
+      }
+      .cost-icon {
+        position: absolute;
+        right: -10px;
+        bottom: -10px;
+        font-size: 5rem;
+        opacity: 0.05;
+        color: #15803d;
+        transform: rotate(-15deg);
+      }
+
+      .pipeline-flow {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        position: relative;
+      }
+      .flow-line {
+        height: 2px;
+        background: #d1d5db;
+        flex-grow: 1;
+        margin: 0 10px;
+        position: relative;
+      }
+      .flow-line::after {
+        content: ">";
+        position: absolute;
+        right: -5px;
+        top: -7px;
+        color: #9ca3af;
+        font-weight: bold;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-700 text-white p-2 rounded-lg">
+            <i class="fas fa-hand-holding-usd"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">AI FinOps Strategy</h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Eficiência de Capital
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-coins w-6 text-brand-700"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-calculator w-6 text-brand-700"></i> Abordagem
+            FinOps
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-layer-group w-6 text-brand-700"></i> Cache
+            Semântico
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-code w-6 text-brand-700"></i> Implementação
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-chart-pie w-6 text-brand-700"></i> KPIs de Custo
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-trophy w-6 text-brand-700"></i> Cases Reais
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-r from-brand-900 to-brand-700 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div
+            class="absolute right-0 top-0 p-4 opacity-10 text-9xl transform translate-x-4 -translate-y-4"
+          >
+            <i class="fas fa-piggy-bank"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            Custos de IA & FinOps
+          </h1>
+          <p class="text-brand-100 text-lg mb-6 relative z-10">
+            Como escalar sem queimar todo o lucro do delivery.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Semantic Cache</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Model Routing</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >Distillation</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-700">1.</span> Contexto: Unit Economics em
+            Perigo
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              A margem de lucro em apps de delivery é historicamente apertada.
+              Cada centavo conta. Se um pedido de hambúrguer de R$ 30,00 tem uma
+              margem líquida de R$ 2,00, e você gasta
+              <strong>$0.05 (R$ 0,25)</strong> em chamadas de IA para recomendar
+              esse hambúrguer, você acabou de destruir mais de 10% do seu lucro
+              em uma única funcionalidade.
+            </p>
+            <p class="mb-4">
+              Muitos projetos de GenAI morrem na fase de "Pilot to Production".
+              Por quê? Porque o custo, que era irrelevante com 10 usuários beta,
+              torna-se proibitivo com 1 milhão de usuários ativos. Segundo o
+              relatório <em>State of GenAI FinOps 2024</em>,
+              <strong>82% das startups</strong> que escalaram GenAI sem controle
+              rígido de custos tiveram prejuízo operacional significativo.
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-4 mt-6">
+              <div
+                class="bg-red-50 p-4 rounded-lg border border-red-100 text-center"
+              >
+                <div class="text-xs font-bold text-red-500 uppercase">
+                  Sem Cache (GPT-4)
+                </div>
+                <div class="text-2xl font-bold text-red-700">$0.10</div>
+                <div class="text-xs text-red-600">Custo médio por pedido</div>
+              </div>
+              <div
+                class="bg-yellow-50 p-4 rounded-lg border border-yellow-100 text-center"
+              >
+                <div class="text-xs font-bold text-yellow-600 uppercase">
+                  Cache + GPT-3.5
+                </div>
+                <div class="text-2xl font-bold text-yellow-700">$0.03</div>
+                <div class="text-xs text-yellow-600">Alta Escalabilidade</div>
+              </div>
+              <div
+                class="bg-green-50 p-4 rounded-lg border border-green-100 text-center"
+              >
+                <div class="text-xs font-bold text-green-600 uppercase">
+                  Open Source + Router
+                </div>
+                <div class="text-2xl font-bold text-green-700">$0.01</div>
+                <div class="text-xs text-green-600">
+                  Unit Economics Saudável
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-700">2.</span> Abordagem: Pilares de
+              FinOps
+            </h2>
+
+            <p class="text-gray-600 mb-8">
+              Para reduzir a fatura em até 90% sem sacrificar a qualidade,
+              atacamos em três frentes: evitar a chamada (Cache), escolher o
+              modelo certo (Routing) e otimizar o payload (Prompting).
+            </p>
+
+            <!-- CSS Diagram: FinOps Pipeline -->
+            <div
+              class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300"
+            >
+              <div
+                class="flex flex-col md:flex-row items-center justify-between gap-4"
+              >
+                <div
+                  class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-full md:w-1/4"
+                >
+                  <div class="text-gray-800 font-bold mb-1">
+                    <i class="fas fa-user"></i> Request
+                  </div>
+                  <div class="text-xs text-gray-500">Input Usuário</div>
+                </div>
+
+                <div class="flex-1 text-center text-gray-400 text-xl">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <div
+                  class="bg-brand-50 p-4 rounded shadow-sm border border-brand-200 text-center w-full md:w-1/4 relative"
+                >
+                  <div
+                    class="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-green-100 text-green-800 text-[10px] px-2 rounded-full font-bold"
+                  >
+                    ECONOMIA MAX
+                  </div>
+                  <div class="text-brand-700 font-bold mb-1">
+                    <i class="fas fa-hdd"></i> Semantic Cache
+                  </div>
+                  <div class="text-xs text-brand-600">Redis/VectorDB</div>
+                </div>
+
+                <div class="flex-1 text-center text-gray-400 text-xl">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <div
+                  class="bg-yellow-50 p-4 rounded shadow-sm border border-yellow-200 text-center w-full md:w-1/4"
+                >
+                  <div class="text-yellow-700 font-bold mb-1">
+                    <i class="fas fa-random"></i> Model Router
+                  </div>
+                  <div class="text-xs text-yellow-600">Simples vs Complexo</div>
+                </div>
+
+                <div class="flex-1 text-center text-gray-400 text-xl">
+                  <i class="fas fa-arrow-right"></i>
+                </div>
+
+                <div
+                  class="bg-gray-800 p-4 rounded shadow-sm border border-gray-900 text-center w-full md:w-1/4"
+                >
+                  <div class="text-white font-bold mb-1">
+                    <i class="fas fa-robot"></i> LLM
+                  </div>
+                  <div class="text-xs text-gray-400">Modelo Otimizado</div>
+                </div>
+              </div>
+              <div class="mt-6 text-center text-xs text-gray-500">
+                *O monitoramento de custo ocorre em todas as etapas.
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-700">3.</span> Conceitos Fundamentais
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div class="cost-card">
+                <i class="fas fa-project-diagram cost-icon"></i>
+                <h3 class="font-bold text-gray-800 mb-2">Semantic Cache</h3>
+                <p class="text-sm text-gray-600 mb-2">
+                  Diferente de um cache exato (key-value), o cache semântico usa
+                  vetores. Ele entende que <em>"Quero pizza"</em> e
+                  <em>"Tô com fome de pizza"</em> são a mesma intenção
+                  (similaridade > 0.9) e retorna a resposta salva.
+                </p>
+                <div
+                  class="text-xs font-mono bg-green-50 text-green-800 p-2 rounded"
+                >
+                  Hit Rate: 5% (Exato) -> 40% (Semântico)
+                </div>
+              </div>
+
+              <div class="cost-card">
+                <i class="fas fa-compress-arrows-alt cost-icon"></i>
+                <h3 class="font-bold text-gray-800 mb-2">Token Packing</h3>
+                <p class="text-sm text-gray-600">
+                  Técnicas para reduzir o payload. Remover espaços, usar JSON
+                  minificado ou YAML, e remover stopwords. Pode reduzir custos
+                  em 20% sem perda de qualidade.
+                </p>
+              </div>
+            </div>
+
+            <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <h3 class="font-bold text-gray-800 mb-4">
+                <i class="fas fa-layer-group mr-2 text-brand-600"></i> Model
+                Cascade (Cascata)
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Não use um canhão para matar uma mosca. Classifique a
+                dificuldade da tarefa e roteie para o modelo mais barato capaz
+                de resolvê-la.
+              </p>
+              <table class="w-full text-xs text-left">
+                <thead class="bg-gray-200 font-bold">
+                  <tr>
+                    <th class="p-2">Tarefa</th>
+                    <th class="p-2">Modelo Ideal</th>
+                    <th class="p-2">Custo Relativo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr class="bg-white">
+                    <td class="p-2">Classificação Simples</td>
+                    <td class="p-2 text-blue-600">RegEx / BERT</td>
+                    <td class="p-2 font-bold">$$</td>
+                  </tr>
+                  <tr class="bg-gray-50">
+                    <td class="p-2">Resumo de Texto</td>
+                    <td class="p-2 text-yellow-600">GPT-3.5 / Haiku</td>
+                    <td class="p-2 font-bold">$$$</td>
+                  </tr>
+                  <tr class="bg-white">
+                    <td class="p-2">Raciocínio Complexo</td>
+                    <td class="p-2 text-purple-600">GPT-4 / Opus</td>
+                    <td class="p-2 font-bold">$$$$$</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Hands On -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-700">4.</span> Mão na Massa: Implementação
+            </h2>
+
+            <div class="mb-8">
+              <h3 class="font-bold text-gray-800 mb-3">
+                1. Cache Semântico com Redis
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Implementação Python usando Redis VSS (Vector Similarity
+                Search).
+              </p>
+              <pre
+                class="code-block"
+              ><code><span class="token-py">import</span> redis
+<span class="token-py">from</span> sentence_transformers <span class="token-py">import</span> SentenceTransformer
+
+r = redis.Redis(host=<span class="token-str">'localhost'</span>, port=<span class="token-num">6379</span>)
+model = SentenceTransformer(<span class="token-str">'all-MiniLM-L6-v2'</span>)
+
+<span class="token-py">def</span> get_cached_response(user_query, threshold=<span class="token-num">0.9</span>):
+    <span class="token-comment"># 1. Gera embedding da query atual</span>
+    query_vector = model.encode(user_query).tobytes()
+
+    <span class="token-comment"># 2. Busca vetorial no Redis (Vizinhos mais próximos - KNN)</span>
+    result = r.ft(<span class="token-str">"idx:responses"</span>).search(
+        Query(<span class="token-str">"*=>[KNN 1 @vector $vec AS score]"</span>)
+        .return_field(<span class="token-str">"response"</span>)
+        .return_field(<span class="token-str">"score"</span>)
+        .dialect(<span class="token-num">2</span>),
+        {<span class="token-str">"vec"</span>: query_vector}
+    )
+
+    <span class="token-py">if</span> result.docs:
+        doc = result.docs[<span class="token-num">0</span>]
+        similarity = <span class="token-num">1</span> - <span class="token-py">float</span>(doc.score) <span class="token-comment"># Converter distância para similaridade</span>
+        
+        <span class="token-py">if</span> similarity > threshold:
+            <span class="token-py">print</span>(<span class="token-str">"Cache Hit! Economia: $0.03"</span>)
+            <span class="token-py">return</span> doc.response
+
+    <span class="token-py">return</span> <span class="token-py">None</span></code></pre>
+            </div>
+
+            <div class="mb-8">
+              <h3 class="font-bold text-gray-800 mb-3">
+                2. Smart Model Router
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Lógica simples para rotear chamadas baseada na complexidade.
+              </p>
+              <pre
+                class="code-block"
+              ><code><span class="token-py">def</span> smart_router(prompt):
+    <span class="token-comment"># Tenta classificar com modelo local ultra-rápido</span>
+    complexity = classify_complexity_bert(prompt)
+
+    <span class="token-py">if</span> complexity == <span class="token-str">"SIMPLE"</span>:
+        <span class="token-comment"># Saudações, FAQs simples</span>
+        <span class="token-py">return</span> call_llm(model=<span class="token-str">"gpt-3.5-turbo"</span>)
+    
+    <span class="token-py">elif</span> complexity == <span class="token-str">"MEDIUM"</span>:
+        <span class="token-comment"># Resumo, Extração de entidades</span>
+        <span class="token-py">return</span> call_llm(model=<span class="token-str">"claude-3-haiku"</span>)
+    
+    <span class="token-py">else</span>:
+        <span class="token-comment"># Raciocínio, Análise jurídica/médica</span>
+        <span class="token-py">return</span> call_llm(model=<span class="token-str">"gpt-4-turbo"</span>)</code></pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e Riscos -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-700">5.</span> Métricas, Riscos e Boas
+            Práticas
+          </h2>
+
+          <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <div
+              class="bg-green-50 p-4 rounded-lg border border-green-100 text-center"
+            >
+              <div class="text-sm font-bold text-green-800 uppercase mb-2">
+                Cache Hit Rate
+              </div>
+              <div class="text-3xl font-bold text-green-600">38%</div>
+              <div class="text-xs text-green-700 mt-1">Meta: > 30%</div>
+            </div>
+            <div
+              class="bg-red-50 p-4 rounded-lg border border-red-100 text-center"
+            >
+              <div class="text-sm font-bold text-red-800 uppercase mb-2">
+                Miss Rate
+              </div>
+              <div class="text-3xl font-bold text-red-600">62%</div>
+              <div class="text-xs text-red-700 mt-1">Monitorar latência</div>
+            </div>
+            <div
+              class="bg-blue-50 p-4 rounded-lg border border-blue-100 text-center"
+            >
+              <div class="text-sm font-bold text-blue-800 uppercase mb-2">
+                Token Savings
+              </div>
+              <div class="text-3xl font-bold text-blue-600">20%</div>
+              <div class="text-xs text-blue-700 mt-1">Via Packing</div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div
+              class="border-l-4 border-yellow-400 bg-yellow-50 p-4 rounded-r-lg"
+            >
+              <h3 class="font-bold text-yellow-900 mb-2">Risco: Cache Stale</h3>
+              <p class="text-sm text-yellow-800">
+                O usuário pergunta "Onde está meu pedido?". Se você cachear
+                isso, vai responder "Na cozinha" para sempre.
+                <strong>Nunca cacheie dados transacionais</strong>, apenas FAQs
+                e conhecimentos estáticos.
+              </p>
+            </div>
+            <div
+              class="border-l-4 border-brand-500 bg-brand-50 p-4 rounded-r-lg"
+            >
+              <h3 class="font-bold text-brand-900 mb-2">Boas Práticas</h3>
+              <ul class="text-sm text-brand-800 list-disc list-inside">
+                <li>Auditoria mensal de custos por feature.</li>
+                <li>Limpeza de contexto (remover msgs antigas).</li>
+                <li>Teste A/B de modelos em produção.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-700">6.</span> Evidence & Ferramentas
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-6">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Case Real: Foodtech BR
+              </h3>
+              <p class="text-sm text-gray-600 mb-2">
+                Implementaram Cache Semântico + Model Router.
+              </p>
+              <ul class="space-y-2 text-sm text-gray-600 list-disc list-inside">
+                <li>
+                  Redução de custo mensal: <strong>R$ 22k -> R$ 4k</strong> (82%
+                  saving).
+                </li>
+                <li>Cache Hit Rate: <strong>38%</strong>.</li>
+                <li>NPS: Mantido acima de 80.</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Ferramentas de FinOps
+              </h3>
+              <ul class="space-y-2 text-sm">
+                <li
+                  class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                >
+                  <span>Helicone</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded"
+                    >Proxy & Caching</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                >
+                  <span>LangFuse</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded"
+                    >Cost Auditing</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center p-2 bg-gray-50 rounded"
+                >
+                  <span>Portkey</span>
+                  <span class="text-xs bg-gray-200 px-2 py-1 rounded"
+                    >Gateway AI</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute bottom-0 right-0 p-8 opacity-20 text-9xl transform translate-x-4 translate-y-4"
+          >
+            <i class="fas fa-funnel-dollar"></i>
+          </div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <p class="text-brand-100 mb-6 italic text-lg">
+              "Otimizar custos não é ser mesquinho, é viabilizar o negócio. A IA
+              só vai permear todos os produtos quando for barata o suficiente
+              para ser invisível. FinOps é a ponte entre inovação técnica e
+              sustentabilidade financeira."
+            </p>
+            <p class="text-brand-100 mb-6 text-sm">
+              Com FinOps, fechamos o ciclo de engenharia (Prompt -> Código ->
+              Ops -> Custo). Mas como saber se o modelo A é realmente melhor que
+              o B para o usuário final?
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Instalar Helicone (Gateway).
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Configurar Redis VSS.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Implementar Router Simples.
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximo Artigo
+              </h3>
+              <div class="bg-brand-800 p-3 rounded-lg text-xs">
+                <span class="font-bold text-white block mb-1"
+                  >Artigo 15: A/B Testing</span
+                >
+                Como comparar modelos em produção com usuários reais (Online
+                Eval).
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 AI FinOps Series. Scale efficiently.</p>
+      </div>
+    </footer>
+  </body>
+</html>
