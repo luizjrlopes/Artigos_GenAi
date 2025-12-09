@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Índice - GenAI Delivery Engineering Notes</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#f5f3ff",
+                100: "#ede9fe",
+                200: "#ddd6fe",
+                300: "#c4b5fd",
+                400: "#a78bfa",
+                500: "#8b5cf6", // Roxo principal
+                600: "#7c3aed",
+                700: "#6d28d9",
+                800: "#5b21b6",
+                900: "#4c1d95",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+      .card-hover:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1),
+          0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 text-slate-800 font-sans antialiased selection:bg-brand-200 selection:text-brand-900"
+  >
+    <div class="min-h-screen flex flex-col">
+      <!-- Header -->
+      <header
+        class="bg-brand-900 text-white py-16 shadow-lg relative overflow-hidden"
+      >
+        <div
+          class="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAiIGhlaWdodD0iMjAiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PGNpcmNsZSBjeD0iMSIgY3k9IjEiIHI9IjEiIGZpbGw9InJnYmEoMjU1LDI1NSwyNTUsMC4wNSkiLz48L3N2Zz4=')] opacity-30"
+        ></div>
+        <div
+          class="absolute top-[-50%] left-[-10%] w-[50%] h-[200%] bg-brand-800 rounded-full mix-blend-overlay filter blur-[100px] opacity-40"
+        ></div>
+        <div
+          class="absolute bottom-[-50%] right-[-10%] w-[50%] h-[200%] bg-brand-600 rounded-full mix-blend-overlay filter blur-[100px] opacity-40"
+        ></div>
+
+        <div class="container mx-auto px-6 relative z-10 text-center">
+          <div
+            class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
+          >
+            <i class="fas fa-book text-brand-200 text-xs"></i>
+            <span
+              class="text-xs font-semibold tracking-wider uppercase text-brand-100"
+              >Série de Artigos</span
+            >
+          </div>
+          <h1 class="text-4xl md:text-6xl font-extrabold mb-6 tracking-tight">
+            GenAI Delivery
+            <span
+              class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white"
+              >Engineering</span
+            >
+          </h1>
+          <p
+            class="text-lg md:text-xl text-brand-100 max-w-3xl mx-auto font-light leading-relaxed"
+          >
+            Um guia prático e aprofundado sobre a engenharia, operação e entrega
+            de produtos digitais impulsionados por Inteligência Artificial
+            Generativa.
+          </p>
+        </div>
+      </header>
+
+      <!-- Main Content -->
+      <main class="flex-grow container mx-auto px-6 py-12 -mt-8 relative z-20">
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Card 01 -->
+          <a
+            href="01-do-modelo-ao-produto.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">01</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Do Modelo ao Produto
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              LLM em Apps de Entrega: Visão geral e desafios iniciais.
+            </p>
+          </a>
+
+          <!-- Card 02 -->
+          <a
+            href="02-prompt-engineering-pace.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">02</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Prompt Engineering (PACE)
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Framework PACE para engenharia de prompts estruturada.
+            </p>
+          </a>
+
+          <!-- Card 03 -->
+          <a
+            href="03-rag-cardapios.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">03</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              RAG em Cardápios
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Retrieval-Augmented Generation aplicado a dados complexos.
+            </p>
+          </a>
+
+          <!-- Card 04 -->
+          <a
+            href="04-finetuning-vs-prompt-vs-rag.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">04</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Fine-tuning vs Prompt vs RAG
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Comparativo de estratégias de customização de modelos.
+            </p>
+          </a>
+
+          <!-- Card 05 -->
+          <a
+            href="05-llms-como-copilotos-para-devs.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">05</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              LLMs como Copilotos
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Aumentando a produtividade de desenvolvedores com IA.
+            </p>
+          </a>
+
+          <!-- Card 06 -->
+          <a
+            href="06-versionamento-prompts-dados-modelos.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">06</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Versionamento
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Gerenciando ciclo de vida de Prompts, Dados e Modelos.
+            </p>
+          </a>
+
+          <!-- Card 07 -->
+          <a
+            href="07-design-apis-genai.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">07</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Design de APIs GenAI
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Padrões para expor funcionalidades de IA via API.
+            </p>
+          </a>
+
+          <!-- Card 08 -->
+          <a
+            href="08-tratamento-erros-timeouts-llm.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">08</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Erros e Timeouts
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Resiliência e tratamento de falhas em chamadas de LLM.
+            </p>
+          </a>
+
+          <!-- Card 09 -->
+          <a
+            href="09-arquiteturas-event-driven-ia.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">09</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Arquiteturas Event-Driven
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Integração assíncrona e escalável de serviços de IA.
+            </p>
+          </a>
+
+          <!-- Card 10 -->
+          <a
+            href="10-testes-automatizados-sistemas-ia.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">10</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Testes Automatizados
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Estratégias de QA para sistemas probabilísticos.
+            </p>
+          </a>
+
+          <!-- Card 11 -->
+          <a
+            href="11-basico-mlops-llmops.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">11</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              MLOps e LLMOps
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Fundamentos de operações para Machine Learning e LLMs.
+            </p>
+          </a>
+
+          <!-- Card 12 -->
+          <a
+            href="12-monitorando-qualidade-respostas.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">12</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Monitoramento de Qualidade
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Avaliando a performance e qualidade das respostas em produção.
+            </p>
+          </a>
+
+          <!-- Card 13 -->
+          <a
+            href="13-logging-metricas-genai.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">13</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Logging e Métricas
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Observabilidade específica para aplicações GenAI.
+            </p>
+          </a>
+
+          <!-- Card 14 -->
+          <a
+            href="14-custos-ia-chamadas-modelo.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">14</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Custos e Otimização
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Gerenciamento financeiro de chamadas de modelo.
+            </p>
+          </a>
+
+          <!-- Card 15 -->
+          <a
+            href="15-ab-testing-features-ia.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">15</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              A/B Testing em IA
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Experimentação controlada para features de IA.
+            </p>
+          </a>
+
+          <!-- Card 16 -->
+          <a
+            href="16-alucinacoes-llm-mitigacao.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">16</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Alucinações e Mitigação
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Estratégias de Grounding e Guardrails.
+            </p>
+          </a>
+
+          <!-- Card 17 -->
+          <a
+            href="17-bias-modelos-ia.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">17</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Viés em Modelos
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Detecção e mitigação de viés algorítmico.
+            </p>
+          </a>
+
+          <!-- Card 18 -->
+          <a
+            href="18-interfaces-conversacionais-honestas.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">18</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Interfaces Honestas
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              UX transparente e ética para conversas com IA.
+            </p>
+          </a>
+
+          <!-- Card 19 -->
+          <a
+            href="19-colaboracao-humano-ia.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">19</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Colaboração Humano-IA
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Human-in-the-loop e operações aumentadas.
+            </p>
+          </a>
+
+          <!-- Card 20 -->
+          <a
+            href="20-jornada-genai-produtos-digitais.html"
+            class="group bg-white rounded-xl p-6 shadow-sm border border-slate-200 transition-all duration-300 card-hover flex flex-col h-full"
+          >
+            <div class="flex items-center justify-between mb-4">
+              <div
+                class="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center text-brand-600 group-hover:bg-brand-600 group-hover:text-white transition-colors"
+              >
+                <span class="font-mono font-bold text-sm">20</span>
+              </div>
+              <i
+                class="fas fa-arrow-right text-slate-300 group-hover:text-brand-500 transition-colors"
+              ></i>
+            </div>
+            <h3
+              class="text-xl font-bold text-slate-800 mb-2 group-hover:text-brand-700 transition-colors"
+            >
+              Jornada GenAI
+            </h3>
+            <p class="text-slate-500 text-sm flex-grow">
+              Visão holística da jornada de produtos digitais com IA.
+            </p>
+          </a>
+        </div>
+      </main>
+
+      <!-- Footer -->
+      <footer
+        class="bg-slate-900 text-slate-400 py-12 border-t border-slate-800"
+      >
+        <div class="container mx-auto px-6 text-center">
+          <p class="mb-4">
+            &copy; 2025 GenAI Delivery Engineering Notes. Todos os direitos
+            reservados.
+          </p>
+          <div class="flex justify-center gap-4">
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-github"></i
+            ></a>
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fab fa-linkedin"></i
+            ></a>
+            <a href="#" class="hover:text-white transition-colors"
+              ><i class="fas fa-envelope"></i
+            ></a>
+          </div>
+        </div>
+      </footer>
+    </div>
+  </body>
+</html>
