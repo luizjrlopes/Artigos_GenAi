@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Fine-tuning vs Prompt vs RAG: Framework de Decisão</title>
+    <title>LLMs como Copilotos em Delivery</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
@@ -26,17 +26,24 @@
             },
             colors: {
               brand: {
-                50: "#fff1f2",
-                100: "#ffe4e6",
-                500: "#f43f5e",
-                600: "#e11d48", // Rose 600 - Strategy/Decision theme
-                700: "#be123c",
-                900: "#881337",
+                50: "#eef2ff",
+                100: "#e0e7ff",
+                200: "#c7d2fe",
+                300: "#a5b4fc",
+                400: "#818cf8",
+                500: "#6366f1",
+                600: "#4f46e5", // Indigo 600 - Coding/Tech theme
+                700: "#4338ca",
+                800: "#3730a3",
+                900: "#312e81",
               },
-              tech: {
-                50: "#f0f9ff",
-                600: "#0284c7",
+              code: {
+                bg: "#1e1e2e",
+                text: "#cdd6f4",
               },
+            },
+            animation: {
+              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
             },
           },
         },
@@ -59,55 +66,111 @@
       }
 
       .code-block {
-        background-color: #1c1917; /* Stone 900 */
-        color: #d6d3d1;
+        background-color: #1e1e2e; /* Catppuccin Mocha base */
+        color: #cdd6f4;
         padding: 1.5rem;
         border-radius: 0.5rem;
         font-family: "Fira Code", monospace;
         overflow-x: auto;
         font-size: 0.85rem;
         line-height: 1.6;
-        border: 1px solid #44403c;
+        border: 1px solid #313244;
       }
 
       /* Syntax Highlighting Mock */
-      .token-keyword {
-        color: #f43f5e;
-      } /* Rose */
-      .token-string {
-        color: #fcd34d;
-      } /* Amber */
-      .token-comment {
-        color: #78716c;
-        font-style: italic;
-      } /* Stone 500 */
-      .token-key {
-        color: #60a5fa;
+      .token-def {
+        color: #f38ba8;
+      } /* Red */
+      .token-func {
+        color: #89b4fa;
       } /* Blue */
+      .token-keyword {
+        color: #cba6f7;
+      } /* Mauve */
+      .token-string {
+        color: #a6e3a1;
+      } /* Green */
+      .token-comment {
+        color: #6c7086;
+        font-style: italic;
+      } /* Overlay0 */
+      .token-num {
+        color: #fab387;
+      } /* Peach */
 
-      .diagram-node {
-        background: white;
-        border: 2px solid #e5e7eb;
-        padding: 1rem;
-        border-radius: 8px;
-        text-align: center;
-        transition: all 0.3s;
+      .step-card {
         position: relative;
+        padding-left: 2rem;
+        border-left: 2px solid #e0e7ff;
+        transition: all 0.3s;
       }
-      .diagram-node:hover {
-        border-color: #e11d48;
-        box-shadow: 0 4px 6px rgba(225, 29, 72, 0.1);
-        transform: translateY(-2px);
+      .step-card::before {
+        content: "";
+        position: absolute;
+        left: -0.6rem;
+        top: 0;
+        width: 1.2rem;
+        height: 1.2rem;
+        background: white;
+        border: 2px solid #6366f1;
+        border-radius: 50%;
+        transition: all 0.3s;
+      }
+      .step-card:hover {
+        border-left-color: #6366f1;
+      }
+      .step-card:hover::before {
+        background: #6366f1;
+        transform: scale(1.2);
       }
 
-      /* Connector Lines using pseudo-elements for visual tree */
-      .connector-down {
+      /* Styles da Hero (Padrão Unificado) */
+      .glass-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.15);
+      }
+
+      .connection-line {
+        position: relative;
+        overflow: hidden;
+        background: rgba(255, 255, 255, 0.15);
+      }
+
+      .connection-line::after {
+        content: "";
         position: absolute;
-        bottom: -20px;
-        left: 50%;
-        width: 2px;
-        height: 20px;
-        background-color: #d1d5db;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          transparent,
+          rgba(255, 255, 255, 0.9),
+          transparent
+        );
+        animation: flowLine 2s infinite linear;
+      }
+
+      @keyframes flowLine {
+        0% {
+          left: -100%;
+        }
+        100% {
+          left: 100%;
+        }
+      }
+
+      .grid-bg {
+        background-image: linear-gradient(
+            rgba(255, 255, 255, 0.03) 1px,
+            transparent 1px
+          ),
+          linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+        background-size: 40px 40px;
       }
     </style>
   </head>
@@ -119,14 +182,14 @@
       >
         <div class="flex items-center space-x-3">
           <div class="bg-brand-600 text-white p-2 rounded-lg">
-            <i class="fas fa-network-wired"></i>
+            <i class="fas fa-robot"></i>
           </div>
           <h1 class="text-xl font-bold text-gray-900">
-            LLM Strategy Framework
+            AI Copilots in Engineering
           </h1>
         </div>
         <div class="hidden md:block text-sm text-gray-500">
-          Série: Engenharia de IA
+          Série: Produtividade Dev
         </div>
       </div>
     </header>
@@ -141,73 +204,161 @@
             href="#intro"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
           >
-            <i class="fas fa-compass w-6 text-brand-600"></i> Contexto
+            <i class="fas fa-tachometer-alt w-6 text-brand-600"></i> Contexto
           </a>
           <a
             href="#approach"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
           >
-            <i class="fas fa-route w-6 text-brand-600"></i> Abordagem
+            <i class="fas fa-code-branch w-6 text-brand-600"></i> Abordagem
           </a>
           <a
             href="#concepts"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
           >
-            <i class="fas fa-brain w-6 text-brand-600"></i> Conceitos
+            <i class="fas fa-lock w-6 text-brand-600"></i> Conceitos & Privacy
           </a>
           <a
             href="#hands-on"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
           >
-            <i class="fas fa-code-branch w-6 text-brand-600"></i> Cenários
-            Práticos
+            <i class="fas fa-laptop-code w-6 text-brand-600"></i> Casos Práticos
           </a>
           <a
             href="#metrics"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
           >
-            <i class="fas fa-chart-pie w-6 text-brand-600"></i> Métricas &
-            Custos
+            <i class="fas fa-chart-bar w-6 text-brand-600"></i> Métricas
           </a>
           <a
             href="#evidence"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
           >
-            <i class="fas fa-flask w-6 text-brand-600"></i> Evidências
+            <i class="fas fa-vial w-6 text-brand-600"></i> Evidências
           </a>
         </nav>
       </aside>
 
       <!-- Main Content -->
       <main class="flex-1 space-y-12">
-        <!-- Hero Section -->
-        <div
-          class="bg-gradient-to-br from-brand-700 to-brand-900 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
-        >
-          <div class="absolute right-0 top-0 p-4 opacity-10 text-9xl">
-            <i class="fas fa-chess-queen"></i>
+        <!-- Hero Section (Atualizada para Padrão Visual - Tema Indigo) -->
+        <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
+          <!-- Background Gradient & Grid -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-[#312e81] via-[#4338ca] to-[#6366f1]"
+          ></div>
+          <div
+            class="absolute inset-0 grid-bg opacity-30 pointer-events-none"
+          ></div>
+          <!-- Ambient Lighting -->
+          <div
+            class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
+          ></div>
+          <div
+            class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-indigo-300 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
+            style="animation-delay: 3s"
+          ></div>
+
+          <div
+            class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12"
+          >
+            <!-- Coluna Esquerda: Texto -->
+            <div class="lg:w-1/2 w-full text-white">
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
+              >
+                <i class="fas fa-keyboard text-brand-200 text-xs"></i>
+                <span
+                  class="text-xs font-semibold tracking-wider uppercase text-brand-100"
+                  >Developer Experience</span
+                >
+              </div>
+              <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6"
+              >
+                LLMs como <br />
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white"
+                  >Copilotos</span
+                >
+              </h1>
+              <p
+                class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6"
+              >
+                Refatoração, testes e analytics em alta velocidade. O manual de
+                sobrevivência do dev moderno.
+              </p>
+            </div>
+            <!-- Coluna Direita: Diagrama Visual (Workflow) -->
+            <div class="lg:w-1/2 w-full flex items-center justify-center">
+              <div class="relative w-full max-w-md">
+                <div class="flex items-center justify-center gap-3 md:gap-6">
+                  <!-- Passo 1: Contexto -->
+                  <div class="flex flex-col items-center gap-3">
+                    <div
+                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
+                    >
+                      <i class="fas fa-file-alt drop-shadow-md"></i>
+                    </div>
+                    <span
+                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
+                      >CONTEXT</span
+                    >
+                  </div>
+                  <!-- Linha 1 -->
+                  <div
+                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
+                  ></div>
+                  <!-- Passo 2: O Núcleo (Copilot) -->
+                  <div class="flex flex-col items-center gap-3">
+                    <div class="relative">
+                      <!-- Glow estático atrás do ícone central -->
+                      <div
+                        class="absolute inset-0 bg-brand-400 blur-xl opacity-40 rounded-full"
+                      ></div>
+                      <div
+                        class="glass-card w-24 h-24 md:w-32 md:h-32 rounded-[1.5rem] flex items-center justify-center text-4xl md:text-5xl text-white shadow-2xl border-brand-300 border-t border-l border-white/40 relative z-10"
+                      >
+                        <i class="fas fa-robot drop-shadow-lg"></i>
+                      </div>
+                      <div
+                        class="absolute -top-2 -right-2 bg-white text-brand-800 rounded-full p-1.5 shadow-lg z-20 border border-gray-100"
+                      >
+                        <i class="fas fa-bolt text-xs"></i>
+                      </div>
+                    </div>
+                    <span
+                      class="text-white font-bold font-mono text-xs md:text-sm tracking-wider"
+                      >COPILOT</span
+                    >
+                  </div>
+                  <!-- Linha 2 -->
+                  <div
+                    class="flex-1 h-1 md:h-1.5 rounded-full connection-line min-w-[20px]"
+                    style="animation-delay: 0.5s"
+                  ></div>
+                  <!-- Passo 3: Output (Code/Review) -->
+                  <div class="flex flex-col items-center gap-3">
+                    <div
+                      class="glass-card w-20 h-20 md:w-24 md:h-24 rounded-2xl flex items-center justify-center text-3xl md:text-4xl text-white shadow-lg border-t border-l border-white/30"
+                    >
+                      <i class="fas fa-code drop-shadow-md"></i>
+                    </div>
+                    <div
+                      class="absolute -bottom-1 -right-1 bg-green-500 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg border border-green-400"
+                    >
+                      SHIP
+                    </div>
+                    <span
+                      class="text-brand-100 font-mono text-xs md:text-sm tracking-wider font-bold"
+                      >REVIEW</span
+                    >
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
-          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
-            Fine-tuning vs Prompt vs RAG
-          </h1>
-          <p class="text-brand-100 text-lg mb-6 relative z-10">
-            O Framework de Decisão Definitivo.
-          </p>
-          <div class="flex flex-wrap gap-3 relative z-10">
-            <span
-              class="bg-white/20 px-3 py-1 rounded-full text-sm backdrop-blur-sm border border-white/30"
-              >Build vs Buy</span
-            >
-            <span
-              class="bg-white/20 px-3 py-1 rounded-full text-sm backdrop-blur-sm border border-white/30"
-              >Cost Optimization</span
-            >
-            <span
-              class="bg-white/20 px-3 py-1 rounded-full text-sm backdrop-blur-sm border border-white/30"
-              >System Design</span
-            >
-          </div>
-        </div>
+        </section>
 
         <!-- 1. Contexto -->
         <section
@@ -221,36 +372,54 @@
           </h2>
           <div class="prose max-w-none text-gray-600">
             <p class="mb-4">
-              Uma das dúvidas mais comuns em times de engenharia que estão
-              começando com GenAI é:
-              <em>"Devemos treinar nosso próprio modelo?"</em>. A resposta curta
-              quase sempre é não (ou pelo menos, "ainda não"). A resposta longa
-              envolve entender profundamente as compensações de engenharia.
+              Em times de engenharia de alta performance, velocidade é crucial,
+              mas estabilidade é inegociável. O dia a dia de um dev em uma
+              startup de delivery não é apenas criar features "greenfield"; é
+              lidar com código legado ("quem escreveu isso em 2019?"), migrar
+              monolitos críticos de pagamento e otimizar queries SQL que travam
+              o checkout na sexta à noite.
             </p>
             <p class="mb-4">
-              Em um ecossistema complexo como um aplicativo de delivery,
-              enfrentamos problemas de natureza distinta que exigem ferramentas
-              distintas. Temos
-              <strong>cardápios que mudam a cada minuto</strong> (dados
-              dinâmicos incompatíveis com treino estático), a necessidade de um
-              <strong>tom de voz consistente no suporte</strong> (estilo rígido)
-              e a tarefa de extrair dados de
-              <strong>milhares de avaliações</strong> diariamente (onde o custo
-              por token importa muito).
+              Segundo o relatório <em>Stack Overflow 2025</em>,
+              <strong>68% dos devs já usam IA</strong> para acelerar tarefas,
+              mas apenas 22% confiam cegamente no código gerado. O desafio real
+              não é adotar a ferramenta, mas transformar a IA em um copiloto
+              confiável que multiplica a senioridade do time, em vez de uma
+              fonte de bugs sutis.
             </p>
-            <p class="mb-6">
-              Tentar resolver tudo apenas com Prompt Engineering fica caro e
-              lento. Tentar resolver tudo com Fine-Tuning é um pesadelo de
-              manutenção. O propósito deste artigo é criar um
-              <strong>framework de decisão</strong> claro. Vamos entender quando
-              usar a ferramenta mais barata (Prompting), a mais confiável para
-              fatos (RAG) ou a mais especializada (Fine-Tuning), e como a
-              arquitetura ideal combina as três.
-            </p>
-            <div class="bg-brand-50 border-l-4 border-brand-500 p-4">
-              <strong class="text-brand-900">A Decisão de Engenharia:</strong>
-              Não é sobre "qual é o melhor modelo", mas sobre "qual arquitetura
-              resolve o problema com o menor custo e maior confiabilidade".
+
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+              <div class="bg-green-50 p-5 rounded-lg border border-green-100">
+                <h3 class="font-bold text-green-900 mb-2">
+                  <i class="fas fa-arrow-up mr-2"></i>Impacto Real
+                </h3>
+                <ul class="text-sm text-green-800 space-y-1">
+                  <li>
+                    • Redução de bugs em prod: <strong>3.2% → 1.1%</strong>
+                  </li>
+                  <li>• Entrega de features: <strong>6 → 3 dias</strong></li>
+                  <li>• Menos trabalho repetitivo: <strong>-40%</strong></li>
+                </ul>
+              </div>
+              <div class="bg-brand-50 p-5 rounded-lg border border-brand-100">
+                <h3 class="font-bold text-brand-900 mb-2">
+                  <i class="fas fa-list-check mr-2"></i>Checklist de Relevância
+                </h3>
+                <ul class="text-sm text-brand-800 space-y-1">
+                  <li>
+                    <i class="fas fa-check-square mr-1"></i> Mercado: Padrão em
+                    times modernos.
+                  </li>
+                  <li>
+                    <i class="fas fa-check-square mr-1"></i> Problema: Evitar
+                    "automação cega".
+                  </li>
+                  <li>
+                    <i class="fas fa-check-square mr-1"></i> Solução: Reviewer
+                    Mindset.
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </section>
@@ -263,50 +432,102 @@
             <h2
               class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
             >
-              <span class="text-brand-600">2.</span> Abordagem: Cenários Reais
+              <span class="text-brand-600">2.</span> Abordagem e Fluxo
             </h2>
             <p class="text-gray-600 mb-6">
-              Para sair da teoria, vamos aplicar nosso framework em três
-              cenários clássicos de delivery:
+              Vamos focar em três casos onde a IA atua como multiplicador de
+              força: <strong>Arqueologia de Código</strong> (decifrar legado),
+              <strong>Engenharia de Testes</strong> (cobertura robusta) e
+              <strong>SQL Analytics</strong> (queries complexas com schema
+              awareness).
             </p>
 
-            <div class="grid md:grid-cols-3 gap-6">
-              <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                <div class="text-brand-600 font-bold mb-2">
-                  Cenário A: Dinâmico
+            <!-- CSS Diagram: Workflow Flowchart -->
+            <div
+              class="bg-gray-50 p-8 rounded-xl border border-dashed border-gray-300 flex flex-col md:flex-row items-center justify-between gap-4"
+            >
+              <div
+                class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-full md:w-1/4"
+              >
+                <div class="text-brand-500 font-bold mb-1">
+                  <i class="fas fa-brain"></i> 1. Contexto
                 </div>
-                <h3 class="font-bold text-gray-900 text-sm mb-2">
-                  Dúvidas de Cardápio
-                </h3>
-                <p class="text-xs text-gray-600">
-                  "Tem Coca hoje?" - Dados mudam em tempo real. Requer acesso ao
-                  banco SQL.
-                </p>
+                <div class="text-xs text-gray-500">Dev provê docs e schema</div>
               </div>
-              <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                <div class="text-brand-600 font-bold mb-2">
-                  Cenário B: Repetitivo
+              <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+              <i class="fas fa-arrow-down text-gray-400 md:hidden"></i>
+
+              <div
+                class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-full md:w-1/4"
+              >
+                <div class="text-indigo-600 font-bold mb-1">
+                  <i class="fas fa-magic"></i> 2. Geração
                 </div>
-                <h3 class="font-bold text-gray-900 text-sm mb-2">
-                  Classificação de Reviews
-                </h3>
-                <p class="text-xs text-gray-600">
-                  Converter texto em tags JSON em alta escala. Custo e latência
-                  são vitais.
-                </p>
+                <div class="text-xs text-gray-500">IA propõe solução</div>
               </div>
-              <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
-                <div class="text-brand-600 font-bold mb-2">
-                  Cenário C: Estilo
+              <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+              <i class="fas fa-arrow-down text-gray-400 md:hidden"></i>
+
+              <div
+                class="bg-white p-4 rounded shadow-sm border-l-4 border-yellow-400 text-center w-full md:w-1/4"
+              >
+                <div class="text-yellow-700 font-bold mb-1">
+                  <i class="fas fa-glasses"></i> 3. Revisão
                 </div>
-                <h3 class="font-bold text-gray-900 text-sm mb-2">
-                  Mascote "Zequinha"
-                </h3>
-                <p class="text-xs text-gray-600">
-                  Chatbot com personalidade forte e gírias. Requer consistência
-                  de persona.
-                </p>
+                <div class="text-xs text-gray-500">Dev audita e ajusta</div>
               </div>
+              <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+              <i class="fas fa-arrow-down text-gray-400 md:hidden"></i>
+
+              <div
+                class="bg-green-50 p-4 rounded shadow-sm border border-green-200 text-center w-full md:w-1/4"
+              >
+                <div class="text-green-700 font-bold mb-1">
+                  <i class="fas fa-rocket"></i> 4. Produção
+                </div>
+                <div class="text-xs text-gray-500">Merge seguro</div>
+              </div>
+            </div>
+
+            <div class="mt-8 overflow-x-auto">
+              <table class="min-w-full text-sm text-left border-collapse">
+                <thead class="bg-gray-100 text-gray-700 font-bold">
+                  <tr>
+                    <th class="px-6 py-3 rounded-tl-lg">Caso de Uso</th>
+                    <th class="px-6 py-3">Ferramenta</th>
+                    <th class="px-6 py-3 rounded-tr-lg">Métrica de Sucesso</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4">Refatoração Legada</td>
+                    <td class="px-6 py-4">
+                      <span class="bg-gray-100 px-2 py-1 rounded text-xs"
+                        >Cursor/Copilot</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">Redução de dívida técnica</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4">Testes Automatizados</td>
+                    <td class="px-6 py-4">
+                      <span class="bg-gray-100 px-2 py-1 rounded text-xs"
+                        >Cody/Copilot</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">Cobertura de edge cases</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4">SQL Analytics</td>
+                    <td class="px-6 py-4">
+                      <span class="bg-gray-100 px-2 py-1 rounded text-xs"
+                        >ChatGPT Ent.</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">Performance da query</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </section>
@@ -319,93 +540,93 @@
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
-            <span class="text-brand-600">3.</span> Conceitos e Framework
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
           </h2>
 
-          <div class="mb-8 space-y-4 text-gray-600">
-            <p>
-              <strong>1. Prompt Engineering (In-Context Learning):</strong> É
-              ensinar o modelo no momento da interação. Rápido, mas efêmero. Com
-              janelas de contexto de 1M+ tokens, muitos problemas de "memória"
-              são resolvidos aqui, mas o custo por token aumenta linearmente.
-            </p>
-            <p>
-              <strong>2. RAG (Retrieval-Augmented Generation):</strong> Conecta
-              o modelo a dados externos (VectorDB ou SQL). O modelo não
-              "aprende" o dado, ele consulta. É a única solução viável para
-              dados que mudam frequentemente.
-            </p>
-            <p>
-              <strong>3. Fine-Tuning (Parametric Memory):</strong> Altera os
-              pesos da rede neural. Especializa o modelo em um formato ou
-              estilo. Ideal para reduzir custos (usando modelos menores) ou
-              fixar comportamentos complexos que prompts ignoram.
-            </p>
-          </div>
-
-          <!-- Visual Decision Tree -->
-          <div
-            class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 overflow-x-auto flex justify-center"
-          >
-            <div class="flex flex-col items-center min-w-[500px]">
-              <!-- Root -->
-              <div
-                class="diagram-node bg-gray-800 text-white border-gray-900 w-48 mb-8 z-10"
-              >
-                Qual é o gargalo?
-                <div class="connector-down h-8"></div>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-bold text-brand-700 mb-2">
+                  1. RAG de Código (Awareness)
+                </h3>
+                <p class="text-sm text-gray-600">
+                  Ferramentas modernas indexam todo o repositório. Isso permite
+                  perguntas contextuais como
+                  <em
+                    >"Onde essa variável 'frete' é usada no módulo de
+                    checkout?"</em
+                  >, algo impossível para um modelo genérico.
+                </p>
               </div>
+              <div>
+                <h3 class="font-bold text-brand-700 mb-2">
+                  2. Reviewer Mindset
+                </h3>
+                <p class="text-sm text-gray-600">
+                  O dev deixa de ser "digitador" e vira "revisor". Se você
+                  aceita o código da IA sem ler, você introduziu um bug. A
+                  responsabilidade final é humana.
+                </p>
+              </div>
+            </div>
 
-              <!-- Level 1 -->
-              <div class="flex gap-8 mb-8 w-full justify-center">
-                <div class="flex flex-col items-center w-1/3">
-                  <div class="diagram-node w-full">Falta Conhecimento?</div>
+            <!-- CSS Diagram: Privacy Tiers -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+              <h3 class="font-bold text-gray-800 mb-4 text-center">
+                3. Privacy Data Tiers
+              </h3>
+              <div class="space-y-3">
+                <div class="flex items-center">
                   <div
-                    class="h-6 border-l-2 border-dashed border-gray-300 my-2"
-                  ></div>
-                  <div
-                    class="diagram-node bg-brand-100 border-brand-300 w-full font-bold text-brand-800"
+                    class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center mr-3"
                   >
-                    Use RAG
+                    <i class="fas fa-shield-alt"></i>
                   </div>
-                  <div class="text-xs text-gray-500 mt-1">
-                    Dados novos/privados
+                  <div
+                    class="flex-1 bg-white p-3 rounded border border-gray-200 shadow-sm"
+                  >
+                    <div class="font-bold text-sm">Enterprise / Zero Data</div>
+                    <div class="text-xs text-gray-500">
+                      Dados NÃO treinam o modelo. Seguro para PII.
+                    </div>
                   </div>
                 </div>
-
-                <div class="flex flex-col items-center w-1/3">
-                  <div class="diagram-node w-full">Falta Estilo/Formato?</div>
+                <div class="flex items-center">
                   <div
-                    class="h-6 border-l-2 border-dashed border-gray-300 my-2"
-                  ></div>
-                  <div
-                    class="diagram-node bg-purple-100 border-purple-300 w-full font-bold text-purple-800"
+                    class="w-8 h-8 rounded-full bg-yellow-500 text-white flex items-center justify-center mr-3"
                   >
-                    Use Fine-Tuning
+                    <i class="fas fa-user-shield"></i>
                   </div>
-                  <div class="text-xs text-gray-500 mt-1">
-                    Personalidade/JSON
+                  <div
+                    class="flex-1 bg-white p-3 rounded border border-gray-200 shadow-sm"
+                  >
+                    <div class="font-bold text-sm">Individual Pro</div>
+                    <div class="text-xs text-gray-500">
+                      Geralmente seguro, mas verifique os ToS.
+                    </div>
                   </div>
                 </div>
-
-                <div class="flex flex-col items-center w-1/3">
-                  <div class="diagram-node w-full">Tarefa Genérica?</div>
+                <div class="flex items-center opacity-70">
                   <div
-                    class="h-6 border-l-2 border-dashed border-gray-300 my-2"
-                  ></div>
-                  <div
-                    class="diagram-node bg-green-100 border-green-300 w-full font-bold text-green-800"
+                    class="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center mr-3"
                   >
-                    Use Prompting
+                    <i class="fas fa-globe"></i>
                   </div>
-                  <div class="text-xs text-gray-500 mt-1">Comece aqui</div>
+                  <div
+                    class="flex-1 bg-white p-3 rounded border border-gray-200 shadow-sm"
+                  >
+                    <div class="font-bold text-sm">Public / Free Tier</div>
+                    <div class="text-xs text-gray-500">
+                      Seu código pode virar treino. NUNCA cole segredos.
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </section>
 
-        <!-- 4. Mão na Massa -->
+        <!-- 4. Hands On -->
         <section id="hands-on" class="space-y-8">
           <div
             class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
@@ -413,73 +634,109 @@
             <h2
               class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
             >
-              <span class="text-brand-600">4.</span> Mão na Massa: Soluções
-              Práticas
+              <span class="text-brand-600">4.</span> Mão na Massa: Exemplos
+              Reais
             </h2>
 
-            <!-- Cenario A -->
-            <div class="mb-8">
-              <h3 class="font-bold text-lg text-brand-700 mb-2">
-                Cenário A: Dúvidas de Cardápio (Dados Dinâmicos)
+            <!-- Case 1 -->
+            <div class="step-card mb-10">
+              <h3 class="font-bold text-lg text-gray-800 mb-2">
+                Caso 1: Arqueologia de Código
               </h3>
-              <p class="text-gray-600 mb-4 text-sm">
-                <strong>Problema:</strong> Se o estoque de Coca-Cola acabar
-                agora, o modelo precisa saber agora. Fine-tuning é inútil
-                aqui.<br />
-                <strong>Solução:</strong> RAG com Function Calling (SQL).
+              <p class="text-sm text-gray-600 mb-4">
+                Transformando código "spaghetti" legado em Python moderno e
+                tipado.
+              </p>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <div class="text-xs font-bold text-red-500 mb-1">
+                    Antes (Legado)
+                  </div>
+                  <pre class="code-block text-xs"><code>def c(d, w, v):
+    b = 5.0
+    if d > 10: b += (d - 10) * 0.5
+    if w > 5: b *= 1.2
+    return b</code></pre>
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-green-500 mb-1">
+                    Depois (Com Copilot)
+                  </div>
+                  <pre
+                    class="code-block text-xs"
+                  ><code><span class="token-comment"># Constantes nomeadas para regras de negócio</span>
+BASE_FEE = 5.0
+DISTANCE_THRESHOLD = 10
+WEIGHT_MULTIPLIER = 1.2
+
+<span class="token-keyword">def</span> <span class="token-func">calculate_shipping</span>(
+    distance: float, 
+    weight: float
+) -> float:
+    <span class="token-string">"""Calcula frete com taxa de sobrepeso."""</span>
+    total = BASE_FEE
+    <span class="token-keyword">if</span> distance > DISTANCE_THRESHOLD:
+        total += (distance - 10) * 0.5
+    <span class="token-keyword">if</span> weight > 5:
+        total *= WEIGHT_MULTIPLIER
+    <span class="token-keyword">return</span> total</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Case 2 -->
+            <div class="step-card mb-10">
+              <h3 class="font-bold text-lg text-gray-800 mb-2">
+                Caso 2: Geração de Testes (Carrinho)
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Gerando cobertura para edge cases que humanos esquecem.
               </p>
               <pre
                 class="code-block"
-              ><code><span class="token-comment">// Prompt System: "Você tem acesso ao estoque via tool 'check_stock'"</span>
-<span class="token-comment">// User: "Tem Coca-zero?"</span>
+              ><code><span class="token-comment"># Prompt: Gere testes pytest parametrizados para validate_cart.</span>
+<span class="token-comment"># Cubra: Limite exato (19.99 vs 20), VIP, Negativos.</span>
 
-<span class="token-comment">// O Modelo decide chamar a função:</span>
-{
-  <span class="token-key">"tool"</span>: <span class="token-string">"check_stock"</span>,
-  <span class="token-key">"parameters"</span>: { <span class="token-key">"query"</span>: <span class="token-string">"Coca-Cola Zero"</span> }
-}
+<span class="token-keyword">import</span> pytest
 
-<span class="token-comment">// Backend executa SQL real:</span>
-<span class="token-keyword">SELECT</span> quantity <span class="token-keyword">FROM</span> products <span class="token-keyword">WHERE</span> name <span class="token-keyword">LIKE</span> <span class="token-string">'%Coca-Cola Zero%'</span>;
-<span class="token-comment">// Retorno: 0</span>
-
-<span class="token-comment">// Modelo responde: "Infelizmente a Coca Zero acabou agora."</span></code></pre>
+<span class="token-def">@pytest.mark.parametrize</span>(<span class="token-string">"cart_total, is_vip, expected"</span>, [
+    (19.99, <span class="token-keyword">False</span>, <span class="token-keyword">False</span>),  <span class="token-comment"># Abaixo do limite</span>
+    (20.00, <span class="token-keyword">False</span>, <span class="token-keyword">True</span>),   <span class="token-comment"># Limite exato (Edge case)</span>
+    (5.00, <span class="token-keyword">True</span>, <span class="token-keyword">True</span>),     <span class="token-comment"># VIP ignora minimo</span>
+    (-10.0, <span class="token-keyword">False</span>, <span class="token-def">ValueError</span>), <span class="token-comment"># Sanity check</span>
+])
+<span class="token-keyword">def</span> <span class="token-func">test_validate_cart_rules</span>(cart_total, is_vip, expected):
+    ...</code></pre>
             </div>
 
-            <!-- Cenario B -->
-            <div class="mb-8">
-              <h3 class="font-bold text-lg text-brand-700 mb-2">
-                Cenário B: Classificação (Alta Escala)
+            <!-- Case 3 -->
+            <div class="step-card">
+              <h3 class="font-bold text-lg text-gray-800 mb-2">
+                Caso 3: SQL Analytics Seguro
               </h3>
-              <p class="text-gray-600 mb-4 text-sm">
-                <strong>Problema:</strong> Processar 1 milhão de reviews custa
-                caro no GPT-4.<br />
-                <strong>Solução:</strong> Fine-tuning de um modelo pequeno
-                (Llama-3-8B). Ele aprende o formato JSON exato e roda em
-                hardware mais barato com latência de milissegundos.
+              <p class="text-sm text-gray-600 mb-4">
+                Passar o Schema DDL evita alucinação de nomes de colunas.
               </p>
+              <div class="bg-gray-50 p-3 rounded border border-gray-200 mb-2">
+                <span class="text-xs font-mono text-gray-500"
+                  >Prompt: "Aqui está o CREATE TABLE orders... Crie uma query
+                  para usuários que pediram Pizza e Hamburguer na mesma
+                  semana."</span
+                >
+              </div>
               <pre
                 class="code-block"
-              ><code><span class="token-comment"># Dataset de Treino (Fine-tuning)</span>
-{
-  <span class="token-key">"input"</span>: <span class="token-string">"O motoboy foi 10, mas a comida tava fria."</span>,
-  <span class="token-key">"output"</span>: <span class="token-string">"{ 'delivery': 'positive', 'food': 'negative' }"</span>
-}
-<span class="token-comment"># Após 500 exemplos, o modelo 8B faz isso tão bem quanto o GPT-4.</span></code></pre>
-            </div>
-
-            <!-- Cenario C -->
-            <div>
-              <h3 class="font-bold text-lg text-brand-700 mb-2">
-                Cenário C: Persona "Zequinha"
-              </h3>
-              <p class="text-gray-600 mb-4 text-sm">
-                <strong>Problema:</strong> Prompts longos descrevendo a persona
-                consomem tokens e o modelo às vezes "quebra o personagem".<br />
-                <strong>Solução:</strong> Fine-tuning para estilo. O modelo
-                "internaliza" que ele é o Zequinha. Isso protege contra
-                <em>jailbreaks</em> de estilo e economiza tokens de input.
-              </p>
+              ><code><span class="token-keyword">WITH</span> user_items <span class="token-keyword">AS</span> (
+    <span class="token-keyword">SELECT</span> o.user_id, i.product_name, o.created_at
+    <span class="token-keyword">FROM</span> orders o 
+    <span class="token-keyword">JOIN</span> order_items i <span class="token-keyword">ON</span> o.id = i.order_id
+)
+<span class="token-keyword">SELECT</span> <span class="token-keyword">DISTINCT</span> a.user_id 
+<span class="token-keyword">FROM</span> user_items a
+<span class="token-keyword">JOIN</span> user_items b <span class="token-keyword">ON</span> a.user_id = b.user_id
+<span class="token-keyword">WHERE</span> a.product_name = <span class="token-string">'Pizza'</span> 
+  <span class="token-keyword">AND</span> b.product_name = <span class="token-string">'Hamburguer'</span>
+  <span class="token-keyword">AND</span> b.created_at <span class="token-keyword">BETWEEN</span> a.created_at <span class="token-keyword">AND</span> a.created_at + INTERVAL <span class="token-string">'7 days'</span>;</code></pre>
             </div>
           </div>
         </section>
@@ -492,62 +749,62 @@
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
-            <span class="text-brand-600">5.</span> Métricas, Riscos e O Custo
-            Oculto
+            <span class="text-brand-600">5.</span> Métricas, Riscos e Boas
+            Práticas
           </h2>
 
-          <div class="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3 class="font-bold text-gray-800 mb-3">
-                O Custo Real do Fine-Tuning
-              </h3>
-              <p class="text-gray-600 mb-4 text-sm">
-                Muitos pensam que o custo é GPU.
-                <strong>O custo real é a Curadoria de Dados.</strong> Para o
-                Fine-Tuning funcionar, você precisa de um "Golden Dataset" (500+
-                exemplos perfeitos).
-              </p>
-              <div
-                class="bg-red-50 p-4 rounded border-l-4 border-red-500 text-sm text-red-800"
-              >
-                <strong>Risco: Catastrophic Forgetting</strong><br />
-                Ao treinar muito um modelo sobre "pizzas", ele pode esquecer
-                conhecimentos básicos de lógica ou linguagem. Sempre monitore a
-                performance em tarefas gerais.
-              </div>
-            </div>
+          <div class="overflow-x-auto mb-8">
+            <table class="min-w-full text-sm text-left">
+              <thead class="bg-red-50 text-red-900">
+                <tr>
+                  <th class="px-4 py-2">Risco</th>
+                  <th class="px-4 py-2">Problema Real</th>
+                  <th class="px-4 py-2">Solução Recomendada</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-4 py-2 font-bold">Alucinação de Pacotes</td>
+                  <td class="px-4 py-2">Sugere lib maliciosa/inexistente</td>
+                  <td class="px-4 py-2">
+                    Verificar PyPI/npm antes de instalar
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-bold">Viés de Automação</td>
+                  <td class="px-4 py-2">Aceitar código sem ler</td>
+                  <td class="px-4 py-2">Code Review humano obrigatório</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-bold">Vazamento de Dados</td>
+                  <td class="px-4 py-2">API Keys em chat público</td>
+                  <td class="px-4 py-2">Uso de ferramentas Enterprise</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
 
-            <div>
-              <h3 class="font-bold text-gray-800 mb-3">Dashboard de Evals</h3>
-              <p class="text-gray-600 mb-4 text-sm">
-                Nunca suba um modelo fine-tunado sem métricas comparativas.
-              </p>
-              <table class="w-full text-sm text-left">
-                <thead class="bg-gray-100 font-bold">
-                  <tr>
-                    <th class="p-2">Métrica</th>
-                    <th class="p-2">GPT-4 (Base)</th>
-                    <th class="p-2">Llama-8B (FT)</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y">
-                  <tr>
-                    <td class="p-2">JSON Válido</td>
-                    <td class="p-2 text-green-600">99.5%</td>
-                    <td class="p-2 text-green-600">99.2%</td>
-                  </tr>
-                  <tr>
-                    <td class="p-2">Estilo "Zequinha"</td>
-                    <td class="p-2 text-yellow-600">80%</td>
-                    <td class="p-2 text-green-600">98%</td>
-                  </tr>
-                  <tr>
-                    <td class="p-2">Custo / 1k req</td>
-                    <td class="p-2 text-red-600">$30.00</td>
-                    <td class="p-2 text-green-600">$0.20</td>
-                  </tr>
-                </tbody>
-              </table>
+          <div class="bg-brand-50 p-6 rounded-xl border border-brand-100">
+            <h3 class="font-bold text-brand-900 mb-2">
+              Checklist de Boas Práticas
+            </h3>
+            <div class="grid md:grid-cols-2 gap-2 text-sm text-brand-800">
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i> Revise
+                todo código gerado
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i> Use
+                contexto do projeto
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i> Teste
+                edge cases e negativos
+              </div>
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i> Proteja
+                dados sensíveis
+              </div>
             </div>
           </div>
         </section>
@@ -562,36 +819,64 @@
           >
             <span class="text-brand-600">6.</span> Evidence & Exploration
           </h2>
-          <p class="text-gray-600 mb-6">
-            Um experimento valioso para seu time de engenharia validar o ROI do
-            Fine-Tuning:
-          </p>
 
-          <div class="bg-brand-50 rounded-xl p-6 border border-brand-100">
-            <h3 class="font-bold text-brand-800 mb-4">
-              Experimento: Destilação de Conhecimento
-            </h3>
-            <ol
-              class="list-decimal list-inside space-y-3 text-brand-900 text-sm"
-            >
-              <li>
-                <strong>Dataset:</strong> Pegue 200 reviews de clientes reais.
-              </li>
-              <li>
-                <strong>Professor (GPT-4o):</strong> Use o modelo mais caro para
-                classificar esses reviews perfeitamente (gere o gabarito).
-              </li>
-              <li>
-                <strong>Aluno (Modelo Open-Source Pequeno):</strong> Use esses
-                200 exemplos para fazer Fine-Tuning de um modelo leve (ex:
-                Mistral ou Llama 3 8B).
-              </li>
-              <li>
-                <strong>Resultado:</strong> Frequentemente, o "Aluno" atinge a
-                mesma precisão do "Professor" nesta tarefa específica, mas
-                rodando localmente, mais rápido e sem custo por token.
-              </li>
-            </ol>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">Experimento A/B Real</h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Rodamos um teste em um time de delivery: metade com Copilot,
+                metade sem.
+              </p>
+              <ul class="space-y-3">
+                <li
+                  class="flex justify-between items-center bg-gray-50 p-2 rounded"
+                >
+                  <span class="text-sm">Tempo p/ Feature</span>
+                  <span class="font-bold text-green-600"
+                    >2.5d (Com)
+                    <span class="text-gray-400 font-normal">vs</span> 4.2d
+                    (Sem)</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center bg-gray-50 p-2 rounded"
+                >
+                  <span class="text-sm">Bugs em Prod</span>
+                  <span class="font-bold text-green-600"
+                    >1.2% (Com)
+                    <span class="text-gray-400 font-normal">vs</span> 2.8%
+                    (Sem)</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center bg-gray-50 p-2 rounded"
+                >
+                  <span class="text-sm">Cobertura Testes</span>
+                  <span class="font-bold text-green-600"
+                    >85% (Com)
+                    <span class="text-gray-400 font-normal">vs</span> 72%
+                    (Sem)</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                Log de Métrica (JSON)
+              </h3>
+              <pre class="code-block text-xs"><code>{
+  "dev_id": "u123",
+  "feature": "checkout-refactor",
+  "copilot_enabled": true,
+  "duration_days": 2.5,
+  "bugs_prod": 1,
+  "test_coverage": 88,
+  "timestamp": "2025-12-08T10:00:00Z"
+}</code></pre>
+              <p class="text-xs text-gray-500 mt-2">
+                Ferramentas: Mixpanel, Datadog.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -601,8 +886,10 @@
           class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
         >
           <div
-            class="absolute top-0 right-0 w-64 h-64 bg-brand-600 rounded-full opacity-30 blur-3xl -mr-16 -mt-16"
-          ></div>
+            class="absolute bottom-0 right-0 p-8 opacity-20 text-9xl transform translate-x-8 translate-y-8"
+          >
+            <i class="fas fa-cogs"></i>
+          </div>
 
           <h2
             class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
@@ -612,16 +899,14 @@
 
           <div class="relative z-10">
             <p class="text-brand-100 mb-6 italic text-lg">
-              "No hype da IA, todos querem treinar modelos. Na engenharia
-              robusta, 80% dos casos se resolvem com RAG bem arquitetado e bons
-              Prompts. Fine-tuning é uma ferramenta de otimização final, não o
-              ponto de partida."
+              "LLMs aceleram devs, mas só entregam valor real quando combinados
+              com engenharia clássica. O futuro do dev é ser orquestrador de
+              código, não digitador."
             </p>
-            <p class="text-brand-100 mb-6 text-sm">
-              Ao finalizar este artigo, a lição clara é que a arquitetura ideal
-              é híbrida. RAG traz os fatos, Fine-Tuning traz a forma, e
-              Prompting traz a flexibilidade. O engenheiro sênior sabe
-              orquestrar os três.
+            <p class="text-brand-100 text-sm mb-6">
+              A adoção de Copilots não é sobre substituir engenheiros, mas sobre
+              eliminar o "trabalho de robô" para que possamos focar em
+              arquitetura, segurança e regras de negócio complexas.
             </p>
           </div>
 
@@ -635,17 +920,35 @@
               <ul class="space-y-2 text-brand-100 text-sm">
                 <li>
                   <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
-                  Explorar LoRA (treino eficiente).
+                  Implementar auditoria de prompts.
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Usar
+                  ferramentas Enterprise para dados.
                 </li>
                 <li>
                   <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
-                  Aprofundar em Function Calling (Artigo 07).
-                </li>
-                <li>
-                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Estudar
-                  Frameworks de Eval (PromptFoo).
+                  Automatizar testes de regressão.
                 </li>
               </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Artigos Relacionados
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                <span class="px-3 py-1 bg-brand-800 rounded text-xs"
+                  >02 - Prompt Engineering</span
+                >
+                <span class="px-3 py-1 bg-brand-800 rounded text-xs"
+                  >10 - Testes Automatizados</span
+                >
+                <span class="px-3 py-1 bg-brand-800 rounded text-xs"
+                  >06 - Versionamento</span
+                >
+              </div>
             </div>
           </div>
         </section>
@@ -654,7 +957,10 @@
 
     <footer class="bg-white border-t border-gray-200 mt-12 py-8">
       <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-        <p>&copy; 2025 AI Engineering Series. Built with Strategy.</p>
+        <p>
+          &copy; 2025 AI Engineering Series. Built with
+          <i class="fas fa-heart text-red-400"></i> & Copilot.
+        </p>
       </div>
     </footer>
   </body>
