@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Do Modelo ao Produto: LLM em Apps de Entrega</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#f5f3ff",
+                100: "#ede9fe",
+                500: "#8b5cf6", // Roxo para diferenciar do azul do artigo anterior, ou manter azul. Mantive Roxo para "Engenharia/Produto"
+                600: "#7c3aed",
+                700: "#6d28d9",
+                900: "#4c1d95",
+              },
+              accent: {
+                50: "#ecfdf5",
+                600: "#059669",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #1e1e1e;
+        color: #d4d4d4;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #333;
+      }
+
+      .keyword {
+        color: #569cd6;
+      } /* Blue for keywords */
+      .string {
+        color: #ce9178;
+      } /* Orange for strings */
+      .function {
+        color: #dcdcaa;
+      } /* Yellow for functions */
+      .comment {
+        color: #6a9955;
+        font-style: italic;
+      } /* Green for comments */
+
+      .diagram-box {
+        background: white;
+        border: 2px solid #e5e7eb;
+        border-radius: 8px;
+        padding: 1rem;
+        text-align: center;
+        transition: all 0.3s ease;
+        position: relative;
+      }
+      .diagram-box:hover {
+        border-color: #7c3aed;
+        box-shadow: 0 4px 6px rgba(124, 58, 237, 0.1);
+        transform: translateY(-2px);
+      }
+      .arrow-right::after {
+        content: "→";
+        position: absolute;
+        right: -20px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: #9ca3af;
+        font-weight: bold;
+      }
+      @media (max-width: 768px) {
+        .arrow-right::after {
+          content: "↓";
+          right: 50%;
+          top: auto;
+          bottom: -25px;
+          transform: translateX(50%);
+        }
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-cubes"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">
+            LLM Product Engineering
+          </h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Do Modelo ao Produto
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-rocket w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-utensils w-6 text-brand-600"></i> Abordagem
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-book w-6 text-brand-600"></i> Conceitos
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-code w-6 text-brand-600"></i> Mão na Massa
+          </a>
+          <a
+            href="#risks"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-exclamation-triangle w-6 text-brand-600"></i>
+            Riscos & Métricas
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-chart-bar w-6 text-brand-600"></i> Evidências
+          </a>
+          <a
+            href="#reflections"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-lightbulb w-6 text-brand-600"></i> Reflexões
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section / Title -->
+        <div
+          class="bg-gradient-to-r from-brand-600 to-brand-800 rounded-2xl p-8 text-white shadow-lg"
+        >
+          <h1 class="text-3xl md:text-4xl font-bold mb-4">
+            Do modelo ao produto
+          </h1>
+          <p class="text-brand-100 text-lg mb-6">
+            Como uma API de LLM vira funcionalidade em um app de entrega.
+          </p>
+          <div
+            class="flex items-center gap-4 text-sm bg-white/10 p-4 rounded-lg backdrop-blur-sm"
+          >
+            <i class="fas fa-info-circle text-brand-200"></i>
+            <span
+              >De um protótipo rápido em Jupyter para uma feature robusta
+              lidando com latência e escala.</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              Nos últimos anos, integrar LLMs virou algo trivial: gere uma chave
+              de API, escreva poucas linhas de código e <em>voilà</em>. Mas em
+              um app de delivery processando milhares de pedidos por minuto,
+              isso é só o começo.
+            </p>
+            <p class="mb-6">
+              O grande desafio?
+              <strong class="text-gray-900"
+                >Transformar essa capacidade bruta em valor real para o
+                usuário</strong
+              >, sem quebrar o app com timeouts ou custos exorbitantes.
+            </p>
+
+            <!-- CSS Diagram: Pipeline -->
+            <div
+              class="bg-gray-50 p-6 rounded-xl border border-dashed border-gray-300"
+            >
+              <p
+                class="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-4"
+              >
+                Pipeline de Produção
+              </p>
+              <div
+                class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-4"
+              >
+                <div class="diagram-box arrow-right md:w-32">
+                  <i class="fas fa-flask text-brand-500 mb-2"></i
+                  ><br />Protótipo<br /><span class="text-xs text-gray-500"
+                    >Jupyter</span
+                  >
+                </div>
+                <div class="diagram-box arrow-right md:w-32">
+                  <i class="fas fa-code-branch text-brand-500 mb-2"></i
+                  ><br />Engenharia<br /><span class="text-xs text-gray-500"
+                    >API & Cache</span
+                  >
+                </div>
+                <div class="diagram-box md:w-32 border-brand-500 bg-brand-50">
+                  <i class="fas fa-box-open text-brand-600 mb-2"></i
+                  ><br />Produto<br /><span class="text-xs text-gray-500"
+                    >Feature Escalável</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem Prática
+            </h2>
+            <p class="text-gray-600 mb-6">
+              Caso de uso: <strong>Resumir avaliações de restaurantes</strong>.
+              Em vez de listar 50 reviews, geramos um parágrafo imparcial.
+            </p>
+
+            <div class="grid md:grid-cols-2 gap-4">
+              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
+                <h3 class="font-bold text-gray-800 mb-2">
+                  <i class="fas fa-list-ul mr-2 text-brand-500"></i>Estrutura
+                </h3>
+                <ul class="text-sm text-gray-600 space-y-2">
+                  <li>• <strong>Conceitos:</strong> Modelo vs Feature.</li>
+                  <li>• <strong>Arquitetura:</strong> Fluxo de dados.</li>
+                  <li>• <strong>Código:</strong> Python/FastAPI.</li>
+                  <li>• <strong>Produção:</strong> Riscos reais.</li>
+                </ul>
+              </div>
+              <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
+                <h3 class="font-bold text-blue-900 mb-2">
+                  <i class="fas fa-bullseye mr-2"></i>Objetivo
+                </h3>
+                <p class="text-sm text-blue-800">
+                  Demonstrar como lidar com latência, custo e confiabilidade em
+                  um cenário de alto tráfego.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos Fundamentais -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+          </h2>
+          <div class="overflow-x-auto">
+            <table class="min-w-full text-sm text-left border-collapse">
+              <thead
+                class="bg-gray-100 text-gray-700 uppercase font-bold text-xs"
+              >
+                <tr>
+                  <th class="px-6 py-3 rounded-tl-lg">Termo</th>
+                  <th class="px-6 py-3">Definição</th>
+                  <th class="px-6 py-3 rounded-tr-lg">Contexto de Delivery</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 font-semibold text-brand-700">
+                    O Modelo (LLM)
+                  </td>
+                  <td class="px-6 py-4">
+                    O "cérebro" (GPT-4, Llama 3). Stateless.
+                  </td>
+                  <td class="px-6 py-4 text-gray-600">
+                    A engine que processa o texto.
+                  </td>
+                </tr>
+                <tr class="bg-gray-50">
+                  <td class="px-6 py-4 font-semibold text-brand-700">
+                    A Feature
+                  </td>
+                  <td class="px-6 py-4">O pacote completo de software.</td>
+                  <td class="px-6 py-4 text-gray-600">
+                    Busca no DB + Prompts + API + UI.
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-semibold text-brand-700">
+                    Context Window
+                  </td>
+                  <td class="px-6 py-4">
+                    Limite de tokens processados de uma vez.
+                  </td>
+                  <td class="px-6 py-4 text-gray-600">
+                    Foque nas últimas 20 avaliações.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-sm text-yellow-800"
+          >
+            <strong>Mudança de Mindset:</strong> Pare de tratar o LLM como
+            oráculo. Veja-o como um componente transformador de texto em um
+            pipeline clássico.
+          </div>
+        </section>
+
+        <!-- 4. Mão na Massa -->
+        <section
+          id="hands-on"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">4.</span> Mão na Massa: Implementação
+          </h2>
+
+          <!-- Visual Flow -->
+          <div class="mb-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
+            <div
+              class="flex flex-wrap justify-center items-center gap-4 text-sm font-semibold text-slate-600"
+            >
+              <div
+                class="bg-white p-3 rounded shadow-sm border border-slate-300"
+              >
+                App (Client)
+              </div>
+              <i class="fas fa-arrow-right text-slate-400"></i>
+              <div
+                class="bg-white p-3 rounded shadow-sm border border-slate-300"
+              >
+                Backend API
+              </div>
+              <i class="fas fa-arrow-right text-slate-400"></i>
+              <div class="flex flex-col gap-2">
+                <div
+                  class="bg-brand-100 text-brand-700 p-2 rounded border border-brand-200 text-center text-xs"
+                >
+                  DB (Reviews)
+                </div>
+                <div
+                  class="bg-green-100 text-green-700 p-2 rounded border border-green-200 text-center text-xs"
+                >
+                  OpenAI API
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h3 class="font-bold text-gray-800">Código: Endpoint FastAPI</h3>
+            <pre class="code-block"><code><span class="keyword">import</span> os
+<span class="keyword">from</span> typing <span class="keyword">import</span> List
+<span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI, HTTPException
+<span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI
+
+app = FastAPI()
+client = OpenAI(api_key=os.getenv(<span class="string">"OPENAI_API_KEY"</span>))
+
+<span class="comment"># Simulação de busca no banco</span>
+<span class="keyword">def</span> <span class="function">get_recent_reviews</span>(restaurant_id: str) -> List[str]:
+    <span class="keyword">return</span> [
+        <span class="string">"A comida chegou fria, mas estava saborosa."</span>,
+        <span class="string">"Entrega super rápida! O sushi estava fresco."</span>
+    ]
+
+<span class="keyword">def</span> <span class="function">generate_summary_prompt</span>(reviews: List[str]) -> str:
+    reviews_text = <span class="string">"\n"</span>.join([<span class="string">f"- {r}"</span> <span class="keyword">for</span> r <span class="keyword">in</span> reviews])
+    <span class="keyword">return</span> <span class="string">f"""
+    Você é um assistente de delivery. Resuma em 3 linhas:
+    Avaliações: {reviews_text}
+    """</span>
+
+<span class="keyword">@app.get</span>(<span class="string">"/restaurants/{restaurant_id}/reviews/summary"</span>)
+<span class="keyword">async def</span> <span class="function">get_review_summary</span>(restaurant_id: str):
+    <span class="keyword">try</span>:
+        reviews = get_recent_reviews(restaurant_id)
+        <span class="keyword">if not</span> reviews:
+            <span class="keyword">return</span> {<span class="string">"summary"</span>: <span class="string">"Sem avaliações suficientes."</span>}
+
+        prompt = generate_summary_prompt(reviews)
+
+        <span class="comment"># Chamada ao LLM</span>
+        response = client.chat.completions.create(
+            model=<span class="string">"gpt-3.5-turbo"</span>,
+            messages=[{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: prompt}],
+            max_tokens=150,
+            temperature=0.5
+        )
+
+        <span class="keyword">return</span> {
+            <span class="string">"restaurant_id"</span>: restaurant_id,
+            <span class="string">"summary"</span>: response.choices[0].message.content.strip()
+        }
+
+    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
+        <span class="keyword">raise</span> HTTPException(status_code=503, detail=<span class="string">"Indisponível"</span>)</code></pre>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e Riscos -->
+        <section
+          id="risks"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Métricas, Riscos e Boas
+            Práticas
+          </h2>
+
+          <div class="grid md:grid-cols-3 gap-6 mb-8">
+            <!-- Card 1 -->
+            <div class="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-lg">
+              <div class="flex items-center gap-2 mb-2 text-red-700 font-bold">
+                <i class="fas fa-stopwatch"></i> Latência
+              </div>
+              <p class="text-xs text-red-800 mb-2">
+                Chamadas de 2-10s geram abandono.
+              </p>
+              <div
+                class="text-xs bg-white p-2 rounded font-mono border border-red-200"
+              >
+                Solução: Cache (Redis) 24h.
+              </div>
+            </div>
+            <!-- Card 2 -->
+            <div
+              class="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded-r-lg"
+            >
+              <div
+                class="flex items-center gap-2 mb-2 text-yellow-700 font-bold"
+              >
+                <i class="fas fa-dollar-sign"></i> Custos
+              </div>
+              <p class="text-xs text-yellow-800 mb-2">
+                Milhares de chamadas explodem a conta.
+              </p>
+              <div
+                class="text-xs bg-white p-2 rounded font-mono border border-yellow-200"
+              >
+                Solução: Rate Limiting & GPT-3.5
+              </div>
+            </div>
+            <!-- Card 3 -->
+            <div
+              class="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg"
+            >
+              <div
+                class="flex items-center gap-2 mb-2 text-green-700 font-bold"
+              >
+                <i class="fas fa-shield-alt"></i> Confiabilidade
+              </div>
+              <p class="text-xs text-green-800 mb-2">API cai ou alucina.</p>
+              <div
+                class="text-xs bg-white p-2 rounded font-mono border border-green-200"
+              >
+                Solução: Circuit Breaker
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence & Exploration
+          </h2>
+
+          <div class="space-y-8">
+            <!-- Teste 1 -->
+            <div class="bg-gray-50 rounded-xl p-6 border border-gray-200">
+              <h3 class="font-bold text-lg mb-2 text-gray-800">
+                Teste 1: A/B Testing Controlado
+              </h3>
+              <p class="text-sm text-gray-600 mb-4">
+                Metodologia: Grupo A (IA Summary) vs Grupo B (Lista Bruta).
+              </p>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <h4 class="text-xs font-bold uppercase text-gray-500 mb-2">
+                    Métricas a rastrear
+                  </h4>
+                  <ul class="text-sm space-y-1 text-gray-700">
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i>CTR na
+                      página
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i>Tempo
+                      médio gasto
+                    </li>
+                    <li>
+                      <i class="fas fa-check text-green-500 mr-2"></i>Taxa de
+                      conversão (+15-25% esperado)
+                    </li>
+                  </ul>
+                </div>
+                <div>
+                  <h4 class="text-xs font-bold uppercase text-gray-500 mb-2">
+                    SQL Analytics
+                  </h4>
+                  <pre
+                    class="code-block p-2 text-xs"
+                  ><code>SELECT variant, COUNT(*) 
+FROM feature_metrics 
+WHERE action='purchase' 
+GROUP BY variant;</code></pre>
+                </div>
+              </div>
+            </div>
+
+            <!-- Teste 2 & 3 Combined -->
+            <div class="grid md:grid-cols-2 gap-6">
+              <div
+                class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm"
+              >
+                <h3 class="font-bold text-gray-800 mb-3">Feedback Loop</h3>
+                <div class="flex gap-2 mb-3">
+                  <button
+                    class="bg-gray-100 px-3 py-1 rounded text-sm hover:bg-green-100 border"
+                  >
+                    <i class="fas fa-thumbs-up text-green-600"></i> Útil
+                  </button>
+                  <button
+                    class="bg-gray-100 px-3 py-1 rounded text-sm hover:bg-red-100 border"
+                  >
+                    <i class="fas fa-thumbs-down text-red-600"></i> Não útil
+                  </button>
+                </div>
+                <p class="text-xs text-gray-500">
+                  Se dislike rate > 10%, ative fallback para reviews brutos.
+                </p>
+              </div>
+
+              <div
+                class="bg-white border border-gray-200 rounded-xl p-5 shadow-sm"
+              >
+                <h3 class="font-bold text-gray-800 mb-3">
+                  Monitoramento de Custos
+                </h3>
+                <ul class="text-xs space-y-2 font-mono text-gray-600">
+                  <li class="flex justify-between">
+                    <span>Custo Total/Dia:</span>
+                    <span class="font-bold">$500</span>
+                  </li>
+                  <li class="flex justify-between">
+                    <span>Latência P95:</span>
+                    <span class="font-bold text-red-500">2300ms</span>
+                  </li>
+                  <li class="flex justify-between">
+                    <span>Taxa de Erro:</span>
+                    <span class="font-bold">0.2%</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <!-- Decorative background element -->
+          <div
+            class="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-brand-800 rounded-full opacity-50 blur-3xl"
+          ></div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <blockquote
+            class="text-lg italic font-light mb-8 border-l-4 border-brand-400 pl-4 relative z-10"
+          >
+            "Como dev, aprendi que 90% do sucesso com IA é engenharia clássica:
+            cache, monitoramento, resiliência. O prompt é o tempero. Sem base
+            sólida, não escala."
+          </blockquote>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10">
+            <div>
+              <h3
+                class="font-bold text-brand-300 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Artigos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-bookmark w-5"></i> Prompt Engineering com
+                  PACE
+                </li>
+                <li>
+                  <i class="fas fa-bookmark w-5"></i> RAG (Retrieval-Augmented
+                  Generation)
+                </li>
+                <li>
+                  <i class="fas fa-bookmark w-5"></i> Design de APIs para LLM
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3
+                class="font-bold text-brand-300 mb-3 uppercase tracking-wider text-sm"
+              >
+                To-Do List
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="far fa-square w-5"></i> Clone o código e teste com
+                  chave OpenAI.
+                </li>
+                <li>
+                  <i class="far fa-square w-5"></i> Implemente cache Redis
+                  (ganho de 5x).
+                </li>
+                <li>
+                  <i class="far fa-square w-5"></i> Configure Circuit Breaker.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>
+          &copy; 2025 LLM Engineering Series. Construído com
+          <i class="fas fa-heart text-red-400"></i> e IA.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>

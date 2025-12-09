@@ -93,12 +93,107 @@ Se você fez um Fine-Tuning do Llama-3, não troque o modelo de uma vez.
 
 ## 6. Evidence & Exploration
 
-Ferramentas como **MLflow** (open source) ou **Weights & Biases** são excelentes para rastrear experimentos.
-Para serving, **vLLM** ou **TGI (Text Generation Inference)** são o estado da arte para rodar modelos open source com alta performance.
+### Teste Prático 1: CI/CD para Prompts
+
+Implemente o GitHub Actions acima e faça um teste:
+
+```bash
+# 1. Altere o prompt
+git add prompts/recommendation.yaml
+git commit -m "Teste: mais detalhado"
+git push
+
+# 2. GitHub Actions:
+#    - Instala dependências
+#    - Roda pytest (LLM-as-a-Judge)
+#    - Se passar, faz deploy para staging
+#    - Se falhar, bloqueia e notifica no Slack
+
+# 3. Resultado: Nenhuma versão quebrada entra em produção
+```
+
+### Teste Prático 2: Blue/Green Deployment
+
+Você treinou uma versão fine-tuned do Llama-3. Como rodar os dois modelos em paralelo?
+
+```python
+# Histórico de versões no Model Registry
+models = {
+    "blue": "/models/recommendation.v1",  # modelo antigo
+    "green": "/models/recommendation.v2", # modelo novo
+}
+
+# Roteamento gradual
+if user.id % 100 < 1:  # 1% dos usuários
+    model_version = "green"
+else:
+    model_version = "blue"
+
+response = models[model_version].generate(prompt)
+```
+
+**Métricas a monitorar:**
+
+- Latência: Green é mais lento que Blue?
+- Taxa de erro: Green tem mais erros?
+- Custo: Green é mais caro (mais tokens)?
+
+Se tudo bem após 24h em 1% do tráfego, suba para 10%, depois 50%, depois 100%.
+
+### Teste Prático 3: Feedback Loop
+
+Dentro de 1 dia de deployment:
+
+1. Pegue 100 conversas com score < 0 (dislike)
+2. Analise os padrões
+3. Itere no prompt/modelo
+4. Submeta a próxima versão
+
+**Exemplo de padrão encontrado:**
+
+- "30% dos dislikes são sobre restaurantes fechados não sendo mencionados como opção."
+- Ação: Adicione contexto de horário de funcionamento ao prompt
+
+### Ferramentas Recomendadas
+
+- **MLflow**: Registry centralizado, fácil deploy
+- **Weights & Biases**: Visualização linda de experimentos
+- **vLLM**: Serve modelos open source com cache de prompts (até 20x mais rápido)
+- **Kubeflow**: Se você tem K8s e precisa de orquestração complexa
 
 ## 7. Reflexões Pessoais & Próximos Passos
 
-LLMOps é a disciplina que transforma "mágica" em "engenharia confiável". Sem isso, você tem um brinquedo, não um produto.
-Mas monitorar infraestrutura não é suficiente. Precisamos monitorar a **qualidade do texto** gerado.
+### A Lição: "Just Push It" Não Funciona para IA
 
-No próximo artigo, vamos aprofundar em **Monitorando a Qualidade das Respostas**: como saber se o bot está falando bobagem sem ler 1 milhão de mensagens.
+LLMOps transforma "mágica" em **engenharia confiável**. Sem isso:
+
+- Você implanta um novo modelo e quebra a produção
+- Ninguém sabe qual versão está rodando onde
+- Rollback é uma aula de "O que deu errado?"
+
+Com LLMOps:
+
+- Cada versão é auditável
+- Blue/Green minimiza risco
+- Feedback loop acelera iteração
+
+Pense em LLMOps como a infraestrutura que permite **confiança em mudança**.
+
+### Conectando com a Série
+
+Agora temos:
+
+- ✅ Prompts versionados (Artigo 06)
+- ✅ APIs resilientes (Artigo 07-08)
+- ✅ Arquitetura escalável (Artigo 09-10)
+- ✅ Pipeline de deploy confiável (Artigo 11)
+
+Mas como saber se o modelo que deployou está realmente melhor? Não é só latência. É **qualidade da resposta**.
+
+### Próximos Passos
+
+1. **Configure um Model Registry**: MLflow local (5 minutos de setup).
+2. **Implemente CI/CD para prompts**: GitHub Actions (30 minutos).
+3. **Teste Blue/Green**: Com um modelo dummy (1 hora).
+4. **Meça tudo**: Latência, erro, custo, satisfação do usuário.
+5. **Leia o Artigo 12**: Vamos falar sobre **Monitorando Qualidade das Respostas**: porque código verde no Grafana não significa que o bot está falando a verdade.

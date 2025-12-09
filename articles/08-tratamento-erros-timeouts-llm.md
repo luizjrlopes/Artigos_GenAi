@@ -94,14 +94,124 @@ def truncate_text(text, max_tokens=3000):
 
 ## 6. Evidence & Exploration
 
-Simule erros em ambiente de staging.
+### Teste Prático 1: Simulação de Falhas
 
-- Bloqueie a URL da OpenAI no firewall e veja se o app trava ou mostra a mensagem de fallback.
-- Force um erro de Rate Limit e verifique nos logs se o _backoff_ está funcionando (os timestamps das tentativas devem estar espaçados).
+Implemente em um ambiente de staging:
+
+**Bloqueie a URL da OpenAI no Firewall:**
+
+```bash
+# No seu firewall/proxy, rejeite conexões para api.openai.com
+# ou simule timeout alterando o hosts file
+```
+
+**Verifique o comportamento:**
+
+- ❌ App trava ou mostra "Error 500"?
+- ✅ App mostra fallback gracioso em segundos?
+
+**Métrica esperada:**
+
+```
+Sem retry: 1 tentativa, ~30s de timeout, erro ao usuário
+Com retry + backoff: 3 tentativas, ~15s total, fallback em 20s
+```
+
+### Teste Prático 2: Rate Limit Simulado
+
+Você tem limite de 100 requests/minuto na OpenAI. Com 50 usuários simultâneos, você ultrapassa. O que acontece?
+
+```python
+from unittest.mock import patch
+import openai
+
+def test_rate_limit_handling():
+    # Simula erro 429 nas 2 primeiras tentativas
+    with patch('openai.chat.completions.create') as mock:
+        mock.side_effect = [
+            openai.RateLimitError("Rate limit exceeded"),
+            openai.RateLimitError("Rate limit exceeded"),
+            {"choices": [{"message": {"content": "Sucesso na 3ª tentativa"}}]}
+        ]
+
+        response = call_llm_robust("Teste")
+        assert mock.call_count == 3  # 3 tentativas
+        assert "Sucesso" in response
+```
+
+**Logs esperados:**
+
+```
+[10:30:00] Tentativa 1 - RateLimitError
+[10:30:01] Esperando 1.2s...
+[10:30:01] Tentativa 2 - RateLimitError
+[10:30:03] Esperando 3.8s...
+[10:30:07] Tentativa 3 - Success
+```
+
+O espaçamento exponencial é evidente.
+
+### Teste Prático 3: Context Window Overflow
+
+Você pede um resumo de 10,000 reviews. O LLM reclama:
+
+```json
+{
+  "error": {
+    "message": "This model's maximum context length is 8192 tokens",
+    "type": "invalid_request_error"
+  }
+}
+```
+
+Com truncamento automático:
+
+```python
+@retry(...)
+def safe_summarize(reviews_text):
+    # Trunca para 6000 tokens antes de enviar (deixa margem)
+    safe_text = truncate_text(reviews_text, max_tokens=6000)
+    return call_llm_robust(f"Resuma: {safe_text}")
+
+# Teste: enviando 20,000 tokens de reviews
+big_text = "review 1... " * 2000
+summary = safe_summarize(big_text)  # Vai truncar para 6000 e não vai dar erro
+```
+
+### Ferramentas de Observabilidade
+
+- **Sentry**: Capture exceções e veja padrões de erro
+- **Datadog APM**: Rastreie latência de retries
+- **OpenTelemetry**: Instrumente cada tentativa com spans (visibilidade completa)
+- **Custom Logging**: Log estruturado com `attempt_number`, `wait_time`, `error_type`
 
 ## 7. Reflexões Pessoais & Próximos Passos
 
-Resiliência é o que separa demos de produtos. Em demos, se der erro, você dá F5. Em produtos, se der erro, o usuário vai para o concorrente.
-Agora que nossa aplicação é robusta, precisamos garantir que ela seja escalável e reativa.
+### A Lição: Código Defensivo é Código Honesto
 
-No próximo artigo, vamos explorar **Arquiteturas Event-Driven para IA**: como desacoplar completamente a geração de texto do fluxo principal do usuário.
+Resiliência é o que separa demos de produtos reais. Em demos, se der erro, você dá F5 e ninguém vê. Em produção, se der erro, o usuário:
+
+1. Vê uma tela branca
+2. Tenta de novo (desperdiça dados)
+3. Vai para o concorrente
+
+Implementar retry + backoff exponencial + fallbacks não é "over-engineering"—é **respeito pelo usuário**.
+
+A linha entre "código que funciona" e "código que o usuário confia" é feita de tratamento de erros.
+
+### Conectando com a Série
+
+Agora temos:
+
+- ✅ Prompts versionados (Artigo 06)
+- ✅ APIs bem desenhadas (Artigo 07)
+- ✅ Tratamento de erro robusto (Artigo 08)
+
+Mas se você está fazendo tudo em **request/response síncrono**, não vai escalar. Quando um usuário gera um relatório de 1GB de dados, ele não pode esperar 5 minutos com a conexão aberta.
+
+### Próximos Passos
+
+1. **Implemente retry + backoff hoje**: Copie o código do decorator acima.
+2. **Teste falhas**: Bloqueie a API, force rate limits, veja o comportamento.
+3. **Meça**: MTTR (Mean Time To Recovery), latência P99, taxa de erro.
+4. **Leia o Artigo 09**: Vamos falar sobre **Arquiteturas Event-Driven para IA**: como desacoplar completamente a geração de texto do fluxo de requisição do usuário. Porque nem tudo precisa ser síncrono.

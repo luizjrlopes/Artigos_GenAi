@@ -4,7 +4,7 @@
   <img src="../img/artigo_3/capa.png" alt="Capa: RAG com cardápios" width="70%">
 </div>
 
-## 1. Contexto e Propósito (Purpose)
+## 1. Contexto e Propósito
 
 Imagine que você pergunte ao ChatGPT: "Quanto custa o X-Bacon no 'Lanches do Zé' em São Paulo?". O modelo provavelmente vai alucinar um preço ou dizer que não sabe. Por quê? Porque o LLM foi treinado com dados da internet até uma data de corte, e ele não tem acesso em tempo real ao banco de dados do seu aplicativo de delivery.
 
@@ -12,7 +12,7 @@ Além disso, cardápios mudam. Preços sobem, ingredientes acabam. Não faz sent
 
 O propósito deste artigo é apresentar o padrão arquitetural RAG (Retrieval-Augmented Generation). É a técnica padrão de mercado para conectar a capacidade linguística da IA com os dados proprietários e dinâmicos do seu negócio (como cardápios, estoque e políticas de cancelamento).
 
-## 2. Abordagem (Approach)
+## 2. Abordagem
 
 Vamos construir mentalmente (e com código) um assistente de pedidos que conhece o cardápio de um restaurante específico.
 

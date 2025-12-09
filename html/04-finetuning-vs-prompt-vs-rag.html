@@ -1,0 +1,661 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Fine-tuning vs Prompt vs RAG: Framework de Decisão</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#fff1f2",
+                100: "#ffe4e6",
+                500: "#f43f5e",
+                600: "#e11d48", // Rose 600 - Strategy/Decision theme
+                700: "#be123c",
+                900: "#881337",
+              },
+              tech: {
+                50: "#f0f9ff",
+                600: "#0284c7",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #1c1917; /* Stone 900 */
+        color: #d6d3d1;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #44403c;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-keyword {
+        color: #f43f5e;
+      } /* Rose */
+      .token-string {
+        color: #fcd34d;
+      } /* Amber */
+      .token-comment {
+        color: #78716c;
+        font-style: italic;
+      } /* Stone 500 */
+      .token-key {
+        color: #60a5fa;
+      } /* Blue */
+
+      .diagram-node {
+        background: white;
+        border: 2px solid #e5e7eb;
+        padding: 1rem;
+        border-radius: 8px;
+        text-align: center;
+        transition: all 0.3s;
+        position: relative;
+      }
+      .diagram-node:hover {
+        border-color: #e11d48;
+        box-shadow: 0 4px 6px rgba(225, 29, 72, 0.1);
+        transform: translateY(-2px);
+      }
+
+      /* Connector Lines using pseudo-elements for visual tree */
+      .connector-down {
+        position: absolute;
+        bottom: -20px;
+        left: 50%;
+        width: 2px;
+        height: 20px;
+        background-color: #d1d5db;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-network-wired"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">
+            LLM Strategy Framework
+          </h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Engenharia de IA
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-compass w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-route w-6 text-brand-600"></i> Abordagem
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-brain w-6 text-brand-600"></i> Conceitos
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-code-branch w-6 text-brand-600"></i> Cenários
+            Práticos
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-chart-pie w-6 text-brand-600"></i> Métricas &
+            Custos
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-flask w-6 text-brand-600"></i> Evidências
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-br from-brand-700 to-brand-900 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div class="absolute right-0 top-0 p-4 opacity-10 text-9xl">
+            <i class="fas fa-chess-queen"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            Fine-tuning vs Prompt vs RAG
+          </h1>
+          <p class="text-brand-100 text-lg mb-6 relative z-10">
+            O Framework de Decisão Definitivo.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/20 px-3 py-1 rounded-full text-sm backdrop-blur-sm border border-white/30"
+              >Build vs Buy</span
+            >
+            <span
+              class="bg-white/20 px-3 py-1 rounded-full text-sm backdrop-blur-sm border border-white/30"
+              >Cost Optimization</span
+            >
+            <span
+              class="bg-white/20 px-3 py-1 rounded-full text-sm backdrop-blur-sm border border-white/30"
+              >System Design</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              Uma das dúvidas mais comuns em times de engenharia que estão
+              começando com GenAI é:
+              <em>"Devemos treinar nosso próprio modelo?"</em>. A resposta curta
+              quase sempre é não (ou pelo menos, "ainda não"). A resposta longa
+              envolve entender profundamente as compensações de engenharia.
+            </p>
+            <p class="mb-4">
+              Em um ecossistema complexo como um aplicativo de delivery,
+              enfrentamos problemas de natureza distinta que exigem ferramentas
+              distintas. Temos
+              <strong>cardápios que mudam a cada minuto</strong> (dados
+              dinâmicos incompatíveis com treino estático), a necessidade de um
+              <strong>tom de voz consistente no suporte</strong> (estilo rígido)
+              e a tarefa de extrair dados de
+              <strong>milhares de avaliações</strong> diariamente (onde o custo
+              por token importa muito).
+            </p>
+            <p class="mb-6">
+              Tentar resolver tudo apenas com Prompt Engineering fica caro e
+              lento. Tentar resolver tudo com Fine-Tuning é um pesadelo de
+              manutenção. O propósito deste artigo é criar um
+              <strong>framework de decisão</strong> claro. Vamos entender quando
+              usar a ferramenta mais barata (Prompting), a mais confiável para
+              fatos (RAG) ou a mais especializada (Fine-Tuning), e como a
+              arquitetura ideal combina as três.
+            </p>
+            <div class="bg-brand-50 border-l-4 border-brand-500 p-4">
+              <strong class="text-brand-900">A Decisão de Engenharia:</strong>
+              Não é sobre "qual é o melhor modelo", mas sobre "qual arquitetura
+              resolve o problema com o menor custo e maior confiabilidade".
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: Cenários Reais
+            </h2>
+            <p class="text-gray-600 mb-6">
+              Para sair da teoria, vamos aplicar nosso framework em três
+              cenários clássicos de delivery:
+            </p>
+
+            <div class="grid md:grid-cols-3 gap-6">
+              <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                <div class="text-brand-600 font-bold mb-2">
+                  Cenário A: Dinâmico
+                </div>
+                <h3 class="font-bold text-gray-900 text-sm mb-2">
+                  Dúvidas de Cardápio
+                </h3>
+                <p class="text-xs text-gray-600">
+                  "Tem Coca hoje?" - Dados mudam em tempo real. Requer acesso ao
+                  banco SQL.
+                </p>
+              </div>
+              <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                <div class="text-brand-600 font-bold mb-2">
+                  Cenário B: Repetitivo
+                </div>
+                <h3 class="font-bold text-gray-900 text-sm mb-2">
+                  Classificação de Reviews
+                </h3>
+                <p class="text-xs text-gray-600">
+                  Converter texto em tags JSON em alta escala. Custo e latência
+                  são vitais.
+                </p>
+              </div>
+              <div class="bg-gray-50 p-5 rounded-xl border border-gray-200">
+                <div class="text-brand-600 font-bold mb-2">
+                  Cenário C: Estilo
+                </div>
+                <h3 class="font-bold text-gray-900 text-sm mb-2">
+                  Mascote "Zequinha"
+                </h3>
+                <p class="text-xs text-gray-600">
+                  Chatbot com personalidade forte e gírias. Requer consistência
+                  de persona.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos e Framework
+          </h2>
+
+          <div class="mb-8 space-y-4 text-gray-600">
+            <p>
+              <strong>1. Prompt Engineering (In-Context Learning):</strong> É
+              ensinar o modelo no momento da interação. Rápido, mas efêmero. Com
+              janelas de contexto de 1M+ tokens, muitos problemas de "memória"
+              são resolvidos aqui, mas o custo por token aumenta linearmente.
+            </p>
+            <p>
+              <strong>2. RAG (Retrieval-Augmented Generation):</strong> Conecta
+              o modelo a dados externos (VectorDB ou SQL). O modelo não
+              "aprende" o dado, ele consulta. É a única solução viável para
+              dados que mudam frequentemente.
+            </p>
+            <p>
+              <strong>3. Fine-Tuning (Parametric Memory):</strong> Altera os
+              pesos da rede neural. Especializa o modelo em um formato ou
+              estilo. Ideal para reduzir custos (usando modelos menores) ou
+              fixar comportamentos complexos que prompts ignoram.
+            </p>
+          </div>
+
+          <!-- Visual Decision Tree -->
+          <div
+            class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 overflow-x-auto flex justify-center"
+          >
+            <div class="flex flex-col items-center min-w-[500px]">
+              <!-- Root -->
+              <div
+                class="diagram-node bg-gray-800 text-white border-gray-900 w-48 mb-8 z-10"
+              >
+                Qual é o gargalo?
+                <div class="connector-down h-8"></div>
+              </div>
+
+              <!-- Level 1 -->
+              <div class="flex gap-8 mb-8 w-full justify-center">
+                <div class="flex flex-col items-center w-1/3">
+                  <div class="diagram-node w-full">Falta Conhecimento?</div>
+                  <div
+                    class="h-6 border-l-2 border-dashed border-gray-300 my-2"
+                  ></div>
+                  <div
+                    class="diagram-node bg-brand-100 border-brand-300 w-full font-bold text-brand-800"
+                  >
+                    Use RAG
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Dados novos/privados
+                  </div>
+                </div>
+
+                <div class="flex flex-col items-center w-1/3">
+                  <div class="diagram-node w-full">Falta Estilo/Formato?</div>
+                  <div
+                    class="h-6 border-l-2 border-dashed border-gray-300 my-2"
+                  ></div>
+                  <div
+                    class="diagram-node bg-purple-100 border-purple-300 w-full font-bold text-purple-800"
+                  >
+                    Use Fine-Tuning
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">
+                    Personalidade/JSON
+                  </div>
+                </div>
+
+                <div class="flex flex-col items-center w-1/3">
+                  <div class="diagram-node w-full">Tarefa Genérica?</div>
+                  <div
+                    class="h-6 border-l-2 border-dashed border-gray-300 my-2"
+                  ></div>
+                  <div
+                    class="diagram-node bg-green-100 border-green-300 w-full font-bold text-green-800"
+                  >
+                    Use Prompting
+                  </div>
+                  <div class="text-xs text-gray-500 mt-1">Comece aqui</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Mão na Massa -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: Soluções
+              Práticas
+            </h2>
+
+            <!-- Cenario A -->
+            <div class="mb-8">
+              <h3 class="font-bold text-lg text-brand-700 mb-2">
+                Cenário A: Dúvidas de Cardápio (Dados Dinâmicos)
+              </h3>
+              <p class="text-gray-600 mb-4 text-sm">
+                <strong>Problema:</strong> Se o estoque de Coca-Cola acabar
+                agora, o modelo precisa saber agora. Fine-tuning é inútil
+                aqui.<br />
+                <strong>Solução:</strong> RAG com Function Calling (SQL).
+              </p>
+              <pre
+                class="code-block"
+              ><code><span class="token-comment">// Prompt System: "Você tem acesso ao estoque via tool 'check_stock'"</span>
+<span class="token-comment">// User: "Tem Coca-zero?"</span>
+
+<span class="token-comment">// O Modelo decide chamar a função:</span>
+{
+  <span class="token-key">"tool"</span>: <span class="token-string">"check_stock"</span>,
+  <span class="token-key">"parameters"</span>: { <span class="token-key">"query"</span>: <span class="token-string">"Coca-Cola Zero"</span> }
+}
+
+<span class="token-comment">// Backend executa SQL real:</span>
+<span class="token-keyword">SELECT</span> quantity <span class="token-keyword">FROM</span> products <span class="token-keyword">WHERE</span> name <span class="token-keyword">LIKE</span> <span class="token-string">'%Coca-Cola Zero%'</span>;
+<span class="token-comment">// Retorno: 0</span>
+
+<span class="token-comment">// Modelo responde: "Infelizmente a Coca Zero acabou agora."</span></code></pre>
+            </div>
+
+            <!-- Cenario B -->
+            <div class="mb-8">
+              <h3 class="font-bold text-lg text-brand-700 mb-2">
+                Cenário B: Classificação (Alta Escala)
+              </h3>
+              <p class="text-gray-600 mb-4 text-sm">
+                <strong>Problema:</strong> Processar 1 milhão de reviews custa
+                caro no GPT-4.<br />
+                <strong>Solução:</strong> Fine-tuning de um modelo pequeno
+                (Llama-3-8B). Ele aprende o formato JSON exato e roda em
+                hardware mais barato com latência de milissegundos.
+              </p>
+              <pre
+                class="code-block"
+              ><code><span class="token-comment"># Dataset de Treino (Fine-tuning)</span>
+{
+  <span class="token-key">"input"</span>: <span class="token-string">"O motoboy foi 10, mas a comida tava fria."</span>,
+  <span class="token-key">"output"</span>: <span class="token-string">"{ 'delivery': 'positive', 'food': 'negative' }"</span>
+}
+<span class="token-comment"># Após 500 exemplos, o modelo 8B faz isso tão bem quanto o GPT-4.</span></code></pre>
+            </div>
+
+            <!-- Cenario C -->
+            <div>
+              <h3 class="font-bold text-lg text-brand-700 mb-2">
+                Cenário C: Persona "Zequinha"
+              </h3>
+              <p class="text-gray-600 mb-4 text-sm">
+                <strong>Problema:</strong> Prompts longos descrevendo a persona
+                consomem tokens e o modelo às vezes "quebra o personagem".<br />
+                <strong>Solução:</strong> Fine-tuning para estilo. O modelo
+                "internaliza" que ele é o Zequinha. Isso protege contra
+                <em>jailbreaks</em> de estilo e economiza tokens de input.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 5. Métricas e Riscos -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Métricas, Riscos e O Custo
+            Oculto
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
+                O Custo Real do Fine-Tuning
+              </h3>
+              <p class="text-gray-600 mb-4 text-sm">
+                Muitos pensam que o custo é GPU.
+                <strong>O custo real é a Curadoria de Dados.</strong> Para o
+                Fine-Tuning funcionar, você precisa de um "Golden Dataset" (500+
+                exemplos perfeitos).
+              </p>
+              <div
+                class="bg-red-50 p-4 rounded border-l-4 border-red-500 text-sm text-red-800"
+              >
+                <strong>Risco: Catastrophic Forgetting</strong><br />
+                Ao treinar muito um modelo sobre "pizzas", ele pode esquecer
+                conhecimentos básicos de lógica ou linguagem. Sempre monitore a
+                performance em tarefas gerais.
+              </div>
+            </div>
+
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">Dashboard de Evals</h3>
+              <p class="text-gray-600 mb-4 text-sm">
+                Nunca suba um modelo fine-tunado sem métricas comparativas.
+              </p>
+              <table class="w-full text-sm text-left">
+                <thead class="bg-gray-100 font-bold">
+                  <tr>
+                    <th class="p-2">Métrica</th>
+                    <th class="p-2">GPT-4 (Base)</th>
+                    <th class="p-2">Llama-8B (FT)</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y">
+                  <tr>
+                    <td class="p-2">JSON Válido</td>
+                    <td class="p-2 text-green-600">99.5%</td>
+                    <td class="p-2 text-green-600">99.2%</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2">Estilo "Zequinha"</td>
+                    <td class="p-2 text-yellow-600">80%</td>
+                    <td class="p-2 text-green-600">98%</td>
+                  </tr>
+                  <tr>
+                    <td class="p-2">Custo / 1k req</td>
+                    <td class="p-2 text-red-600">$30.00</td>
+                    <td class="p-2 text-green-600">$0.20</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence & Exploration
+          </h2>
+          <p class="text-gray-600 mb-6">
+            Um experimento valioso para seu time de engenharia validar o ROI do
+            Fine-Tuning:
+          </p>
+
+          <div class="bg-brand-50 rounded-xl p-6 border border-brand-100">
+            <h3 class="font-bold text-brand-800 mb-4">
+              Experimento: Destilação de Conhecimento
+            </h3>
+            <ol
+              class="list-decimal list-inside space-y-3 text-brand-900 text-sm"
+            >
+              <li>
+                <strong>Dataset:</strong> Pegue 200 reviews de clientes reais.
+              </li>
+              <li>
+                <strong>Professor (GPT-4o):</strong> Use o modelo mais caro para
+                classificar esses reviews perfeitamente (gere o gabarito).
+              </li>
+              <li>
+                <strong>Aluno (Modelo Open-Source Pequeno):</strong> Use esses
+                200 exemplos para fazer Fine-Tuning de um modelo leve (ex:
+                Mistral ou Llama 3 8B).
+              </li>
+              <li>
+                <strong>Resultado:</strong> Frequentemente, o "Aluno" atinge a
+                mesma precisão do "Professor" nesta tarefa específica, mas
+                rodando localmente, mais rápido e sem custo por token.
+              </li>
+            </ol>
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 w-64 h-64 bg-brand-600 rounded-full opacity-30 blur-3xl -mr-16 -mt-16"
+          ></div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <p class="text-brand-100 mb-6 italic text-lg">
+              "No hype da IA, todos querem treinar modelos. Na engenharia
+              robusta, 80% dos casos se resolvem com RAG bem arquitetado e bons
+              Prompts. Fine-tuning é uma ferramenta de otimização final, não o
+              ponto de partida."
+            </p>
+            <p class="text-brand-100 mb-6 text-sm">
+              Ao finalizar este artigo, a lição clara é que a arquitetura ideal
+              é híbrida. RAG traz os fatos, Fine-Tuning traz a forma, e
+              Prompting traz a flexibilidade. O engenheiro sênior sabe
+              orquestrar os três.
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Explorar LoRA (treino eficiente).
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
+                  Aprofundar em Function Calling (Artigo 07).
+                </li>
+                <li>
+                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Estudar
+                  Frameworks de Eval (PromptFoo).
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>&copy; 2025 AI Engineering Series. Built with Strategy.</p>
+      </div>
+    </footer>
+  </body>
+</html>

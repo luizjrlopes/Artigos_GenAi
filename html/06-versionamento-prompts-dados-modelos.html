@@ -1,0 +1,767 @@
+﻿<!DOCTYPE html>
+<html lang="pt-BR" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Versionamento de Prompts, Dados e Modelos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      rel="stylesheet"
+    />
+
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              brand: {
+                50: "#ecfeff",
+                100: "#cffafe",
+                500: "#06b6d4",
+                600: "#0891b2", // Cyan 600 - DevOps/Infra theme
+                700: "#0e7490",
+                900: "#164e63",
+              },
+              git: {
+                added: "#22c55e",
+                modified: "#eab308",
+                deleted: "#ef4444",
+              },
+            },
+          },
+        },
+      };
+    </script>
+    <style>
+      /* Custom scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: #f1f1f1;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background: #94a3b8;
+      }
+
+      .code-block {
+        background-color: #0f172a; /* Slate 900 */
+        color: #e2e8f0;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        font-family: "Fira Code", monospace;
+        overflow-x: auto;
+        font-size: 0.85rem;
+        line-height: 1.6;
+        border: 1px solid #1e293b;
+      }
+
+      /* Syntax Highlighting Mock */
+      .token-key {
+        color: #67e8f9;
+      } /* Cyan */
+      .token-string {
+        color: #a5f3fc;
+      } /* Light Cyan */
+      .token-comment {
+        color: #64748b;
+        font-style: italic;
+      } /* Slate 500 */
+      .token-keyword {
+        color: #c4b5fd;
+      } /* Violet */
+
+      .git-node {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        border: 3px solid #0891b2;
+        background: white;
+        position: relative;
+        z-index: 10;
+      }
+      .git-line {
+        position: absolute;
+        width: 2px;
+        background-color: #cbd5e1;
+        z-index: 0;
+      }
+      .folder-tree {
+        font-family: "Fira Code", monospace;
+        font-size: 0.9rem;
+      }
+      .folder-tree-item {
+        padding: 2px 0;
+        display: flex;
+        align-items: center;
+      }
+      .folder-tree-item:hover {
+        background-color: #f1f5f9;
+        border-radius: 4px;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <div class="flex items-center space-x-3">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-code-branch"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">AI Version Control</h1>
+        </div>
+        <div class="hidden md:block text-sm text-gray-500">
+          Série: Engenharia & Ops
+        </div>
+      </div>
+    </header>
+
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside class="lg:w-64 flex-shrink-0 hidden lg:block">
+        <nav class="sticky top-24 space-y-1">
+          <a
+            href="#intro"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+          >
+            <i class="fas fa-history w-6 text-brand-600"></i> Contexto
+          </a>
+          <a
+            href="#approach"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-sitemap w-6 text-brand-600"></i> Abordagem
+          </a>
+          <a
+            href="#concepts"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-random w-6 text-brand-600"></i> Determinismo
+          </a>
+          <a
+            href="#hands-on"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-terminal w-6 text-brand-600"></i> Mão na Massa
+          </a>
+          <a
+            href="#metrics"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-shield-alt w-6 text-brand-600"></i> Riscos & Drift
+          </a>
+          <a
+            href="#evidence"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+          >
+            <i class="fas fa-search w-6 text-brand-600"></i> Evidências
+          </a>
+        </nav>
+      </aside>
+
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section -->
+        <div
+          class="bg-gradient-to-r from-cyan-800 to-cyan-600 rounded-2xl p-8 text-white shadow-xl relative overflow-hidden"
+        >
+          <div class="absolute right-0 top-0 p-4 opacity-10 text-9xl">
+            <i class="fas fa-git-alt"></i>
+          </div>
+          <h1 class="text-3xl md:text-4xl font-bold mb-4 relative z-10">
+            O "Git" da Engenharia de IA
+          </h1>
+          <p class="text-cyan-100 text-lg mb-6 relative z-10">
+            Versionamento de Prompts, Dados e Modelos para sistemas
+            reprodutíveis.
+          </p>
+          <div class="flex flex-wrap gap-3 relative z-10">
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >git commit -m "update prompt"</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >v2.0.1</span
+            >
+            <span
+              class="bg-white/10 px-3 py-1 rounded-full text-sm border border-white/20 font-mono"
+              >reproducibility</span
+            >
+          </div>
+        </div>
+
+        <!-- 1. Contexto -->
+        <section
+          id="intro"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
+              Em engenharia de software tradicional, existe uma máxima
+              reconfortante: "Se o código não mudou, o comportamento não muda".
+              Em GenAI, isso é uma mentira perigosa. Você pode ter exatamente o
+              mesmo código Python rodando no seu backend, mas se a OpenAI
+              atualizar o modelo `gpt-4` silenciosamente, se o seu prompt mudar
+              uma vírgula ("educado" vs "muito educado"), ou se os dados do
+              VectorDB forem reindexados, a resposta final para o usuário muda
+              drasticamente.
+            </p>
+            <p class="mb-4">
+              O propósito deste artigo é abordar o
+              <strong>caos da não-reprodutibilidade</strong>. Imagine um app de
+              delivery onde um cliente reclama que o chatbot prometeu um
+              reembolso indevido ontem. Sem versionamento rigoroso, você não
+              consegue "voltar no tempo" para ver o estado exato do sistema
+              naquele momento.
+            </p>
+            <div
+              class="bg-cyan-50 p-4 rounded-lg border-l-4 border-cyan-500 mt-4"
+            >
+              <strong class="text-cyan-900">A Necessidade de Auditoria:</strong>
+              Para depurar uma alucinação, você precisa responder três
+              perguntas:
+              <ol class="list-decimal list-inside mt-2 text-cyan-800 text-sm">
+                <li>
+                  Qual versão exata do <strong>prompt</strong> estava rodando?
+                </li>
+                <li>
+                  Qual versão do <strong>modelo</strong> (snapshot) foi usada?
+                </li>
+                <li>
+                  Quais documentos de <strong>contexto (RAG)</strong> foram
+                  injetados?
+                </li>
+              </ol>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. Abordagem -->
+        <section id="approach" class="space-y-6">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: Os 3 Pilares
+            </h2>
+
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+              <!-- Pillar 1 -->
+              <div
+                class="border border-gray-200 rounded-xl p-5 hover:border-cyan-400 transition-colors group"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="bg-cyan-100 p-2 rounded text-cyan-700 group-hover:bg-cyan-600 group-hover:text-white transition-colors"
+                  >
+                    <i class="fas fa-file-code"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-900">Prompts as Code</h3>
+                </div>
+                <p class="text-sm text-gray-600">
+                  Trate prompts como arquivos (YAML/JSON), não strings mágicas
+                  no código. Use Git para rastrear mudanças.
+                </p>
+              </div>
+              <!-- Pillar 2 -->
+              <div
+                class="border border-gray-200 rounded-xl p-5 hover:border-purple-400 transition-colors group"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="bg-purple-100 p-2 rounded text-purple-700 group-hover:bg-purple-600 group-hover:text-white transition-colors"
+                  >
+                    <i class="fas fa-cube"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-900">Model Registry</h3>
+                </div>
+                <p class="text-sm text-gray-600">
+                  Registre versões exatas de modelos externos (ex: `gpt-4-0613`
+                  em vez de `gpt-4`).
+                </p>
+              </div>
+              <!-- Pillar 3 -->
+              <div
+                class="border border-gray-200 rounded-xl p-5 hover:border-green-400 transition-colors group"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="bg-green-100 p-2 rounded text-green-700 group-hover:bg-green-600 group-hover:text-white transition-colors"
+                  >
+                    <i class="fas fa-database"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-900">Data Lineage</h3>
+                </div>
+                <p class="text-sm text-gray-600">
+                  Rastreie IDs de documentos usados no RAG. Saiba exatamente o
+                  que o modelo leu.
+                </p>
+              </div>
+            </div>
+
+            <!-- CSS Diagram: CI/CD Flow -->
+            <div
+              class="bg-gray-50 p-6 rounded-xl border border-dashed border-gray-300"
+            >
+              <h3
+                class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-4 text-center"
+              >
+                Fluxo de Versionamento Sugerido
+              </h3>
+              <div
+                class="flex flex-col md:flex-row justify-center items-center gap-4"
+              >
+                <div class="flex flex-col items-center">
+                  <div
+                    class="bg-white border border-gray-300 p-3 rounded shadow-sm text-sm font-mono"
+                  >
+                    refund.v1.yaml
+                  </div>
+                  <i class="fas fa-arrow-down text-gray-400 my-2"></i>
+                  <div
+                    class="bg-blue-100 text-blue-800 px-3 py-1 rounded text-xs font-bold"
+                  >
+                    Git Commit
+                  </div>
+                </div>
+
+                <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+
+                <div class="flex flex-col items-center">
+                  <div
+                    class="bg-yellow-50 border border-yellow-200 p-3 rounded shadow-sm text-center"
+                  >
+                    <div class="font-bold text-sm text-yellow-800">
+                      CI Pipeline
+                    </div>
+                    <div class="text-xs text-gray-500">Regressão & Eval</div>
+                  </div>
+                </div>
+
+                <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+
+                <div class="flex flex-col items-center">
+                  <div
+                    class="bg-green-50 border border-green-200 p-3 rounded shadow-sm text-center"
+                  >
+                    <div class="font-bold text-sm text-green-800">Produção</div>
+                    <div class="text-xs text-gray-500">v2.0 Live</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Conceitos -->
+        <section
+          id="concepts"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+          </h2>
+
+          <div class="overflow-x-auto mb-8">
+            <table class="min-w-full text-sm text-left border-collapse">
+              <thead class="bg-gray-100 text-gray-700">
+                <tr>
+                  <th class="px-6 py-3 rounded-tl-lg">Característica</th>
+                  <th class="px-6 py-3">Software Tradicional</th>
+                  <th class="px-6 py-3 rounded-tr-lg">GenAI / LLMs</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 font-bold">Determinismo</td>
+                  <td class="px-6 py-4 text-green-600">
+                    <i class="fas fa-check"></i> Sim (Input = Output)
+                  </td>
+                  <td class="px-6 py-4 text-red-600">
+                    <i class="fas fa-times"></i> Não (Estocástico)
+                  </td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold">Fonte de Mudança</td>
+                  <td class="px-6 py-4">Código Fonte</td>
+                  <td class="px-6 py-4">Modelo, Prompt, Dados, Hyperparams</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold">Drift (Desvio)</td>
+                  <td class="px-6 py-4">Raro (Bugs explícitos)</td>
+                  <td class="px-6 py-4">
+                    Comum (Mudança silenciosa de comportamento)
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="font-bold text-brand-700 mb-2">Prompt Registry</h3>
+              <p class="text-gray-600 text-sm">
+                Um sistema centralizado para buscar prompts por versão. Em vez
+                de hardcodar strings, você pede:
+                <code>get_prompt("refund", version="v2.1")</code>.
+              </p>
+            </div>
+            <div>
+              <h3 class="font-bold text-brand-700 mb-2">Drift de Modelo</h3>
+              <p class="text-gray-600 text-sm">
+                Mesmo mantendo seu código igual, provedores podem alterar o
+                backend. Mitigação: Logar sempre a versão do modelo e monitorar
+                métricas de satisfação.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 4. Hands On -->
+        <section id="hands-on" class="space-y-8">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: Implementação
+            </h2>
+
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+              <div>
+                <h3
+                  class="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide"
+                >
+                  Estrutura de Pastas
+                </h3>
+                <div
+                  class="bg-gray-50 p-4 rounded-lg border border-gray-200 folder-tree text-gray-600"
+                >
+                  <div class="folder-tree-item">
+                    <i class="fas fa-folder text-blue-400 mr-2"></i> prompts/
+                  </div>
+                  <div class="pl-4">
+                    <div class="folder-tree-item">
+                      <i class="fas fa-folder text-blue-400 mr-2"></i>
+                      customer-support/
+                    </div>
+                    <div class="pl-4">
+                      <div class="folder-tree-item text-gray-400">
+                        <i class="fas fa-file-code mr-2"></i>
+                        refund-policy.v1.yaml
+                      </div>
+                      <div
+                        class="folder-tree-item text-brand-600 font-bold bg-brand-50 rounded"
+                      >
+                        <i class="fas fa-file-code mr-2"></i>
+                        refund-policy.v2.yaml
+                      </div>
+                      <div class="folder-tree-item">
+                        <i class="fas fa-link text-gray-400 mr-2"></i>
+                        latest.yaml -> v2
+                      </div>
+                    </div>
+                    <div class="folder-tree-item">
+                      <i class="fas fa-folder text-blue-400 mr-2"></i> menu/
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h3
+                  class="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide"
+                >
+                  Arquivo de Prompt (YAML)
+                </h3>
+                <pre
+                  class="code-block h-full"
+                ><code><span class="token-key">meta</span>:
+  <span class="token-key">id</span>: <span class="token-string">"refund-policy"</span>
+  <span class="token-key">version</span>: <span class="token-string">"2.0"</span>
+  <span class="token-key">author</span>: <span class="token-string">"maria.silva"</span>
+  <span class="token-key">model_config</span>:
+    <span class="token-key">model</span>: <span class="token-string">"gpt-4-turbo-0613"</span>
+    <span class="token-key">temperature</span>: <span class="token-string">0.2</span>
+
+<span class="token-key">template</span>: |
+  <span class="token-string">Você é um assistente do iFood.
+  Regra: Reembolso apenas se atraso > {{delay_threshold}}.
+  Contexto: {{order_context}}
+  Cliente: {{user_message}}</span></code></pre>
+              </div>
+            </div>
+
+            <h3 class="font-bold text-gray-800 mb-3">
+              Loader Automatizado (Python)
+            </h3>
+            <p class="text-sm text-gray-600 mb-4">
+              Um exemplo simples de classe para carregar e logar interações,
+              garantindo rastreabilidade.
+            </p>
+            <pre
+              class="code-block"
+            ><code><span class="token-keyword">import</span> yaml
+<span class="token-keyword">import</span> logging
+
+<span class="token-keyword">class</span> <span class="token-class-name">PromptLoader</span>:
+    <span class="token-keyword">def</span> <span class="token-function">load</span>(self, prompt_id, version=<span class="token-string">"latest"</span>):
+        path = <span class="token-string">f"prompts/{prompt_id}.{version}.yaml"</span>
+        <span class="token-keyword">with</span> <span class="token-builtin">open</span>(path) <span class="token-keyword">as</span> f:
+            data = yaml.safe_load(f)
+        <span class="token-keyword">return</span> data
+
+<span class="token-comment"># Uso no código da aplicação</span>
+loader = PromptLoader()
+prompt_data = loader.load(<span class="token-string">"refund-policy"</span>, version=<span class="token-string">"v2"</span>)
+
+<span class="token-comment"># Log estruturado é a chave para auditoria</span>
+logging.info({
+    <span class="token-string">"event"</span>: <span class="token-string">"llm_interaction"</span>,
+    <span class="token-string">"prompt_id"</span>: prompt_data[<span class="token-string">'meta'</span>][<span class="token-string">'id'</span>],
+    <span class="token-string">"prompt_version"</span>: prompt_data[<span class="token-string">'meta'</span>][<span class="token-string">'version'</span>],
+    <span class="token-string">"model_snapshot"</span>: prompt_data[<span class="token-string">'meta'</span>][<span class="token-string">'model_config'</span>][<span class="token-string">'model'</span>],
+    <span class="token-string">"input_vars"</span>: {<span class="token-string">"delay"</span>: <span class="token-string">45</span>},
+    <span class="token-string">"final_output"</span>: response_text
+})</code></pre>
+          </div>
+        </section>
+
+        <!-- 5. Riscos e Drift -->
+        <section
+          id="metrics"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Riscos, Drift e Mitigação
+          </h2>
+
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="bg-red-50 p-6 rounded-xl border border-red-100">
+              <h3 class="font-bold text-red-900 mb-2 flex items-center">
+                <i class="fas fa-ghost mr-2"></i> Shadow Prompts
+              </h3>
+              <p class="text-sm text-red-800 mb-2">
+                Prompts hardcoded no código que ninguém rastreia. Se der bug,
+                ninguém acha a causa.
+              </p>
+              <div
+                class="bg-white p-2 rounded text-xs text-red-600 font-bold border border-red-200"
+              >
+                Mitigação: Automatizar sync Git <-> Painel.
+              </div>
+            </div>
+            <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-100">
+              <h3 class="font-bold text-yellow-900 mb-2 flex items-center">
+                <i class="fas fa-wind mr-2"></i> Model Drift
+              </h3>
+              <p class="text-sm text-yellow-800 mb-2">
+                A OpenAI muda o modelo e seu prompt "quebra".
+              </p>
+              <div
+                class="bg-white p-2 rounded text-xs text-yellow-600 font-bold border border-yellow-200"
+              >
+                Mitigação: Testes de regressão diários.
+              </div>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            <h3 class="font-bold text-gray-800">
+              Boas Práticas de Imutabilidade
+            </h3>
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>
+                <strong>Nunca edite a v1:</strong> Se precisar mudar uma
+                vírgula, crie a <code>v2</code>. Isso garante que logs antigos
+                continuem apontando para o arquivo correto.
+              </li>
+              <li>
+                <strong>Validação de Schema:</strong> Use scripts em CI para
+                garantir que o prompt YAML tem todos os campos obrigatórios
+                (autor, versão, variáveis).
+              </li>
+              <li>
+                <strong>Log Everything:</strong> Armazene o ID dos documentos
+                recuperados pelo RAG (`doc_ids: [102, 405]`) junto com a
+                resposta.
+              </li>
+            </ul>
+          </div>
+        </section>
+
+        <!-- 6. Evidências -->
+        <section
+          id="evidence"
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence: Auditoria Real
+          </h2>
+
+          <p class="text-gray-600 mb-6">
+            Imagine que um cliente reclama:
+            <em
+              >"Ontem o bot disse que reembolsos eram automáticos. Hoje disse
+              que não."</em
+            >. Como investigar?
+          </p>
+
+          <div
+            class="bg-gray-900 text-gray-300 p-6 rounded-xl font-mono text-sm mb-6"
+          >
+            <div class="mb-2">
+              <span class="text-green-400">$</span> git log --oneline
+              prompts/refund-policy.yaml
+            </div>
+            <div class="mb-1">
+              <span class="text-yellow-400">c3d4e5f</span> (2 dias atrás): v2 -
+              alterou threshold de 60 para 30 min
+            </div>
+            <div class="mb-4">
+              <span class="text-yellow-400">a1b2c3d</span> (5 dias atrás): v1 -
+              versão inicial
+            </div>
+
+            <div class="text-gray-500"># Cruzando com os logs do cliente:</div>
+            <div>
+              User ID: 123 | Data: Ontem |
+              <span class="text-cyan-400">Prompt Version: v1</span>
+            </div>
+          </div>
+
+          <p class="text-sm text-gray-600">
+            Com versionamento, sabemos que o cliente interagiu com a
+            <strong>v1</strong>, que tinha regras mais frouxas. Mistério
+            resolvido em segundos, sem "achismos".
+          </p>
+
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span
+              class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-bold border border-gray-200"
+              >Ferramentas:</span
+            >
+            <span
+              class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+              >Git</span
+            >
+            <span
+              class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+              >MLflow</span
+            >
+            <span
+              class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+              >LangSmith</span
+            >
+            <span
+              class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+              >DVC</span
+            >
+          </div>
+        </section>
+
+        <!-- 7. Reflexões -->
+        <section
+          id="reflections"
+          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
+        >
+          <div
+            class="absolute top-0 right-0 p-8 opacity-20 text-9xl transform -translate-y-4 translate-x-4"
+          >
+            <i class="fas fa-microscope"></i>
+          </div>
+
+          <h2
+            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
+          >
+            7. Reflexões & Próximos Passos
+          </h2>
+
+          <div class="relative z-10">
+            <blockquote
+              class="text-lg italic font-light mb-8 border-l-4 border-brand-500 pl-4"
+            >
+              "Versionamento é a base da sanidade. Sem ele, você não faz ciência
+              de dados, faz alquimia: misturas mágicas que às vezes funcionam, e
+              ninguém sabe por quê."
+            </blockquote>
+
+            <p class="text-brand-100 mb-6 text-sm">
+              Agora que temos controle sobre O QUE estamos enviando para o
+              modelo (prompts, dados, versão), precisamos falar sobre a
+              interface de comunicação. Uma chamada GPT-4 demora. Como o
+              frontend lida com isso?
+            </p>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
+            <div>
+              <h3
+                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-2 text-brand-100 text-sm">
+                <li>
+                  <i class="fas fa-angle-right mr-2 text-brand-500"></i> Comece
+                  hoje: Git + YAML.
+                </li>
+                <li>
+                  <i class="fas fa-angle-right mr-2 text-brand-500"></i>
+                  Implemente logging estruturado.
+                </li>
+                <li>
+                  <i class="fas fa-angle-right mr-2 text-brand-500"></i> Leia o
+                  Artigo 07: Design de APIs.
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>
+          &copy; 2025 AI Engineering Series. Versioned with
+          <i class="fas fa-heart text-red-400"></i> & Git.
+        </p>
+      </div>
+    </footer>
+  </body>
+</html>
