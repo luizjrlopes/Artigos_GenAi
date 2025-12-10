@@ -1,16 +1,22 @@
 ﻿<!DOCTYPE html>
 
 <html class="scroll-smooth" lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Interfaces Conversacionais Honestas</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<script>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Interfaces Conversacionais Honestas</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
       tailwind.config = {
         theme: {
           extend: {
@@ -40,7 +46,7 @@
         },
       };
     </script>
-<style>
+    <style>
       /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -242,102 +248,165 @@
         }
       }
     </style>
-</head>
-<body class="bg-gray-50 text-gray-800 antialiased">
-<!-- Header -->
-<header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-<div class="flex items-center space-x-3">
-<div class="bg-brand-600 text-white p-2 rounded-lg">
-<i class="fas fa-comment-alt"></i>
-</div>
-<h1 class="text-xl font-bold text-gray-900">Honest AI UX</h1>
-</div>
-<div class="hidden md:block text-sm text-gray-500">
-          Série: User Experience
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-comment-alt"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">Honest AI UX</h1>
+        </a>
+        <div class="hidden md:block text-sm text-gray-500">
+          Módulo 4: Confiança, Ética e UX do Produto
         </div>
-</div>
-</header>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8">
-<!-- Sidebar Navigation -->
-<aside aria-label="Navegação lateral" class="lg:w-64 flex-shrink-0 hidden lg:block">
-<nav class="sticky top-24 space-y-1">
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100" href="#intro">
-<i class="fas fa-gavel w-6 text-brand-600"></i> Contexto Legal
+      </div>
+    </header>
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside
+        aria-label="Navegação lateral"
+        class="lg:w-64 flex-shrink-0 hidden lg:block"
+      >
+        <nav class="sticky top-24 space-y-1">
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+            href="#intro"
+          >
+            <i class="fas fa-gavel w-6 text-brand-600"></i> Contexto Legal
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#approach">
-<i class="fas fa-random w-6 text-brand-600"></i> Fluxo Handoff
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#approach"
+          >
+            <i class="fas fa-random w-6 text-brand-600"></i> Fluxo Handoff
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#concepts">
-<i class="fas fa-user-astronaut w-6 text-brand-600"></i> Uncanny
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#concepts"
+          >
+            <i class="fas fa-user-astronaut w-6 text-brand-600"></i> Uncanny
             Valley
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#hands-on">
-<i class="fas fa-mobile-alt w-6 text-brand-600"></i> UX Mockup
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#hands-on"
+          >
+            <i class="fas fa-mobile-alt w-6 text-brand-600"></i> UX Mockup
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#metrics">
-<i class="fas fa-chart-pie w-6 text-brand-600"></i> Métricas UX
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#metrics"
+          >
+            <i class="fas fa-chart-pie w-6 text-brand-600"></i> Métricas UX
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#evidence">
-<i class="fas fa-search w-6 text-brand-600"></i> Casos Reais
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#evidence"
+          >
+            <i class="fas fa-search w-6 text-brand-600"></i> Casos Reais
           </a>
-</nav>
-</aside>
-<!-- Main Content -->
-<main class="flex-1 space-y-12">
-<!-- Hero Section (padronizado) -->
-<section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
-<div class="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-700 to-brand-500"></div>
-<div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
-<div class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-700 rounded-full mix-blend-overlay filter blur-[120px] opacity-40 animate-pulse-slow"></div>
-<div class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-500 rounded-full mix-blend-overlay filter blur-[120px] opacity-30 animate-pulse-slow" style="animation-delay: 3s"></div>
-<div class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12">
-<div class="lg:w-1/2 w-full text-white">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
-<i class="fas fa-comment-alt text-white text-xs"></i>
-<span class="text-xs font-semibold tracking-wider uppercase text-white/80">Honest UX</span>
-</div>
-<h1 class="text-3xl md:text-4xl lg:text-[2.5rem] font-extrabold tracking-tight leading-tight mb-6">
-                Interfaces Conversacionais <br/>
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-white/80 to-white">Honestas</span>
-</h1>
-<p class="text-lg md:text-xl text-white/90 font-light leading-relaxed mb-8 border-l-4 border-white/40 pl-6">
+        </nav>
+      </aside>
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section (padronizado) -->
+        <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-700 to-brand-500"
+          ></div>
+          <div
+            class="absolute inset-0 grid-bg opacity-30 pointer-events-none"
+          ></div>
+          <div
+            class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-700 rounded-full mix-blend-overlay filter blur-[120px] opacity-40 animate-pulse-slow"
+          ></div>
+          <div
+            class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-500 rounded-full mix-blend-overlay filter blur-[120px] opacity-30 animate-pulse-slow"
+            style="animation-delay: 3s"
+          ></div>
+          <div
+            class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12"
+          >
+            <div class="lg:w-1/2 w-full text-white">
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
+              >
+                <i class="fas fa-comment-alt text-white text-xs"></i>
+                <span
+                  class="text-xs font-semibold tracking-wider uppercase text-white/80"
+                  >Honest UX</span
+                >
+              </div>
+              <h1
+                class="text-3xl md:text-4xl lg:text-[2.5rem] font-extrabold tracking-tight leading-tight mb-6"
+              >
+                Interfaces Conversacionais <br />
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-white/80 to-white"
+                  >Honestas</span
+                >
+              </h1>
+              <p
+                class="text-lg md:text-xl text-white/90 font-light leading-relaxed mb-8 border-l-4 border-white/40 pl-6"
+              >
                 UX para não enganar seu usuário: Disclosure, Handoff e
                 Confiança.
               </p>
-</div>
-<div class="lg:w-1/2 w-full flex items-center justify-center">
-<div class="relative w-full max-w-md h-64 flex flex-col justify-center gap-4">
-<!-- User Bubble -->
-<div class="self-end glass-card px-6 py-3 rounded-2xl rounded-tr-none text-white border border-white/30 max-w-[80%] animate-pulse">
-<p class="text-sm">Isso é um humano?</p>
-</div>
-<!-- AI Bubble (Honest) -->
-<div class="self-start glass-card px-6 py-3 rounded-2xl rounded-tl-none text-white border border-brand-300 bg-brand-900/50 max-w-[80%] relative">
-<div class="absolute -top-3 -left-3 bg-brand-400 text-brand-900 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg">
+            </div>
+            <div class="lg:w-1/2 w-full flex items-center justify-center">
+              <div
+                class="relative w-full max-w-md h-64 flex flex-col justify-center gap-4"
+              >
+                <!-- User Bubble -->
+                <div
+                  class="self-end glass-card px-6 py-3 rounded-2xl rounded-tr-none text-white border border-white/30 max-w-[80%] animate-pulse"
+                >
+                  <p class="text-sm">Isso é um humano?</p>
+                </div>
+                <!-- AI Bubble (Honest) -->
+                <div
+                  class="self-start glass-card px-6 py-3 rounded-2xl rounded-tl-none text-white border border-brand-300 bg-brand-900/50 max-w-[80%] relative"
+                >
+                  <div
+                    class="absolute -top-3 -left-3 bg-brand-400 text-brand-900 text-[10px] font-bold px-2 py-0.5 rounded-full shadow-lg"
+                  >
                     AI BOT
                   </div>
-<p class="text-sm">
+                  <p class="text-sm">
                     Sou um assistente virtual. Como posso ajudar?
                   </p>
-</div>
-<!-- Trust Indicator -->
-<div class="absolute top-0 right-0">
-<div class="glass-card w-12 h-12 rounded-full flex items-center justify-center text-green-400 border border-green-400/30">
-<i class="fas fa-check-circle text-xl"></i>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 1. Contexto -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="intro">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">1.</span> Contexto e Legislação
+                </div>
+                <!-- Trust Indicator -->
+                <div class="absolute top-0 right-0">
+                  <div
+                    class="glass-card w-12 h-12 rounded-full flex items-center justify-center text-green-400 border border-green-400/30"
+                  >
+                    <i class="fas fa-check-circle text-xl"></i>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 1. Contexto -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="intro"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Legislação
           </h2>
-<div class="prose max-w-none text-gray-600">
-<p class="mb-4">
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
               A ilusão de humanidade em chatbots não é apenas um problema ético;
               agora é um risco regulatório. Em 2019, a
               <strong>Califórnia Bot Disclosure Law</strong> tornou obrigatório
@@ -346,218 +415,267 @@
               exigindo disclosure explícito em qualquer interface automatizada
               que possa ser confundida com humana.
             </p>
-<p class="mb-4">
+            <p class="mb-4">
               Em setores críticos como <strong>Saúde e Finanças</strong>, a
               falta de transparência pode induzir ao erro e gerar processos. Um
               bot que finge ser médico ou gerente de banco erode a confiança da
               marca em segundos.
             </p>
-<div class="grid md:grid-cols-2 gap-6 mt-6">
-<div class="bg-sky-50 p-5 rounded-lg border border-sky-200">
-<h3 class="font-bold text-sky-900 mb-2">Por que importa?</h3>
-<p class="text-sm text-sky-800">
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+              <div class="bg-sky-50 p-5 rounded-lg border border-sky-200">
+                <h3 class="font-bold text-sky-900 mb-2">Por que importa?</h3>
+                <p class="text-sm text-sky-800">
                   Em delivery, a ansiedade por comida e dinheiro é alta. Estudos
                   mostram que
-                  <strong>72% dos usuários preferem saber que falam com uma
-                    IA</strong>
+                  <strong
+                    >72% dos usuários preferem saber que falam com uma
+                    IA</strong
+                  >
                   honesta do que serem "enganados" por um avatar falso que
                   falha.
                 </p>
-</div>
-<div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
-<h3 class="font-bold text-gray-700 mb-2">Benchmark Global</h3>
-<ul class="text-sm text-gray-600 space-y-1">
-<li>
+              </div>
+              <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+                <h3 class="font-bold text-gray-700 mb-2">Benchmark Global</h3>
+                <ul class="text-sm text-gray-600 space-y-1">
+                  <li>
                     • <strong>Reino Unido (NHS):</strong> Exige aviso claro em
                     triagem médica.
                   </li>
-<li>
+                  <li>
                     • <strong>Índia (E-commerce):</strong> Handoff obrigatório
                     após 2 falhas reduziu reclamações em 18%.
                   </li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<!-- 2. Abordagem -->
-<section class="space-y-6" id="approach">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">2.</span> Abordagem: Fluxo de Handoff
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 2. Abordagem -->
+        <section class="space-y-6" id="approach">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: Fluxo de Handoff
             </h2>
-<p class="text-gray-600 mb-8">
+            <p class="text-gray-600 mb-8">
               A interface honesta não é apenas um texto "Sou um Robô". É um
               comportamento. O sistema deve saber a hora de desistir e passar
               para um humano.
             </p>
-<!-- CSS Diagram: Handoff Flow -->
-<div class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 flex justify-center">
-<div class="flex flex-col items-center w-full max-w-sm text-center text-sm">
-<div class="bg-white p-3 rounded border border-gray-300 w-48 shadow-sm">
+            <!-- CSS Diagram: Handoff Flow -->
+            <div
+              class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 flex justify-center"
+            >
+              <div
+                class="flex flex-col items-center w-full max-w-sm text-center text-sm"
+              >
+                <div
+                  class="bg-white p-3 rounded border border-gray-300 w-48 shadow-sm"
+                >
                   Início Conversa
                 </div>
-<div class="h-6 w-0.5 bg-gray-300"></div>
-<div class="flow-diamond">
-<div class="flow-diamond-inner">Intro?</div>
-</div>
-<div class="flex w-full justify-center relative h-6">
-<div class="absolute top-0 w-1/2 border-t-2 border-gray-300 left-0 h-4 border-l-2 rounded-tl"></div>
-<div class="absolute top-0 w-1/2 border-t-2 border-gray-300 right-0 h-4 border-r-2 rounded-tr"></div>
-</div>
-<div class="flex justify-between w-full gap-4">
-<div class="flex flex-col items-center w-1/2">
-<div class="bg-blue-50 p-2 rounded border border-blue-200 text-blue-800 w-full text-xs">
+                <div class="h-6 w-0.5 bg-gray-300"></div>
+                <div class="flow-diamond">
+                  <div class="flow-diamond-inner">Intro?</div>
+                </div>
+                <div class="flex w-full justify-center relative h-6">
+                  <div
+                    class="absolute top-0 w-1/2 border-t-2 border-gray-300 left-0 h-4 border-l-2 rounded-tl"
+                  ></div>
+                  <div
+                    class="absolute top-0 w-1/2 border-t-2 border-gray-300 right-0 h-4 border-r-2 rounded-tr"
+                  ></div>
+                </div>
+                <div class="flex justify-between w-full gap-4">
+                  <div class="flex flex-col items-center w-1/2">
+                    <div
+                      class="bg-blue-50 p-2 rounded border border-blue-200 text-blue-800 w-full text-xs"
+                    >
                       Exibir Badge "IA"
                     </div>
-<div class="h-4 w-0.5 bg-gray-300"></div>
-<div class="bg-white p-2 rounded border border-gray-300 w-full">
+                    <div class="h-4 w-0.5 bg-gray-300"></div>
+                    <div
+                      class="bg-white p-2 rounded border border-gray-300 w-full"
+                    >
                       Analisar Intenção
                     </div>
-</div>
-<div class="flex flex-col items-center w-1/2">
-<div class="bg-gray-100 p-2 rounded border border-gray-200 text-gray-500 w-full text-xs italic">
+                  </div>
+                  <div class="flex flex-col items-center w-1/2">
+                    <div
+                      class="bg-gray-100 p-2 rounded border border-gray-200 text-gray-500 w-full text-xs italic"
+                    >
                       Já exibido
                     </div>
-<div class="h-4 w-0.5 bg-gray-300"></div>
-<div class="bg-white p-2 rounded border border-gray-300 w-full">
+                    <div class="h-4 w-0.5 bg-gray-300"></div>
+                    <div
+                      class="bg-white p-2 rounded border border-gray-300 w-full"
+                    >
                       Analisar Intenção
                     </div>
-</div>
-</div>
-<div class="h-6 w-full relative mt-2">
-<div class="absolute w-full border-b-2 border-gray-300 top-0"></div>
-<div class="absolute w-0.5 h-6 bg-gray-300 left-1/2 top-0"></div>
-</div>
-<div class="flow-diamond">
-<div class="flow-diamond-inner">Fail?</div>
-</div>
-<div class="flex w-full justify-between items-start gap-4">
-<div class="flex flex-col items-center w-1/2">
-<div class="text-xs text-red-500 font-bold mb-1">
+                  </div>
+                </div>
+                <div class="h-6 w-full relative mt-2">
+                  <div
+                    class="absolute w-full border-b-2 border-gray-300 top-0"
+                  ></div>
+                  <div
+                    class="absolute w-0.5 h-6 bg-gray-300 left-1/2 top-0"
+                  ></div>
+                </div>
+                <div class="flow-diamond">
+                  <div class="flow-diamond-inner">Fail?</div>
+                </div>
+                <div class="flex w-full justify-between items-start gap-4">
+                  <div class="flex flex-col items-center w-1/2">
+                    <div class="text-xs text-red-500 font-bold mb-1">
                       Sim (&gt;2x)
                     </div>
-<div class="bg-red-50 p-3 rounded border border-red-200 text-red-800 w-full font-bold">
+                    <div
+                      class="bg-red-50 p-3 rounded border border-red-200 text-red-800 w-full font-bold"
+                    >
                       Oferecer Humano
                     </div>
-</div>
-<div class="flex flex-col items-center w-1/2">
-<div class="text-xs text-green-500 font-bold mb-1">Não</div>
-<div class="bg-green-50 p-3 rounded border border-green-200 text-green-800 w-full">
+                  </div>
+                  <div class="flex flex-col items-center w-1/2">
+                    <div class="text-xs text-green-500 font-bold mb-1">Não</div>
+                    <div
+                      class="bg-green-50 p-3 rounded border border-green-200 text-green-800 w-full"
+                    >
                       Responder
                     </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 3. Conceitos -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="concepts">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">3.</span> Conceitos Fundamentais
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 3. Conceitos -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="concepts"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
           </h2>
-<div class="grid md:grid-cols-2 gap-8">
-<div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-<h3 class="font-bold text-gray-800 mb-2 flex items-center">
-<i class="fas fa-theater-masks mr-2 text-brand-500"></i> Uncanny
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                <i class="fas fa-theater-masks mr-2 text-brand-500"></i> Uncanny
                 Valley
               </h3>
-<p class="text-sm text-gray-600 mb-4">
+              <p class="text-sm text-gray-600 mb-4">
                 O "Vale da Estranheza". Quando um robô tenta ser humano demais,
                 mas falha em detalhes sutis, ele gera repulsa em vez de empatia.
               </p>
-<div class="bg-white p-3 rounded text-xs text-gray-500 border border-gray-300 italic">
-                "Eu sinto sua dor..." (Dito por um bot = Arrepiante)<br/>
+              <div
+                class="bg-white p-3 rounded text-xs text-gray-500 border border-gray-300 italic"
+              >
+                "Eu sinto sua dor..." (Dito por um bot = Arrepiante)<br />
                 "Entendo sua frustração..." (Dito por um bot = Profissional)
               </div>
-</div>
-<div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
-<h3 class="font-bold text-gray-800 mb-2 flex items-center">
-<i class="fas fa-tasks mr-2 text-brand-500"></i> Expectation
+            </div>
+            <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <h3 class="font-bold text-gray-800 mb-2 flex items-center">
+                <i class="fas fa-tasks mr-2 text-brand-500"></i> Expectation
                 Management
               </h3>
-<p class="text-sm text-gray-600 mb-4">
+              <p class="text-sm text-gray-600 mb-4">
                 Se o usuário sabe que é um robô, ele usa linguagem mais simples
                 e direta ("status pedido"). Se acha que é humano, conta a
                 história da vida dele, e o bot falha.
               </p>
-<div class="text-green-600 font-bold text-sm">
-<i class="fas fa-arrow-up"></i> CSAT +15% com disclosure claro.
+              <div class="text-green-600 font-bold text-sm">
+                <i class="fas fa-arrow-up"></i> CSAT +15% com disclosure claro.
               </div>
-</div>
-</div>
-</section>
-<!-- 4. Hands On -->
-<section class="space-y-8" id="hands-on">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">4.</span> Mão na Massa: UX e Código
+            </div>
+          </div>
+        </section>
+        <!-- 4. Hands On -->
+        <section class="space-y-8" id="hands-on">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: UX e Código
             </h2>
-<div class="grid md:grid-cols-2 gap-12">
-<!-- Mockup Visual -->
-<div>
-<h3 class="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide">
+            <div class="grid md:grid-cols-2 gap-12">
+              <!-- Mockup Visual -->
+              <div>
+                <h3
+                  class="font-bold text-gray-800 mb-4 text-sm uppercase tracking-wide"
+                >
                   Padrão: "Bot-First, Human-Aware"
                 </h3>
-<div class="chat-container">
-<div class="chat-header">
-<div class="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center text-brand-600">
-<i class="fas fa-robot"></i>
-</div>
-<div>
-<div class="font-bold text-sm text-gray-800">
+                <div class="chat-container">
+                  <div class="chat-header">
+                    <div
+                      class="w-8 h-8 bg-brand-100 rounded-full flex items-center justify-center text-brand-600"
+                    >
+                      <i class="fas fa-robot"></i>
+                    </div>
+                    <div>
+                      <div class="font-bold text-sm text-gray-800">
                         Assistente Delivery
                       </div>
-<div class="text-xs text-green-500 flex items-center gap-1">
-<span class="w-2 h-2 bg-green-500 rounded-full"></span>
+                      <div
+                        class="text-xs text-green-500 flex items-center gap-1"
+                      >
+                        <span class="w-2 h-2 bg-green-500 rounded-full"></span>
                         Online
                       </div>
-</div>
-</div>
-<div class="chat-body bg-slate-50">
-<!-- Msg 1 Bot -->
-<div class="bubble bubble-bot">
-<div class="bot-badge">
-<i class="fas fa-bolt mr-1"></i> Resposta IA
+                    </div>
+                  </div>
+                  <div class="chat-body bg-slate-50">
+                    <!-- Msg 1 Bot -->
+                    <div class="bubble bubble-bot">
+                      <div class="bot-badge">
+                        <i class="fas fa-bolt mr-1"></i> Resposta IA
                       </div>
-<div>
+                      <div>
                         Olá! Sou o assistente virtual do iFood. Como posso
                         ajudar com seu pedido hoje?
                       </div>
-</div>
-<!-- Msg 2 User -->
-<div class="bubble bubble-user">
+                    </div>
+                    <!-- Msg 2 User -->
+                    <div class="bubble bubble-user">
                       Meu pedido veio todo revirado e frio! Quero reembolso
                       agora.
                     </div>
-<!-- Msg 3 Bot (With Handoff) -->
-<div class="bubble bubble-bot">
-<div class="bot-badge">
-<i class="fas fa-bolt mr-1"></i> Resposta IA
+                    <!-- Msg 3 Bot (With Handoff) -->
+                    <div class="bubble bubble-bot">
+                      <div class="bot-badge">
+                        <i class="fas fa-bolt mr-1"></i> Resposta IA
                       </div>
-<div>
+                      <div>
                         Sinto muito que sua experiência não tenha sido ideal.
                         Entendo sua frustração com o estado do pedido.
                       </div>
-<button class="handoff-btn">
-<i class="fas fa-headset"></i> Falar com atendente
+                      <button class="handoff-btn">
+                        <i class="fas fa-headset"></i> Falar com atendente
                         humano
                       </button>
-</div>
-</div>
-</div>
-<p class="text-xs text-gray-500 mt-2 text-center">
+                    </div>
+                  </div>
+                </div>
+                <p class="text-xs text-gray-500 mt-2 text-center">
                   Mockup: Disclosure via Badge e Botão de Escape contextual.
                 </p>
-</div>
-<!-- Code Examples -->
-<div class="space-y-6">
-<div>
-<h3 class="font-bold text-gray-800 mb-2">
+              </div>
+              <!-- Code Examples -->
+              <div class="space-y-6">
+                <div>
+                  <h3 class="font-bold text-gray-800 mb-2">
                     Backend Response (JSON)
                   </h3>
-<pre class="code-block text-xs"><code>{
+                  <pre class="code-block text-xs"><code>{
   <span class="token-kw">"sender"</span>: <span class="token-str">"ai_agent"</span>,
   <span class="token-kw">"is_bot"</span>: <span class="token-kw">true</span>,
   <span class="token-kw">"message"</span>: <span class="token-str">"Sinto muito..."</span>,
@@ -570,12 +688,14 @@
     <span class="token-kw">"failures"</span>: <span class="token-num">2</span>
   }
 }</code></pre>
-</div>
-<div>
-<h3 class="font-bold text-gray-800 mb-2">
+                </div>
+                <div>
+                  <h3 class="font-bold text-gray-800 mb-2">
                     Frontend Logic (React Native)
                   </h3>
-<pre class="code-block text-xs"><code><span class="token-kw">function</span> <span class="token-fn">ChatMessage</span>({ msg }) {
+                  <pre
+                    class="code-block text-xs"
+                  ><code><span class="token-kw">function</span> <span class="token-fn">ChatMessage</span>({ msg }) {
   <span class="token-kw">return</span> (
     &lt;View style={msg.is_bot ? styles.bot : styles.user}&gt;
       {msg.is_bot &amp;&amp; (
@@ -593,161 +713,200 @@
     &lt;/View&gt;
   );
 }</code></pre>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 5. Métricas e Riscos -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="metrics">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">5.</span> Métricas, Riscos e Boas
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 5. Métricas e Riscos -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="metrics"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Métricas, Riscos e Boas
             Práticas
           </h2>
-<div class="overflow-x-auto mb-8">
-<table class="min-w-full text-sm text-left">
-<thead class="bg-gray-100 text-gray-700 font-bold">
-<tr>
-<th class="px-6 py-3">Métrica</th>
-<th class="px-6 py-3">Definição</th>
-<th class="px-6 py-3">Benchmark Ideal</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-200">
-<tr>
-<td class="px-6 py-4 font-bold text-brand-700">
+          <div class="overflow-x-auto mb-8">
+            <table class="min-w-full text-sm text-left">
+              <thead class="bg-gray-100 text-gray-700 font-bold">
+                <tr>
+                  <th class="px-6 py-3">Métrica</th>
+                  <th class="px-6 py-3">Definição</th>
+                  <th class="px-6 py-3">Benchmark Ideal</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 font-bold text-brand-700">
                     Handoff Rate
                   </td>
-<td class="px-6 py-4">% de conversas que vão para humano</td>
-<td class="px-6 py-4">10-30%</td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-bold text-brand-700">
+                  <td class="px-6 py-4">% de conversas que vão para humano</td>
+                  <td class="px-6 py-4">10-30%</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-brand-700">
                     Sentiment Drift
                   </td>
-<td class="px-6 py-4">Mudança de humor após disclosure</td>
-<td class="px-6 py-4">Estável (0%)</td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-bold text-brand-700">
+                  <td class="px-6 py-4">Mudança de humor após disclosure</td>
+                  <td class="px-6 py-4">Estável (0%)</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-brand-700">
                     Disclosure Rate
                   </td>
-<td class="px-6 py-4">% de msg com identificação de IA</td>
-<td class="px-6 py-4">&gt; 95% (Compliance)</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="bg-brand-50 p-6 rounded-xl border border-brand-200">
-<h3 class="font-bold text-brand-900 mb-2">
+                  <td class="px-6 py-4">% de msg com identificação de IA</td>
+                  <td class="px-6 py-4">&gt; 95% (Compliance)</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bg-brand-50 p-6 rounded-xl border border-brand-200">
+            <h3 class="font-bold text-brand-900 mb-2">
               Checklist de Honestidade
             </h3>
-<div class="grid md:grid-cols-2 gap-3 text-sm text-brand-800">
-<div class="flex items-center">
-<i class="fas fa-check-square mr-2 text-brand-500"></i> Botão de
+            <div class="grid md:grid-cols-2 gap-3 text-sm text-brand-800">
+              <div class="flex items-center">
+                <i class="fas fa-check-square mr-2 text-brand-500"></i> Botão de
                 Handoff visível em crises.
               </div>
-<div class="flex items-center">
-<i class="fas fa-check-square mr-2 text-brand-500"></i> Logs de
+              <div class="flex items-center">
+                <i class="fas fa-check-square mr-2 text-brand-500"></i> Logs de
                 disclosure auditáveis.
               </div>
-<div class="flex items-center">
-<i class="fas fa-check-square mr-2 text-brand-500"></i> Badge
+              <div class="flex items-center">
+                <i class="fas fa-check-square mr-2 text-brand-500"></i> Badge
                 visual distinta para IA.
               </div>
-<div class="flex items-center">
-<i class="fas fa-check-square mr-2 text-brand-500"></i> Prompt
+              <div class="flex items-center">
+                <i class="fas fa-check-square mr-2 text-brand-500"></i> Prompt
                 "Persona Honesta" no LLM.
               </div>
-</div>
-</div>
-</section>
-<!-- 6. Evidências -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="evidence">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">6.</span> Evidence: Estudos de Caso
+            </div>
+          </div>
+        </section>
+        <!-- 6. Evidências -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="evidence"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence: Estudos de Caso
           </h2>
-<div class="grid md:grid-cols-3 gap-6">
-<div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
-<div class="text-purple-600 font-bold mb-2">Nubank (BR)</div>
-<p class="text-sm text-gray-600 mb-3">
+          <div class="grid md:grid-cols-3 gap-6">
+            <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+              <div class="text-purple-600 font-bold mb-2">Nubank (BR)</div>
+              <p class="text-sm text-gray-600 mb-3">
                 Adotou badge explícita "IA" e logs de disclosure.
               </p>
-<div class="text-xs font-bold text-green-600">
-<i class="fas fa-arrow-down"></i> 30% reclamações de "engano"
+              <div class="text-xs font-bold text-green-600">
+                <i class="fas fa-arrow-down"></i> 30% reclamações de "engano"
               </div>
-</div>
-<div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
-<div class="text-red-600 font-bold mb-2">iFood (BR)</div>
-<p class="text-sm text-gray-600 mb-3">
+            </div>
+            <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+              <div class="text-red-600 font-bold mb-2">iFood (BR)</div>
+              <p class="text-sm text-gray-600 mb-3">
                 Implementou botão de handoff visível.
               </p>
-<div class="text-xs font-bold text-green-600">
-<i class="fas fa-clock"></i> Tempo até humano: 8m -&gt; 2m
+              <div class="text-xs font-bold text-green-600">
+                <i class="fas fa-clock"></i> Tempo até humano: 8m -&gt; 2m
               </div>
-</div>
-<div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
-<div class="text-blue-600 font-bold mb-2">HSBC (UK)</div>
-<p class="text-sm text-gray-600 mb-3">
+            </div>
+            <div class="bg-gray-50 p-5 rounded-lg border border-gray-200">
+              <div class="text-blue-600 font-bold mb-2">HSBC (UK)</div>
+              <p class="text-sm text-gray-600 mb-3">
                 Pipeline de auditoria de honestidade.
               </p>
-<div class="text-xs font-bold text-green-600">
-<i class="fas fa-arrow-up"></i> NPS +9 pontos
+              <div class="text-xs font-bold text-green-600">
+                <i class="fas fa-arrow-up"></i> NPS +9 pontos
               </div>
-</div>
-</div>
-</section>
-<!-- 7. Reflexões -->
-<section class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10" id="reflections">
-<h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
-          7. Reflexões &amp; Próximos Passos
-        </h2>
-<div class="w-full h-px bg-white/10 mb-8"></div>
-<div class="grid lg:grid-cols-12 gap-10 md:gap-16">
-<div class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light">
-<p>
-              "O usuário perdoa limitações técnicas, mas não perdoa ser
-              enganado. Disclosure e Handoff são alicerces de confiança da
-              marca."
-            </p>
-</div>
-<div class="lg:col-span-5">
-<h3 class="text-sm font-bold text-brand-400 uppercase tracking-widest mb-6 font-mono">
-              Artigos Relacionados
-            </h3>
-<ul class="space-y-4">
-<li class="flex items-start group">
-<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="17-bias-modelos-ia.html">
-<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3">
-<i class="fas fa-arrow-left"></i>
-</span>
-<div class="flex flex-col">
-<span class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400">Anterior</span>
-<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">Viés Algorítmico e Fairness em IA</span>
-</div>
-</a>
-</li>
-<li class="flex items-start group">
-<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="19-colaboracao-humano-ia.html">
-<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3">
-<i class="fas fa-arrow-right"></i>
-</span>
-<div class="flex flex-col">
-<span class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400">Próximo</span>
-<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">Colaboração Humano-IA: Superpoderes em Ops</span>
-</div>
-</a>
-</li>
-</ul>
-</div>
-</div>
-</section>
-</main>
-</div>
-<footer class="bg-white border-t border-gray-200 mt-12 py-8">
-<div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-<p>© 2025 Honest AI Series. Trust is everything.</p>
-</div>
-</footer>
-</body>
+            </div>
+          </div>
+        </section>
+        <!-- 7. Reflexões -->
+        <section
+          class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10"
+          id="reflections"
+        >
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
+            7. Reflexões &amp; Próximos Passos
+          </h2>
+          <div class="w-full h-px bg-white/10 mb-8"></div>
+          <div class="grid lg:grid-cols-12 gap-10 md:gap-16">
+            <div
+              class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light"
+            >
+              <p>
+                "O usuário perdoa limitações técnicas, mas não perdoa ser
+                enganado. Disclosure e Handoff são alicerces de confiança da
+                marca."
+              </p>
+            </div>
+            <div class="lg:col-span-5">
+              <h3
+                class="text-sm font-bold text-brand-400 uppercase tracking-widest mb-6 font-mono"
+              >
+                Artigos Relacionados
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="17-bias-modelos-ia.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400"
+                        >Anterior</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >Viés Algorítmico e Fairness em IA</span
+                      >
+                    </div>
+                  </a>
+                </li>
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="19-colaboracao-humano-ia.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400"
+                        >Próximo</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >Colaboração Humano-IA: Superpoderes em Ops</span
+                      >
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>© 2025 Honest AI Series. Trust is everything.</p>
+      </div>
+    </footer>
+  </body>
 </html>

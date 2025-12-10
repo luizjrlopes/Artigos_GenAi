@@ -1,16 +1,22 @@
 ﻿<!DOCTYPE html>
 
 <html class="scroll-smooth" lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Versionamento de Prompts, Dados e Modelos</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<script>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Versionamento de Prompts, Dados e Modelos</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
       tailwind.config = {
         theme: {
           extend: {
@@ -44,7 +50,7 @@
         },
       };
     </script>
-<style>
+    <style>
       /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -165,118 +171,194 @@
         background-size: 40px 40px;
       }
     </style>
-</head>
-<body class="bg-gray-50 text-gray-800 antialiased">
-<!-- Header -->
-<header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-<div class="flex items-center space-x-3">
-<div class="bg-brand-600 text-white p-2 rounded-lg">
-<i class="fas fa-code-branch"></i>
-</div>
-<h1 class="text-xl font-bold text-gray-900">AI Version Control</h1>
-</div>
-<div class="hidden md:block text-sm text-gray-500">
-          Série: Engenharia &amp; Ops
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-code-branch"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">AI Version Control</h1>
+        </a>
+        <div class="hidden md:block text-sm text-gray-500">
+          Módulo 2: Arquitetura e Desenvolvimento de Software para IA
         </div>
-</div>
-</header>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8">
-<!-- Sidebar Navigation -->
-<aside aria-label="Navegação lateral" class="lg:w-64 flex-shrink-0 hidden lg:block">
-<nav class="sticky top-24 space-y-1">
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100" href="#intro">
-<i class="fas fa-history w-6 text-brand-600"></i> Contexto
+      </div>
+    </header>
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside
+        aria-label="Navegação lateral"
+        class="lg:w-64 flex-shrink-0 hidden lg:block"
+      >
+        <nav class="sticky top-24 space-y-1">
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+            href="#intro"
+          >
+            <i class="fas fa-history w-6 text-brand-600"></i> Contexto
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#approach">
-<i class="fas fa-sitemap w-6 text-brand-600"></i> Abordagem
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#approach"
+          >
+            <i class="fas fa-sitemap w-6 text-brand-600"></i> Abordagem
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#concepts">
-<i class="fas fa-random w-6 text-brand-600"></i> Determinismo
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#concepts"
+          >
+            <i class="fas fa-random w-6 text-brand-600"></i> Determinismo
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#hands-on">
-<i class="fas fa-terminal w-6 text-brand-600"></i> Mão na Massa
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#hands-on"
+          >
+            <i class="fas fa-terminal w-6 text-brand-600"></i> Mão na Massa
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#metrics">
-<i class="fas fa-shield-alt w-6 text-brand-600"></i> Riscos &amp; Drift
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#metrics"
+          >
+            <i class="fas fa-shield-alt w-6 text-brand-600"></i> Riscos &amp;
+            Drift
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#evidence">
-<i class="fas fa-search w-6 text-brand-600"></i> Evidências
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#evidence"
+          >
+            <i class="fas fa-search w-6 text-brand-600"></i> Evidências
           </a>
-</nav>
-</aside>
-<!-- Main Content -->
-<main class="flex-1 space-y-12">
-<!-- Hero Section (Atualizada para Padrão Visual - Tema Cyan/DevOps) -->
-<section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
-<!-- Background Gradient & Grid -->
-<div class="absolute inset-0 bg-gradient-to-br from-[#164e63] via-[#0e7490] to-[#06b6d4]"></div>
-<div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
-<!-- Ambient Lighting -->
-<div class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"></div>
-<div class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-300 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow" style="animation-delay: 3s"></div>
-<div class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12">
-<!-- Coluna Esquerda: Texto -->
-<div class="lg:w-1/2 w-full text-white">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
-<i class="fas fa-code-branch text-brand-200 text-xs"></i>
-<span class="text-xs font-semibold tracking-wider uppercase text-brand-100">MLOps &amp; Governance</span>
-</div>
-<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-                Versionamento <br/>
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white">de IA</span>
-</h1>
-<p class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6">
+        </nav>
+      </aside>
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section (Atualizada para Padrão Visual - Tema Cyan/DevOps) -->
+        <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
+          <!-- Background Gradient & Grid -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-[#164e63] via-[#0e7490] to-[#06b6d4]"
+          ></div>
+          <div
+            class="absolute inset-0 grid-bg opacity-30 pointer-events-none"
+          ></div>
+          <!-- Ambient Lighting -->
+          <div
+            class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
+          ></div>
+          <div
+            class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-300 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
+            style="animation-delay: 3s"
+          ></div>
+          <div
+            class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12"
+          >
+            <!-- Coluna Esquerda: Texto -->
+            <div class="lg:w-1/2 w-full text-white">
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
+              >
+                <i class="fas fa-code-branch text-brand-200 text-xs"></i>
+                <span
+                  class="text-xs font-semibold tracking-wider uppercase text-brand-100"
+                  >MLOps &amp; Governance</span
+                >
+              </div>
+              <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6"
+              >
+                Versionamento <br />
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white"
+                  >de IA</span
+                >
+              </h1>
+              <p
+                class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6"
+              >
                 O "Git" da engenharia de prompts: rastreabilidade total de dados
                 e modelos.
               </p>
-</div>
-<!-- Coluna Direita: Diagrama Visual (Git Tree) -->
-<div class="lg:w-1/2 w-full flex items-center justify-center">
-<div class="relative w-full max-w-md p-4">
-<!-- Tree Structure -->
-<div class="flex flex-col items-center gap-4 relative">
-<!-- Vertical Line -->
-<div class="absolute top-0 bottom-0 w-1 bg-cyan-500/20 left-1/2 transform -translate-x-1/2 rounded-full"></div>
-<!-- Commit 1 (Oldest) -->
-<div class="relative z-10 flex items-center gap-4 w-full justify-center opacity-60">
-<div class="w-24 text-right text-xs text-cyan-300 font-mono">
+            </div>
+            <!-- Coluna Direita: Diagrama Visual (Git Tree) -->
+            <div class="lg:w-1/2 w-full flex items-center justify-center">
+              <div class="relative w-full max-w-md p-4">
+                <!-- Tree Structure -->
+                <div class="flex flex-col items-center gap-4 relative">
+                  <!-- Vertical Line -->
+                  <div
+                    class="absolute top-0 bottom-0 w-1 bg-cyan-500/20 left-1/2 transform -translate-x-1/2 rounded-full"
+                  ></div>
+                  <!-- Commit 1 (Oldest) -->
+                  <div
+                    class="relative z-10 flex items-center gap-4 w-full justify-center opacity-60"
+                  >
+                    <div
+                      class="w-24 text-right text-xs text-cyan-300 font-mono"
+                    >
                       v1.0
                     </div>
-<div class="w-4 h-4 rounded-full bg-cyan-900 border-2 border-cyan-500"></div>
-<div class="w-24 text-xs text-cyan-300/50">Baseline</div>
-</div>
-<!-- Commit 2 -->
-<div class="relative z-10 flex items-center gap-4 w-full justify-center opacity-80">
-<div class="w-24 text-right text-xs text-cyan-200 font-mono">
+                    <div
+                      class="w-4 h-4 rounded-full bg-cyan-900 border-2 border-cyan-500"
+                    ></div>
+                    <div class="w-24 text-xs text-cyan-300/50">Baseline</div>
+                  </div>
+                  <!-- Commit 2 -->
+                  <div
+                    class="relative z-10 flex items-center gap-4 w-full justify-center opacity-80"
+                  >
+                    <div
+                      class="w-24 text-right text-xs text-cyan-200 font-mono"
+                    >
                       v1.1
                     </div>
-<div class="w-4 h-4 rounded-full bg-cyan-800 border-2 border-cyan-400"></div>
-<div class="w-24 text-xs text-cyan-200/70">Fine-tune</div>
-</div>
-<!-- Commit 3 (Current) -->
-<div class="relative z-10 flex items-center gap-4 w-full justify-center">
-<div class="glass-card px-3 py-1 rounded text-xs text-white font-mono border border-cyan-400/50">
+                    <div
+                      class="w-4 h-4 rounded-full bg-cyan-800 border-2 border-cyan-400"
+                    ></div>
+                    <div class="w-24 text-xs text-cyan-200/70">Fine-tune</div>
+                  </div>
+                  <!-- Commit 3 (Current) -->
+                  <div
+                    class="relative z-10 flex items-center gap-4 w-full justify-center"
+                  >
+                    <div
+                      class="glass-card px-3 py-1 rounded text-xs text-white font-mono border border-cyan-400/50"
+                    >
                       HEAD
                     </div>
-<div class="w-6 h-6 rounded-full bg-cyan-500 border-4 border-cyan-200 shadow-[0_0_15px_rgba(34,211,238,0.6)] animate-pulse"></div>
-<div class="glass-card px-3 py-1 rounded text-xs text-white border border-cyan-400/50">
-<i class="fas fa-check-circle text-cyan-300 mr-1"></i>
+                    <div
+                      class="w-6 h-6 rounded-full bg-cyan-500 border-4 border-cyan-200 shadow-[0_0_15px_rgba(34,211,238,0.6)] animate-pulse"
+                    ></div>
+                    <div
+                      class="glass-card px-3 py-1 rounded text-xs text-white border border-cyan-400/50"
+                    >
+                      <i class="fas fa-check-circle text-cyan-300 mr-1"></i>
                       Prod
                     </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 1. Contexto -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="intro">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">1.</span> Contexto e Propósito
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 1. Contexto -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="intro"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
           </h2>
-<div class="prose max-w-none text-gray-600">
-<p class="mb-4">
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
               Em engenharia de software tradicional, existe uma máxima
               reconfortante: "Se o código não mudou, o comportamento não muda".
               Em GenAI, isso é uma mentira perigosa. Você pode ter exatamente o
@@ -286,7 +368,7 @@
               VectorDB forem reindexados, a resposta final para o usuário muda
               drasticamente.
             </p>
-<p class="mb-4">
+            <p class="mb-4">
               O propósito deste artigo é abordar o
               <strong>caos da não-reprodutibilidade</strong>. Imagine um app de
               delivery onde um cliente reclama que o chatbot prometeu um
@@ -294,210 +376,263 @@
               consegue "voltar no tempo" para ver o estado exato do sistema
               naquele momento.
             </p>
-<div class="bg-cyan-50 p-4 rounded-lg border-l-4 border-cyan-500 mt-4">
-<strong class="text-cyan-900">A Necessidade de Auditoria:</strong>
+            <div
+              class="bg-cyan-50 p-4 rounded-lg border-l-4 border-cyan-500 mt-4"
+            >
+              <strong class="text-cyan-900">A Necessidade de Auditoria:</strong>
               Para depurar uma alucinação, você precisa responder três
               perguntas:
               <ol class="list-decimal list-inside mt-2 text-cyan-800 text-sm">
-<li>
+                <li>
                   Qual versão exata do <strong>prompt</strong> estava rodando?
                 </li>
-<li>
+                <li>
                   Qual versão do <strong>modelo</strong> (snapshot) foi usada?
                 </li>
-<li>
+                <li>
                   Quais documentos de <strong>contexto (RAG)</strong> foram
                   injetados?
                 </li>
-</ol>
-</div>
-</div>
-</section>
-<!-- 2. Abordagem -->
-<section class="space-y-6" id="approach">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">2.</span> Abordagem: Os 3 Pilares
+              </ol>
+            </div>
+          </div>
+        </section>
+        <!-- 2. Abordagem -->
+        <section class="space-y-6" id="approach">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: Os 3 Pilares
             </h2>
-<div class="grid md:grid-cols-3 gap-6 mb-8">
-<!-- Pillar 1 -->
-<div class="border border-gray-200 rounded-xl p-5 hover:border-cyan-400 transition-colors group">
-<div class="flex items-center gap-3 mb-3">
-<div class="bg-cyan-100 p-2 rounded text-cyan-700 group-hover:bg-cyan-600 group-hover:text-white transition-colors">
-<i class="fas fa-file-code"></i>
-</div>
-<h3 class="font-bold text-gray-900">Prompts as Code</h3>
-</div>
-<p class="text-sm text-gray-600">
+            <div class="grid md:grid-cols-3 gap-6 mb-8">
+              <!-- Pillar 1 -->
+              <div
+                class="border border-gray-200 rounded-xl p-5 hover:border-cyan-400 transition-colors group"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="bg-cyan-100 p-2 rounded text-cyan-700 group-hover:bg-cyan-600 group-hover:text-white transition-colors"
+                  >
+                    <i class="fas fa-file-code"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-900">Prompts as Code</h3>
+                </div>
+                <p class="text-sm text-gray-600">
                   Trate prompts como arquivos (YAML/JSON), não strings mágicas
                   no código. Use Git para rastrear mudanças.
                 </p>
-</div>
-<!-- Pillar 2 -->
-<div class="border border-gray-200 rounded-xl p-5 hover:border-purple-400 transition-colors group">
-<div class="flex items-center gap-3 mb-3">
-<div class="bg-purple-100 p-2 rounded text-purple-700 group-hover:bg-purple-600 group-hover:text-white transition-colors">
-<i class="fas fa-cube"></i>
-</div>
-<h3 class="font-bold text-gray-900">Model Registry</h3>
-</div>
-<p class="text-sm text-gray-600">
+              </div>
+              <!-- Pillar 2 -->
+              <div
+                class="border border-gray-200 rounded-xl p-5 hover:border-purple-400 transition-colors group"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="bg-purple-100 p-2 rounded text-purple-700 group-hover:bg-purple-600 group-hover:text-white transition-colors"
+                  >
+                    <i class="fas fa-cube"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-900">Model Registry</h3>
+                </div>
+                <p class="text-sm text-gray-600">
                   Registre versões exatas de modelos externos (ex: `gpt-4-0613`
                   em vez de `gpt-4`).
                 </p>
-</div>
-<!-- Pillar 3 -->
-<div class="border border-gray-200 rounded-xl p-5 hover:border-green-400 transition-colors group">
-<div class="flex items-center gap-3 mb-3">
-<div class="bg-green-100 p-2 rounded text-green-700 group-hover:bg-green-600 group-hover:text-white transition-colors">
-<i class="fas fa-database"></i>
-</div>
-<h3 class="font-bold text-gray-900">Data Lineage</h3>
-</div>
-<p class="text-sm text-gray-600">
+              </div>
+              <!-- Pillar 3 -->
+              <div
+                class="border border-gray-200 rounded-xl p-5 hover:border-green-400 transition-colors group"
+              >
+                <div class="flex items-center gap-3 mb-3">
+                  <div
+                    class="bg-green-100 p-2 rounded text-green-700 group-hover:bg-green-600 group-hover:text-white transition-colors"
+                  >
+                    <i class="fas fa-database"></i>
+                  </div>
+                  <h3 class="font-bold text-gray-900">Data Lineage</h3>
+                </div>
+                <p class="text-sm text-gray-600">
                   Rastreie IDs de documentos usados no RAG. Saiba exatamente o
                   que o modelo leu.
                 </p>
-</div>
-</div>
-<!-- CSS Diagram: CI/CD Flow -->
-<div class="bg-gray-50 p-6 rounded-xl border border-dashed border-gray-300">
-<h3 class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-4 text-center">
+              </div>
+            </div>
+            <!-- CSS Diagram: CI/CD Flow -->
+            <div
+              class="bg-gray-50 p-6 rounded-xl border border-dashed border-gray-300"
+            >
+              <h3
+                class="text-sm font-bold text-gray-500 uppercase tracking-wide mb-4 text-center"
+              >
                 Fluxo de Versionamento Sugerido
               </h3>
-<div class="flex flex-col md:flex-row justify-center items-center gap-4">
-<div class="flex flex-col items-center">
-<div class="bg-white border border-gray-300 p-3 rounded shadow-sm text-sm font-mono">
+              <div
+                class="flex flex-col md:flex-row justify-center items-center gap-4"
+              >
+                <div class="flex flex-col items-center">
+                  <div
+                    class="bg-white border border-gray-300 p-3 rounded shadow-sm text-sm font-mono"
+                  >
                     refund.v1.yaml
                   </div>
-<i class="fas fa-arrow-down text-gray-400 my-2"></i>
-<div class="bg-blue-100 text-blue-800 px-3 py-1 rounded text-xs font-bold">
+                  <i class="fas fa-arrow-down text-gray-400 my-2"></i>
+                  <div
+                    class="bg-blue-100 text-blue-800 px-3 py-1 rounded text-xs font-bold"
+                  >
                     Git Commit
                   </div>
-</div>
-<i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
-<div class="flex flex-col items-center">
-<div class="bg-yellow-50 border border-yellow-200 p-3 rounded shadow-sm text-center">
-<div class="font-bold text-sm text-yellow-800">
+                </div>
+                <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+                <div class="flex flex-col items-center">
+                  <div
+                    class="bg-yellow-50 border border-yellow-200 p-3 rounded shadow-sm text-center"
+                  >
+                    <div class="font-bold text-sm text-yellow-800">
                       CI Pipeline
                     </div>
-<div class="text-xs text-gray-500">Regressão &amp; Eval</div>
-</div>
-</div>
-<i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
-<div class="flex flex-col items-center">
-<div class="bg-green-50 border border-green-200 p-3 rounded shadow-sm text-center">
-<div class="font-bold text-sm text-green-800">Produção</div>
-<div class="text-xs text-gray-500">v2.0 Live</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 3. Conceitos -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="concepts">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">3.</span> Conceitos Fundamentais
+                    <div class="text-xs text-gray-500">
+                      Regressão &amp; Eval
+                    </div>
+                  </div>
+                </div>
+                <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+                <div class="flex flex-col items-center">
+                  <div
+                    class="bg-green-50 border border-green-200 p-3 rounded shadow-sm text-center"
+                  >
+                    <div class="font-bold text-sm text-green-800">Produção</div>
+                    <div class="text-xs text-gray-500">v2.0 Live</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 3. Conceitos -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="concepts"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
           </h2>
-<div class="overflow-x-auto mb-8">
-<table class="min-w-full text-sm text-left border-collapse">
-<thead class="bg-gray-100 text-gray-700">
-<tr>
-<th class="px-6 py-3 rounded-tl-lg">Característica</th>
-<th class="px-6 py-3">Software Tradicional</th>
-<th class="px-6 py-3 rounded-tr-lg">GenAI / LLMs</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-200">
-<tr>
-<td class="px-6 py-4 font-bold">Determinismo</td>
-<td class="px-6 py-4 text-green-600">
-<i class="fas fa-check"></i> Sim (Input = Output)
+          <div class="overflow-x-auto mb-8">
+            <table class="min-w-full text-sm text-left border-collapse">
+              <thead class="bg-gray-100 text-gray-700">
+                <tr>
+                  <th class="px-6 py-3 rounded-tl-lg">Característica</th>
+                  <th class="px-6 py-3">Software Tradicional</th>
+                  <th class="px-6 py-3 rounded-tr-lg">GenAI / LLMs</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 font-bold">Determinismo</td>
+                  <td class="px-6 py-4 text-green-600">
+                    <i class="fas fa-check"></i> Sim (Input = Output)
                   </td>
-<td class="px-6 py-4 text-red-600">
-<i class="fas fa-times"></i> Não (Estocástico)
+                  <td class="px-6 py-4 text-red-600">
+                    <i class="fas fa-times"></i> Não (Estocástico)
                   </td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-bold">Fonte de Mudança</td>
-<td class="px-6 py-4">Código Fonte</td>
-<td class="px-6 py-4">Modelo, Prompt, Dados, Hyperparams</td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-bold">Drift (Desvio)</td>
-<td class="px-6 py-4">Raro (Bugs explícitos)</td>
-<td class="px-6 py-4">
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold">Fonte de Mudança</td>
+                  <td class="px-6 py-4">Código Fonte</td>
+                  <td class="px-6 py-4">Modelo, Prompt, Dados, Hyperparams</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold">Drift (Desvio)</td>
+                  <td class="px-6 py-4">Raro (Bugs explícitos)</td>
+                  <td class="px-6 py-4">
                     Comum (Mudança silenciosa de comportamento)
                   </td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="grid md:grid-cols-2 gap-6">
-<div>
-<h3 class="font-bold text-brand-700 mb-2">Prompt Registry</h3>
-<p class="text-gray-600 text-sm">
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h3 class="font-bold text-brand-700 mb-2">Prompt Registry</h3>
+              <p class="text-gray-600 text-sm">
                 Um sistema centralizado para buscar prompts por versão. Em vez
                 de hardcodar strings, você pede:
                 <code>get_prompt("refund", version="v2.1")</code>.
               </p>
-</div>
-<div>
-<h3 class="font-bold text-brand-700 mb-2">Drift de Modelo</h3>
-<p class="text-gray-600 text-sm">
+            </div>
+            <div>
+              <h3 class="font-bold text-brand-700 mb-2">Drift de Modelo</h3>
+              <p class="text-gray-600 text-sm">
                 Mesmo mantendo seu código igual, provedores podem alterar o
                 backend. Mitigação: Logar sempre a versão do modelo e monitorar
                 métricas de satisfação.
               </p>
-</div>
-</div>
-</section>
-<!-- 4. Hands On -->
-<section class="space-y-8" id="hands-on">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">4.</span> Mão na Massa: Implementação
+            </div>
+          </div>
+        </section>
+        <!-- 4. Hands On -->
+        <section class="space-y-8" id="hands-on">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: Implementação
             </h2>
-<div class="grid md:grid-cols-2 gap-8 mb-8">
-<div>
-<h3 class="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide">
+            <div class="grid md:grid-cols-2 gap-8 mb-8">
+              <div>
+                <h3
+                  class="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide"
+                >
                   Estrutura de Pastas
                 </h3>
-<div class="bg-gray-50 p-4 rounded-lg border border-gray-200 folder-tree text-gray-600">
-<div class="folder-tree-item">
-<i class="fas fa-folder text-blue-400 mr-2"></i> prompts/
+                <div
+                  class="bg-gray-50 p-4 rounded-lg border border-gray-200 folder-tree text-gray-600"
+                >
+                  <div class="folder-tree-item">
+                    <i class="fas fa-folder text-blue-400 mr-2"></i> prompts/
                   </div>
-<div class="pl-4">
-<div class="folder-tree-item">
-<i class="fas fa-folder text-blue-400 mr-2"></i>
+                  <div class="pl-4">
+                    <div class="folder-tree-item">
+                      <i class="fas fa-folder text-blue-400 mr-2"></i>
                       customer-support/
                     </div>
-<div class="pl-4">
-<div class="folder-tree-item text-gray-400">
-<i class="fas fa-file-code mr-2"></i>
+                    <div class="pl-4">
+                      <div class="folder-tree-item text-gray-400">
+                        <i class="fas fa-file-code mr-2"></i>
                         refund-policy.v1.yaml
                       </div>
-<div class="folder-tree-item text-brand-600 font-bold bg-brand-50 rounded">
-<i class="fas fa-file-code mr-2"></i>
+                      <div
+                        class="folder-tree-item text-brand-600 font-bold bg-brand-50 rounded"
+                      >
+                        <i class="fas fa-file-code mr-2"></i>
                         refund-policy.v2.yaml
                       </div>
-<div class="folder-tree-item">
-<i class="fas fa-link text-gray-400 mr-2"></i>
+                      <div class="folder-tree-item">
+                        <i class="fas fa-link text-gray-400 mr-2"></i>
                         latest.yaml -&gt; v2
                       </div>
-</div>
-<div class="folder-tree-item">
-<i class="fas fa-folder text-blue-400 mr-2"></i> menu/
                     </div>
-</div>
-</div>
-</div>
-<div>
-<h3 class="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide">
+                    <div class="folder-tree-item">
+                      <i class="fas fa-folder text-blue-400 mr-2"></i> menu/
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div>
+                <h3
+                  class="font-bold text-gray-800 mb-3 text-sm uppercase tracking-wide"
+                >
                   Arquivo de Prompt (YAML)
                 </h3>
-<pre class="code-block h-full"><code><span class="token-key">meta</span>:
+                <pre
+                  class="code-block h-full"
+                ><code><span class="token-key">meta</span>:
   <span class="token-key">id</span>: <span class="token-string">"refund-policy"</span>
   <span class="token-key">version</span>: <span class="token-string">"2.0"</span>
   <span class="token-key">author</span>: <span class="token-string">"maria.silva"</span>
@@ -510,16 +645,18 @@
   Regra: Reembolso apenas se atraso &gt; {{delay_threshold}}.
   Contexto: {{order_context}}
   Cliente: {{user_message}}</span></code></pre>
-</div>
-</div>
-<h3 class="font-bold text-gray-800 mb-3">
+              </div>
+            </div>
+            <h3 class="font-bold text-gray-800 mb-3">
               Loader Automatizado (Python)
             </h3>
-<p class="text-sm text-gray-600 mb-4">
+            <p class="text-sm text-gray-600 mb-4">
               Um exemplo simples de classe para carregar e logar interações,
               garantindo rastreabilidade.
             </p>
-<pre class="code-block"><code><span class="token-keyword">import</span> yaml
+            <pre
+              class="code-block"
+            ><code><span class="token-keyword">import</span> yaml
 <span class="token-keyword">import</span> logging
 
 <span class="token-keyword">class</span> <span class="token-class-name">PromptLoader</span>:
@@ -542,157 +679,219 @@ logging.info({
     <span class="token-string">"input_vars"</span>: {<span class="token-string">"delay"</span>: <span class="token-string">45</span>},
     <span class="token-string">"final_output"</span>: response_text
 })</code></pre>
-</div>
-</section>
-<!-- 5. Riscos e Drift -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="metrics">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">5.</span> Riscos, Drift e Mitigação
+          </div>
+        </section>
+        <!-- 5. Riscos e Drift -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="metrics"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Riscos, Drift e Mitigação
           </h2>
-<div class="grid md:grid-cols-2 gap-8 mb-8">
-<div class="bg-red-50 p-6 rounded-xl border border-red-100">
-<h3 class="font-bold text-red-900 mb-2 flex items-center">
-<i class="fas fa-ghost mr-2"></i> Shadow Prompts
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="bg-red-50 p-6 rounded-xl border border-red-100">
+              <h3 class="font-bold text-red-900 mb-2 flex items-center">
+                <i class="fas fa-ghost mr-2"></i> Shadow Prompts
               </h3>
-<p class="text-sm text-red-800 mb-2">
+              <p class="text-sm text-red-800 mb-2">
                 Prompts hardcoded no código que ninguém rastreia. Se der bug,
                 ninguém acha a causa.
               </p>
-<div class="bg-white p-2 rounded text-xs text-red-600 font-bold border border-red-200">
+              <div
+                class="bg-white p-2 rounded text-xs text-red-600 font-bold border border-red-200"
+              >
                 Mitigação: Automatizar sync Git &lt;-&gt; Painel.
               </div>
-</div>
-<div class="bg-yellow-50 p-6 rounded-xl border border-yellow-100">
-<h3 class="font-bold text-yellow-900 mb-2 flex items-center">
-<i class="fas fa-wind mr-2"></i> Model Drift
+            </div>
+            <div class="bg-yellow-50 p-6 rounded-xl border border-yellow-100">
+              <h3 class="font-bold text-yellow-900 mb-2 flex items-center">
+                <i class="fas fa-wind mr-2"></i> Model Drift
               </h3>
-<p class="text-sm text-yellow-800 mb-2">
+              <p class="text-sm text-yellow-800 mb-2">
                 A OpenAI muda o modelo e seu prompt "quebra".
               </p>
-<div class="bg-white p-2 rounded text-xs text-yellow-600 font-bold border border-yellow-200">
+              <div
+                class="bg-white p-2 rounded text-xs text-yellow-600 font-bold border border-yellow-200"
+              >
                 Mitigação: Testes de regressão diários.
               </div>
-</div>
-</div>
-<div class="space-y-4">
-<h3 class="font-bold text-gray-800">
+            </div>
+          </div>
+          <div class="space-y-4">
+            <h3 class="font-bold text-gray-800">
               Boas Práticas de Imutabilidade
             </h3>
-<ul class="list-disc list-inside text-gray-600 space-y-2">
-<li>
-<strong>Nunca edite a v1:</strong> Se precisar mudar uma
+            <ul class="list-disc list-inside text-gray-600 space-y-2">
+              <li>
+                <strong>Nunca edite a v1:</strong> Se precisar mudar uma
                 vírgula, crie a <code>v2</code>. Isso garante que logs antigos
                 continuem apontando para o arquivo correto.
               </li>
-<li>
-<strong>Validação de Schema:</strong> Use scripts em CI para
+              <li>
+                <strong>Validação de Schema:</strong> Use scripts em CI para
                 garantir que o prompt YAML tem todos os campos obrigatórios
                 (autor, versão, variáveis).
               </li>
-<li>
-<strong>Log Everything:</strong> Armazene o ID dos documentos
+              <li>
+                <strong>Log Everything:</strong> Armazene o ID dos documentos
                 recuperados pelo RAG (`doc_ids: [102, 405]`) junto com a
                 resposta.
               </li>
-</ul>
-</div>
-</section>
-<!-- 6. Evidências -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="evidence">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">6.</span> Evidence: Auditoria Real
+            </ul>
+          </div>
+        </section>
+        <!-- 6. Evidências -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="evidence"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence: Auditoria Real
           </h2>
-<p class="text-gray-600 mb-6">
+          <p class="text-gray-600 mb-6">
             Imagine que um cliente reclama:
-            <em>"Ontem o bot disse que reembolsos eram automáticos. Hoje disse
-              que não."</em>. Como investigar?
+            <em
+              >"Ontem o bot disse que reembolsos eram automáticos. Hoje disse
+              que não."</em
+            >. Como investigar?
           </p>
-<div class="bg-gray-900 text-gray-300 p-6 rounded-xl font-mono text-sm mb-6">
-<div class="mb-2">
-<span class="text-green-400">$</span> git log --oneline
+          <div
+            class="bg-gray-900 text-gray-300 p-6 rounded-xl font-mono text-sm mb-6"
+          >
+            <div class="mb-2">
+              <span class="text-green-400">$</span> git log --oneline
               prompts/refund-policy.yaml
             </div>
-<div class="mb-1">
-<span class="text-yellow-400">c3d4e5f</span> (2 dias atrás): v2 -
+            <div class="mb-1">
+              <span class="text-yellow-400">c3d4e5f</span> (2 dias atrás): v2 -
               alterou threshold de 60 para 30 min
             </div>
-<div class="mb-4">
-<span class="text-yellow-400">a1b2c3d</span> (5 dias atrás): v1 -
+            <div class="mb-4">
+              <span class="text-yellow-400">a1b2c3d</span> (5 dias atrás): v1 -
               versão inicial
             </div>
-<div class="text-gray-500"># Cruzando com os logs do cliente:</div>
-<div>
+            <div class="text-gray-500"># Cruzando com os logs do cliente:</div>
+            <div>
               User ID: 123 | Data: Ontem |
               <span class="text-cyan-400">Prompt Version: v1</span>
-</div>
-</div>
-<p class="text-sm text-gray-600">
+            </div>
+          </div>
+          <p class="text-sm text-gray-600">
             Com versionamento, sabemos que o cliente interagiu com a
             <strong>v1</strong>, que tinha regras mais frouxas. Mistério
             resolvido em segundos, sem "achismos".
           </p>
-<div class="flex flex-wrap gap-2 mt-4">
-<span class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-bold border border-gray-200">Ferramentas:</span>
-<span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs">Git</span>
-<span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs">MLflow</span>
-<span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs">LangSmith</span>
-<span class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs">DVC</span>
-</div>
-</section>
-<!-- 7. Reflexões -->
-<section class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10" id="reflections">
-<h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
-          7. Reflexões &amp; Próximos Passos
-        </h2>
-<div class="w-full h-px bg-white/10 mb-8"></div>
-<div class="grid lg:grid-cols-12 gap-10 md:gap-16">
-<div class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light">
-<p>
-              "Versionamento é a base da sanidade. Sem ele, você não faz ciência
-              de dados, faz alquimia: misturas mágicas que às vezes funcionam, e
-              ninguém sabe por quê."
-            </p>
-</div>
-<div class="lg:col-span-5">
-<h3 class="text-sm font-bold text-cyan-400 uppercase tracking-widest mb-6 font-mono">
-              Artigos Relacionados
-            </h3>
-<ul class="space-y-4">
-<li class="flex items-start group">
-<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="05-llms-como-copilotos-para-devs.html">
-<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-cyan-400 mr-3">
-<i class="fas fa-arrow-left"></i>
-</span>
-<div class="flex flex-col">
-<span class="text-[10px] uppercase tracking-widest opacity-50 text-cyan-400">Anterior</span>
-<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">LLMs como Copilotos em Delivery</span>
-</div>
-</a>
-</li>
-<li class="flex items-start group">
-<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="07-design-apis-genai.html">
-<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-cyan-400 mr-3">
-<i class="fas fa-arrow-right"></i>
-</span>
-<div class="flex flex-col">
-<span class="text-[10px] uppercase tracking-widest opacity-50 text-cyan-400">Próximo</span>
-<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">Padrões de Design de API para GenAI</span>
-</div>
-</a>
-</li>
-</ul>
-</div>
-</div>
-</section>
-</main>
-</div>
-<footer class="bg-white border-t border-gray-200 mt-12 py-8">
-<div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-<p>
+          <div class="flex flex-wrap gap-2 mt-4">
+            <span
+              class="px-3 py-1 bg-gray-100 text-gray-600 rounded-full text-xs font-bold border border-gray-200"
+              >Ferramentas:</span
+            >
+            <span
+              class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+              >Git</span
+            >
+            <span
+              class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+              >MLflow</span
+            >
+            <span
+              class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+              >LangSmith</span
+            >
+            <span
+              class="px-3 py-1 bg-blue-50 text-blue-700 rounded-full text-xs"
+              >DVC</span
+            >
+          </div>
+        </section>
+        <!-- 7. Reflexões -->
+        <section
+          class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10"
+          id="reflections"
+        >
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
+            7. Reflexões &amp; Próximos Passos
+          </h2>
+          <div class="w-full h-px bg-white/10 mb-8"></div>
+          <div class="grid lg:grid-cols-12 gap-10 md:gap-16">
+            <div
+              class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light"
+            >
+              <p>
+                "Versionamento é a base da sanidade. Sem ele, você não faz
+                ciência de dados, faz alquimia: misturas mágicas que às vezes
+                funcionam, e ninguém sabe por quê."
+              </p>
+            </div>
+            <div class="lg:col-span-5">
+              <h3
+                class="text-sm font-bold text-cyan-400 uppercase tracking-widest mb-6 font-mono"
+              >
+                Artigos Relacionados
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="05-llms-como-copilotos-para-devs.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-cyan-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-cyan-400"
+                        >Anterior</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >LLMs como Copilotos em Delivery</span
+                      >
+                    </div>
+                  </a>
+                </li>
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="07-design-apis-genai.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-cyan-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-cyan-400"
+                        >Próximo</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >Padrões de Design de API para GenAI</span
+                      >
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>
           © 2025 AI Engineering Series. Versioned with
           <i class="fas fa-heart text-red-400"></i> &amp; Git.
         </p>
-</div>
-</footer>
-</body>
+      </div>
+    </footer>
+  </body>
 </html>

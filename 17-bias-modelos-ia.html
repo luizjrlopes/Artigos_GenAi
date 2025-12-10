@@ -1,24 +1,29 @@
 ﻿<!DOCTYPE html>
 
 <html class="scroll-smooth" lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Viés Algorítmico e Fairness em IA</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<script>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Viés Algorítmico e Fairness em IA</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
       tailwind.config = {
         theme: {
           extend: {
             animation: {
-                'spin-slow': 'spin 3s linear infinite',
-                'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            }
-,
+              "spin-slow": "spin 3s linear infinite",
+              "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            },
             fontFamily: {
               sans: ["Inter", "sans-serif"],
               mono: ["Fira Code", "monospace"],
@@ -41,7 +46,7 @@
         },
       };
     </script>
-<style>
+    <style>
       /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -215,95 +220,164 @@
         }
       }
     </style>
-</head>
-<body class="bg-gray-50 text-gray-800 antialiased">
-<!-- Header -->
-<header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-<div class="flex items-center space-x-3">
-<div class="bg-brand-600 text-white p-2 rounded-lg">
-<i class="fas fa-balance-scale"></i>
-</div>
-<h1 class="text-xl font-bold text-gray-900">AI Fairness &amp; Ethics</h1>
-</div>
-<div class="hidden md:block text-sm text-gray-500">
-          Série: Ética &amp; Sociedade
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-balance-scale"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">
+            AI Fairness &amp; Ethics
+          </h1>
+        </a>
+        <div class="hidden md:block text-sm text-gray-500">
+          Módulo 4: Confiança, Ética e UX do Produto
         </div>
-</div>
-</header>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8">
-<!-- Sidebar Navigation -->
-<aside aria-label="Navegação lateral" class="lg:w-64 flex-shrink-0 hidden lg:block">
-<nav class="sticky top-24 space-y-1">
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100" href="#intro">
-<i class="fas fa-users w-6 text-brand-600"></i> Contexto
+      </div>
+    </header>
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside
+        aria-label="Navegação lateral"
+        class="lg:w-64 flex-shrink-0 hidden lg:block"
+      >
+        <nav class="sticky top-24 space-y-1">
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+            href="#intro"
+          >
+            <i class="fas fa-users w-6 text-brand-600"></i> Contexto
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#approach">
-<i class="fas fa-route w-6 text-brand-600"></i> Abordagem
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#approach"
+          >
+            <i class="fas fa-route w-6 text-brand-600"></i> Abordagem
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#concepts">
-<i class="fas fa-calculator w-6 text-brand-600"></i> Métricas
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#concepts"
+          >
+            <i class="fas fa-calculator w-6 text-brand-600"></i> Métricas
             Fairness
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#hands-on">
-<i class="fas fa-code w-6 text-brand-600"></i> Teste Automático
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#hands-on"
+          >
+            <i class="fas fa-code w-6 text-brand-600"></i> Teste Automático
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#metrics">
-<i class="fas fa-chart-pie w-6 text-brand-600"></i> Benchmarks
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#metrics"
+          >
+            <i class="fas fa-chart-pie w-6 text-brand-600"></i> Benchmarks
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#evidence">
-<i class="fas fa-search w-6 text-brand-600"></i> Evidências
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#evidence"
+          >
+            <i class="fas fa-search w-6 text-brand-600"></i> Evidências
           </a>
-</nav>
-</aside>
-<!-- Main Content -->
-<main class="flex-1 space-y-12">
-<!-- Hero Section (padronizado) -->
-<section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
-<div class="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-700 to-brand-500"></div>
-<div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
-<div class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-700 rounded-full mix-blend-overlay filter blur-[120px] opacity-40 animate-pulse-slow"></div>
-<div class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-500 rounded-full mix-blend-overlay filter blur-[120px] opacity-30 animate-pulse-slow" style="animation-delay: 3s"></div>
-<div class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12">
-<div class="lg:w-1/2 w-full text-white">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
-<i class="fas fa-balance-scale text-white text-xs"></i>
-<span class="text-xs font-semibold tracking-wider uppercase text-white/80">Fairness</span>
-</div>
-<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-                Viés em Modelos <br/>
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-white/80 to-white">de IA</span>
-</h1>
-<p class="text-lg md:text-xl text-white/90 font-light leading-relaxed mb-8 border-l-4 border-white/40 pl-6">
+        </nav>
+      </aside>
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section (padronizado) -->
+        <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-700 to-brand-500"
+          ></div>
+          <div
+            class="absolute inset-0 grid-bg opacity-30 pointer-events-none"
+          ></div>
+          <div
+            class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-700 rounded-full mix-blend-overlay filter blur-[120px] opacity-40 animate-pulse-slow"
+          ></div>
+          <div
+            class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-500 rounded-full mix-blend-overlay filter blur-[120px] opacity-30 animate-pulse-slow"
+            style="animation-delay: 3s"
+          ></div>
+          <div
+            class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12"
+          >
+            <div class="lg:w-1/2 w-full text-white">
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
+              >
+                <i class="fas fa-balance-scale text-white text-xs"></i>
+                <span
+                  class="text-xs font-semibold tracking-wider uppercase text-white/80"
+                  >Fairness</span
+                >
+              </div>
+              <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6"
+              >
+                Viés em Modelos <br />
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-white/80 to-white"
+                  >de IA</span
+                >
+              </h1>
+              <p
+                class="text-lg md:text-xl text-white/90 font-light leading-relaxed mb-8 border-l-4 border-white/40 pl-6"
+              >
                 Quando o algoritmo discrimina sem você ver: detecção e
                 mitigação.
               </p>
-</div>
-<div class="lg:w-1/2 w-full flex items-center justify-center">
-<div class="relative w-full max-w-md h-56 flex items-center justify-center">
-<!-- Prism/Filter -->
-<div class="glass-card w-32 h-32 rounded-full flex items-center justify-center border border-white/30 relative z-10 backdrop-blur-md">
-<i class="fas fa-filter text-5xl text-white/80"></i>
-</div>
-<!-- Input Beam (Mixed) -->
-<div class="absolute left-0 top-1/2 w-24 h-1 bg-gradient-to-r from-transparent to-white transform -translate-y-1/2"></div>
-<!-- Output Beams (Separated) -->
-<div class="absolute right-0 top-1/2 w-24 h-24 transform -translate-y-1/2">
-<div class="absolute top-0 left-0 w-full h-0.5 bg-red-400 transform -rotate-12 origin-left"></div>
-<div class="absolute top-1/2 left-0 w-full h-0.5 bg-green-400 transform origin-left"></div>
-<div class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 transform rotate-12 origin-left"></div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 1. Contexto -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="intro">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">1.</span> Contexto e Propósito
+            </div>
+            <div class="lg:w-1/2 w-full flex items-center justify-center">
+              <div
+                class="relative w-full max-w-md h-56 flex items-center justify-center"
+              >
+                <!-- Prism/Filter -->
+                <div
+                  class="glass-card w-32 h-32 rounded-full flex items-center justify-center border border-white/30 relative z-10 backdrop-blur-md"
+                >
+                  <i class="fas fa-filter text-5xl text-white/80"></i>
+                </div>
+                <!-- Input Beam (Mixed) -->
+                <div
+                  class="absolute left-0 top-1/2 w-24 h-1 bg-gradient-to-r from-transparent to-white transform -translate-y-1/2"
+                ></div>
+                <!-- Output Beams (Separated) -->
+                <div
+                  class="absolute right-0 top-1/2 w-24 h-24 transform -translate-y-1/2"
+                >
+                  <div
+                    class="absolute top-0 left-0 w-full h-0.5 bg-red-400 transform -rotate-12 origin-left"
+                  ></div>
+                  <div
+                    class="absolute top-1/2 left-0 w-full h-0.5 bg-green-400 transform origin-left"
+                  ></div>
+                  <div
+                    class="absolute bottom-0 left-0 w-full h-0.5 bg-blue-400 transform rotate-12 origin-left"
+                  ></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 1. Contexto -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="intro"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
           </h2>
-<div class="prose max-w-none text-gray-600">
-<p class="mb-4">
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
               Se você pedir para uma IA gerar uma imagem de "entregador", ela
               provavelmente gerará um homem. Se pedir "CEO", um homem branco de
               terno. Isso é <strong>viés de treinamento</strong>. Em um app de
@@ -312,7 +386,7 @@
               dados históricos enviesados) ou usar linguagem menos formal com
               usuários de nomes específicos.
             </p>
-<p class="mb-4">
+            <p class="mb-4">
               Não é apenas uma questão ética ("é feio discriminar"), é uma
               questão de <strong>produto e risco legal</strong>. Se seu
               algoritmo discrimina, você perde uma fatia do mercado e se expõe a
@@ -320,148 +394,181 @@
               excluir bairros negros de entregas Prime usando CEP como proxy
               para raça, é um exemplo clássico de viés algorítmico em produção.
             </p>
-<p class="mb-6">
+            <p class="mb-6">
               O propósito deste artigo é fornecer ferramentas de engenharia para
               detectar o invisível. Vamos tratar <em>Fairness</em> não como
               filosofia, mas como uma métrica de qualidade observável e
               testável.
             </p>
-</div>
-</section>
-<!-- 2. Abordagem -->
-<section class="space-y-6" id="approach">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">2.</span> Abordagem: Pipeline de
+          </div>
+        </section>
+        <!-- 2. Abordagem -->
+        <section class="space-y-6" id="approach">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem: Pipeline de
               Fairness
             </h2>
-<p class="text-gray-600 mb-8">
+            <p class="text-gray-600 mb-8">
               Para atacar o viés, adotamos uma abordagem cíclica inspirada no
               NIST AI Risk Management Framework: Medir, Mitigar e Monitorar.
             </p>
-<!-- CSS Diagram: Fairness Pipeline -->
-<div class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300">
-<div class="flex flex-col md:flex-row items-center justify-between gap-4">
-<div class="pipeline-step w-full md:w-1/5">
-<div class="bg-white p-4 rounded-full border-2 border-gray-300 w-16 h-16 flex items-center justify-center mx-auto mb-2 text-gray-500 shadow-sm">
-<i class="fas fa-database text-xl"></i>
-</div>
-<div class="font-bold text-sm text-gray-800">1. Coleta</div>
-<div class="text-xs text-gray-500">
+            <!-- CSS Diagram: Fairness Pipeline -->
+            <div
+              class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300"
+            >
+              <div
+                class="flex flex-col md:flex-row items-center justify-between gap-4"
+              >
+                <div class="pipeline-step w-full md:w-1/5">
+                  <div
+                    class="bg-white p-4 rounded-full border-2 border-gray-300 w-16 h-16 flex items-center justify-center mx-auto mb-2 text-gray-500 shadow-sm"
+                  >
+                    <i class="fas fa-database text-xl"></i>
+                  </div>
+                  <div class="font-bold text-sm text-gray-800">1. Coleta</div>
+                  <div class="text-xs text-gray-500">
                     Dados reais &amp; Prompts adversariais
                   </div>
-</div>
-<div class="pipeline-connector hidden md:block"></div>
-<div class="pipeline-step w-full md:w-1/5">
-<div class="bg-white p-4 rounded-full border-2 border-fuchsia-300 w-16 h-16 flex items-center justify-center mx-auto mb-2 text-brand-600 shadow-sm">
-<i class="fas fa-vial text-xl"></i>
-</div>
-<div class="font-bold text-sm text-brand-700">2. Testes</div>
-<div class="text-xs text-gray-500">Automação de Viés</div>
-</div>
-<div class="pipeline-connector hidden md:block"></div>
-<div class="pipeline-step w-full md:w-1/5">
-<div class="bg-white p-4 rounded-full border-2 border-fuchsia-300 w-16 h-16 flex items-center justify-center mx-auto mb-2 text-brand-600 shadow-sm">
-<i class="fas fa-chart-bar text-xl"></i>
-</div>
-<div class="font-bold text-sm text-brand-700">3. Análise</div>
-<div class="text-xs text-gray-500">Métricas de Fairness</div>
-</div>
-<div class="pipeline-connector hidden md:block"></div>
-<div class="pipeline-step w-full md:w-1/5">
-<div class="bg-white p-4 rounded-full border-2 border-gray-300 w-16 h-16 flex items-center justify-center mx-auto mb-2 text-gray-500 shadow-sm">
-<i class="fas fa-wrench text-xl"></i>
-</div>
-<div class="font-bold text-sm text-gray-800">
+                </div>
+                <div class="pipeline-connector hidden md:block"></div>
+                <div class="pipeline-step w-full md:w-1/5">
+                  <div
+                    class="bg-white p-4 rounded-full border-2 border-fuchsia-300 w-16 h-16 flex items-center justify-center mx-auto mb-2 text-brand-600 shadow-sm"
+                  >
+                    <i class="fas fa-vial text-xl"></i>
+                  </div>
+                  <div class="font-bold text-sm text-brand-700">2. Testes</div>
+                  <div class="text-xs text-gray-500">Automação de Viés</div>
+                </div>
+                <div class="pipeline-connector hidden md:block"></div>
+                <div class="pipeline-step w-full md:w-1/5">
+                  <div
+                    class="bg-white p-4 rounded-full border-2 border-fuchsia-300 w-16 h-16 flex items-center justify-center mx-auto mb-2 text-brand-600 shadow-sm"
+                  >
+                    <i class="fas fa-chart-bar text-xl"></i>
+                  </div>
+                  <div class="font-bold text-sm text-brand-700">3. Análise</div>
+                  <div class="text-xs text-gray-500">Métricas de Fairness</div>
+                </div>
+                <div class="pipeline-connector hidden md:block"></div>
+                <div class="pipeline-step w-full md:w-1/5">
+                  <div
+                    class="bg-white p-4 rounded-full border-2 border-gray-300 w-16 h-16 flex items-center justify-center mx-auto mb-2 text-gray-500 shadow-sm"
+                  >
+                    <i class="fas fa-wrench text-xl"></i>
+                  </div>
+                  <div class="font-bold text-sm text-gray-800">
                     4. Mitigação
                   </div>
-<div class="text-xs text-gray-500">
+                  <div class="text-xs text-gray-500">
                     Prompt/RAG/Fine-tuning
                   </div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 3. Conceitos -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="concepts">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">3.</span> Conceitos e Métricas
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 3. Conceitos -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="concepts"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos e Métricas
           </h2>
-<div class="grid md:grid-cols-2 gap-8">
-<div class="space-y-6">
-<div class="bias-card">
-<div class="bias-icon">
-<i class="fas fa-search-location"></i>
-</div>
-<h3 class="font-bold text-gray-800 mb-2">Proxy Variables</h3>
-<p class="text-sm text-gray-600">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div class="bias-card">
+                <div class="bias-icon">
+                  <i class="fas fa-search-location"></i>
+                </div>
+                <h3 class="font-bold text-gray-800 mb-2">Proxy Variables</h3>
+                <p class="text-sm text-gray-600">
                   Variáveis aparentemente neutras que "escondem" atributos
                   sensíveis. Ex: <strong>CEP</strong> é frequentemente um proxy
                   forte para <strong>Raça</strong> e <strong>Renda</strong>.
                   Remover a coluna "Raça" não elimina o viés se o CEP
                   permanecer.
                 </p>
-</div>
-<div class="bias-card">
-<div class="bias-icon"><i class="fas fa-users-slash"></i></div>
-<h3 class="font-bold text-gray-800 mb-2">Disparate Impact</h3>
-<p class="text-sm text-gray-600 mb-2">
+              </div>
+              <div class="bias-card">
+                <div class="bias-icon"><i class="fas fa-users-slash"></i></div>
+                <h3 class="font-bold text-gray-800 mb-2">Disparate Impact</h3>
+                <p class="text-sm text-gray-600 mb-2">
                   Mede a razão de aceitação entre um grupo privilegiado e um não
                   privilegiado.
                 </p>
-<div class="bg-fuchsia-50 p-3 rounded text-xs font-mono border border-fuchsia-200">
-                  DI = (Taxa Grupo B) / (Taxa Grupo A)<br/>
+                <div
+                  class="bg-fuchsia-50 p-3 rounded text-xs font-mono border border-fuchsia-200"
+                >
+                  DI = (Taxa Grupo B) / (Taxa Grupo A)<br />
                   Ideal: entre 0.8 e 1.25
                 </div>
-</div>
-</div>
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200">
-<h3 class="font-bold text-gray-800 mb-4">
-<i class="fas fa-balance-scale-right mr-2 text-brand-600"></i>
+              </div>
+            </div>
+            <div class="bg-slate-50 p-6 rounded-lg border border-slate-200">
+              <h3 class="font-bold text-gray-800 mb-4">
+                <i class="fas fa-balance-scale-right mr-2 text-brand-600"></i>
                 Métricas Matemáticas
               </h3>
-<div class="space-y-4">
-<div>
-<h4 class="font-bold text-sm text-gray-700">
+              <div class="space-y-4">
+                <div>
+                  <h4 class="font-bold text-sm text-gray-700">
                     Demographic Parity
                   </h4>
-<p class="text-xs text-gray-500 mb-1">
+                  <p class="text-xs text-gray-500 mb-1">
                     A probabilidade de output positivo deve ser igual para todos
                     os grupos.
                   </p>
-<div class="bg-white p-2 rounded border border-gray-200 font-mono text-xs text-gray-600">
+                  <div
+                    class="bg-white p-2 rounded border border-gray-200 font-mono text-xs text-gray-600"
+                  >
                     P(Y=1|A=0) = P(Y=1|A=1)
                   </div>
-</div>
-<div>
-<h4 class="font-bold text-sm text-gray-700">
+                </div>
+                <div>
+                  <h4 class="font-bold text-sm text-gray-700">
                     Equalized Odds
                   </h4>
-<p class="text-xs text-gray-500 mb-1">
+                  <p class="text-xs text-gray-500 mb-1">
                     Taxas de erro (falso positivo/negativo) devem ser iguais
                     entre grupos.
                   </p>
-<div class="bg-white p-2 rounded border border-gray-200 font-mono text-xs text-gray-600">
+                  <div
+                    class="bg-white p-2 rounded border border-gray-200 font-mono text-xs text-gray-600"
+                  >
                     TPR(A=0) = TPR(A=1) AND FPR(A=0) = FPR(A=1)
                   </div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 4. Hands On -->
-<section class="space-y-8" id="hands-on">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">4.</span> Mão na Massa: Detecção
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 4. Hands On -->
+        <section class="space-y-8" id="hands-on">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: Detecção
               Automatizada
             </h2>
-<p class="text-gray-600 mb-4 text-sm">
+            <p class="text-gray-600 mb-4 text-sm">
               Script Python para testar se o modelo muda o tom da resposta
               dependendo do nome do usuário (Proxy para etnia).
             </p>
-<pre class="code-block"><code><span class="token-imp">import</span> numpy <span class="token-imp">as</span> np
+            <pre
+              class="code-block"
+            ><code><span class="token-imp">import</span> numpy <span class="token-imp">as</span> np
 <span class="token-imp">from</span> textblob <span class="token-imp">import</span> TextBlob
 
 <span class="token-cm"># Nomes associados a grupos demográficos distintos (Exemplo simplificado)</span>
@@ -488,163 +595,220 @@ avg_b = np.mean([r[<span class="token-str">"score"</span>] <span class="token-im
 
 <span class="token-cm"># Asserção de Fairness (Tolerância de 0.1)</span>
 <span class="token-imp">assert</span> <span class="token-fn">abs</span>(avg_a - avg_b) &lt; <span class="token-num">0.1</span>, <span class="token-str">"ALERTA: Viés de sentimento detectado!"</span></code></pre>
-<div class="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
-<h3 class="font-bold text-gray-800 mb-4">
+            <div class="mt-8 bg-gray-50 p-6 rounded-lg border border-gray-200">
+              <h3 class="font-bold text-gray-800 mb-4">
                 Resultado Visual (Simulado)
               </h3>
-<div class="bar-container">
-<div class="flex flex-col items-center">
-<div class="bar bg-blue-400" style="height: 100px"></div>
-<div class="bar-label">Grupo A<br/>(0.65)</div>
-</div>
-<div class="flex flex-col items-center">
-<div class="bar bg-fuchsia-500" style="height: 60px"></div>
-<div class="bar-label">Grupo B<br/>(0.40)</div>
-</div>
-</div>
-<p class="text-xs text-red-500 mt-2 font-bold">
-<i class="fas fa-exclamation-triangle"></i> Diferença
+              <div class="bar-container">
+                <div class="flex flex-col items-center">
+                  <div class="bar bg-blue-400" style="height: 100px"></div>
+                  <div class="bar-label">Grupo A<br />(0.65)</div>
+                </div>
+                <div class="flex flex-col items-center">
+                  <div class="bar bg-fuchsia-500" style="height: 60px"></div>
+                  <div class="bar-label">Grupo B<br />(0.40)</div>
+                </div>
+              </div>
+              <p class="text-xs text-red-500 mt-2 font-bold">
+                <i class="fas fa-exclamation-triangle"></i> Diferença
                 significativa: O modelo é mais agressivo com o Grupo B.
               </p>
-</div>
-</div>
-</section>
-<!-- 5. Métricas e Riscos -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="metrics">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">5.</span> Estratégias de Mitigação
+            </div>
+          </div>
+        </section>
+        <!-- 5. Métricas e Riscos -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="metrics"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Estratégias de Mitigação
           </h2>
-<div class="overflow-x-auto rounded-lg border border-gray-200 mb-8">
-<table class="min-w-full text-sm text-left">
-<thead class="bg-gray-100 text-gray-700 font-bold">
-<tr>
-<th class="px-6 py-3">Estratégia</th>
-<th class="px-6 py-3">Redução de Viés</th>
-<th class="px-6 py-3">Complexidade</th>
-<th class="px-6 py-3">Latência</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-200">
-<tr>
-<td class="px-6 py-4 font-bold">Prompting Neutro</td>
-<td class="px-6 py-4">Média (30-50%)</td>
-<td class="px-6 py-4 text-green-600">Baixa</td>
-<td class="px-6 py-4 text-green-600">Baixa</td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-bold">RAG Balanceado</td>
-<td class="px-6 py-4">Alta (60-70%)</td>
-<td class="px-6 py-4 text-yellow-600">Média</td>
-<td class="px-6 py-4 text-yellow-600">Média</td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-bold">Fine-tuning</td>
-<td class="px-6 py-4 text-brand-600">Muito Alta (&gt;80%)</td>
-<td class="px-6 py-4 text-red-600">Alta</td>
-<td class="px-6 py-4 text-red-600">Alta</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="bg-fuchsia-50 border-l-4 border-fuchsia-500 p-4 rounded-r-lg">
-<h3 class="font-bold text-fuchsia-900 mb-2">
+          <div class="overflow-x-auto rounded-lg border border-gray-200 mb-8">
+            <table class="min-w-full text-sm text-left">
+              <thead class="bg-gray-100 text-gray-700 font-bold">
+                <tr>
+                  <th class="px-6 py-3">Estratégia</th>
+                  <th class="px-6 py-3">Redução de Viés</th>
+                  <th class="px-6 py-3">Complexidade</th>
+                  <th class="px-6 py-3">Latência</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-6 py-4 font-bold">Prompting Neutro</td>
+                  <td class="px-6 py-4">Média (30-50%)</td>
+                  <td class="px-6 py-4 text-green-600">Baixa</td>
+                  <td class="px-6 py-4 text-green-600">Baixa</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold">RAG Balanceado</td>
+                  <td class="px-6 py-4">Alta (60-70%)</td>
+                  <td class="px-6 py-4 text-yellow-600">Média</td>
+                  <td class="px-6 py-4 text-yellow-600">Média</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold">Fine-tuning</td>
+                  <td class="px-6 py-4 text-brand-600">Muito Alta (&gt;80%)</td>
+                  <td class="px-6 py-4 text-red-600">Alta</td>
+                  <td class="px-6 py-4 text-red-600">Alta</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div
+            class="bg-fuchsia-50 border-l-4 border-fuchsia-500 p-4 rounded-r-lg"
+          >
+            <h3 class="font-bold text-fuchsia-900 mb-2">
               Exemplo de Prompt Justo (Fair Prompting)
             </h3>
-<p class="text-sm text-fuchsia-800 italic">
+            <p class="text-sm text-fuchsia-800 italic">
               "Escreva uma descrição para o restaurante. Foque na excelência
               gastronômica e na qualidade dos ingredientes. Evite estereótipos
               baseados na localização geográfica ou no nome do proprietário."
             </p>
-</div>
-</section>
-<!-- 6. Evidências -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="evidence">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">6.</span> Evidências e Ferramentas
+          </div>
+        </section>
+        <!-- 6. Evidências -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="evidence"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidências e Ferramentas
           </h2>
-<div class="grid md:grid-cols-2 gap-8">
-<div>
-<h3 class="font-bold text-gray-800 mb-3">Estudos de Caso</h3>
-<ul class="space-y-4 text-sm text-gray-600">
-<li class="bg-gray-50 p-3 rounded border border-gray-200">
-<strong class="text-gray-900 block mb-1">Amazon Recruitment (2018)</strong>
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">Estudos de Caso</h3>
+              <ul class="space-y-4 text-sm text-gray-600">
+                <li class="bg-gray-50 p-3 rounded border border-gray-200">
+                  <strong class="text-gray-900 block mb-1"
+                    >Amazon Recruitment (2018)</strong
+                  >
                   IA de RH penalizava currículos com a palavra "women's" (ex:
                   "women's chess club") porque foi treinada com 10 anos de
                   currículos masculinos. Foi descontinuada.
                 </li>
-<li class="bg-gray-50 p-3 rounded border border-gray-200">
-<strong class="text-gray-900 block mb-1">COMPAS (2016)</strong>
+                <li class="bg-gray-50 p-3 rounded border border-gray-200">
+                  <strong class="text-gray-900 block mb-1"
+                    >COMPAS (2016)</strong
+                  >
                   Algoritmo de risco criminal que dava pontuações de risco 2x
                   maiores para réus negros comparado a brancos com histórico
                   similar.
                 </li>
-</ul>
-</div>
-<div>
-<h3 class="font-bold text-gray-800 mb-3">Toolkit de Auditoria</h3>
-<div class="flex flex-wrap gap-2">
-<span class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700">AIF360 (IBM)</span>
-<span class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700">Fairlearn</span>
-<span class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700">Hugging Face Fairness</span>
-<span class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700">Bias Bounty</span>
-</div>
-<p class="text-xs text-gray-500 mt-4">
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">Toolkit de Auditoria</h3>
+              <div class="flex flex-wrap gap-2">
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >AIF360 (IBM)</span
+                >
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >Fairlearn</span
+                >
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >Hugging Face Fairness</span
+                >
+                <span
+                  class="bg-gray-100 px-3 py-1 rounded text-sm border font-bold text-gray-700"
+                  >Bias Bounty</span
+                >
+              </div>
+              <p class="text-xs text-gray-500 mt-4">
                 Recomendação: Use pelo menos duas ferramentas para validação
                 cruzada.
               </p>
-</div>
-</div>
-</section>
-<!-- 7. Reflexões -->
-<section class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10" id="reflections">
-<h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
-          7. Reflexões &amp; Próximos Passos
-        </h2>
-<div class="w-full h-px bg-white/10 mb-8"></div>
-<div class="grid lg:grid-cols-12 gap-10 md:gap-16">
-<div class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light">
-<p>
-              "Fairness é um processo contínuo. Se você não auditar seu modelo,
-              seus usuários o farão."
-            </p>
-</div>
-<div class="lg:col-span-5">
-<h3 class="text-sm font-bold text-brand-400 uppercase tracking-widest mb-6 font-mono">
-              Artigos Relacionados
-            </h3>
-<ul class="space-y-4">
-<li class="flex items-start group">
-<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="16-alucinacoes-llm-mitigacao.html">
-<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3">
-<i class="fas fa-arrow-left"></i>
-</span>
-<div class="flex flex-col">
-<span class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400">Anterior</span>
-<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">Mitigação de Alucinações em LLMs</span>
-</div>
-</a>
-</li>
-<li class="flex items-start group">
-<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="18-interfaces-conversacionais-honestas.html">
-<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3">
-<i class="fas fa-arrow-right"></i>
-</span>
-<div class="flex flex-col">
-<span class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400">Próximo</span>
-<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">Interfaces Conversacionais Honestas</span>
-</div>
-</a>
-</li>
-</ul>
-</div>
-</div>
-</section>
-</main>
-</div>
-<footer class="bg-white border-t border-gray-200 mt-12 py-8">
-<div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-<p>© 2025 AI Ethics Series. Fairness matters.</p>
-</div>
-</footer>
-</body>
+            </div>
+          </div>
+        </section>
+        <!-- 7. Reflexões -->
+        <section
+          class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10"
+          id="reflections"
+        >
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
+            7. Reflexões &amp; Próximos Passos
+          </h2>
+          <div class="w-full h-px bg-white/10 mb-8"></div>
+          <div class="grid lg:grid-cols-12 gap-10 md:gap-16">
+            <div
+              class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light"
+            >
+              <p>
+                "Fairness é um processo contínuo. Se você não auditar seu
+                modelo, seus usuários o farão."
+              </p>
+            </div>
+            <div class="lg:col-span-5">
+              <h3
+                class="text-sm font-bold text-brand-400 uppercase tracking-widest mb-6 font-mono"
+              >
+                Artigos Relacionados
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="16-alucinacoes-llm-mitigacao.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400"
+                        >Anterior</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >Mitigação de Alucinações em LLMs</span
+                      >
+                    </div>
+                  </a>
+                </li>
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="18-interfaces-conversacionais-honestas.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400"
+                        >Próximo</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >Interfaces Conversacionais Honestas</span
+                      >
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>© 2025 AI Ethics Series. Fairness matters.</p>
+      </div>
+    </footer>
+  </body>
 </html>

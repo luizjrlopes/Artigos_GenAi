@@ -1,16 +1,22 @@
 ﻿<!DOCTYPE html>
 
 <html class="scroll-smooth" lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>LLMs como Copilotos em Delivery</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<script>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>LLMs como Copilotos em Delivery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
       tailwind.config = {
         theme: {
           extend: {
@@ -43,7 +49,7 @@
         },
       };
     </script>
-<style>
+    <style>
       /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -167,127 +173,199 @@
         background-size: 40px 40px;
       }
     </style>
-</head>
-<body class="bg-gray-50 text-gray-800 antialiased">
-<!-- Header -->
-<header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-<div class="flex items-center space-x-3">
-<div class="bg-brand-600 text-white p-2 rounded-lg">
-<i class="fas fa-robot"></i>
-</div>
-<h1 class="text-xl font-bold text-gray-900">
+  </head>
+  <body class="bg-gray-50 text-gray-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
+          <div class="bg-brand-600 text-white p-2 rounded-lg">
+            <i class="fas fa-robot"></i>
+          </div>
+          <h1 class="text-xl font-bold text-gray-900">
             AI Copilots in Engineering
           </h1>
-</div>
-<div class="hidden md:block text-sm text-gray-500">
-          Série: Produtividade Dev
+        </a>
+        <div class="hidden md:block text-sm text-gray-500">
+          Módulo 2: Arquitetura e Desenvolvimento de Software para IA
         </div>
-</div>
-</header>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8">
-<!-- Sidebar Navigation -->
-<aside aria-label="Navegação lateral" class="lg:w-64 flex-shrink-0 hidden lg:block">
-<nav class="sticky top-24 space-y-1">
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100" href="#intro">
-<i class="fas fa-tachometer-alt w-6 text-brand-600"></i> Contexto
+      </div>
+    </header>
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside
+        aria-label="Navegação lateral"
+        class="lg:w-64 flex-shrink-0 hidden lg:block"
+      >
+        <nav class="sticky top-24 space-y-1">
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+            href="#intro"
+          >
+            <i class="fas fa-tachometer-alt w-6 text-brand-600"></i> Contexto
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#approach">
-<i class="fas fa-code-branch w-6 text-brand-600"></i> Abordagem
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#approach"
+          >
+            <i class="fas fa-code-branch w-6 text-brand-600"></i> Abordagem
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#concepts">
-<i class="fas fa-lock w-6 text-brand-600"></i> Conceitos &amp; Privacy
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#concepts"
+          >
+            <i class="fas fa-lock w-6 text-brand-600"></i> Conceitos &amp;
+            Privacy
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#hands-on">
-<i class="fas fa-laptop-code w-6 text-brand-600"></i> Casos Práticos
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#hands-on"
+          >
+            <i class="fas fa-laptop-code w-6 text-brand-600"></i> Casos Práticos
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#metrics">
-<i class="fas fa-chart-bar w-6 text-brand-600"></i> Métricas
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#metrics"
+          >
+            <i class="fas fa-chart-bar w-6 text-brand-600"></i> Métricas
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#evidence">
-<i class="fas fa-vial w-6 text-brand-600"></i> Evidências
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#evidence"
+          >
+            <i class="fas fa-vial w-6 text-brand-600"></i> Evidências
           </a>
-</nav>
-</aside>
-<!-- Main Content -->
-<main class="flex-1 space-y-12">
-<!-- Hero Section (Atualizada para Padrão Visual - Tema Indigo) -->
-<section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
-<!-- Background Gradient & Grid -->
-<div class="absolute inset-0 bg-gradient-to-br from-[#312e81] via-[#4338ca] to-[#6366f1]"></div>
-<div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
-<!-- Ambient Lighting -->
-<div class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"></div>
-<div class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-indigo-300 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow" style="animation-delay: 3s"></div>
-<div class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12">
-<!-- Coluna Esquerda: Texto -->
-<div class="lg:w-1/2 w-full text-white">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
-<i class="fas fa-keyboard text-brand-200 text-xs"></i>
-<span class="text-xs font-semibold tracking-wider uppercase text-brand-100">Developer Experience</span>
-</div>
-<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-                LLMs como <br/>
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white">Copilotos</span>
-</h1>
-<p class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6">
+        </nav>
+      </aside>
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section (Atualizada para Padrão Visual - Tema Indigo) -->
+        <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
+          <!-- Background Gradient & Grid -->
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-[#312e81] via-[#4338ca] to-[#6366f1]"
+          ></div>
+          <div
+            class="absolute inset-0 grid-bg opacity-30 pointer-events-none"
+          ></div>
+          <!-- Ambient Lighting -->
+          <div
+            class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
+          ></div>
+          <div
+            class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-indigo-300 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
+            style="animation-delay: 3s"
+          ></div>
+          <div
+            class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12"
+          >
+            <!-- Coluna Esquerda: Texto -->
+            <div class="lg:w-1/2 w-full text-white">
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
+              >
+                <i class="fas fa-keyboard text-brand-200 text-xs"></i>
+                <span
+                  class="text-xs font-semibold tracking-wider uppercase text-brand-100"
+                  >Developer Experience</span
+                >
+              </div>
+              <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6"
+              >
+                LLMs como <br />
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white"
+                  >Copilotos</span
+                >
+              </h1>
+              <p
+                class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6"
+              >
                 Refatoração, testes e analytics em alta velocidade. O manual de
                 sobrevivência do dev moderno.
               </p>
-</div>
-<!-- Coluna Direita: Diagrama Visual (Feedback Loop) -->
-<div class="lg:w-1/2 w-full flex items-center justify-center">
-<div class="relative w-full max-w-md p-6">
-<!-- Background Glow -->
-<div class="absolute inset-0 bg-indigo-500/20 blur-3xl rounded-full"></div>
-<div class="relative z-10 flex flex-col gap-6">
-<!-- Top Row: Human & AI -->
-<div class="flex justify-between items-center">
-<!-- Human -->
-<div class="flex flex-col items-center gap-2">
-<div class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-indigo-200 border border-indigo-400/30">
-<i class="fas fa-user"></i>
-</div>
-<span class="text-xs font-mono text-indigo-200">DEV</span>
-</div>
-<!-- Connection Arrow -->
-<div class="flex-1 h-0.5 bg-gradient-to-r from-indigo-400/50 to-indigo-400/50 mx-4 relative">
-<i class="fas fa-chevron-right absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 text-indigo-300 text-xs"></i>
-</div>
-<!-- AI -->
-<div class="flex flex-col items-center gap-2">
-<div class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-white border border-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.5)] animate-pulse-slow">
-<i class="fas fa-robot"></i>
-</div>
-<span class="text-xs font-mono text-white">LLM</span>
-</div>
-</div>
-<!-- Bottom Row: Code Output -->
-<div class="flex justify-center">
-<div class="relative">
-<!-- Vertical Line from AI to Code -->
-<div class="absolute -top-6 left-1/2 w-0.5 h-6 bg-indigo-400/30 transform -translate-x-1/2"></div>
-<div class="glass-card px-6 py-3 rounded-xl border border-indigo-400/30 flex items-center gap-3">
-<i class="fas fa-code text-indigo-300"></i>
-<div class="flex flex-col gap-1">
-<div class="w-24 h-1.5 bg-indigo-400/20 rounded-full"></div>
-<div class="w-16 h-1.5 bg-indigo-400/20 rounded-full"></div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 1. Contexto -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="intro">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">1.</span> Contexto e Propósito
+            </div>
+            <!-- Coluna Direita: Diagrama Visual (Feedback Loop) -->
+            <div class="lg:w-1/2 w-full flex items-center justify-center">
+              <div class="relative w-full max-w-md p-6">
+                <!-- Background Glow -->
+                <div
+                  class="absolute inset-0 bg-indigo-500/20 blur-3xl rounded-full"
+                ></div>
+                <div class="relative z-10 flex flex-col gap-6">
+                  <!-- Top Row: Human & AI -->
+                  <div class="flex justify-between items-center">
+                    <!-- Human -->
+                    <div class="flex flex-col items-center gap-2">
+                      <div
+                        class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-indigo-200 border border-indigo-400/30"
+                      >
+                        <i class="fas fa-user"></i>
+                      </div>
+                      <span class="text-xs font-mono text-indigo-200">DEV</span>
+                    </div>
+                    <!-- Connection Arrow -->
+                    <div
+                      class="flex-1 h-0.5 bg-gradient-to-r from-indigo-400/50 to-indigo-400/50 mx-4 relative"
+                    >
+                      <i
+                        class="fas fa-chevron-right absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2 text-indigo-300 text-xs"
+                      ></i>
+                    </div>
+                    <!-- AI -->
+                    <div class="flex flex-col items-center gap-2">
+                      <div
+                        class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-white border border-indigo-300 shadow-[0_0_15px_rgba(99,102,241,0.5)] animate-pulse-slow"
+                      >
+                        <i class="fas fa-robot"></i>
+                      </div>
+                      <span class="text-xs font-mono text-white">LLM</span>
+                    </div>
+                  </div>
+                  <!-- Bottom Row: Code Output -->
+                  <div class="flex justify-center">
+                    <div class="relative">
+                      <!-- Vertical Line from AI to Code -->
+                      <div
+                        class="absolute -top-6 left-1/2 w-0.5 h-6 bg-indigo-400/30 transform -translate-x-1/2"
+                      ></div>
+                      <div
+                        class="glass-card px-6 py-3 rounded-xl border border-indigo-400/30 flex items-center gap-3"
+                      >
+                        <i class="fas fa-code text-indigo-300"></i>
+                        <div class="flex flex-col gap-1">
+                          <div
+                            class="w-24 h-1.5 bg-indigo-400/20 rounded-full"
+                          ></div>
+                          <div
+                            class="w-16 h-1.5 bg-indigo-400/20 rounded-full"
+                          ></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 1. Contexto -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="intro"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">1.</span> Contexto e Propósito
           </h2>
-<div class="prose max-w-none text-gray-600">
-<p class="mb-4">
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-4">
               Em times de engenharia de alta performance, velocidade é crucial,
               mas estabilidade é inegociável. O dia a dia de um dev em uma
               startup de delivery não é apenas criar features "greenfield"; é
@@ -295,7 +373,7 @@
               monolitos críticos de pagamento e otimizar queries SQL que travam
               o checkout na sexta à noite.
             </p>
-<p class="mb-4">
+            <p class="mb-4">
               Segundo o relatório <em>Stack Overflow 2025</em>,
               <strong>68% dos devs já usam IA</strong> para acelerar tarefas,
               mas apenas 22% confiam cegamente no código gerado. O desafio real
@@ -303,227 +381,272 @@
               confiável que multiplica a senioridade do time, em vez de uma
               fonte de bugs sutis.
             </p>
-<div class="grid md:grid-cols-2 gap-6 mt-6">
-<div class="bg-green-50 p-5 rounded-lg border border-green-100">
-<h3 class="font-bold text-green-900 mb-2">
-<i class="fas fa-arrow-up mr-2"></i>Impacto Real
+            <div class="grid md:grid-cols-2 gap-6 mt-6">
+              <div class="bg-green-50 p-5 rounded-lg border border-green-100">
+                <h3 class="font-bold text-green-900 mb-2">
+                  <i class="fas fa-arrow-up mr-2"></i>Impacto Real
                 </h3>
-<ul class="text-sm text-green-800 space-y-1">
-<li>
+                <ul class="text-sm text-green-800 space-y-1">
+                  <li>
                     • Redução de bugs em prod: <strong>3.2% → 1.1%</strong>
-</li>
-<li>• Entrega de features: <strong>6 → 3 dias</strong></li>
-<li>• Menos trabalho repetitivo: <strong>-40%</strong></li>
-</ul>
-</div>
-<div class="bg-brand-50 p-5 rounded-lg border border-brand-100">
-<h3 class="font-bold text-brand-900 mb-2">
-<i class="fas fa-list-check mr-2"></i>Checklist de Relevância
+                  </li>
+                  <li>• Entrega de features: <strong>6 → 3 dias</strong></li>
+                  <li>• Menos trabalho repetitivo: <strong>-40%</strong></li>
+                </ul>
+              </div>
+              <div class="bg-brand-50 p-5 rounded-lg border border-brand-100">
+                <h3 class="font-bold text-brand-900 mb-2">
+                  <i class="fas fa-list-check mr-2"></i>Checklist de Relevância
                 </h3>
-<ul class="text-sm text-brand-800 space-y-1">
-<li>
-<i class="fas fa-check-square mr-1"></i> Mercado: Padrão em
+                <ul class="text-sm text-brand-800 space-y-1">
+                  <li>
+                    <i class="fas fa-check-square mr-1"></i> Mercado: Padrão em
                     times modernos.
                   </li>
-<li>
-<i class="fas fa-check-square mr-1"></i> Problema: Evitar
+                  <li>
+                    <i class="fas fa-check-square mr-1"></i> Problema: Evitar
                     "automação cega".
                   </li>
-<li>
-<i class="fas fa-check-square mr-1"></i> Solução: Reviewer
+                  <li>
+                    <i class="fas fa-check-square mr-1"></i> Solução: Reviewer
                     Mindset.
                   </li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<!-- 2. Abordagem -->
-<section class="space-y-6" id="approach">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">2.</span> Abordagem e Fluxo
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 2. Abordagem -->
+        <section class="space-y-6" id="approach">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">2.</span> Abordagem e Fluxo
             </h2>
-<p class="text-gray-600 mb-6">
+            <p class="text-gray-600 mb-6">
               Vamos focar em três casos onde a IA atua como multiplicador de
               força: <strong>Arqueologia de Código</strong> (decifrar legado),
               <strong>Engenharia de Testes</strong> (cobertura robusta) e
               <strong>SQL Analytics</strong> (queries complexas com schema
               awareness).
             </p>
-<!-- CSS Diagram: Workflow Flowchart -->
-<div class="bg-gray-50 p-8 rounded-xl border border-dashed border-gray-300 flex flex-col md:flex-row items-center justify-between gap-4">
-<div class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-full md:w-1/4">
-<div class="text-brand-500 font-bold mb-1">
-<i class="fas fa-brain"></i> 1. Contexto
+            <!-- CSS Diagram: Workflow Flowchart -->
+            <div
+              class="bg-gray-50 p-8 rounded-xl border border-dashed border-gray-300 flex flex-col md:flex-row items-center justify-between gap-4"
+            >
+              <div
+                class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-full md:w-1/4"
+              >
+                <div class="text-brand-500 font-bold mb-1">
+                  <i class="fas fa-brain"></i> 1. Contexto
                 </div>
-<div class="text-xs text-gray-500">Dev provê docs e schema</div>
-</div>
-<i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
-<i class="fas fa-arrow-down text-gray-400 md:hidden"></i>
-<div class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-full md:w-1/4">
-<div class="text-indigo-600 font-bold mb-1">
-<i class="fas fa-magic"></i> 2. Geração
+                <div class="text-xs text-gray-500">Dev provê docs e schema</div>
+              </div>
+              <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+              <i class="fas fa-arrow-down text-gray-400 md:hidden"></i>
+              <div
+                class="bg-white p-4 rounded shadow-sm border border-gray-200 text-center w-full md:w-1/4"
+              >
+                <div class="text-indigo-600 font-bold mb-1">
+                  <i class="fas fa-magic"></i> 2. Geração
                 </div>
-<div class="text-xs text-gray-500">IA propõe solução</div>
-</div>
-<i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
-<i class="fas fa-arrow-down text-gray-400 md:hidden"></i>
-<div class="bg-white p-4 rounded shadow-sm border-l-4 border-yellow-400 text-center w-full md:w-1/4">
-<div class="text-yellow-700 font-bold mb-1">
-<i class="fas fa-glasses"></i> 3. Revisão
+                <div class="text-xs text-gray-500">IA propõe solução</div>
+              </div>
+              <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+              <i class="fas fa-arrow-down text-gray-400 md:hidden"></i>
+              <div
+                class="bg-white p-4 rounded shadow-sm border-l-4 border-yellow-400 text-center w-full md:w-1/4"
+              >
+                <div class="text-yellow-700 font-bold mb-1">
+                  <i class="fas fa-glasses"></i> 3. Revisão
                 </div>
-<div class="text-xs text-gray-500">Dev audita e ajusta</div>
-</div>
-<i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
-<i class="fas fa-arrow-down text-gray-400 md:hidden"></i>
-<div class="bg-green-50 p-4 rounded shadow-sm border border-green-200 text-center w-full md:w-1/4">
-<div class="text-green-700 font-bold mb-1">
-<i class="fas fa-rocket"></i> 4. Produção
+                <div class="text-xs text-gray-500">Dev audita e ajusta</div>
+              </div>
+              <i class="fas fa-arrow-right text-gray-400 hidden md:block"></i>
+              <i class="fas fa-arrow-down text-gray-400 md:hidden"></i>
+              <div
+                class="bg-green-50 p-4 rounded shadow-sm border border-green-200 text-center w-full md:w-1/4"
+              >
+                <div class="text-green-700 font-bold mb-1">
+                  <i class="fas fa-rocket"></i> 4. Produção
                 </div>
-<div class="text-xs text-gray-500">Merge seguro</div>
-</div>
-</div>
-<div class="mt-8 overflow-x-auto">
-<table class="min-w-full text-sm text-left border-collapse">
-<thead class="bg-gray-100 text-gray-700 font-bold">
-<tr>
-<th class="px-6 py-3 rounded-tl-lg">Caso de Uso</th>
-<th class="px-6 py-3">Ferramenta</th>
-<th class="px-6 py-3 rounded-tr-lg">Métrica de Sucesso</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-200">
-<tr>
-<td class="px-6 py-4">Refatoração Legada</td>
-<td class="px-6 py-4">
-<span class="bg-gray-100 px-2 py-1 rounded text-xs">Cursor/Copilot</span>
-</td>
-<td class="px-6 py-4">Redução de dívida técnica</td>
-</tr>
-<tr>
-<td class="px-6 py-4">Testes Automatizados</td>
-<td class="px-6 py-4">
-<span class="bg-gray-100 px-2 py-1 rounded text-xs">Cody/Copilot</span>
-</td>
-<td class="px-6 py-4">Cobertura de edge cases</td>
-</tr>
-<tr>
-<td class="px-6 py-4">SQL Analytics</td>
-<td class="px-6 py-4">
-<span class="bg-gray-100 px-2 py-1 rounded text-xs">ChatGPT Ent.</span>
-</td>
-<td class="px-6 py-4">Performance da query</td>
-</tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<!-- 3. Conceitos -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="concepts">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">3.</span> Conceitos Fundamentais
+                <div class="text-xs text-gray-500">Merge seguro</div>
+              </div>
+            </div>
+            <div class="mt-8 overflow-x-auto">
+              <table class="min-w-full text-sm text-left border-collapse">
+                <thead class="bg-gray-100 text-gray-700 font-bold">
+                  <tr>
+                    <th class="px-6 py-3 rounded-tl-lg">Caso de Uso</th>
+                    <th class="px-6 py-3">Ferramenta</th>
+                    <th class="px-6 py-3 rounded-tr-lg">Métrica de Sucesso</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gray-200">
+                  <tr>
+                    <td class="px-6 py-4">Refatoração Legada</td>
+                    <td class="px-6 py-4">
+                      <span class="bg-gray-100 px-2 py-1 rounded text-xs"
+                        >Cursor/Copilot</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">Redução de dívida técnica</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4">Testes Automatizados</td>
+                    <td class="px-6 py-4">
+                      <span class="bg-gray-100 px-2 py-1 rounded text-xs"
+                        >Cody/Copilot</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">Cobertura de edge cases</td>
+                  </tr>
+                  <tr>
+                    <td class="px-6 py-4">SQL Analytics</td>
+                    <td class="px-6 py-4">
+                      <span class="bg-gray-100 px-2 py-1 rounded text-xs"
+                        >ChatGPT Ent.</span
+                      >
+                    </td>
+                    <td class="px-6 py-4">Performance da query</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </section>
+        <!-- 3. Conceitos -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="concepts"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Conceitos Fundamentais
           </h2>
-<div class="grid md:grid-cols-2 gap-8">
-<div class="space-y-6">
-<div>
-<h3 class="font-bold text-brand-700 mb-2">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div class="space-y-6">
+              <div>
+                <h3 class="font-bold text-brand-700 mb-2">
                   1. RAG de Código (Awareness)
                 </h3>
-<p class="text-sm text-gray-600">
+                <p class="text-sm text-gray-600">
                   Ferramentas modernas indexam todo o repositório. Isso permite
                   perguntas contextuais como
-                  <em>"Onde essa variável 'frete' é usada no módulo de
-                    checkout?"</em>, algo impossível para um modelo genérico.
+                  <em
+                    >"Onde essa variável 'frete' é usada no módulo de
+                    checkout?"</em
+                  >, algo impossível para um modelo genérico.
                 </p>
-</div>
-<div>
-<h3 class="font-bold text-brand-700 mb-2">
+              </div>
+              <div>
+                <h3 class="font-bold text-brand-700 mb-2">
                   2. Reviewer Mindset
                 </h3>
-<p class="text-sm text-gray-600">
+                <p class="text-sm text-gray-600">
                   O dev deixa de ser "digitador" e vira "revisor". Se você
                   aceita o código da IA sem ler, você introduziu um bug. A
                   responsabilidade final é humana.
                 </p>
-</div>
-</div>
-<!-- CSS Diagram: Privacy Tiers -->
-<div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
-<h3 class="font-bold text-gray-800 mb-4 text-center">
+              </div>
+            </div>
+            <!-- CSS Diagram: Privacy Tiers -->
+            <div class="bg-slate-50 p-6 rounded-xl border border-slate-200">
+              <h3 class="font-bold text-gray-800 mb-4 text-center">
                 3. Privacy Data Tiers
               </h3>
-<div class="space-y-3">
-<div class="flex items-center">
-<div class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center mr-3">
-<i class="fas fa-shield-alt"></i>
-</div>
-<div class="flex-1 bg-white p-3 rounded border border-gray-200 shadow-sm">
-<div class="font-bold text-sm">Enterprise / Zero Data</div>
-<div class="text-xs text-gray-500">
+              <div class="space-y-3">
+                <div class="flex items-center">
+                  <div
+                    class="w-8 h-8 rounded-full bg-green-500 text-white flex items-center justify-center mr-3"
+                  >
+                    <i class="fas fa-shield-alt"></i>
+                  </div>
+                  <div
+                    class="flex-1 bg-white p-3 rounded border border-gray-200 shadow-sm"
+                  >
+                    <div class="font-bold text-sm">Enterprise / Zero Data</div>
+                    <div class="text-xs text-gray-500">
                       Dados NÃO treinam o modelo. Seguro para PII.
                     </div>
-</div>
-</div>
-<div class="flex items-center">
-<div class="w-8 h-8 rounded-full bg-yellow-500 text-white flex items-center justify-center mr-3">
-<i class="fas fa-user-shield"></i>
-</div>
-<div class="flex-1 bg-white p-3 rounded border border-gray-200 shadow-sm">
-<div class="font-bold text-sm">Individual Pro</div>
-<div class="text-xs text-gray-500">
+                  </div>
+                </div>
+                <div class="flex items-center">
+                  <div
+                    class="w-8 h-8 rounded-full bg-yellow-500 text-white flex items-center justify-center mr-3"
+                  >
+                    <i class="fas fa-user-shield"></i>
+                  </div>
+                  <div
+                    class="flex-1 bg-white p-3 rounded border border-gray-200 shadow-sm"
+                  >
+                    <div class="font-bold text-sm">Individual Pro</div>
+                    <div class="text-xs text-gray-500">
                       Geralmente seguro, mas verifique os ToS.
                     </div>
-</div>
-</div>
-<div class="flex items-center opacity-70">
-<div class="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center mr-3">
-<i class="fas fa-globe"></i>
-</div>
-<div class="flex-1 bg-white p-3 rounded border border-gray-200 shadow-sm">
-<div class="font-bold text-sm">Public / Free Tier</div>
-<div class="text-xs text-gray-500">
+                  </div>
+                </div>
+                <div class="flex items-center opacity-70">
+                  <div
+                    class="w-8 h-8 rounded-full bg-red-500 text-white flex items-center justify-center mr-3"
+                  >
+                    <i class="fas fa-globe"></i>
+                  </div>
+                  <div
+                    class="flex-1 bg-white p-3 rounded border border-gray-200 shadow-sm"
+                  >
+                    <div class="font-bold text-sm">Public / Free Tier</div>
+                    <div class="text-xs text-gray-500">
                       Seu código pode virar treino. NUNCA cole segredos.
                     </div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 4. Hands On -->
-<section class="space-y-8" id="hands-on">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">4.</span> Mão na Massa: Exemplos
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 4. Hands On -->
+        <section class="space-y-8" id="hands-on">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          >
+            <h2
+              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-brand-600">4.</span> Mão na Massa: Exemplos
               Reais
             </h2>
-<!-- Case 1 -->
-<div class="step-card mb-10">
-<h3 class="font-bold text-lg text-gray-800 mb-2">
+            <!-- Case 1 -->
+            <div class="step-card mb-10">
+              <h3 class="font-bold text-lg text-gray-800 mb-2">
                 Caso 1: Arqueologia de Código
               </h3>
-<p class="text-sm text-gray-600 mb-4">
+              <p class="text-sm text-gray-600 mb-4">
                 Transformando código "spaghetti" legado em Python moderno e
                 tipado.
               </p>
-<div class="grid md:grid-cols-2 gap-4">
-<div>
-<div class="text-xs font-bold text-red-500 mb-1">
+              <div class="grid md:grid-cols-2 gap-4">
+                <div>
+                  <div class="text-xs font-bold text-red-500 mb-1">
                     Antes (Legado)
                   </div>
-<pre class="code-block text-xs"><code>def c(d, w, v):
+                  <pre class="code-block text-xs"><code>def c(d, w, v):
     b = 5.0
     if d &gt; 10: b += (d - 10) * 0.5
     if w &gt; 5: b *= 1.2
     return b</code></pre>
-</div>
-<div>
-<div class="text-xs font-bold text-green-500 mb-1">
+                </div>
+                <div>
+                  <div class="text-xs font-bold text-green-500 mb-1">
                     Depois (Com Copilot)
                   </div>
-<pre class="code-block text-xs"><code><span class="token-comment"># Constantes nomeadas para regras de negócio</span>
+                  <pre
+                    class="code-block text-xs"
+                  ><code><span class="token-comment"># Constantes nomeadas para regras de negócio</span>
 BASE_FEE = 5.0
 DISTANCE_THRESHOLD = 10
 WEIGHT_MULTIPLIER = 1.2
@@ -539,18 +662,20 @@ WEIGHT_MULTIPLIER = 1.2
     <span class="token-keyword">if</span> weight &gt; 5:
         total *= WEIGHT_MULTIPLIER
     <span class="token-keyword">return</span> total</code></pre>
-</div>
-</div>
-</div>
-<!-- Case 2 -->
-<div class="step-card mb-10">
-<h3 class="font-bold text-lg text-gray-800 mb-2">
+                </div>
+              </div>
+            </div>
+            <!-- Case 2 -->
+            <div class="step-card mb-10">
+              <h3 class="font-bold text-lg text-gray-800 mb-2">
                 Caso 2: Geração de Testes (Carrinho)
               </h3>
-<p class="text-sm text-gray-600 mb-4">
+              <p class="text-sm text-gray-600 mb-4">
                 Gerando cobertura para edge cases que humanos esquecem.
               </p>
-<pre class="code-block"><code><span class="token-comment"># Prompt: Gere testes pytest parametrizados para validate_cart.</span>
+              <pre
+                class="code-block"
+              ><code><span class="token-comment"># Prompt: Gere testes pytest parametrizados para validate_cart.</span>
 <span class="token-comment"># Cubra: Limite exato (19.99 vs 20), VIP, Negativos.</span>
 
 <span class="token-keyword">import</span> pytest
@@ -563,21 +688,25 @@ WEIGHT_MULTIPLIER = 1.2
 ])
 <span class="token-keyword">def</span> <span class="token-func">test_validate_cart_rules</span>(cart_total, is_vip, expected):
     ...</code></pre>
-</div>
-<!-- Case 3 -->
-<div class="step-card">
-<h3 class="font-bold text-lg text-gray-800 mb-2">
+            </div>
+            <!-- Case 3 -->
+            <div class="step-card">
+              <h3 class="font-bold text-lg text-gray-800 mb-2">
                 Caso 3: SQL Analytics Seguro
               </h3>
-<p class="text-sm text-gray-600 mb-4">
+              <p class="text-sm text-gray-600 mb-4">
                 Passar o Schema DDL evita alucinação de nomes de colunas.
               </p>
-<div class="bg-gray-50 p-3 rounded border border-gray-200 mb-2">
-<span class="text-xs font-mono text-gray-500">Prompt: "Aqui está o CREATE TABLE orders... Crie uma query
+              <div class="bg-gray-50 p-3 rounded border border-gray-200 mb-2">
+                <span class="text-xs font-mono text-gray-500"
+                  >Prompt: "Aqui está o CREATE TABLE orders... Crie uma query
                   para usuários que pediram Pizza e Hamburguer na mesma
-                  semana."</span>
-</div>
-<pre class="code-block"><code><span class="token-keyword">WITH</span> user_items <span class="token-keyword">AS</span> (
+                  semana."</span
+                >
+              </div>
+              <pre
+                class="code-block"
+              ><code><span class="token-keyword">WITH</span> user_items <span class="token-keyword">AS</span> (
     <span class="token-keyword">SELECT</span> o.user_id, i.product_name, o.created_at
     <span class="token-keyword">FROM</span> orders o 
     <span class="token-keyword">JOIN</span> order_items i <span class="token-keyword">ON</span> o.id = i.order_id
@@ -588,107 +717,129 @@ WEIGHT_MULTIPLIER = 1.2
 <span class="token-keyword">WHERE</span> a.product_name = <span class="token-string">'Pizza'</span> 
   <span class="token-keyword">AND</span> b.product_name = <span class="token-string">'Hamburguer'</span>
   <span class="token-keyword">AND</span> b.created_at <span class="token-keyword">BETWEEN</span> a.created_at <span class="token-keyword">AND</span> a.created_at + INTERVAL <span class="token-string">'7 days'</span>;</code></pre>
-</div>
-</div>
-</section>
-<!-- 5. Métricas e Riscos -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="metrics">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">5.</span> Métricas, Riscos e Boas
+            </div>
+          </div>
+        </section>
+        <!-- 5. Métricas e Riscos -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="metrics"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">5.</span> Métricas, Riscos e Boas
             Práticas
           </h2>
-<div class="overflow-x-auto mb-8">
-<table class="min-w-full text-sm text-left">
-<thead class="bg-red-50 text-red-900">
-<tr>
-<th class="px-4 py-2">Risco</th>
-<th class="px-4 py-2">Problema Real</th>
-<th class="px-4 py-2">Solução Recomendada</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-gray-200">
-<tr>
-<td class="px-4 py-2 font-bold">Alucinação de Pacotes</td>
-<td class="px-4 py-2">Sugere lib maliciosa/inexistente</td>
-<td class="px-4 py-2">
+          <div class="overflow-x-auto mb-8">
+            <table class="min-w-full text-sm text-left">
+              <thead class="bg-red-50 text-red-900">
+                <tr>
+                  <th class="px-4 py-2">Risco</th>
+                  <th class="px-4 py-2">Problema Real</th>
+                  <th class="px-4 py-2">Solução Recomendada</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-gray-200">
+                <tr>
+                  <td class="px-4 py-2 font-bold">Alucinação de Pacotes</td>
+                  <td class="px-4 py-2">Sugere lib maliciosa/inexistente</td>
+                  <td class="px-4 py-2">
                     Verificar PyPI/npm antes de instalar
                   </td>
-</tr>
-<tr>
-<td class="px-4 py-2 font-bold">Viés de Automação</td>
-<td class="px-4 py-2">Aceitar código sem ler</td>
-<td class="px-4 py-2">Code Review humano obrigatório</td>
-</tr>
-<tr>
-<td class="px-4 py-2 font-bold">Vazamento de Dados</td>
-<td class="px-4 py-2">API Keys em chat público</td>
-<td class="px-4 py-2">Uso de ferramentas Enterprise</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="bg-brand-50 p-6 rounded-xl border border-brand-100">
-<h3 class="font-bold text-brand-900 mb-2">
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-bold">Viés de Automação</td>
+                  <td class="px-4 py-2">Aceitar código sem ler</td>
+                  <td class="px-4 py-2">Code Review humano obrigatório</td>
+                </tr>
+                <tr>
+                  <td class="px-4 py-2 font-bold">Vazamento de Dados</td>
+                  <td class="px-4 py-2">API Keys em chat público</td>
+                  <td class="px-4 py-2">Uso de ferramentas Enterprise</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="bg-brand-50 p-6 rounded-xl border border-brand-100">
+            <h3 class="font-bold text-brand-900 mb-2">
               Checklist de Boas Práticas
             </h3>
-<div class="grid md:grid-cols-2 gap-2 text-sm text-brand-800">
-<div class="flex items-center">
-<i class="fas fa-check-circle mr-2 text-brand-500"></i> Revise
+            <div class="grid md:grid-cols-2 gap-2 text-sm text-brand-800">
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i> Revise
                 todo código gerado
               </div>
-<div class="flex items-center">
-<i class="fas fa-check-circle mr-2 text-brand-500"></i> Use
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i> Use
                 contexto do projeto
               </div>
-<div class="flex items-center">
-<i class="fas fa-check-circle mr-2 text-brand-500"></i> Teste
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i> Teste
                 edge cases e negativos
               </div>
-<div class="flex items-center">
-<i class="fas fa-check-circle mr-2 text-brand-500"></i> Proteja
+              <div class="flex items-center">
+                <i class="fas fa-check-circle mr-2 text-brand-500"></i> Proteja
                 dados sensíveis
               </div>
-</div>
-</div>
-</section>
-<!-- 6. Evidências -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="evidence">
-<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-brand-600">6.</span> Evidence &amp; Exploration
+            </div>
+          </div>
+        </section>
+        <!-- 6. Evidências -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="evidence"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">6.</span> Evidence &amp; Exploration
           </h2>
-<div class="grid md:grid-cols-2 gap-8">
-<div>
-<h3 class="font-bold text-gray-800 mb-3">Experimento A/B Real</h3>
-<p class="text-sm text-gray-600 mb-4">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">Experimento A/B Real</h3>
+              <p class="text-sm text-gray-600 mb-4">
                 Rodamos um teste em um time de delivery: metade com Copilot,
                 metade sem.
               </p>
-<ul class="space-y-3">
-<li class="flex justify-between items-center bg-gray-50 p-2 rounded">
-<span class="text-sm">Tempo p/ Feature</span>
-<span class="font-bold text-green-600">2.5d (Com)
+              <ul class="space-y-3">
+                <li
+                  class="flex justify-between items-center bg-gray-50 p-2 rounded"
+                >
+                  <span class="text-sm">Tempo p/ Feature</span>
+                  <span class="font-bold text-green-600"
+                    >2.5d (Com)
                     <span class="text-gray-400 font-normal">vs</span> 4.2d
-                    (Sem)</span>
-</li>
-<li class="flex justify-between items-center bg-gray-50 p-2 rounded">
-<span class="text-sm">Bugs em Prod</span>
-<span class="font-bold text-green-600">1.2% (Com)
+                    (Sem)</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center bg-gray-50 p-2 rounded"
+                >
+                  <span class="text-sm">Bugs em Prod</span>
+                  <span class="font-bold text-green-600"
+                    >1.2% (Com)
                     <span class="text-gray-400 font-normal">vs</span> 2.8%
-                    (Sem)</span>
-</li>
-<li class="flex justify-between items-center bg-gray-50 p-2 rounded">
-<span class="text-sm">Cobertura Testes</span>
-<span class="font-bold text-green-600">85% (Com)
+                    (Sem)</span
+                  >
+                </li>
+                <li
+                  class="flex justify-between items-center bg-gray-50 p-2 rounded"
+                >
+                  <span class="text-sm">Cobertura Testes</span>
+                  <span class="font-bold text-green-600"
+                    >85% (Com)
                     <span class="text-gray-400 font-normal">vs</span> 72%
-                    (Sem)</span>
-</li>
-</ul>
-</div>
-<div>
-<h3 class="font-bold text-gray-800 mb-3">
+                    (Sem)</span
+                  >
+                </li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-gray-800 mb-3">
                 Log de Métrica (JSON)
               </h3>
-<pre class="code-block text-xs"><code>{
+              <pre class="code-block text-xs"><code>{
   "dev_id": "u123",
   "feature": "checkout-refactor",
   "copilot_enabled": true,
@@ -697,66 +848,95 @@ WEIGHT_MULTIPLIER = 1.2
   "test_coverage": 88,
   "timestamp": "2025-12-08T10:00:00Z"
 }</code></pre>
-<p class="text-xs text-gray-500 mt-2">
+              <p class="text-xs text-gray-500 mt-2">
                 Ferramentas: Mixpanel, Datadog.
               </p>
-</div>
-</div>
-</section>
-<!-- 7. Reflexões -->
-<section class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10" id="reflections">
-<h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
-          7. Reflexões &amp; Próximos Passos
-        </h2>
-<div class="w-full h-px bg-white/10 mb-8"></div>
-<div class="grid lg:grid-cols-12 gap-10 md:gap-16">
-<div class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light">
-<p>
-              A adoção de Copilots não é sobre substituir engenheiros, mas sobre
-              eliminar o "trabalho de robô" para que possamos focar em
-              arquitetura e segurança.
-            </p>
-</div>
-<div class="lg:col-span-5">
-<h3 class="text-sm font-bold text-brand-400 uppercase tracking-widest mb-6 font-mono">
-              Artigos Relacionados
-            </h3>
-<ul class="space-y-4">
-<li class="flex items-start group">
-<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="04-finetuning-vs-prompt-vs-rag.html">
-<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3">
-<i class="fas fa-arrow-left"></i>
-</span>
-<div class="flex flex-col">
-<span class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400">Anterior</span>
-<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">LLMs como Copilotos em Delivery</span>
-</div>
-</a>
-</li>
-<li class="flex items-start group">
-<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="06-versionamento-prompts-dados-modelos.html">
-<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3">
-<i class="fas fa-arrow-right"></i>
-</span>
-<div class="flex flex-col">
-<span class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400">Próximo</span>
-<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">Versionamento de Prompts, Dados e Modelos</span>
-</div>
-</a>
-</li>
-</ul>
-</div>
-</div>
-</section>
-</main>
-</div>
-<footer class="bg-white border-t border-gray-200 mt-12 py-8">
-<div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-<p>
+            </div>
+          </div>
+        </section>
+        <!-- 7. Reflexões -->
+        <section
+          class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10"
+          id="reflections"
+        >
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
+            7. Reflexões &amp; Próximos Passos
+          </h2>
+          <div class="w-full h-px bg-white/10 mb-8"></div>
+          <div class="grid lg:grid-cols-12 gap-10 md:gap-16">
+            <div
+              class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light"
+            >
+              <p>
+                A adoção de Copilots não é sobre substituir engenheiros, mas
+                sobre eliminar o "trabalho de robô" para que possamos focar em
+                arquitetura e segurança.
+              </p>
+            </div>
+            <div class="lg:col-span-5">
+              <h3
+                class="text-sm font-bold text-brand-400 uppercase tracking-widest mb-6 font-mono"
+              >
+                Artigos Relacionados
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="04-finetuning-vs-prompt-vs-rag.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400"
+                        >Anterior</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >LLMs como Copilotos em Delivery</span
+                      >
+                    </div>
+                  </a>
+                </li>
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="06-versionamento-prompts-dados-modelos.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400"
+                        >Próximo</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >Versionamento de Prompts, Dados e Modelos</span
+                      >
+                    </div>
+                  </a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+        <p>
           © 2025 AI Engineering Series. Built with
           <i class="fas fa-heart text-red-400"></i> &amp; Copilot.
         </p>
-</div>
-</footer>
-</body>
+      </div>
+    </footer>
+  </body>
 </html>

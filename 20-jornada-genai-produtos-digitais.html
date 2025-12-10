@@ -1,24 +1,29 @@
 ﻿<!DOCTYPE html>
 
 <html class="scroll-smooth" lang="pt-BR">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>A Jornada GenAI: Do Hype à Engenharia Sólida</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
-<script>
+  <head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>A Jornada GenAI: Do Hype à Engenharia Sólida</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+      rel="stylesheet"
+    />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap"
+      rel="stylesheet"
+    />
+    <script>
       tailwind.config = {
         theme: {
           extend: {
             animation: {
-                'spin-slow': 'spin 3s linear infinite',
-                'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            }
-,
+              "spin-slow": "spin 3s linear infinite",
+              "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            },
             fontFamily: {
               sans: ["Inter", "sans-serif"],
               mono: ["Fira Code", "monospace"],
@@ -46,7 +51,7 @@
         },
       };
     </script>
-<style>
+    <style>
       /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -205,105 +210,179 @@
         }
       }
     </style>
-</head>
-<body class="bg-slate-50 text-slate-800 antialiased">
-<!-- Header -->
-<header class="bg-white border-b border-slate-200 fixed w-full top-0 z-50">
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-<div class="flex items-center space-x-3">
-<div class="bg-slate-800 text-white p-2 rounded-lg">
-<i class="fas fa-flag-checkered"></i>
-</div>
-<h1 class="text-xl font-bold text-slate-900">GenAI Maturity Model</h1>
-</div>
-<div class="hidden md:block text-sm text-slate-500">
-          Série: Final Report
+  </head>
+  <body class="bg-slate-50 text-slate-800 antialiased">
+    <!-- Header -->
+    <header class="bg-white border-b border-slate-200 fixed w-full top-0 z-50">
+      <div
+        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
+      >
+        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
+          <div class="bg-slate-800 text-white p-2 rounded-lg">
+            <i class="fas fa-flag-checkered"></i>
+          </div>
+          <h1 class="text-xl font-bold text-slate-900">GenAI Maturity Model</h1>
+        </a>
+        <div class="hidden md:block text-sm text-slate-500">
+          Módulo 4: Confiança, Ética e UX do Produto
         </div>
-</div>
-</header>
-<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8">
-<!-- Sidebar Navigation -->
-<aside aria-label="Navegação lateral" class="lg:w-64 flex-shrink-0 hidden lg:block">
-<nav class="sticky top-24 space-y-1">
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-900 bg-white shadow-sm ring-1 ring-slate-200" href="#intro">
-<i class="fas fa-mountain w-6 text-accent-600"></i> Contexto
+      </div>
+    </header>
+    <div
+      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
+    >
+      <!-- Sidebar Navigation -->
+      <aside
+        aria-label="Navegação lateral"
+        class="lg:w-64 flex-shrink-0 hidden lg:block"
+      >
+        <nav class="sticky top-24 space-y-1">
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-900 bg-white shadow-sm ring-1 ring-slate-200"
+            href="#intro"
+          >
+            <i class="fas fa-mountain w-6 text-accent-600"></i> Contexto
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100" href="#maturity">
-<i class="fas fa-layer-group w-6 text-slate-500"></i> Fases de
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100"
+            href="#maturity"
+          >
+            <i class="fas fa-layer-group w-6 text-slate-500"></i> Fases de
             Maturidade
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100" href="#concepts">
-<i class="fas fa-brain w-6 text-slate-500"></i> Conceitos Chave
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100"
+            href="#concepts"
+          >
+            <i class="fas fa-brain w-6 text-slate-500"></i> Conceitos Chave
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100" href="#hands-on">
-<i class="fas fa-clipboard-check w-6 text-slate-500"></i> Checklist
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100"
+            href="#hands-on"
+          >
+            <i class="fas fa-clipboard-check w-6 text-slate-500"></i> Checklist
             Go-Live
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100" href="#metrics">
-<i class="fas fa-chart-line w-6 text-slate-500"></i> KPIs &amp; Riscos
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100"
+            href="#metrics"
+          >
+            <i class="fas fa-chart-line w-6 text-slate-500"></i> KPIs &amp;
+            Riscos
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100" href="#evidence">
-<i class="fas fa-search w-6 text-slate-500"></i> Casos Reais
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100"
+            href="#evidence"
+          >
+            <i class="fas fa-search w-6 text-slate-500"></i> Casos Reais
           </a>
-<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100" href="#reflection">
-<i class="fas fa-lightbulb w-6 text-slate-500"></i> Conclusão
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-slate-600 hover:bg-slate-100"
+            href="#reflection"
+          >
+            <i class="fas fa-lightbulb w-6 text-slate-500"></i> Conclusão
           </a>
-</nav>
-</aside>
-<!-- Main Content -->
-<main class="flex-1 space-y-12">
-<!-- Hero Section (padronizado) -->
-<section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
-<div class="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-700 to-brand-500"></div>
-<div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
-<div class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-700 rounded-full mix-blend-overlay filter blur-[120px] opacity-40 animate-pulse-slow"></div>
-<div class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-500 rounded-full mix-blend-overlay filter blur-[120px] opacity-30 animate-pulse-slow" style="animation-delay: 3s"></div>
-<div class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12">
-<div class="lg:w-1/2 w-full text-white">
-<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
-<i class="fas fa-flag-checkered text-white text-xs"></i>
-<span class="text-xs font-semibold tracking-wider uppercase text-white/80">GenAI Journey</span>
-</div>
-<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
-                A Jornada <br/>
-<span class="text-transparent bg-clip-text bg-gradient-to-r from-white/80 to-white">GenAI</span>
-</h1>
-<p class="text-lg md:text-xl text-white/90 font-light leading-relaxed mb-8 border-l-4 border-white/40 pl-6">
+        </nav>
+      </aside>
+      <!-- Main Content -->
+      <main class="flex-1 space-y-12">
+        <!-- Hero Section (padronizado) -->
+        <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
+          <div
+            class="absolute inset-0 bg-gradient-to-br from-brand-900 via-brand-700 to-brand-500"
+          ></div>
+          <div
+            class="absolute inset-0 grid-bg opacity-30 pointer-events-none"
+          ></div>
+          <div
+            class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-700 rounded-full mix-blend-overlay filter blur-[120px] opacity-40 animate-pulse-slow"
+          ></div>
+          <div
+            class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-500 rounded-full mix-blend-overlay filter blur-[120px] opacity-30 animate-pulse-slow"
+            style="animation-delay: 3s"
+          ></div>
+          <div
+            class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12"
+          >
+            <div class="lg:w-1/2 w-full text-white">
+              <div
+                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
+              >
+                <i class="fas fa-flag-checkered text-white text-xs"></i>
+                <span
+                  class="text-xs font-semibold tracking-wider uppercase text-white/80"
+                  >GenAI Journey</span
+                >
+              </div>
+              <h1
+                class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6"
+              >
+                A Jornada <br />
+                <span
+                  class="text-transparent bg-clip-text bg-gradient-to-r from-white/80 to-white"
+                  >GenAI</span
+                >
+              </h1>
+              <p
+                class="text-lg md:text-xl text-white/90 font-light leading-relaxed mb-8 border-l-4 border-white/40 pl-6"
+              >
                 Do Hype … Engenharia Sólida: um guia de maturidade para produtos
                 digitais.
               </p>
-</div>
-<div class="lg:w-1/2 w-full flex items-center justify-center">
-<div class="relative w-full max-w-md h-64 flex items-center justify-center">
-<!-- Mountain -->
-<div class="absolute bottom-0 w-full flex justify-center items-end">
-<div class="w-0 h-0 border-l-[100px] border-l-transparent border-b-[150px] border-b-white/10 border-r-[100px] border-r-transparent"></div>
-</div>
-<!-- Path -->
-<svg class="absolute inset-0 w-full h-full" fill="none" stroke="white" stroke-dasharray="4 4" stroke-width="2" viewbox="0 0 200 200">
-<path d="M50,180 Q80,150 100,100 T150,50"></path>
-</svg>
-<!-- Flag at Peak -->
-<div class="absolute top-10 right-1/4 transform translate-x-4 -translate-y-4">
-<div class="text-4xl text-yellow-400 animate-bounce">
-<i class="fas fa-flag"></i>
-</div>
-</div>
-<!-- Climber/Rocket -->
-<div class="absolute bottom-10 left-1/4 glass-card w-12 h-12 rounded-full flex items-center justify-center text-white border border-white/30 animate-pulse">
-<i class="fas fa-hiking"></i>
-</div>
-</div>
-</div>
-</div>
-</section>
-<!-- 1. Contexto -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200" id="intro">
-<h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-accent-600">1.</span> Contexto: O Fim do Hype
+            </div>
+            <div class="lg:w-1/2 w-full flex items-center justify-center">
+              <div
+                class="relative w-full max-w-md h-64 flex items-center justify-center"
+              >
+                <!-- Mountain -->
+                <div
+                  class="absolute bottom-0 w-full flex justify-center items-end"
+                >
+                  <div
+                    class="w-0 h-0 border-l-[100px] border-l-transparent border-b-[150px] border-b-white/10 border-r-[100px] border-r-transparent"
+                  ></div>
+                </div>
+                <!-- Path -->
+                <svg
+                  class="absolute inset-0 w-full h-full"
+                  fill="none"
+                  stroke="white"
+                  stroke-dasharray="4 4"
+                  stroke-width="2"
+                  viewbox="0 0 200 200"
+                >
+                  <path d="M50,180 Q80,150 100,100 T150,50"></path>
+                </svg>
+                <!-- Flag at Peak -->
+                <div
+                  class="absolute top-10 right-1/4 transform translate-x-4 -translate-y-4"
+                >
+                  <div class="text-4xl text-yellow-400 animate-bounce">
+                    <i class="fas fa-flag"></i>
+                  </div>
+                </div>
+                <!-- Climber/Rocket -->
+                <div
+                  class="absolute bottom-10 left-1/4 glass-card w-12 h-12 rounded-full flex items-center justify-center text-white border border-white/30 animate-pulse"
+                >
+                  <i class="fas fa-hiking"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 1. Contexto -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200"
+          id="intro"
+        >
+          <h2
+            class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-accent-600">1.</span> Contexto: O Fim do Hype
           </h2>
-<div class="prose max-w-none text-slate-600">
-<p class="mb-4">
+          <div class="prose max-w-none text-slate-600">
+            <p class="mb-4">
               O mercado de GenAI amadureceu. Passamos da fase de "demos
               impressionantes" no Twitter para a dura realidade de produção:
               <strong>SLA, latência, custos e compliance</strong>. Empresas que
@@ -311,208 +390,228 @@
               escalam. As que avançaram, trataram IA não como mágica, mas como
               <strong>Engenharia de Software Probabilística</strong>.
             </p>
-<p class="mb-4">
+            <p class="mb-4">
               Desafios reais como alucinações em escala, viés algorítmico e
               custos de inferência exigem uma mudança de mentalidade. Não basta
               fazer um prompt; é preciso construir uma plataforma de
               <strong>MLOps, Governança e Observabilidade</strong> ao redor do
               modelo.
             </p>
-<p class="mb-6">
+            <p class="mb-6">
               Este artigo consolida os aprendizados dos 19 posts anteriores em
               um <strong>Framework de Maturidade</strong>. O objetivo é dar
               clareza sobre onde seu produto está e qual o próximo passo para
               alcançar a excelência operacional.
             </p>
-</div>
-</section>
-<!-- 2. Maturidade -->
-<section class="space-y-6" id="maturity">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200">
-<h2 class="text-2xl font-bold text-slate-900 mb-8 border-b pb-4 flex items-center gap-2">
-<span class="text-accent-600">2.</span> Fases de Maturidade GenAI
+          </div>
+        </section>
+        <!-- 2. Maturidade -->
+        <section class="space-y-6" id="maturity">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200"
+          >
+            <h2
+              class="text-2xl font-bold text-slate-900 mb-8 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-accent-600">2.</span> Fases de Maturidade GenAI
             </h2>
-<div class="grid md:grid-cols-2 gap-8">
-<!-- Fase 1 -->
-<div class="maturity-step border-l-4 border-l-yellow-400">
-<div class="step-number bg-yellow-500">1</div>
-<h3 class="font-bold text-slate-800 text-lg mb-2 pl-4">
+            <div class="grid md:grid-cols-2 gap-8">
+              <!-- Fase 1 -->
+              <div class="maturity-step border-l-4 border-l-yellow-400">
+                <div class="step-number bg-yellow-500">1</div>
+                <h3 class="font-bold text-slate-800 text-lg mb-2 pl-4">
                   O Brinquedo (Exp)
                 </h3>
-<ul class="text-sm text-slate-600 space-y-2 pl-4 list-disc">
-<li>
-<strong>Foco:</strong> Prototipagem rápida e validação.
+                <ul class="text-sm text-slate-600 space-y-2 pl-4 list-disc">
+                  <li>
+                    <strong>Foco:</strong> Prototipagem rápida e validação.
                   </li>
-<li>
-<strong>Tech:</strong> Notebooks, Chaves de API pessoais.
+                  <li>
+                    <strong>Tech:</strong> Notebooks, Chaves de API pessoais.
                   </li>
-<li>
-<strong>Risco:</strong> Não escala, sem logs, sem testes.
+                  <li>
+                    <strong>Risco:</strong> Não escala, sem logs, sem testes.
                   </li>
-<li>
-<strong>Benchmark:</strong> Demo funcional em 1 semana.
+                  <li>
+                    <strong>Benchmark:</strong> Demo funcional em 1 semana.
                   </li>
-</ul>
-</div>
-<!-- Fase 2 -->
-<div class="maturity-step border-l-4 border-l-blue-400">
-<div class="step-number bg-blue-500">2</div>
-<h3 class="font-bold text-slate-800 text-lg mb-2 pl-4">
+                </ul>
+              </div>
+              <!-- Fase 2 -->
+              <div class="maturity-step border-l-4 border-l-blue-400">
+                <div class="step-number bg-blue-500">2</div>
+                <h3 class="font-bold text-slate-800 text-lg mb-2 pl-4">
                   O Produto (Prod)
                 </h3>
-<ul class="text-sm text-slate-600 space-y-2 pl-4 list-disc">
-<li><strong>Foco:</strong> Robustez básica e Custo.</li>
-<li><strong>Tech:</strong> RAG simples, Retry, Caching.</li>
-<li>
-<strong>Risco:</strong> Latência alta, falhas ocasionais.
+                <ul class="text-sm text-slate-600 space-y-2 pl-4 list-disc">
+                  <li><strong>Foco:</strong> Robustez básica e Custo.</li>
+                  <li><strong>Tech:</strong> RAG simples, Retry, Caching.</li>
+                  <li>
+                    <strong>Risco:</strong> Latência alta, falhas ocasionais.
                   </li>
-<li><strong>Benchmark:</strong> Custo &lt; R$0,01/req.</li>
-</ul>
-</div>
-<!-- Fase 3 -->
-<div class="maturity-step border-l-4 border-l-purple-400">
-<div class="step-number bg-purple-500">3</div>
-<h3 class="font-bold text-slate-800 text-lg mb-2 pl-4">
+                  <li><strong>Benchmark:</strong> Custo &lt; R$0,01/req.</li>
+                </ul>
+              </div>
+              <!-- Fase 3 -->
+              <div class="maturity-step border-l-4 border-l-purple-400">
+                <div class="step-number bg-purple-500">3</div>
+                <h3 class="font-bold text-slate-800 text-lg mb-2 pl-4">
                   A Plataforma (Scale)
                 </h3>
-<ul class="text-sm text-slate-600 space-y-2 pl-4 list-disc">
-<li><strong>Foco:</strong> Automação e Observabilidade.</li>
-<li>
-<strong>Tech:</strong> CI/CD para Prompts, Evals, Tracing.
+                <ul class="text-sm text-slate-600 space-y-2 pl-4 list-disc">
+                  <li><strong>Foco:</strong> Automação e Observabilidade.</li>
+                  <li>
+                    <strong>Tech:</strong> CI/CD para Prompts, Evals, Tracing.
                   </li>
-<li><strong>Risco:</strong> Complexidade de orquestração.</li>
-<li><strong>Benchmark:</strong> Uptime &gt; 99.9%.</li>
-</ul>
-</div>
-<!-- Fase 4 -->
-<div class="maturity-step border-l-4 border-l-green-400">
-<div class="step-number bg-green-600">4</div>
-<h3 class="font-bold text-slate-800 text-lg mb-2 pl-4">
+                  <li><strong>Risco:</strong> Complexidade de orquestração.</li>
+                  <li><strong>Benchmark:</strong> Uptime &gt; 99.9%.</li>
+                </ul>
+              </div>
+              <!-- Fase 4 -->
+              <div class="maturity-step border-l-4 border-l-green-400">
+                <div class="step-number bg-green-600">4</div>
+                <h3 class="font-bold text-slate-800 text-lg mb-2 pl-4">
                   A Responsabilidade (Trust)
                 </h3>
-<ul class="text-sm text-slate-600 space-y-2 pl-4 list-disc">
-<li><strong>Foco:</strong> Ética, Viés e Segurança.</li>
-<li>
-<strong>Tech:</strong> Guardrails, Red Teaming, Audit.
+                <ul class="text-sm text-slate-600 space-y-2 pl-4 list-disc">
+                  <li><strong>Foco:</strong> Ética, Viés e Segurança.</li>
+                  <li>
+                    <strong>Tech:</strong> Guardrails, Red Teaming, Audit.
                   </li>
-<li><strong>Risco:</strong> Reputação e Regulatório.</li>
-<li>
-<strong>Benchmark:</strong> Viés &lt; 2%, Compliance total.
+                  <li><strong>Risco:</strong> Reputação e Regulatório.</li>
+                  <li>
+                    <strong>Benchmark:</strong> Viés &lt; 2%, Compliance total.
                   </li>
-</ul>
-</div>
-</div>
-</div>
-</section>
-<!-- 3. Conceitos -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200" id="concepts">
-<h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-accent-600">3.</span> Conceitos Fundamentais
+                </ul>
+              </div>
+            </div>
+          </div>
+        </section>
+        <!-- 3. Conceitos -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200"
+          id="concepts"
+        >
+          <h2
+            class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-accent-600">3.</span> Conceitos Fundamentais
           </h2>
-<div class="grid md:grid-cols-2 gap-8 mb-8">
-<div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-<h3 class="font-bold text-slate-800 mb-2">
-<i class="fas fa-dice mr-2 text-accent-600"></i> Probabilistic
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+              <h3 class="font-bold text-slate-800 mb-2">
+                <i class="fas fa-dice mr-2 text-accent-600"></i> Probabilistic
                 Software
               </h3>
-<p class="text-sm text-slate-600">
+              <p class="text-sm text-slate-600">
                 Em software tradicional, <code>if(x)</code> sempre faz Y. Em IA,
                 <code>f(x)</code> pode retornar Y, Z ou W. O código ao redor
                 deve ser defensivo, tratando incerteza, ambiguidade e falhas
                 como cidadãos de primeira classe (Retries, Fallbacks).
               </p>
-</div>
-<div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
-<h3 class="font-bold text-slate-800 mb-2">
-<i class="fas fa-cogs mr-2 text-accent-600"></i> AI Engineering
+            </div>
+            <div class="bg-slate-50 p-5 rounded-lg border border-slate-200">
+              <h3 class="font-bold text-slate-800 mb-2">
+                <i class="fas fa-cogs mr-2 text-accent-600"></i> AI Engineering
               </h3>
-<p class="text-sm text-slate-600">
+              <p class="text-sm text-slate-600">
                 A disciplina que une Engenharia de Software, Data Science e Ops.
                 O foco não é treinar modelos do zero, mas construir sistemas
                 resilientes usando modelos como componentes (Commoditized
                 Intelligence).
               </p>
-</div>
-</div>
-<div class="bg-slate-900 p-6 rounded-xl border border-slate-700 text-center">
-<h3 class="text-xs font-bold text-slate-400 uppercase mb-4 tracking-widest">
+            </div>
+          </div>
+          <div
+            class="bg-slate-900 p-6 rounded-xl border border-slate-700 text-center"
+          >
+            <h3
+              class="text-xs font-bold text-slate-400 uppercase mb-4 tracking-widest"
+            >
               O Pattern Emergente de Sucesso
             </h3>
-<div class="flow-container">
-<div class="flow-box">Input Estruturado</div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-box border-accent-500 text-accent-700">
+            <div class="flow-container">
+              <div class="flow-box">Input Estruturado</div>
+              <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="flow-box border-accent-500 text-accent-700">
                 RAG / Contexto
               </div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-box bg-accent-600 text-white border-accent-700">
+              <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="flow-box bg-accent-600 text-white border-accent-700">
                 LLM
               </div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-box border-green-500 text-green-700">
+              <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="flow-box border-green-500 text-green-700">
                 Validação / Guardrail
               </div>
-<div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
-<div class="flow-box">Ação / Resposta</div>
-</div>
-</div>
-</section>
-<!-- 4. Hands On -->
-<section class="space-y-8" id="hands-on">
-<div class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200">
-<h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-accent-600">4.</span> Mão na Massa: Checklist de
+              <div class="flow-arrow"><i class="fas fa-arrow-right"></i></div>
+              <div class="flow-box">Ação / Resposta</div>
+            </div>
+          </div>
+        </section>
+        <!-- 4. Hands On -->
+        <section class="space-y-8" id="hands-on">
+          <div
+            class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200"
+          >
+            <h2
+              class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2"
+            >
+              <span class="text-accent-600">4.</span> Mão na Massa: Checklist de
               Go-Live
             </h2>
-<div class="grid md:grid-cols-2 gap-8">
-<div>
-<h3 class="font-bold text-slate-800 mb-3 text-sm uppercase">
+            <div class="grid md:grid-cols-2 gap-8">
+              <div>
+                <h3 class="font-bold text-slate-800 mb-3 text-sm uppercase">
                   1. Arquitetura &amp; Código
                 </h3>
-<ul class="space-y-2 text-sm text-slate-600">
-<li class="flex items-center">
-<i class="fas fa-check-square mr-2 text-green-500"></i>
-<strong>Retry &amp; Timeout:</strong> Backoff exponencial
+                <ul class="space-y-2 text-sm text-slate-600">
+                  <li class="flex items-center">
+                    <i class="fas fa-check-square mr-2 text-green-500"></i>
+                    <strong>Retry &amp; Timeout:</strong> Backoff exponencial
                     configurado.
                   </li>
-<li class="flex items-center">
-<i class="fas fa-check-square mr-2 text-green-500"></i>
-<strong>Prompt Versioning:</strong> Git para prompts
+                  <li class="flex items-center">
+                    <i class="fas fa-check-square mr-2 text-green-500"></i>
+                    <strong>Prompt Versioning:</strong> Git para prompts
                     (Infra-as-Code).
                   </li>
-<li class="flex items-center">
-<i class="fas fa-check-square mr-2 text-green-500"></i>
-<strong>Async Processing:</strong> Filas para tarefas &gt; 5s.
+                  <li class="flex items-center">
+                    <i class="fas fa-check-square mr-2 text-green-500"></i>
+                    <strong>Async Processing:</strong> Filas para tarefas &gt;
+                    5s.
                   </li>
-</ul>
-</div>
-<div>
-<h3 class="font-bold text-slate-800 mb-3 text-sm uppercase">
+                </ul>
+              </div>
+              <div>
+                <h3 class="font-bold text-slate-800 mb-3 text-sm uppercase">
                   2. Qualidade &amp; Segurança
                 </h3>
-<ul class="space-y-2 text-sm text-slate-600">
-<li class="flex items-center">
-<i class="fas fa-check-square mr-2 text-green-500"></i>
-<strong>Golden Dataset:</strong> Testes de regressão
+                <ul class="space-y-2 text-sm text-slate-600">
+                  <li class="flex items-center">
+                    <i class="fas fa-check-square mr-2 text-green-500"></i>
+                    <strong>Golden Dataset:</strong> Testes de regressão
                     semântica.
                   </li>
-<li class="flex items-center">
-<i class="fas fa-check-square mr-2 text-green-500"></i>
-<strong>Guardrails:</strong> Bloqueio de alucinações
+                  <li class="flex items-center">
+                    <i class="fas fa-check-square mr-2 text-green-500"></i>
+                    <strong>Guardrails:</strong> Bloqueio de alucinações
                     críticas.
                   </li>
-<li class="flex items-center">
-<i class="fas fa-check-square mr-2 text-green-500"></i>
-<strong>Red Teaming:</strong> Testes de viés e injeção.
+                  <li class="flex items-center">
+                    <i class="fas fa-check-square mr-2 text-green-500"></i>
+                    <strong>Red Teaming:</strong> Testes de viés e injeção.
                   </li>
-</ul>
-</div>
-</div>
-<div class="mt-8">
-<h3 class="font-bold text-slate-800 mb-3">
+                </ul>
+              </div>
+            </div>
+            <div class="mt-8">
+              <h3 class="font-bold text-slate-800 mb-3">
                 Exemplo de Retry Robusto (Python)
               </h3>
-<pre class="code-block"><code><span class="token-kw">import</span> time
+              <pre
+                class="code-block"
+              ><code><span class="token-kw">import</span> time
 <span class="token-kw">from</span> tenacity <span class="token-kw">import</span> retry, wait_exponential, stop_after_attempt
 
 <span class="token-cm"># Decorator para resiliência automática</span>
@@ -526,130 +625,161 @@
     <span class="token-kw">except</span> <span class="token-cls">RateLimitError</span>:
         <span class="token-kw">print</span>(<span class="token-str">"Rate limit hit, backing off..."</span>)
         <span class="token-kw">raise</span> <span class="token-cm"># Trigger retry</span></code></pre>
-</div>
-</div>
-</section>
-<!-- 5. Métricas e KPIs -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200" id="metrics">
-<h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-accent-600">5.</span> KPIs Essenciais
+            </div>
+          </div>
+        </section>
+        <!-- 5. Métricas e KPIs -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200"
+          id="metrics"
+        >
+          <h2
+            class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-accent-600">5.</span> KPIs Essenciais
           </h2>
-<div class="overflow-x-auto rounded-lg border border-slate-200 mb-6">
-<table class="min-w-full text-sm text-left">
-<thead class="bg-slate-100 text-slate-700 font-bold">
-<tr>
-<th class="px-6 py-3">Métrica</th>
-<th class="px-6 py-3">Definição</th>
-<th class="px-6 py-3">Meta (Prod)</th>
-</tr>
-</thead>
-<tbody class="divide-y divide-slate-200">
-<tr>
-<td class="px-6 py-4 font-bold text-slate-700">
+          <div class="overflow-x-auto rounded-lg border border-slate-200 mb-6">
+            <table class="min-w-full text-sm text-left">
+              <thead class="bg-slate-100 text-slate-700 font-bold">
+                <tr>
+                  <th class="px-6 py-3">Métrica</th>
+                  <th class="px-6 py-3">Definição</th>
+                  <th class="px-6 py-3">Meta (Prod)</th>
+                </tr>
+              </thead>
+              <tbody class="divide-y divide-slate-200">
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-700">
                     Hallucination Rate
                   </td>
-<td class="px-6 py-4">% de respostas incorretas</td>
-<td class="px-6 py-4 text-green-600">&lt; 5%</td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-bold text-slate-700">
+                  <td class="px-6 py-4">% de respostas incorretas</td>
+                  <td class="px-6 py-4 text-green-600">&lt; 5%</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-700">
                     Latency P99
                   </td>
-<td class="px-6 py-4">Tempo de resposta (pior caso)</td>
-<td class="px-6 py-4 text-green-600">&lt; 1s (streaming)</td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-bold text-slate-700">
+                  <td class="px-6 py-4">Tempo de resposta (pior caso)</td>
+                  <td class="px-6 py-4 text-green-600">&lt; 1s (streaming)</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-700">
                     Cost per Call
                   </td>
-<td class="px-6 py-4">Custo médio do modelo</td>
-<td class="px-6 py-4 text-green-600">&lt; $0.01</td>
-</tr>
-<tr>
-<td class="px-6 py-4 font-bold text-slate-700">
+                  <td class="px-6 py-4">Custo médio do modelo</td>
+                  <td class="px-6 py-4 text-green-600">&lt; $0.01</td>
+                </tr>
+                <tr>
+                  <td class="px-6 py-4 font-bold text-slate-700">
                     Test Coverage
                   </td>
-<td class="px-6 py-4">% cenários cobertos por evals</td>
-<td class="px-6 py-4 text-green-600">&gt; 80%</td>
-</tr>
-</tbody>
-</table>
-</div>
-</section>
-<!-- 6. Evidências -->
-<section class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200" id="evidence">
-<h2 class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2">
-<span class="text-accent-600">6.</span> Evidence: Quem está fazendo
+                  <td class="px-6 py-4">% cenários cobertos por evals</td>
+                  <td class="px-6 py-4 text-green-600">&gt; 80%</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+        <!-- 6. Evidências -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-slate-200"
+          id="evidence"
+        >
+          <h2
+            class="text-2xl font-bold text-slate-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-accent-600">6.</span> Evidence: Quem está fazendo
             certo?
           </h2>
-<div class="grid md:grid-cols-2 gap-8">
-<div>
-<h3 class="font-bold text-slate-800 mb-3">iFood &amp; Delivery</h3>
-<p class="text-sm text-slate-600 mb-2">
+          <div class="grid md:grid-cols-2 gap-8">
+            <div>
+              <h3 class="font-bold text-slate-800 mb-3">
+                iFood &amp; Delivery
+              </h3>
+              <p class="text-sm text-slate-600 mb-2">
                 Uso massivo de GenAI não só no chat, mas no backend.
               </p>
-<ul class="space-y-2 text-sm text-slate-600 list-disc list-inside">
-<li>Classificação automática de cardápios.</li>
-<li>Análise de sentimento em reviews.</li>
-<li>Recomendação contextual ("tá chovendo").</li>
-</ul>
-</div>
-<div>
-<h3 class="font-bold text-slate-800 mb-3">Stripe &amp; Fintech</h3>
-<p class="text-sm text-slate-600 mb-2">
+              <ul
+                class="space-y-2 text-sm text-slate-600 list-disc list-inside"
+              >
+                <li>Classificação automática de cardápios.</li>
+                <li>Análise de sentimento em reviews.</li>
+                <li>Recomendação contextual ("tá chovendo").</li>
+              </ul>
+            </div>
+            <div>
+              <h3 class="font-bold text-slate-800 mb-3">
+                Stripe &amp; Fintech
+              </h3>
+              <p class="text-sm text-slate-600 mb-2">
                 Foco total em compliance e detecção de risco.
               </p>
-<ul class="space-y-2 text-sm text-slate-600 list-disc list-inside">
-<li>Detecção de fraude em tempo real.</li>
-<li>Automação de compliance regulatório.</li>
-<li>Documentação técnica assistida.</li>
-</ul>
-</div>
-</div>
-</section>
-<!-- 7. Reflexões -->
-<section class="bg-slate-900 rounded-2xl p-8 md:p-10 shadow-xl text-slate-300 border border-white/10" id="reflection">
-<h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
-          7. Conclusão &amp; Futuro
-        </h2>
-<div class="w-full h-px bg-white/10 mb-8"></div>
-<div class="grid lg:grid-cols-12 gap-10 md:gap-16">
-<div class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light">
-<p>
-              "Times que ganham não são os que têm o prompt mais criativo, mas
-              os que têm a engenharia mais sólida. Construa com IA. Construa com
-              engenharia. Construa com propósito."
-            </p>
-</div>
-<div class="lg:col-span-5">
-<h3 class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 font-mono">
-              Próximos Passos
-            </h3>
-<ul class="space-y-4">
-<li class="flex items-start group">
-<i class="fas fa-check mt-1 text-green-500 w-5"></i>
-<span class="text-sm text-gray-300"><strong>Comece a Fase 1:</strong> Logging e testes.</span>
-</li>
-<li class="flex items-start group">
-<i class="fas fa-check mt-1 text-green-500 w-5"></i>
-<span class="text-sm text-gray-300"><strong>Aplique o PACE:</strong> Estruture seus
-                  prompts.</span>
-</li>
-<li class="flex items-start group">
-<i class="fas fa-check mt-1 text-green-500 w-5"></i>
-<span class="text-sm text-gray-300"><strong>Escale com Calma:</strong> Respeite a
-                  maturidade.</span>
-</li>
-</ul>
-</div>
-</div>
-</section>
-</main>
-</div>
-<footer class="bg-white border-t border-slate-200 mt-12 py-8">
-<div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
-<p>© 2025 GenAI Engineering Series. Mission Accomplished.</p>
-</div>
-</footer>
-</body>
+              <ul
+                class="space-y-2 text-sm text-slate-600 list-disc list-inside"
+              >
+                <li>Detecção de fraude em tempo real.</li>
+                <li>Automação de compliance regulatório.</li>
+                <li>Documentação técnica assistida.</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+        <!-- 7. Reflexões -->
+        <section
+          class="bg-slate-900 rounded-2xl p-8 md:p-10 shadow-xl text-slate-300 border border-white/10"
+          id="reflection"
+        >
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
+            7. Conclusão &amp; Futuro
+          </h2>
+          <div class="w-full h-px bg-white/10 mb-8"></div>
+          <div class="grid lg:grid-cols-12 gap-10 md:gap-16">
+            <div
+              class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light"
+            >
+              <p>
+                "Times que ganham não são os que têm o prompt mais criativo, mas
+                os que têm a engenharia mais sólida. Construa com IA. Construa
+                com engenharia. Construa com propósito."
+              </p>
+            </div>
+            <div class="lg:col-span-5">
+              <h3
+                class="text-sm font-bold text-slate-400 uppercase tracking-widest mb-6 font-mono"
+              >
+                Próximos Passos
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start group">
+                  <i class="fas fa-check mt-1 text-green-500 w-5"></i>
+                  <span class="text-sm text-gray-300"
+                    ><strong>Comece a Fase 1:</strong> Logging e testes.</span
+                  >
+                </li>
+                <li class="flex items-start group">
+                  <i class="fas fa-check mt-1 text-green-500 w-5"></i>
+                  <span class="text-sm text-gray-300"
+                    ><strong>Aplique o PACE:</strong> Estruture seus
+                    prompts.</span
+                  >
+                </li>
+                <li class="flex items-start group">
+                  <i class="fas fa-check mt-1 text-green-500 w-5"></i>
+                  <span class="text-sm text-gray-300"
+                    ><strong>Escale com Calma:</strong> Respeite a
+                    maturidade.</span
+                  >
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+    <footer class="bg-white border-t border-slate-200 mt-12 py-8">
+      <div class="max-w-7xl mx-auto px-4 text-center text-slate-500 text-sm">
+        <p>© 2025 GenAI Engineering Series. Mission Accomplished.</p>
+      </div>
+    </footer>
+  </body>
 </html>
