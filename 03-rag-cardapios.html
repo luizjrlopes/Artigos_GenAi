@@ -1,22 +1,16 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RAG: Retrieval-Augmented Generation</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
 
-    <script>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>RAG: Retrieval-Augmented Generation</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<script>
       tailwind.config = {
         theme: {
           extend: {
@@ -49,7 +43,7 @@
         },
       };
     </script>
-    <style>
+<style>
       /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -167,206 +161,128 @@
         background-size: 40px 40px;
       }
     </style>
-  </head>
-  <body class="bg-gray-50 text-gray-800 antialiased">
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
-      >
-        <div class="flex items-center space-x-3">
-          <div class="bg-brand-600 text-white p-2 rounded-lg">
-            <i class="fas fa-database"></i>
-          </div>
-          <h1 class="text-xl font-bold text-gray-900">RAG Architecture</h1>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+<!-- Header -->
+<header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="bg-brand-600 text-white p-2 rounded-lg">
+<i class="fas fa-database"></i>
+</div>
+<h1 class="text-xl font-bold text-gray-900">RAG Architecture</h1>
+</div>
+<div class="hidden md:block text-sm text-gray-500">
+          Série: Dados &amp; IA
         </div>
-        <div class="hidden md:block text-sm text-gray-500">
-          Série: Dados & IA
-        </div>
-      </div>
-    </header>
-
-    <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
-    >
-      <!-- Sidebar Navigation -->
-      <aside
-        class="lg:w-64 flex-shrink-0 hidden lg:block"
-        aria-label="Navegação lateral"
-      >
-        <nav class="sticky top-24 space-y-1">
-          <a
-            href="#intro"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
-          >
-            <i class="fas fa-search w-6 text-brand-600"></i> Contexto
+</div>
+</header>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8">
+<!-- Sidebar Navigation -->
+<aside aria-label="Navegação lateral" class="lg:w-64 flex-shrink-0 hidden lg:block">
+<nav class="sticky top-24 space-y-1">
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100" href="#intro">
+<i class="fas fa-search w-6 text-brand-600"></i> Contexto
           </a>
-          <a
-            href="#approach"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-project-diagram w-6 text-brand-600"></i> Abordagem
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#approach">
+<i class="fas fa-project-diagram w-6 text-brand-600"></i> Abordagem
             RAG
           </a>
-          <a
-            href="#comparison"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-balance-scale w-6 text-brand-600"></i> RAG vs
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#comparison">
+<i class="fas fa-balance-scale w-6 text-brand-600"></i> RAG vs
             Fine-Tuning
           </a>
-          <a
-            href="#concepts"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-shapes w-6 text-brand-600"></i> Embeddings
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#concepts">
+<i class="fas fa-shapes w-6 text-brand-600"></i> Embeddings
           </a>
-          <a
-            href="#hands-on"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-code w-6 text-brand-600"></i> Código Prático
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#hands-on">
+<i class="fas fa-code w-6 text-brand-600"></i> Código Prático
           </a>
-          <a
-            href="#metrics"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-chart-line w-6 text-brand-600"></i> Métricas
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#metrics">
+<i class="fas fa-chart-line w-6 text-brand-600"></i> Métricas
           </a>
-          <a
-            href="#reflections"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-lightbulb w-6 text-brand-600"></i> Reflexões
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#reflections">
+<i class="fas fa-lightbulb w-6 text-brand-600"></i> Reflexões
           </a>
-        </nav>
-      </aside>
-
-      <!-- Main Content -->
-      <main class="flex-1 space-y-12">
-        <!-- Hero Section (Atualizada para Padrão Visual) -->
-        <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
-          <!-- Background Gradient & Grid (Tema Amber/Laranja) -->
-          <div
-            class="absolute inset-0 bg-gradient-to-br from-[#78350f] via-[#b45309] to-[#f59e0b]"
-          ></div>
-          <div
-            class="absolute inset-0 grid-bg opacity-30 pointer-events-none"
-          ></div>
-          <!-- Ambient Lighting (Decorativo) -->
-          <div
-            class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
-          ></div>
-          <div
-            class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-300 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
-            style="animation-delay: 3s"
-          ></div>
-
-          <div
-            class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12"
-          >
-            <!-- Coluna Esquerda: Texto -->
-            <div class="lg:w-1/2 w-full text-white">
-              <div
-                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
-              >
-                <i class="fas fa-network-wired text-brand-200 text-xs"></i>
-                <span
-                  class="text-xs font-semibold tracking-wider uppercase text-brand-100"
-                  >Data Engineering</span
-                >
-              </div>
-              <h1
-                class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6"
-              >
-                Retrieval <br />
-                <span
-                  class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white"
-                  >Augmented Generation</span
-                >
-              </h1>
-              <p
-                class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6"
-              >
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 space-y-12">
+<!-- Hero Section (Atualizada para Padrão Visual) -->
+<section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
+<!-- Background Gradient & Grid (Tema Amber/Laranja) -->
+<div class="absolute inset-0 bg-gradient-to-br from-[#78350f] via-[#b45309] to-[#f59e0b]"></div>
+<div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+<!-- Ambient Lighting (Decorativo) -->
+<div class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"></div>
+<div class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-300 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow" style="animation-delay: 3s"></div>
+<div class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12">
+<!-- Coluna Esquerda: Texto -->
+<div class="lg:w-1/2 w-full text-white">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
+<i class="fas fa-network-wired text-brand-200 text-xs"></i>
+<span class="text-xs font-semibold tracking-wider uppercase text-brand-100">Data Engineering</span>
+</div>
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+                Retrieval <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white">Augmented Generation</span>
+</h1>
+<p class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6">
                 Conectando LLMs a dados privados e dinâmicos (preços, estoque)
                 sem alucinações.
               </p>
-            </div>
-            <!-- Coluna Direita: Diagrama Visual (RAG Search) -->
-            <div class="lg:w-1/2 w-full flex items-center justify-center">
-              <div class="relative w-full max-w-md">
-                <div class="flex items-center justify-center gap-4 relative">
-                  <!-- User Query -->
-                  <div class="flex flex-col items-center gap-2 z-10">
-                    <div
-                      class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-brand-100 border border-brand-400/30"
-                    >
-                      <i class="fas fa-user"></i>
-                    </div>
-                    <span class="text-xs font-mono text-brand-200">Query</span>
-                  </div>
-                  <!-- Search Beam (Animated) -->
-                  <div
-                    class="flex-1 h-16 relative flex items-center justify-center"
-                  >
-                    <div
-                      class="absolute inset-0 bg-brand-500/20 blur-xl rounded-full"
-                    ></div>
-                    <div class="w-full h-1 bg-brand-400/30 rounded-full"></div>
-                    <div
-                      class="absolute left-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg animate-[searchBeam_3s_linear_infinite]"
-                    >
-                      <i class="fas fa-search text-brand-600 text-xs"></i>
-                    </div>
-                  </div>
-
-                  <!-- Knowledge Base (Stack) -->
-                  <div class="flex flex-col items-center gap-2 z-10">
-                    <div class="relative">
-                      <div
-                        class="glass-card w-20 h-24 rounded-lg flex items-center justify-center text-3xl text-white border border-brand-300 shadow-[0_0_20px_rgba(245,158,11,0.4)] z-20 relative"
-                      >
-                        <i class="fas fa-database"></i>
-                      </div>
-                      <!-- Stack effect -->
-                      <div
-                        class="absolute top-2 left-2 w-20 h-24 bg-brand-600/50 rounded-lg border border-brand-400/30 z-10"
-                      ></div>
-                      <div
-                        class="absolute top-4 left-4 w-20 h-24 bg-brand-800/50 rounded-lg border border-brand-500/30 z-0"
-                      ></div>
-                    </div>
-                    <span class="text-xs font-mono text-white font-bold mt-2"
-                      >CONTEXT</span
-                    >
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 1. Contexto -->
-        <section
-          id="intro"
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-        >
-          <h2
-            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-          >
-            <span class="text-brand-600">1.</span> Contexto e Propósito
+</div>
+<!-- Coluna Direita: Diagrama Visual (RAG Search) -->
+<div class="lg:w-1/2 w-full flex items-center justify-center">
+<div class="relative w-full max-w-md">
+<div class="flex items-center justify-center gap-4 relative">
+<!-- User Query -->
+<div class="flex flex-col items-center gap-2 z-10">
+<div class="glass-card w-16 h-16 rounded-full flex items-center justify-center text-2xl text-brand-100 border border-brand-400/30">
+<i class="fas fa-user"></i>
+</div>
+<span class="text-xs font-mono text-brand-200">Query</span>
+</div>
+<!-- Search Beam (Animated) -->
+<div class="flex-1 h-16 relative flex items-center justify-center">
+<div class="absolute inset-0 bg-brand-500/20 blur-xl rounded-full"></div>
+<div class="w-full h-1 bg-brand-400/30 rounded-full"></div>
+<div class="absolute left-0 w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg animate-[searchBeam_3s_linear_infinite]">
+<i class="fas fa-search text-brand-600 text-xs"></i>
+</div>
+</div>
+<!-- Knowledge Base (Stack) -->
+<div class="flex flex-col items-center gap-2 z-10">
+<div class="relative">
+<div class="glass-card w-20 h-24 rounded-lg flex items-center justify-center text-3xl text-white border border-brand-300 shadow-[0_0_20px_rgba(245,158,11,0.4)] z-20 relative">
+<i class="fas fa-database"></i>
+</div>
+<!-- Stack effect -->
+<div class="absolute top-2 left-2 w-20 h-24 bg-brand-600/50 rounded-lg border border-brand-400/30 z-10"></div>
+<div class="absolute top-4 left-4 w-20 h-24 bg-brand-800/50 rounded-lg border border-brand-500/30 z-0"></div>
+</div>
+<span class="text-xs font-mono text-white font-bold mt-2">CONTEXT</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 1. Contexto -->
+<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="intro">
+<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+<span class="text-brand-600">1.</span> Contexto e Propósito
           </h2>
-          <div class="prose max-w-none text-gray-600">
-            <p class="mb-4">
+<div class="prose max-w-none text-gray-600">
+<p class="mb-4">
               Imagine perguntar ao ChatGPT:
-              <em>"Quanto custa o X-Bacon no 'Lanches do Zé' em São Paulo?"</em
-              >. O modelo provavelmente vai alucinar um preço ou dizer que não
+              <em>"Quanto custa o X-Bacon no 'Lanches do Zé' em São Paulo?"</em>. O modelo provavelmente vai alucinar um preço ou dizer que não
               sabe. Por quê? Porque o LLM foi treinado com dados da internet até
               uma data de corte (Knowledge Cutoff), e ele não tem acesso em
               tempo real ao banco de dados proprietário do seu aplicativo de
               delivery.
             </p>
-            <p class="mb-4">
+<p class="mb-4">
               Em um cenário de app de entrega, isso é crítico. Cardápios mudam
               diariamente. Preços sobem, ingredientes acabam e promoções
               relâmpago surgem. Não faz o menor sentido financeiro ou técnico
@@ -374,7 +290,7 @@
               parâmetros toda vez que o "Zé" decide aumentar o preço do
               hambúrguer em 50 centavos.
             </p>
-            <p class="mb-6">
+<p class="mb-6">
               Além disso, a <strong>alucinação</strong> aqui não é apenas um
               erro engraçado; é um passivo financeiro. Se o bot promete ao
               cliente que o combo custa R$ 20,00 quando na verdade custa R$
@@ -383,201 +299,148 @@
               é corroída quando a IA fornece informações desatualizadas com
               total convicção.
             </p>
-            <div class="bg-brand-50 border-l-4 border-brand-500 p-4">
-              <strong class="text-brand-900">O Propósito:</strong> Apresentar o
+<div class="bg-brand-50 border-l-4 border-brand-500 p-4">
+<strong class="text-brand-900">O Propósito:</strong> Apresentar o
               padrão arquitetural RAG (Retrieval-Augmented Generation). Esta é a
               técnica padrão de mercado para conectar a capacidade linguística
               da IA com os dados proprietários, privados e dinâmicos do seu
               negócio.
             </div>
-          </div>
-        </section>
-
-        <!-- 2. Abordagem (Fluxo RAG) -->
-        <section id="approach" class="space-y-6">
-          <div
-            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-          >
-            <h2
-              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-            >
-              <span class="text-brand-600">2.</span> Abordagem: Fluxo RAG
+</div>
+</section>
+<!-- 2. Abordagem (Fluxo RAG) -->
+<section class="space-y-6" id="approach">
+<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+<span class="text-brand-600">2.</span> Abordagem: Fluxo RAG
             </h2>
-
-            <p class="text-gray-600 mb-6">
+<p class="text-gray-600 mb-6">
               Nossa abordagem será construir mentalmente (e com código) um
               assistente de pedidos que "conhece" o cardápio. Em vez de confiar
               na memória de longo prazo do LLM, nós damos a ele uma "cola"
               (contexto) antes de ele responder. É o fluxo Recuperar (Retrieve)
               antes de Gerar (Generate).
             </p>
-
-            <!-- CSS Diagram: RAG Flow -->
-            <div
-              class="bg-gray-50 p-8 rounded-xl border border-dashed border-gray-300 overflow-x-auto"
-            >
-              <div
-                class="flex flex-col md:flex-row items-center justify-between gap-4 min-w-[600px]"
-              >
-                <!-- Step 1 -->
-                <div class="flex flex-col items-center w-32">
-                  <i class="fas fa-user text-gray-400 text-2xl mb-2"></i>
-                  <div class="diagram-box w-full">Pergunta</div>
-                  <div class="text-xs text-gray-500 mt-1">
+<!-- CSS Diagram: RAG Flow -->
+<div class="bg-gray-50 p-8 rounded-xl border border-dashed border-gray-300 overflow-x-auto">
+<div class="flex flex-col md:flex-row items-center justify-between gap-4 min-w-[600px]">
+<!-- Step 1 -->
+<div class="flex flex-col items-center w-32">
+<i class="fas fa-user text-gray-400 text-2xl mb-2"></i>
+<div class="diagram-box w-full">Pergunta</div>
+<div class="text-xs text-gray-500 mt-1">
                     "Algo vegetariano?"
                   </div>
-                </div>
-
-                <i
-                  class="fas fa-arrow-right text-brand-400 text-xl hidden md:block"
-                ></i>
-                <i
-                  class="fas fa-arrow-down text-brand-400 text-xl md:hidden"
-                ></i>
-
-                <!-- Step 2 -->
-                <div class="flex flex-col items-center w-40 relative">
-                  <div
-                    class="absolute -top-8 text-brand-600 font-bold text-xs uppercase tracking-wide"
-                  >
+</div>
+<i class="fas fa-arrow-right text-brand-400 text-xl hidden md:block"></i>
+<i class="fas fa-arrow-down text-brand-400 text-xl md:hidden"></i>
+<!-- Step 2 -->
+<div class="flex flex-col items-center w-40 relative">
+<div class="absolute -top-8 text-brand-600 font-bold text-xs uppercase tracking-wide">
                     Retrieval
                   </div>
-                  <div class="diagram-box w-full bg-brand-50 border-brand-200">
-                    <i class="fas fa-database text-brand-500 mb-1"></i
-                    ><br />Vector DB
+<div class="diagram-box w-full bg-brand-50 border-brand-200">
+<i class="fas fa-database text-brand-500 mb-1"></i><br/>Vector DB
                   </div>
-                  <div class="text-xs text-gray-500 mt-1">Busca Semântica</div>
-                </div>
-
-                <i
-                  class="fas fa-arrow-right text-brand-400 text-xl hidden md:block"
-                ></i>
-                <i
-                  class="fas fa-arrow-down text-brand-400 text-xl md:hidden"
-                ></i>
-
-                <!-- Step 3 -->
-                <div class="flex flex-col items-center w-40 relative">
-                  <div
-                    class="absolute -top-8 text-brand-600 font-bold text-xs uppercase tracking-wide"
-                  >
+<div class="text-xs text-gray-500 mt-1">Busca Semântica</div>
+</div>
+<i class="fas fa-arrow-right text-brand-400 text-xl hidden md:block"></i>
+<i class="fas fa-arrow-down text-brand-400 text-xl md:hidden"></i>
+<!-- Step 3 -->
+<div class="flex flex-col items-center w-40 relative">
+<div class="absolute -top-8 text-brand-600 font-bold text-xs uppercase tracking-wide">
                     Augmentation
                   </div>
-                  <div class="diagram-box w-full bg-gray-100">
+<div class="diagram-box w-full bg-gray-100">
                     Contexto + Prompt
                   </div>
-                  <div class="text-xs text-gray-500 mt-1">Injecta Dados</div>
-                </div>
-
-                <i
-                  class="fas fa-arrow-right text-brand-400 text-xl hidden md:block"
-                ></i>
-                <i
-                  class="fas fa-arrow-down text-brand-400 text-xl md:hidden"
-                ></i>
-
-                <!-- Step 4 -->
-                <div class="flex flex-col items-center w-32 relative">
-                  <div
-                    class="absolute -top-8 text-brand-600 font-bold text-xs uppercase tracking-wide"
-                  >
+<div class="text-xs text-gray-500 mt-1">Injecta Dados</div>
+</div>
+<i class="fas fa-arrow-right text-brand-400 text-xl hidden md:block"></i>
+<i class="fas fa-arrow-down text-brand-400 text-xl md:hidden"></i>
+<!-- Step 4 -->
+<div class="flex flex-col items-center w-32 relative">
+<div class="absolute -top-8 text-brand-600 font-bold text-xs uppercase tracking-wide">
                     Generation
                   </div>
-                  <div
-                    class="diagram-box w-full bg-gray-800 text-white border-gray-900"
-                  >
-                    <i class="fas fa-robot mb-1"></i><br />LLM
+<div class="diagram-box w-full bg-gray-800 text-white border-gray-900">
+<i class="fas fa-robot mb-1"></i><br/>LLM
                   </div>
-                  <div class="text-xs text-gray-500 mt-1">Resposta Final</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- RAG vs Fine-Tuning -->
-        <section
-          id="comparison"
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-        >
-          <h2
-            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-          >
-            <span class="text-brand-600">2.1</span> RAG vs. Fine-Tuning
+<div class="text-xs text-gray-500 mt-1">Resposta Final</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- RAG vs Fine-Tuning -->
+<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="comparison">
+<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+<span class="text-brand-600">2.1</span> RAG vs. Fine-Tuning
           </h2>
-          <div class="overflow-x-auto rounded-lg border border-gray-200">
-            <table class="min-w-full text-sm text-left">
-              <thead
-                class="bg-gray-100 text-gray-700 uppercase font-bold text-xs"
-              >
-                <tr>
-                  <th class="px-6 py-3">Critério</th>
-                  <th class="px-6 py-3 text-brand-700">RAG (Consulta)</th>
-                  <th class="px-6 py-3 text-gray-500">Fine-Tuning (Treino)</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr>
-                  <td class="px-6 py-4 font-bold">O que aprende?</td>
-                  <td class="px-6 py-4 bg-brand-50">
+<div class="overflow-x-auto rounded-lg border border-gray-200">
+<table class="min-w-full text-sm text-left">
+<thead class="bg-gray-100 text-gray-700 uppercase font-bold text-xs">
+<tr>
+<th class="px-6 py-3">Critério</th>
+<th class="px-6 py-3 text-brand-700">RAG (Consulta)</th>
+<th class="px-6 py-3 text-gray-500">Fine-Tuning (Treino)</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+<tr>
+<td class="px-6 py-4 font-bold">O que aprende?</td>
+<td class="px-6 py-4 bg-brand-50">
                     Fatos novos (preços, estoque).
                   </td>
-                  <td class="px-6 py-4">Padrões (estilo, tom, formato).</td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 font-bold">Analogia</td>
-                  <td class="px-6 py-4 bg-brand-50">
+<td class="px-6 py-4">Padrões (estilo, tom, formato).</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-bold">Analogia</td>
+<td class="px-6 py-4 bg-brand-50">
                     Fazer prova com consulta ao livro.
                   </td>
-                  <td class="px-6 py-4">Estudar anos para decorar o livro.</td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 font-bold">Atualização</td>
-                  <td class="px-6 py-4 bg-brand-50 text-green-700 font-bold">
+<td class="px-6 py-4">Estudar anos para decorar o livro.</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-bold">Atualização</td>
+<td class="px-6 py-4 bg-brand-50 text-green-700 font-bold">
                     Imediata (Real-time).
                   </td>
-                  <td class="px-6 py-4 text-red-600">
+<td class="px-6 py-4 text-red-600">
                     Lenta (Requer novo treino).
                   </td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 font-bold">Veredito Delivery</td>
-                  <td class="px-6 py-4 bg-brand-50">
-                    <i class="fas fa-check text-green-600"></i> Ideal.
+</tr>
+<tr>
+<td class="px-6 py-4 font-bold">Veredito Delivery</td>
+<td class="px-6 py-4 bg-brand-50">
+<i class="fas fa-check text-green-600"></i> Ideal.
                   </td>
-                  <td class="px-6 py-4">
-                    <i class="fas fa-times text-red-600"></i> Inviável para
+<td class="px-6 py-4">
+<i class="fas fa-times text-red-600"></i> Inviável para
                     dados dinâmicos.
                   </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </section>
-
-        <!-- 3. Conceitos (Vector Space) -->
-        <section
-          id="concepts"
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-        >
-          <h2
-            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-          >
-            <span class="text-brand-600">3.</span> Conceitos: Embeddings e Busca
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+<!-- 3. Conceitos (Vector Space) -->
+<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="concepts">
+<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+<span class="text-brand-600">3.</span> Conceitos: Embeddings e Busca
             Vetorial
           </h2>
-
-          <div class="grid md:grid-cols-2 gap-8 items-center">
-            <div>
-              <p class="text-gray-600 mb-4">
+<div class="grid md:grid-cols-2 gap-8 items-center">
+<div>
+<p class="text-gray-600 mb-4">
                 Para entender RAG, precisamos desmistificar a "mágica" da busca
                 semântica. Diferente de um banco SQL que busca correspondência
                 exata de caracteres (`LIKE '%vegetariano%'`), bancos vetoriais
                 buscam <strong>significado</strong>.
               </p>
-              <ul class="space-y-4 text-gray-600">
-                <li>
-                  <strong class="text-brand-600">1. Embeddings:</strong> É a
+<ul class="space-y-4 text-gray-600">
+<li>
+<strong class="text-brand-600">1. Embeddings:</strong> É a
                   tradução de texto para uma lista de números (vetor). Imagine
                   um sistema de coordenadas com milhares de dimensões. Nesse
                   espaço matemático, a palavra "Rei" menos "Homem" mais "Mulher"
@@ -585,129 +448,57 @@
                   que o sistema entenda que "sem carne" está próximo de
                   "salada", mesmo sem compartilhar palavras.
                 </li>
-                <li>
-                  <strong class="text-brand-600">2. Vector Database:</strong>
+<li>
+<strong class="text-brand-600">2. Vector Database:</strong>
                   Bancos de dados especializados (como Pinecone, Chroma, Qdrant)
                   que armazenam esses vetores e usam algoritmos de vizinhança
                   aproximada (ANN) para encontrar itens similares em
                   milissegundos.
                 </li>
-                <li>
-                  <strong class="text-brand-600">3. Retrieval:</strong> O ato de
+<li>
+<strong class="text-brand-600">3. Retrieval:</strong> O ato de
                   ir ao banco, pescar os dados relevantes para a pergunta do
                   usuário e trazê-los para o contexto do prompt.
                 </li>
-              </ul>
-            </div>
-
-            <!-- CSS Diagram: Vector Space Visualization -->
-            <div
-              class="bg-slate-900 rounded-xl p-4 relative h-64 w-full shadow-inner overflow-hidden border border-slate-700"
-            >
-              <p class="text-xs text-slate-500 absolute top-2 left-2">
+</ul>
+</div>
+<!-- CSS Diagram: Vector Space Visualization -->
+<div class="bg-slate-900 rounded-xl p-4 relative h-64 w-full shadow-inner overflow-hidden border border-slate-700">
+<p class="text-xs text-slate-500 absolute top-2 left-2">
                 Espaço Vetorial (Simplificado)
               </p>
-
-              <!-- Semantic Cluster: Burgers -->
-              <div
-                class="vector-dot bg-red-500"
-                style="top: 30%; left: 30%"
-                title="Hambúrguer Suculento"
-              ></div>
-              <div
-                class="vector-dot bg-red-400"
-                style="top: 35%; left: 28%"
-                title="X-Bacon"
-              ></div>
-              <div
-                class="vector-dot bg-red-600"
-                style="top: 25%; left: 35%"
-                title="Carne Assada"
-              ></div>
-              <span
-                class="text-red-300 text-xs absolute"
-                style="top: 20%; left: 25%"
-                >Carnes</span
-              >
-
-              <!-- Semantic Cluster: Salads -->
-              <div
-                class="vector-dot bg-green-500"
-                style="top: 70%; left: 70%"
-                title="Salada Caesar"
-              ></div>
-              <div
-                class="vector-dot bg-green-400"
-                style="top: 75%; left: 68%"
-                title="Wrap Vegano"
-              ></div>
-              <div
-                class="vector-dot bg-green-600"
-                style="top: 65%; left: 75%"
-                title="Rúcula"
-              ></div>
-              <span
-                class="text-green-300 text-xs absolute"
-                style="top: 80%; left: 70%"
-                >Vegetariano</span
-              >
-
-              <!-- Distant Item -->
-              <div
-                class="vector-dot bg-yellow-400"
-                style="top: 20%; left: 80%"
-                title="Salada de Frutas"
-              ></div>
-              <span
-                class="text-yellow-200 text-xs absolute"
-                style="top: 15%; left: 80%"
-                >Sobremesa</span
-              >
-
-              <!-- User Query -->
-              <div
-                class="vector-dot bg-white ring-4 ring-brand-500/50 animate-pulse"
-                style="top: 68%; left: 65%"
-                title="QUERY: 'Algo leve sem carne'"
-              ></div>
-              <span
-                class="text-white text-xs font-bold absolute bg-brand-600 px-1 rounded"
-                style="top: 60%; left: 60%"
-                >Query Usuário</span
-              >
-
-              <!-- Connection Line -->
-              <svg class="absolute inset-0 w-full h-full pointer-events-none">
-                <line
-                  x1="65%"
-                  y1="68%"
-                  x2="70%"
-                  y2="70%"
-                  stroke="rgba(255,255,255,0.3)"
-                  stroke-dasharray="4"
-                />
-              </svg>
-            </div>
-          </div>
-        </section>
-
-        <!-- 4. Hands On -->
-        <section
-          id="hands-on"
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-        >
-          <h2
-            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-          >
-            <span class="text-brand-600">4.</span> Mão na Massa: Código Python
+<!-- Semantic Cluster: Burgers -->
+<div class="vector-dot bg-red-500" style="top: 30%; left: 30%" title="Hambúrguer Suculento"></div>
+<div class="vector-dot bg-red-400" style="top: 35%; left: 28%" title="X-Bacon"></div>
+<div class="vector-dot bg-red-600" style="top: 25%; left: 35%" title="Carne Assada"></div>
+<span class="text-red-300 text-xs absolute" style="top: 20%; left: 25%">Carnes</span>
+<!-- Semantic Cluster: Salads -->
+<div class="vector-dot bg-green-500" style="top: 70%; left: 70%" title="Salada Caesar"></div>
+<div class="vector-dot bg-green-400" style="top: 75%; left: 68%" title="Wrap Vegano"></div>
+<div class="vector-dot bg-green-600" style="top: 65%; left: 75%" title="Rúcula"></div>
+<span class="text-green-300 text-xs absolute" style="top: 80%; left: 70%">Vegetariano</span>
+<!-- Distant Item -->
+<div class="vector-dot bg-yellow-400" style="top: 20%; left: 80%" title="Salada de Frutas"></div>
+<span class="text-yellow-200 text-xs absolute" style="top: 15%; left: 80%">Sobremesa</span>
+<!-- User Query -->
+<div class="vector-dot bg-white ring-4 ring-brand-500/50 animate-pulse" style="top: 68%; left: 65%" title="QUERY: 'Algo leve sem carne'"></div>
+<span class="text-white text-xs font-bold absolute bg-brand-600 px-1 rounded" style="top: 60%; left: 60%">Query Usuário</span>
+<!-- Connection Line -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none">
+<line stroke="rgba(255,255,255,0.3)" stroke-dasharray="4" x1="65%" x2="70%" y1="68%" y2="70%"></line>
+</svg>
+</div>
+</div>
+</section>
+<!-- 4. Hands On -->
+<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="hands-on">
+<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+<span class="text-brand-600">4.</span> Mão na Massa: Código Python
           </h2>
-
-          <div
-            class="mb-4 text-sm text-gray-600 bg-gray-50 p-3 rounded border border-gray-200"
-          >
-            <p>
-              <i class="fas fa-info-circle text-brand-500 mr-2"></i>
-              <strong>Atenção à Engenharia:</strong> O código abaixo simula um
+<div class="mb-4 text-sm text-gray-600 bg-gray-50 p-3 rounded border border-gray-200">
+<p>
+<i class="fas fa-info-circle text-brand-500 mr-2"></i>
+<strong>Atenção à Engenharia:</strong> O código abaixo simula um
               pipeline completo. Em produção, a função
               <code>search_menu</code> seria uma chamada assíncrona a um
               VectorDB real e o <code>answer_user</code> gerenciaria histórico
@@ -715,11 +506,8 @@
               dinamicamente: injetamos apenas o texto relevante (Context) para
               evitar estourar o limite de tokens do modelo.
             </p>
-          </div>
-
-          <pre
-            class="code-block"
-          ><code><span class="token-keyword">import</span> openai
+</div>
+<pre class="code-block"><code><span class="token-keyword">import</span> openai
 
 <span class="token-comment"># 1. Simulação do Retrieval (Busca Vetorial)</span>
 <span class="token-comment"># Em um app real, aqui você converteria a query em embeddings</span>
@@ -763,21 +551,15 @@
 
 <span class="token-comment"># Teste de execução</span>
 <span class="token-keyword">print</span>(answer_user(<span class="token-string">"Tem algo vegetariano por menos de 30 reais?"</span>))</code></pre>
-        </section>
-
-        <!-- 5. Métricas e Evidências -->
-        <section id="metrics" class="space-y-6">
-          <div
-            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-          >
-            <h2
-              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-            >
-              <span class="text-brand-600">5.</span> Métricas e Riscos: A Tríade
+</section>
+<!-- 5. Métricas e Evidências -->
+<section class="space-y-6" id="metrics">
+<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+<span class="text-brand-600">5.</span> Métricas e Riscos: A Tríade
               do RAG
             </h2>
-
-            <p class="text-gray-600 mb-6">
+<p class="text-gray-600 mb-6">
               Como saber se o bot está funcionando? "Parece bom" não é métrica
               de engenharia. Além da precisão, precisamos vigiar de perto a
               <strong>Latência</strong>. Um pipeline RAG adiciona passos
@@ -785,176 +567,127 @@
               vetorial levar 2 segundos, o usuário desiste antes de ver a
               resposta.
             </p>
-
-            <div class="grid md:grid-cols-3 gap-6">
-              <div class="p-6 bg-blue-50 rounded-xl border border-blue-100">
-                <h3 class="font-bold text-blue-900 mb-2">
+<div class="grid md:grid-cols-3 gap-6">
+<div class="p-6 bg-blue-50 rounded-xl border border-blue-100">
+<h3 class="font-bold text-blue-900 mb-2">
                   1. Context Relevance
                 </h3>
-                <p class="text-sm text-blue-800">
-                  A busca trouxe lixo? <br /><em
-                    >Se o usuário pede "vegano" e o retrieval traz "Picanha", o
-                    modelo vai ficar confuso. O contexto deve ser limpo.</em
-                  >
-                </p>
-              </div>
-              <div class="p-6 bg-green-50 rounded-xl border border-green-100">
-                <h3 class="font-bold text-green-900 mb-2">2. Groundedness</h3>
-                <p class="text-sm text-green-800">
-                  Fidelidade aos dados. <br /><em
-                    >A resposta da IA está 100% ancorada no texto recuperado?
-                    Medimos se não houve adição de informação externa.</em
-                  >
-                </p>
-              </div>
-              <div class="p-6 bg-purple-50 rounded-xl border border-purple-100">
-                <h3 class="font-bold text-purple-900 mb-2">
+<p class="text-sm text-blue-800">
+                  A busca trouxe lixo? <br/><em>Se o usuário pede "vegano" e o retrieval traz "Picanha", o
+                    modelo vai ficar confuso. O contexto deve ser limpo.</em>
+</p>
+</div>
+<div class="p-6 bg-green-50 rounded-xl border border-green-100">
+<h3 class="font-bold text-green-900 mb-2">2. Groundedness</h3>
+<p class="text-sm text-green-800">
+                  Fidelidade aos dados. <br/><em>A resposta da IA está 100% ancorada no texto recuperado?
+                    Medimos se não houve adição de informação externa.</em>
+</p>
+</div>
+<div class="p-6 bg-purple-50 rounded-xl border border-purple-100">
+<h3 class="font-bold text-purple-900 mb-2">
                   3. Answer Relevance
                 </h3>
-                <p class="text-sm text-purple-800">
-                  Utilidade final. <br /><em
-                    >A IA respondeu à dúvida original? Uma resposta fiel mas
-                    evasiva ("Não sei") tem baixa relevância.</em
-                  >
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div
-            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-          >
-            <h2
-              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-            >
-              <span class="text-brand-600">6.</span> Evidence & Exploration:
+<p class="text-sm text-purple-800">
+                  Utilidade final. <br/><em>A IA respondeu à dúvida original? Uma resposta fiel mas
+                    evasiva ("Não sei") tem baixa relevância.</em>
+</p>
+</div>
+</div>
+</div>
+<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+<h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+<span class="text-brand-600">6.</span> Evidence &amp; Exploration:
               Busca Híbrida
             </h2>
-            <p class="text-gray-600 mb-6">
+<p class="text-gray-600 mb-6">
               Em aplicações reais como e-commerce e delivery, a busca puramente
               vetorial pode falhar em filtros rígidos. Por exemplo, um produto
               pode ser "semanticamente similar" (ex: Cerveja sem álcool) mas
               violar uma restrição binária (ex: filtro "contém álcool").
             </p>
-            <p class="text-gray-600 mb-6">
+<p class="text-gray-600 mb-6">
               A solução de engenharia robusta é a
               <strong>Busca Híbrida</strong>: combinar o poder de entendimento
               da IA com a precisão dos filtros de banco de dados (Metadata
               Filtering).
             </p>
-
-            <div
-              class="flex flex-col md:flex-row gap-4 items-center justify-center bg-gray-50 p-6 rounded-lg border border-dashed border-gray-300"
-            >
-              <div class="text-center p-4 bg-white rounded shadow-sm w-48">
-                <div class="text-brand-500 font-bold mb-1">Busca Vetorial</div>
-                <div class="text-xs text-gray-500">"Algo leve para jantar"</div>
-              </div>
-              <div class="text-2xl text-gray-400">+</div>
-              <div class="text-center p-4 bg-white rounded shadow-sm w-48">
-                <div class="text-blue-500 font-bold mb-1">Filtro Metadata</div>
-                <div class="text-xs text-gray-500">
-                  price < 30 AND category='veg'
+<div class="flex flex-col md:flex-row gap-4 items-center justify-center bg-gray-50 p-6 rounded-lg border border-dashed border-gray-300">
+<div class="text-center p-4 bg-white rounded shadow-sm w-48">
+<div class="text-brand-500 font-bold mb-1">Busca Vetorial</div>
+<div class="text-xs text-gray-500">"Algo leve para jantar"</div>
+</div>
+<div class="text-2xl text-gray-400">+</div>
+<div class="text-center p-4 bg-white rounded shadow-sm w-48">
+<div class="text-blue-500 font-bold mb-1">Filtro Metadata</div>
+<div class="text-xs text-gray-500">
+                  price &lt; 30 AND category='veg'
                 </div>
-              </div>
-              <div class="text-2xl text-gray-400">=</div>
-              <div
-                class="text-center p-4 bg-green-50 rounded shadow-sm border border-green-200 w-48"
-              >
-                <div class="text-green-700 font-bold mb-1">
+</div>
+<div class="text-2xl text-gray-400">=</div>
+<div class="text-center p-4 bg-green-50 rounded shadow-sm border border-green-200 w-48">
+<div class="text-green-700 font-bold mb-1">
                   Resultado Perfeito
                 </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 7. Reflexões -->
-        <section
-          id="reflections"
-          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
-        >
-          <div
-            class="absolute -bottom-10 -right-10 w-40 h-40 bg-brand-500 rounded-full opacity-20 blur-2xl"
-          ></div>
-
-          <h2
-            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
-          >
-            7. Reflexões & Próximos Passos
-          </h2>
-
-          <div class="relative z-10">
-            <blockquote
-              class="text-lg italic font-light mb-8 border-l-4 border-brand-500 pl-4"
-            >
+</div>
+</div>
+</div>
+</section>
+<!-- 7. Reflexões -->
+<section class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10" id="reflections">
+<h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
+          7. Reflexões &amp; Próximos Passos
+        </h2>
+<div class="w-full h-px bg-white/10 mb-8"></div>
+<div class="grid lg:grid-cols-12 gap-10 md:gap-16">
+<div class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light">
+<p>
               "RAG é a ponte entre o cérebro da IA e o corpo do seu negócio. Sem
               RAG, a IA é um consultor inteligente que não leu os memorandos da
-              empresa e inventa fatos para agradar."
-            </blockquote>
-
-            <p class="text-brand-100 mb-6">
-              Ao implementar RAG, percebemos que estamos movendo a fronteira de
-              "Conversar com Dados" para "Agir sobre Dados". O próximo passo
-              natural na evolução da engenharia de IA não é apenas recuperar
-              informações passivamente, mas usar
-              <strong>Agentes Autônomos</strong> que podem ler o cardápio,
-              confirmar o estoque e efetivamente realizar o pedido no backend.
+              empresa."
             </p>
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-8 relative z-10">
-            <div>
-              <h3
-                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
-              >
-                Próximos Passos
-              </h3>
-              <ul class="space-y-2 text-brand-100 text-sm">
-                <li>
-                  <i class="fas fa-angle-right mr-2 text-brand-500"></i>
-                  Explorar Agentes Complexos (Multi-hop Retrieval).
-                </li>
-                <li>
-                  <i class="fas fa-angle-right mr-2 text-brand-500"></i>
-                  Comparar custo de Fine-tuning vs RAG em escala.
-                </li>
-                <li>
-                  <i class="fas fa-angle-right mr-2 text-brand-500"></i>
-                  Implementar CDC para sincronia em tempo real.
-                </li>
-              </ul>
-            </div>
-            <div>
-              <h3
-                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
-              >
-                Artigos Relacionados
-              </h3>
-              <div class="flex flex-wrap gap-2">
-                <span
-                  class="px-3 py-1 bg-brand-800 rounded text-xs hover:bg-brand-700 cursor-pointer transition"
-                  >01 - Do modelo ao produto</span
-                >
-                <span
-                  class="px-3 py-1 bg-brand-800 rounded text-xs hover:bg-brand-700 cursor-pointer transition"
-                  >04 - Fine-tuning</span
-                >
-                <span
-                  class="px-3 py-1 bg-brand-800 rounded text-xs hover:bg-brand-700 cursor-pointer transition"
-                  >16 - Alucinações</span
-                >
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
-      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-        <p>&copy; 2025 RAG Engineering Series. Powered by Vector Search.</p>
-      </div>
-    </footer>
-  </body>
+<p class="text-base text-gray-300">
+              O próximo passo natural é mover de "Conversar com Dados" para
+              <strong class="text-amber-400">Agentes Autônomos</strong>.
+            </p>
+</div>
+<div class="lg:col-span-5">
+<h3 class="text-sm font-bold text-amber-400 uppercase tracking-widest mb-6 font-mono">
+              Artigos Relacionados
+            </h3>
+<ul class="space-y-4">
+<li class="flex items-start group">
+<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="02-prompt-engineering-pace.html">
+<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-amber-400 mr-3">
+<i class="fas fa-arrow-left"></i>
+</span>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest opacity-50 text-amber-400">Anterior</span>
+<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">Prompt Engineering com PACE</span>
+</div>
+</a>
+</li>
+<li class="flex items-start group">
+<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="04-finetuning-vs-prompt-vs-rag.html">
+<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-amber-400 mr-3">
+<i class="fas fa-arrow-right"></i>
+</span>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest opacity-50 text-amber-400">Próximo</span>
+<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">LLMs como Copilotos em Delivery</span>
+</div>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+</div>
+<footer class="bg-white border-t border-gray-200 mt-12 py-8">
+<div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+<p>© 2025 RAG Engineering Series. Powered by Vector Search.</p>
+</div>
+</footer>
+</body>
 </html>

@@ -1,22 +1,16 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Padrões de Design de API para GenAI</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
-      rel="stylesheet"
-    />
 
-    <script>
+<html class="scroll-smooth" lang="pt-BR">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Padrões de Design de API para GenAI</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap" rel="stylesheet"/>
+<script>
       tailwind.config = {
         theme: {
           extend: {
@@ -45,7 +39,7 @@
         },
       };
     </script>
-    <style>
+<style>
       /* Custom scrollbar */
       ::-webkit-scrollbar {
         width: 8px;
@@ -137,501 +131,388 @@
         background-size: 40px 40px;
       }
     </style>
-  </head>
-  <body class="bg-gray-50 text-gray-800 antialiased">
-    <!-- Header -->
-    <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
-      <div
-        class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
-      >
-        <div class="flex items-center space-x-3">
-          <div class="bg-brand-600 text-white p-2 rounded-lg">
-            <i class="fas fa-network-wired"></i>
-          </div>
-          <h1 class="text-xl font-bold text-gray-900">GenAI API Patterns</h1>
-        </div>
-        <div class="hidden md:block text-sm text-gray-500">
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+<!-- Header -->
+<header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+<div class="flex items-center space-x-3">
+<div class="bg-brand-600 text-white p-2 rounded-lg">
+<i class="fas fa-network-wired"></i>
+</div>
+<h1 class="text-xl font-bold text-gray-900">GenAI API Patterns</h1>
+</div>
+<div class="hidden md:block text-sm text-gray-500">
           Guia de Engenharia
         </div>
-      </div>
-    </header>
-
-    <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
-    >
-      <!-- Sidebar Navigation -->
-      <aside
-        class="lg:w-64 flex-shrink-0 hidden lg:block"
-        aria-label="Navegação lateral"
-      >
-        <nav class="sticky top-24 space-y-1">
-          <a
-            href="#intro"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
-          >
-            <i class="fas fa-info-circle w-6 text-brand-600"></i> Contexto
+</div>
+</header>
+<div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8">
+<!-- Sidebar Navigation -->
+<aside aria-label="Navegação lateral" class="lg:w-64 flex-shrink-0 hidden lg:block">
+<nav class="sticky top-24 space-y-1">
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100" href="#intro">
+<i class="fas fa-info-circle w-6 text-brand-600"></i> Contexto
           </a>
-          <a
-            href="#approach"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-sitemap w-6 text-brand-600"></i> Abordagem
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#approach">
+<i class="fas fa-sitemap w-6 text-brand-600"></i> Abordagem
           </a>
-          <a
-            href="#concepts"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-book w-6 text-brand-600"></i> Conceitos
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#concepts">
+<i class="fas fa-book w-6 text-brand-600"></i> Conceitos
           </a>
-          <a
-            href="#hands-on"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-code w-6 text-brand-600"></i> Mão na Massa
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#hands-on">
+<i class="fas fa-code w-6 text-brand-600"></i> Mão na Massa
           </a>
-          <a
-            href="#metrics"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-chart-line w-6 text-brand-600"></i> Métricas
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#metrics">
+<i class="fas fa-chart-line w-6 text-brand-600"></i> Métricas
           </a>
-          <a
-            href="#evidence"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-flask w-6 text-brand-600"></i> Evidências
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#evidence">
+<i class="fas fa-flask w-6 text-brand-600"></i> Evidências
           </a>
-          <a
-            href="#reflections"
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-          >
-            <i class="fas fa-lightbulb w-6 text-brand-600"></i> Reflexões
+<a class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900" href="#reflections">
+<i class="fas fa-lightbulb w-6 text-brand-600"></i> Reflexões
           </a>
-        </nav>
-      </aside>
-
-      <!-- Main Content -->
-      <main class="flex-1 space-y-12">
-        <!-- Hero Section (Atualizada para Padrão Visual - Tema Sky Blue) -->
-        <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
-          <!-- Background Gradient & Grid -->
-          <div
-            class="absolute inset-0 bg-gradient-to-br from-[#0c4a6e] via-[#0284c7] to-[#0ea5e9]"
-          ></div>
-          <div
-            class="absolute inset-0 grid-bg opacity-30 pointer-events-none"
-          ></div>
-          <!-- Ambient Lighting -->
-          <div
-            class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
-          ></div>
-          <div
-            class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-200 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
-            style="animation-delay: 3s"
-          ></div>
-
-          <div
-            class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12"
-          >
-            <!-- Coluna Esquerda: Texto -->
-            <div class="lg:w-1/2 w-full text-white">
-              <div
-                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
-              >
-                <i class="fas fa-cloud-download-alt text-brand-200 text-xs"></i>
-                <span
-                  class="text-xs font-semibold tracking-wider uppercase text-brand-100"
-                  >System Design</span
-                >
-              </div>
-              <h1
-                class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6"
-              >
-                GenAI <br />
-                <span
-                  class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white"
-                  >API Patterns</span
-                >
-              </h1>
-              <p
-                class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6"
-              >
+</nav>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 space-y-12">
+<!-- Hero Section (Atualizada para Padrão Visual - Tema Sky Blue) -->
+<section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
+<!-- Background Gradient & Grid -->
+<div class="absolute inset-0 bg-gradient-to-br from-[#0c4a6e] via-[#0284c7] to-[#0ea5e9]"></div>
+<div class="absolute inset-0 grid-bg opacity-30 pointer-events-none"></div>
+<!-- Ambient Lighting -->
+<div class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"></div>
+<div class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-200 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow" style="animation-delay: 3s"></div>
+<div class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12">
+<!-- Coluna Esquerda: Texto -->
+<div class="lg:w-1/2 w-full text-white">
+<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6">
+<i class="fas fa-cloud-download-alt text-brand-200 text-xs"></i>
+<span class="text-xs font-semibold tracking-wider uppercase text-brand-100">System Design</span>
+</div>
+<h1 class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6">
+                GenAI <br/>
+<span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white">API Patterns</span>
+</h1>
+<p class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6">
                 Streaming, Async e Resiliência em escala. Como evitar timeouts
                 de 60s em produção.
               </p>
-            </div>
-            <!-- Coluna Direita: Diagrama Visual (Streaming Pipeline) -->
-            <div class="lg:w-1/2 w-full flex items-center justify-center">
-              <div class="relative w-full max-w-md">
-                <div class="flex items-center justify-between gap-2 relative">
-                  <!-- Connection Line Background -->
-                  <div
-                    class="absolute top-1/2 left-0 w-full h-1 bg-sky-900/30 -translate-y-1/2 rounded-full"
-                  ></div>
-
-                  <!-- Animated Stream Dots -->
-                  <div
-                    class="absolute top-1/2 left-0 w-full h-1 -translate-y-1/2 overflow-hidden"
-                  >
-                    <div class="flex gap-4 animate-pulse">
-                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
-                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
-                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
-                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
-                      <div class="w-2 h-1 bg-sky-400 rounded-full"></div>
-                    </div>
-                  </div>
-
-                  <!-- Server -->
-                  <div class="relative z-10 flex flex-col items-center gap-2">
-                    <div
-                      class="glass-card w-16 h-16 rounded-xl flex items-center justify-center text-2xl text-sky-200 border border-sky-400/30"
-                    >
-                      <i class="fas fa-server"></i>
-                    </div>
-                    <span class="text-xs font-mono text-sky-200">API</span>
-                  </div>
-
-                  <!-- Stream Processing -->
-                  <div class="relative z-10 flex flex-col items-center gap-2">
-                    <div
-                      class="glass-card w-12 h-12 rounded-full flex items-center justify-center text-xl text-white bg-sky-500/20 border border-sky-400 shadow-[0_0_15px_rgba(14,165,233,0.4)]"
-                    >
-                      <i class="fas fa-bolt"></i>
-                    </div>
-                  </div>
-
-                  <!-- Client -->
-                  <div class="relative z-10 flex flex-col items-center gap-2">
-                    <div
-                      class="glass-card w-16 h-16 rounded-xl flex items-center justify-center text-2xl text-sky-100 border border-sky-400/30"
-                    >
-                      <i class="fas fa-laptop"></i>
-                    </div>
-                    <span class="text-xs font-mono text-sky-100">Client</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 1. Contexto -->
-        <section
-          id="intro"
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-        >
-          <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
+</div>
+<!-- Coluna Direita: Diagrama Visual (Streaming Pipeline) -->
+<div class="lg:w-1/2 w-full flex items-center justify-center">
+<div class="relative w-full max-w-md">
+<div class="flex items-center justify-between gap-2 relative">
+<!-- Connection Line Background -->
+<div class="absolute top-1/2 left-0 w-full h-1 bg-sky-900/30 -translate-y-1/2 rounded-full"></div>
+<!-- Animated Stream Dots -->
+<div class="absolute top-1/2 left-0 w-full h-1 -translate-y-1/2 overflow-hidden">
+<div class="flex gap-4 animate-pulse">
+<div class="w-2 h-1 bg-sky-400 rounded-full"></div>
+<div class="w-2 h-1 bg-sky-400 rounded-full"></div>
+<div class="w-2 h-1 bg-sky-400 rounded-full"></div>
+<div class="w-2 h-1 bg-sky-400 rounded-full"></div>
+<div class="w-2 h-1 bg-sky-400 rounded-full"></div>
+</div>
+</div>
+<!-- Server -->
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="glass-card w-16 h-16 rounded-xl flex items-center justify-center text-2xl text-sky-200 border border-sky-400/30">
+<i class="fas fa-server"></i>
+</div>
+<span class="text-xs font-mono text-sky-200">API</span>
+</div>
+<!-- Stream Processing -->
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="glass-card w-12 h-12 rounded-full flex items-center justify-center text-xl text-white bg-sky-500/20 border border-sky-400 shadow-[0_0_15px_rgba(14,165,233,0.4)]">
+<i class="fas fa-bolt"></i>
+</div>
+</div>
+<!-- Client -->
+<div class="relative z-10 flex flex-col items-center gap-2">
+<div class="glass-card w-16 h-16 rounded-xl flex items-center justify-center text-2xl text-sky-100 border border-sky-400/30">
+<i class="fas fa-laptop"></i>
+</div>
+<span class="text-xs font-mono text-sky-100">Client</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- 1. Contexto -->
+<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="intro">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
             1. Contexto e Propósito
           </h2>
-          <div class="prose max-w-none text-gray-600">
-            <p class="mb-4">
+<div class="prose max-w-none text-gray-600">
+<p class="mb-4">
               No mundo tradicional de microserviços, estamos acostumados com
               requisições rápidas: o app chama o backend, o backend consulta o
               banco e devolve o JSON em 50ms.
-              <strong class="text-brand-700"
-                >Com GenAI, esse paradigma quebra.</strong
-              >
-            </p>
-            <p class="mb-4">
+              <strong class="text-brand-700">Com GenAI, esse paradigma quebra.</strong>
+</p>
+<p class="mb-4">
               Uma chamada para o GPT-4 pode levar 10, 30, até 60 segundos. Se
               você mantiver uma conexão HTTP síncrona aberta por tanto tempo,
               vai estourar timeouts em load balancers, travar a thread do
               cliente e frustrar o usuário que fica olhando para uma tela
               branca.
             </p>
-            <div class="bg-brand-50 border-l-4 border-brand-500 p-4 mt-6">
-              <p class="font-medium text-brand-900">Propósito</p>
-              <p class="text-sm text-brand-800">
+<div class="bg-brand-50 border-l-4 border-brand-500 p-4 mt-6">
+<p class="font-medium text-brand-900">Propósito</p>
+<p class="text-sm text-brand-800">
                 Explorar padrões de design de API robustos para lidar com a
                 latência inerente e a imprevisibilidade dos LLMs em produtos de
                 escala.
               </p>
-            </div>
-          </div>
-        </section>
-
-        <!-- 2. Abordagem -->
-        <section id="approach" class="space-y-8">
-          <div
-            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-          >
-            <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
+</div>
+</div>
+</section>
+<!-- 2. Abordagem -->
+<section class="space-y-8" id="approach">
+<div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
               2. Abordagem
             </h2>
-            <p class="text-gray-600 mb-8">
+<p class="text-gray-600 mb-8">
               O design de APIs GenAI exige repensar o ciclo de vida da
               requisição e resposta. Abaixo, os três padrões essenciais:
             </p>
-
-            <div class="grid md:grid-cols-3 gap-6 mb-12">
-              <!-- Card 1 -->
-              <div
-                class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-brand-300 transition-colors"
-              >
-                <div class="text-brand-600 text-2xl mb-4">
-                  <i class="fas fa-stream"></i>
-                </div>
-                <h3 class="font-bold text-lg mb-2">1. Streaming (SSE)</h3>
-                <p class="text-sm text-gray-600 mb-4">
+<div class="grid md:grid-cols-3 gap-6 mb-12">
+<!-- Card 1 -->
+<div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-brand-300 transition-colors">
+<div class="text-brand-600 text-2xl mb-4">
+<i class="fas fa-stream"></i>
+</div>
+<h3 class="font-bold text-lg mb-2">1. Streaming (SSE)</h3>
+<p class="text-sm text-gray-600 mb-4">
                   Visualização da resposta em tempo real, reduzindo a sensação
                   de espera.
                 </p>
-                <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
-                  <li>Reduz ansiedade</li>
-                  <li>Permite cancelamento</li>
-                  <li>Melhora TTFT</li>
-                </ul>
-              </div>
-              <!-- Card 2 -->
-              <div
-                class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-brand-300 transition-colors"
-              >
-                <div class="text-brand-600 text-2xl mb-4">
-                  <i class="fas fa-sync-alt"></i>
-                </div>
-                <h3 class="font-bold text-lg mb-2">2. Async + Polling</h3>
-                <p class="text-sm text-gray-600 mb-4">
+<ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
+<li>Reduz ansiedade</li>
+<li>Permite cancelamento</li>
+<li>Melhora TTFT</li>
+</ul>
+</div>
+<!-- Card 2 -->
+<div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-brand-300 transition-colors">
+<div class="text-brand-600 text-2xl mb-4">
+<i class="fas fa-sync-alt"></i>
+</div>
+<h3 class="font-bold text-lg mb-2">2. Async + Polling</h3>
+<p class="text-sm text-gray-600 mb-4">
                   Ideal para tarefas longas como relatórios e análises extensas.
                 </p>
-                <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
-                  <li>Backend retorna 202 Accepted</li>
-                  <li>Processamento em fila (SQS/Rabbit)</li>
-                  <li>Polling ou Webhook</li>
-                </ul>
-              </div>
-              <!-- Card 3 -->
-              <div
-                class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-brand-300 transition-colors"
-              >
-                <div class="text-brand-600 text-2xl mb-4">
-                  <i class="fas fa-shield-alt"></i>
-                </div>
-                <h3 class="font-bold text-lg mb-2">3. Circuit Breakers</h3>
-                <p class="text-sm text-gray-600 mb-4">
+<ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
+<li>Backend retorna 202 Accepted</li>
+<li>Processamento em fila (SQS/Rabbit)</li>
+<li>Polling ou Webhook</li>
+</ul>
+</div>
+<!-- Card 3 -->
+<div class="bg-gray-50 p-6 rounded-xl border border-gray-200 hover:border-brand-300 transition-colors">
+<div class="text-brand-600 text-2xl mb-4">
+<i class="fas fa-shield-alt"></i>
+</div>
+<h3 class="font-bold text-lg mb-2">3. Circuit Breakers</h3>
+<p class="text-sm text-gray-600 mb-4">
                   Essenciais para resiliência quando o LLM falha.
                 </p>
-                <ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
-                  <li>Fallback para cache</li>
-                  <li>Notificação clara</li>
-                  <li>Registro de erro</li>
-                </ul>
-              </div>
-            </div>
-
-            <h3 class="font-bold text-gray-900 mb-4">Tabela Comparativa</h3>
-            <div class="overflow-x-auto mb-10">
-              <table class="min-w-full text-sm text-left">
-                <thead class="bg-gray-100 text-gray-700 uppercase font-bold">
-                  <tr>
-                    <th class="px-6 py-3 rounded-tl-lg">Padrão</th>
-                    <th class="px-6 py-3">Latência</th>
-                    <th class="px-6 py-3">TTFT</th>
-                    <th class="px-6 py-3">Cancelamento</th>
-                    <th class="px-6 py-3 rounded-tr-lg">Complexidade</th>
-                  </tr>
-                </thead>
-                <tbody class="divide-y divide-gray-200">
-                  <tr>
-                    <td class="px-6 py-4 font-medium">Streaming</td>
-                    <td class="px-6 py-4 text-yellow-600">Média</td>
-                    <td class="px-6 py-4 text-green-600">Baixa</td>
-                    <td class="px-6 py-4 text-green-600">Sim</td>
-                    <td class="px-6 py-4 text-yellow-600">Média</td>
-                  </tr>
-                  <tr class="bg-gray-50">
-                    <td class="px-6 py-4 font-medium">Async/Polling</td>
-                    <td class="px-6 py-4 text-red-600">Alta</td>
-                    <td class="px-6 py-4 text-red-600">Alta</td>
-                    <td class="px-6 py-4 text-green-600">Sim</td>
-                    <td class="px-6 py-4 text-red-600">Alta</td>
-                  </tr>
-                  <tr>
-                    <td class="px-6 py-4 font-medium">Síncrono</td>
-                    <td class="px-6 py-4 text-red-600">Alta</td>
-                    <td class="px-6 py-4 text-red-600">Alta</td>
-                    <td class="px-6 py-4 text-red-600">Não</td>
-                    <td class="px-6 py-4 text-green-600">Baixa</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-
-            <h3 class="font-bold text-gray-900 mb-6">Fluxo Visual Integrado</h3>
-            <div
-              class="bg-gray-50 p-8 rounded-xl border border-dashed border-gray-300 flex flex-col items-center"
-            >
-              <div class="diagram-box w-48 bg-blue-50 border-blue-200">
+<ul class="text-sm text-gray-600 space-y-2 list-disc pl-4">
+<li>Fallback para cache</li>
+<li>Notificação clara</li>
+<li>Registro de erro</li>
+</ul>
+</div>
+</div>
+<h3 class="font-bold text-gray-900 mb-4">Tabela Comparativa</h3>
+<div class="overflow-x-auto mb-10">
+<table class="min-w-full text-sm text-left">
+<thead class="bg-gray-100 text-gray-700 uppercase font-bold">
+<tr>
+<th class="px-6 py-3 rounded-tl-lg">Padrão</th>
+<th class="px-6 py-3">Latência</th>
+<th class="px-6 py-3">TTFT</th>
+<th class="px-6 py-3">Cancelamento</th>
+<th class="px-6 py-3 rounded-tr-lg">Complexidade</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+<tr>
+<td class="px-6 py-4 font-medium">Streaming</td>
+<td class="px-6 py-4 text-yellow-600">Média</td>
+<td class="px-6 py-4 text-green-600">Baixa</td>
+<td class="px-6 py-4 text-green-600">Sim</td>
+<td class="px-6 py-4 text-yellow-600">Média</td>
+</tr>
+<tr class="bg-gray-50">
+<td class="px-6 py-4 font-medium">Async/Polling</td>
+<td class="px-6 py-4 text-red-600">Alta</td>
+<td class="px-6 py-4 text-red-600">Alta</td>
+<td class="px-6 py-4 text-green-600">Sim</td>
+<td class="px-6 py-4 text-red-600">Alta</td>
+</tr>
+<tr>
+<td class="px-6 py-4 font-medium">Síncrono</td>
+<td class="px-6 py-4 text-red-600">Alta</td>
+<td class="px-6 py-4 text-red-600">Alta</td>
+<td class="px-6 py-4 text-red-600">Não</td>
+<td class="px-6 py-4 text-green-600">Baixa</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 class="font-bold text-gray-900 mb-6">Fluxo Visual Integrado</h3>
+<div class="bg-gray-50 p-8 rounded-xl border border-dashed border-gray-300 flex flex-col items-center">
+<div class="diagram-box w-48 bg-blue-50 border-blue-200">
                 Usuário faz requisição
               </div>
-              <div class="h-8 w-0.5 bg-gray-300 my-1"></div>
-              <div class="diagram-box w-48 font-bold">Tipo de Tarefa?</div>
-
-              <div class="w-full flex justify-center gap-4 mt-2 mb-2 relative">
-                <!-- Connectors would be complex in pure CSS, implying logic here -->
-                <div class="w-1/3 h-0.5 bg-gray-300 absolute top-0"></div>
-              </div>
-
-              <div
-                class="flex flex-col md:flex-row gap-4 md:gap-8 mt-2 w-full justify-center"
-              >
-                <div class="flex flex-col items-center flex-1">
-                  <div class="text-xs text-gray-500 mb-1">Curta</div>
-                  <div class="diagram-box w-full bg-green-50 border-green-200">
+<div class="h-8 w-0.5 bg-gray-300 my-1"></div>
+<div class="diagram-box w-48 font-bold">Tipo de Tarefa?</div>
+<div class="w-full flex justify-center gap-4 mt-2 mb-2 relative">
+<!-- Connectors would be complex in pure CSS, implying logic here -->
+<div class="w-1/3 h-0.5 bg-gray-300 absolute top-0"></div>
+</div>
+<div class="flex flex-col md:flex-row gap-4 md:gap-8 mt-2 w-full justify-center">
+<div class="flex flex-col items-center flex-1">
+<div class="text-xs text-gray-500 mb-1">Curta</div>
+<div class="diagram-box w-full bg-green-50 border-green-200">
                     Streaming
                   </div>
-                </div>
-                <div class="flex flex-col items-center flex-1">
-                  <div class="text-xs text-gray-500 mb-1">Longa</div>
-                  <div
-                    class="diagram-box w-full bg-yellow-50 border-yellow-200"
-                  >
+</div>
+<div class="flex flex-col items-center flex-1">
+<div class="text-xs text-gray-500 mb-1">Longa</div>
+<div class="diagram-box w-full bg-yellow-50 border-yellow-200">
                     Async + Polling
                   </div>
-                </div>
-                <div class="flex flex-col items-center flex-1">
-                  <div class="text-xs text-gray-500 mb-1">Falha</div>
-                  <div class="diagram-box w-full bg-red-50 border-red-200">
+</div>
+<div class="flex flex-col items-center flex-1">
+<div class="text-xs text-gray-500 mb-1">Falha</div>
+<div class="diagram-box w-full bg-red-50 border-red-200">
                     Circuit Breaker
                   </div>
-                </div>
-              </div>
-
-              <div class="h-8 w-0.5 bg-gray-300 my-1 mt-4"></div>
-              <div
-                class="diagram-box w-64 font-bold bg-gray-800 text-white border-gray-900"
-              >
+</div>
+</div>
+<div class="h-8 w-0.5 bg-gray-300 my-1 mt-4"></div>
+<div class="diagram-box w-64 font-bold bg-gray-800 text-white border-gray-900">
                 Resposta ou Fallback
               </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 3. Conceitos Fundamentais -->
-        <section
-          id="concepts"
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-        >
-          <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
+</div>
+</div>
+</section>
+<!-- 3. Conceitos Fundamentais -->
+<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="concepts">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
             3. Conceitos Fundamentais
           </h2>
-
-          <div class="space-y-8">
-            <div>
-              <h3 class="text-xl font-semibold text-brand-700 mb-2">
+<div class="space-y-8">
+<div>
+<h3 class="text-xl font-semibold text-brand-700 mb-2">
                 Server-Sent Events (SSE)
               </h3>
-              <p class="text-gray-600 mb-3">
+<p class="text-gray-600 mb-3">
                 Padrão em que o servidor mantém a conexão aberta e envia
                 “chunks” de texto conforme são gerados. Simula o efeito “máquina
                 de escrever”.
               </p>
-              <pre
-                class="code-block"
-              ><code>from fastapi.responses import StreamingResponse
+<pre class="code-block"><code>from fastapi.responses import StreamingResponse
 def generate_stream():
     for token in llm.stream():
         yield token</code></pre>
-            </div>
-
-            <div class="grid md:grid-cols-2 gap-8">
-              <div>
-                <h3 class="text-xl font-semibold text-brand-700 mb-2">
+</div>
+<div class="grid md:grid-cols-2 gap-8">
+<div>
+<h3 class="text-xl font-semibold text-brand-700 mb-2">
                   Time-to-First-Token (TTFT)
                 </h3>
-                <p class="text-gray-600 mb-2">
+<p class="text-gray-600 mb-2">
                   Métrica que mede o tempo até o usuário ver o primeiro
                   caractere. Mais importante que a latência total!
                 </p>
-                <ul class="text-sm bg-gray-50 p-4 rounded-lg space-y-2">
-                  <li class="flex justify-between">
-                    <span>TTFT:</span>
-                    <span class="font-bold text-gray-900">Impacto Alto</span>
-                  </li>
-                  <li class="flex justify-between">
-                    <span>Latência Total:</span>
-                    <span class="font-bold text-gray-700">Impacto Médio</span>
-                  </li>
-                  <li class="flex justify-between">
-                    <span>Throughput:</span>
-                    <span class="font-bold text-gray-900">Impacto Alto</span>
-                  </li>
-                </ul>
-              </div>
-              <div>
-                <h3 class="text-xl font-semibold text-brand-700 mb-2">
+<ul class="text-sm bg-gray-50 p-4 rounded-lg space-y-2">
+<li class="flex justify-between">
+<span>TTFT:</span>
+<span class="font-bold text-gray-900">Impacto Alto</span>
+</li>
+<li class="flex justify-between">
+<span>Latência Total:</span>
+<span class="font-bold text-gray-700">Impacto Médio</span>
+</li>
+<li class="flex justify-between">
+<span>Throughput:</span>
+<span class="font-bold text-gray-900">Impacto Alto</span>
+</li>
+</ul>
+</div>
+<div>
+<h3 class="text-xl font-semibold text-brand-700 mb-2">
                   Backpressure
                 </h3>
-                <p class="text-gray-600 mb-3">
+<p class="text-gray-600 mb-3">
                   Capacidade de absorver picos sem sobrecarregar o modelo via
                   rate limiting.
                 </p>
-                <pre
-                  class="code-block text-xs"
-                ><code>from slowapi import Limiter
+<pre class="code-block text-xs"><code>from slowapi import Limiter
 limiter = Limiter(key_func=get_user_id)
 @app.post("/chat")
 @limiter.limit("10/minute")</code></pre>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- 4. Mão na Massa -->
-        <section
-          id="hands-on"
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-        >
-          <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Mão na Massa -->
+<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="hands-on">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
             4. Mão na Massa: Exemplo Prático
           </h2>
-
-          <div class="grid md:grid-cols-2 gap-8 mb-8">
-            <div>
-              <h3 class="font-bold text-lg mb-4">Passo a Passo</h3>
-              <ol class="list-decimal list-inside space-y-3 text-gray-700">
-                <li>Defina o padrão ideal (Streaming, Async, Sync).</li>
-                <li>Implemente o endpoint (FastAPI, Flask).</li>
-                <li>
+<div class="grid md:grid-cols-2 gap-8 mb-8">
+<div>
+<h3 class="font-bold text-lg mb-4">Passo a Passo</h3>
+<ol class="list-decimal list-inside space-y-3 text-gray-700">
+<li>Defina o padrão ideal (Streaming, Async, Sync).</li>
+<li>Implemente o endpoint (FastAPI, Flask).</li>
+<li>
                   Adicione <strong>rate limiting</strong> e
                   <strong>circuit breaker</strong>.
                 </li>
-                <li>Configure logs (TTFT, latência).</li>
-                <li>Teste com cenários reais.</li>
-              </ol>
-            </div>
-            <div>
-              <h3 class="font-bold text-lg mb-4">Checklist de Implementação</h3>
-              <ul class="space-y-3 text-gray-700">
-                <li class="flex items-center gap-2">
-                  <i class="fas fa-check-circle text-green-500"></i> Endpoint
+<li>Configure logs (TTFT, latência).</li>
+<li>Teste com cenários reais.</li>
+</ol>
+</div>
+<div>
+<h3 class="font-bold text-lg mb-4">Checklist de Implementação</h3>
+<ul class="space-y-3 text-gray-700">
+<li class="flex items-center gap-2">
+<i class="fas fa-check-circle text-green-500"></i> Endpoint
                   streaming implementado
                 </li>
-                <li class="flex items-center gap-2">
-                  <i class="fas fa-check-circle text-green-500"></i> Endpoint
+<li class="flex items-center gap-2">
+<i class="fas fa-check-circle text-green-500"></i> Endpoint
                   async com polling/webhook
                 </li>
-                <li class="flex items-center gap-2">
-                  <i class="fas fa-check-circle text-green-500"></i> Circuit
+<li class="flex items-center gap-2">
+<i class="fas fa-check-circle text-green-500"></i> Circuit
                   breaker configurado
                 </li>
-                <li class="flex items-center gap-2">
-                  <i class="fas fa-check-circle text-green-500"></i> Métricas de
+<li class="flex items-center gap-2">
+<i class="fas fa-check-circle text-green-500"></i> Métricas de
                   TTFT logadas
                 </li>
-                <li class="flex items-center gap-2">
-                  <i class="fas fa-check-circle text-green-500"></i> Testes de
+<li class="flex items-center gap-2">
+<i class="fas fa-check-circle text-green-500"></i> Testes de
                   carga executados
                 </li>
-              </ul>
-            </div>
-          </div>
-
-          <div class="mb-6">
-            <h3 class="font-bold text-lg mb-2">
+</ul>
+</div>
+</div>
+<div class="mb-6">
+<h3 class="font-bold text-lg mb-2">
               Exemplo de Automação de Testes
             </h3>
-            <pre class="code-block"><code>import requests
+<pre class="code-block"><code>import requests
 import time
 
 def test_streaming():
@@ -645,71 +526,65 @@ def test_streaming():
     print("TTFT:", first_chunk_time)
 
 test_streaming()</code></pre>
-          </div>
-        </section>
-
-        <!-- 5. Métricas e Riscos -->
-        <section
-          id="metrics"
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-        >
-          <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
+</div>
+</section>
+<!-- 5. Métricas e Riscos -->
+<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="metrics">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
             5. Métricas, Riscos e Boas Práticas
           </h2>
-
-          <div class="overflow-x-auto mb-8">
-            <table class="min-w-full text-sm text-left">
-              <thead class="bg-red-50 text-red-900">
-                <tr>
-                  <th class="px-4 py-2">Risco</th>
-                  <th class="px-4 py-2">Impacto</th>
-                  <th class="px-4 py-2">Mitigação</th>
-                </tr>
-              </thead>
-              <tbody class="divide-y divide-gray-200">
-                <tr>
-                  <td class="px-4 py-2 font-medium">Timeout de Infra</td>
-                  <td class="px-4 py-2">Quebra de conexão</td>
-                  <td class="px-4 py-2">Keep-alive, SSE</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-medium">Custo de Conexão</td>
-                  <td class="px-4 py-2">Memória excessiva</td>
-                  <td class="px-4 py-2">Limitar conexões</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-medium">Rate Limit Excedido</td>
-                  <td class="px-4 py-2">Erro 429</td>
-                  <td class="px-4 py-2">Rate limiting granular</td>
-                </tr>
-                <tr>
-                  <td class="px-4 py-2 font-medium">Falha de LLM</td>
-                  <td class="px-4 py-2">Queda de serviço</td>
-                  <td class="px-4 py-2">Circuit breaker, Cache</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-
-          <h3 class="font-bold text-lg mb-4">Boas Práticas e Logs</h3>
-          <div class="grid lg:grid-cols-2 gap-8">
-            <ul class="space-y-4 text-gray-700">
-              <li>
-                <strong>Rate Limiting Granular:</strong> Por usuário, não por
+<div class="overflow-x-auto mb-8">
+<table class="min-w-full text-sm text-left">
+<thead class="bg-red-50 text-red-900">
+<tr>
+<th class="px-4 py-2">Risco</th>
+<th class="px-4 py-2">Impacto</th>
+<th class="px-4 py-2">Mitigação</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-gray-200">
+<tr>
+<td class="px-4 py-2 font-medium">Timeout de Infra</td>
+<td class="px-4 py-2">Quebra de conexão</td>
+<td class="px-4 py-2">Keep-alive, SSE</td>
+</tr>
+<tr>
+<td class="px-4 py-2 font-medium">Custo de Conexão</td>
+<td class="px-4 py-2">Memória excessiva</td>
+<td class="px-4 py-2">Limitar conexões</td>
+</tr>
+<tr>
+<td class="px-4 py-2 font-medium">Rate Limit Excedido</td>
+<td class="px-4 py-2">Erro 429</td>
+<td class="px-4 py-2">Rate limiting granular</td>
+</tr>
+<tr>
+<td class="px-4 py-2 font-medium">Falha de LLM</td>
+<td class="px-4 py-2">Queda de serviço</td>
+<td class="px-4 py-2">Circuit breaker, Cache</td>
+</tr>
+</tbody>
+</table>
+</div>
+<h3 class="font-bold text-lg mb-4">Boas Práticas e Logs</h3>
+<div class="grid lg:grid-cols-2 gap-8">
+<ul class="space-y-4 text-gray-700">
+<li>
+<strong>Rate Limiting Granular:</strong> Por usuário, não por
                 IP.
               </li>
-              <li>
-                <strong>Cache Semântico:</strong> Verifique se a pergunta já foi
+<li>
+<strong>Cache Semântico:</strong> Verifique se a pergunta já foi
                 respondida.
               </li>
-              <li><strong>Logs Estruturados:</strong> Registre tudo.</li>
-              <li><strong>Automação:</strong> Scripts para medir TTFT.</li>
-            </ul>
-            <div>
-              <p class="text-sm font-medium mb-2 text-gray-500">
+<li><strong>Logs Estruturados:</strong> Registre tudo.</li>
+<li><strong>Automação:</strong> Scripts para medir TTFT.</li>
+</ul>
+<div>
+<p class="text-sm font-medium mb-2 text-gray-500">
                 Exemplo JSON Log:
               </p>
-              <pre class="code-block"><code>{
+<pre class="code-block"><code>{
   "timestamp": "2025-12-08T10:30:00Z",
   "endpoint": "/chat/stream",
   "ttft": 0.12,
@@ -718,145 +593,101 @@ test_streaming()</code></pre>
   "user_id": "abc123",
   "error": null
 }</code></pre>
-            </div>
-          </div>
-        </section>
-
-        <!-- 6. Evidências -->
-        <section
-          id="evidence"
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-        >
-          <h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
-            6. Evidence & Exploration
+</div>
+</div>
+</section>
+<!-- 6. Evidências -->
+<section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="evidence">
+<h2 class="text-3xl font-bold text-gray-900 mb-6 border-b pb-4">
+            6. Evidence &amp; Exploration
           </h2>
-
-          <div class="grid md:grid-cols-2 gap-6 mb-8">
-            <div class="bg-red-50 p-6 rounded-lg border border-red-100">
-              <h4 class="font-bold text-red-900 mb-2">
+<div class="grid md:grid-cols-2 gap-6 mb-8">
+<div class="bg-red-50 p-6 rounded-lg border border-red-100">
+<h4 class="font-bold text-red-900 mb-2">
                 Sem Streaming (Síncrono)
               </h4>
-              <pre
-                class="bg-white p-3 rounded text-xs mb-2 overflow-x-auto"
-              ><code>@app.post("/chat-sync")
+<pre class="bg-white p-3 rounded text-xs mb-2 overflow-x-auto"><code>@app.post("/chat-sync")
 def sync_chat(message: str):
     response = llm.generate(message) # 15s
     return {"response": response}</code></pre>
-              <p class="text-sm text-red-800">
+<p class="text-sm text-red-800">
                 Métrica: 15s de tela branca → Usuário pensa que travou.
               </p>
-            </div>
-            <div class="bg-green-50 p-6 rounded-lg border border-green-100">
-              <h4 class="font-bold text-green-900 mb-2">Com Streaming (SSE)</h4>
-              <pre
-                class="bg-white p-3 rounded text-xs mb-2 overflow-x-auto"
-              ><code>@app.post("/chat-stream")
+</div>
+<div class="bg-green-50 p-6 rounded-lg border border-green-100">
+<h4 class="font-bold text-green-900 mb-2">Com Streaming (SSE)</h4>
+<pre class="bg-white p-3 rounded text-xs mb-2 overflow-x-auto"><code>@app.post("/chat-stream")
 async def stream_chat(message: str):
     # yield chunks...
     return StreamingResponse(...)</code></pre>
-              <p class="text-sm text-green-800">
+<p class="text-sm text-green-800">
                 Métrica: 100ms até 1ª mensagem → Sensação instantânea.
               </p>
-            </div>
-          </div>
-
-          <h3 class="font-bold text-lg mb-3">Ferramentas Reais</h3>
-          <div class="flex flex-wrap gap-2">
-            <span
-              class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700"
-              >FastAPI</span
-            >
-            <span
-              class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700"
-              >Next.js Streaming</span
-            >
-            <span
-              class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700"
-              >RabbitMQ</span
-            >
-            <span
-              class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700"
-              >Celery</span
-            >
-            <span
-              class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700"
-              >Resilience4J</span
-            >
-            <span
-              class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700"
-              >OpenTelemetry</span
-            >
-          </div>
-        </section>
-
-        <!-- 7. Reflexões -->
-        <section
-          id="reflections"
-          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8"
-        >
-          <h2 class="text-3xl font-bold mb-6 border-b border-brand-700 pb-4">
-            7. Reflexões & Próximos Passos
-          </h2>
-
-          <blockquote
-            class="text-xl italic font-light mb-8 border-l-4 border-brand-400 pl-4"
-          >
-            "Percebi que a maioria das falhas de GenAI em produção não é porque
-            o modelo é ruim, é porque a API em torno dele é pior. Um usuário
-            esperando 60 segundos com tela branca é a mesma coisa que um modelo
-            que desistiu."
-          </blockquote>
-
-          <div class="grid md:grid-cols-2 gap-8">
-            <div>
-              <h3
-                class="font-bold text-brand-300 mb-3 uppercase tracking-wider text-sm"
-              >
-                A Lição
-              </h3>
-              <p class="text-brand-100 mb-4">
-                Desenhar APIs para IA me fez reaprender HTTP. Coisas como
-                chunks, buffers e event-streams viraram fundamentais.
-              </p>
-              <p class="text-brand-100">
-                Mesmo com streaming perfeito, coisas dão errado (alucinação,
-                queda da OpenAI). Design robusto precisa de fallbacks.
-              </p>
-            </div>
-            <div>
-              <h3
-                class="font-bold text-brand-300 mb-3 uppercase tracking-wider text-sm"
-              >
-                Próximos Passos
-              </h3>
-              <ul class="space-y-2 text-brand-100">
-                <li>
-                  <i class="fas fa-angle-right text-brand-400 mr-2"></i>
-                  Implemente streaming hoje.
-                </li>
-                <li>
-                  <i class="fas fa-angle-right text-brand-400 mr-2"></i>
-                  Configure circuit breakers.
-                </li>
-                <li>
-                  <i class="fas fa-angle-right text-brand-400 mr-2"></i> Meça
-                  TTFT, não apenas latência total.
-                </li>
-                <li>
-                  <i class="fas fa-angle-right text-brand-400 mr-2"></i> Leia o
-                  Artigo 08: Tratamento de Erros.
-                </li>
-              </ul>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-
-    <footer class="bg-white border-t border-gray-200 mt-12 py-8">
-      <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-        <p>&copy; 2025 GenAI Engineering Series.</p>
-      </div>
-    </footer>
-  </body>
+</div>
+</div>
+<h3 class="font-bold text-lg mb-3">Ferramentas Reais</h3>
+<div class="flex flex-wrap gap-2">
+<span class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700">FastAPI</span>
+<span class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700">Next.js Streaming</span>
+<span class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700">RabbitMQ</span>
+<span class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700">Celery</span>
+<span class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700">Resilience4J</span>
+<span class="px-3 py-1 bg-gray-200 rounded-full text-sm text-gray-700">OpenTelemetry</span>
+</div>
+</section>
+<!-- 7. Reflexões -->
+<section class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10" id="reflections">
+<h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
+          7. Reflexões &amp; Próximos Passos
+        </h2>
+<div class="w-full h-px bg-white/10 mb-8"></div>
+<div class="grid lg:grid-cols-12 gap-10 md:gap-16">
+<div class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light">
+<p>
+              "Percebi que a maioria das falhas de GenAI em produção não é
+              porque o modelo é ruim, é porque a API em torno dele é pior."
+            </p>
+<p class="text-base text-gray-300">
+              Coisas como chunks, buffers e event-streams viraram fundamentais.
+            </p>
+</div>
+<div class="lg:col-span-5">
+<h3 class="text-sm font-bold text-sky-400 uppercase tracking-widest mb-6 font-mono">
+              Artigos Relacionados
+            </h3>
+<ul class="space-y-4">
+<li class="flex items-start group">
+<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="06-versionamento-prompts-dados-modelos.html">
+<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-sky-400 mr-3">
+<i class="fas fa-arrow-left"></i>
+</span>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest opacity-50 text-sky-400">Anterior</span>
+<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">Versionamento de Prompts, Dados e Modelos</span>
+</div>
+</a>
+</li>
+<li class="flex items-start group">
+<a class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors" href="08-tratamento-erros-timeouts-llm.html">
+<span class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-sky-400 mr-3">
+<i class="fas fa-arrow-right"></i>
+</span>
+<div class="flex flex-col">
+<span class="text-[10px] uppercase tracking-widest opacity-50 text-sky-400">Próximo</span>
+<span class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight">Tratamento de Erros e Timeouts em LLMs</span>
+</div>
+</a>
+</li>
+</ul>
+</div>
+</div>
+</section>
+</main>
+</div>
+<footer class="bg-white border-t border-gray-200 mt-12 py-8">
+<div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
+<p>© 2025 GenAI Engineering Series.</p>
+</div>
+</footer>
+</body>
 </html>
