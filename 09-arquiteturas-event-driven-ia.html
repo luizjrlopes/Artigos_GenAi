@@ -1,30 +1,29 @@
 ﻿<!DOCTYPE html>
-<html lang="pt-BR" class="scroll-smooth">
+
+<html class="scroll-smooth" lang="pt-BR">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Arquiteturas Event-Driven para IA</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link
       href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
       rel="stylesheet"
     />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Fira+Code:wght@400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap"
       rel="stylesheet"
     />
-
     <script>
       tailwind.config = {
         theme: {
           extend: {
             animation: {
-                'spin-slow': 'spin 3s linear infinite',
-                'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-            }
-,
+              "spin-slow": "spin 3s linear infinite",
+              "pulse-slow": "pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite",
+            },
             fontFamily: {
               sans: ["Inter", "sans-serif"],
               mono: ["Fira Code", "monospace"],
@@ -211,55 +210,53 @@
         </div>
       </div>
     </header>
-
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
     >
       <!-- Sidebar Navigation -->
       <aside
-        class="lg:w-64 flex-shrink-0 hidden lg:block"
         aria-label="Navegação lateral"
+        class="lg:w-64 flex-shrink-0 hidden lg:block"
       >
         <nav class="sticky top-24 space-y-1">
           <a
-            href="#intro"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
+            href="#intro"
           >
             <i class="fas fa-network-wired w-6 text-brand-600"></i> Contexto
           </a>
           <a
-            href="#approach"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#approach"
           >
             <i class="fas fa-map w-6 text-brand-600"></i> Abordagem
           </a>
           <a
-            href="#concepts"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#concepts"
           >
             <i class="fas fa-cubes w-6 text-brand-600"></i> Conceitos (DLQ)
           </a>
           <a
-            href="#hands-on"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#hands-on"
           >
             <i class="fas fa-code w-6 text-brand-600"></i> Implementação
           </a>
           <a
-            href="#metrics"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#metrics"
           >
             <i class="fas fa-chart-area w-6 text-brand-600"></i> Métricas
           </a>
           <a
-            href="#evidence"
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#evidence"
           >
             <i class="fas fa-check-double w-6 text-brand-600"></i> Benchmarks
           </a>
         </nav>
       </aside>
-
       <!-- Main Content -->
       <main class="flex-1 space-y-12">
         <!-- Hero Section (padronizado) -->
@@ -309,46 +306,90 @@
             </div>
             <!-- Coluna Direita: Diagrama Visual (Event Hub) -->
             <div class="lg:w-1/2 w-full flex items-center justify-center">
-              <div class="relative w-full max-w-md h-64 flex items-center justify-center">
-                
+              <div
+                class="relative w-full max-w-md h-64 flex items-center justify-center"
+              >
                 <!-- Central Hub -->
                 <div class="relative z-20">
-                   <div class="absolute inset-0 bg-brand-500/30 blur-2xl rounded-full animate-pulse"></div>
-                   <div class="glass-card w-24 h-24 rounded-full flex items-center justify-center text-4xl text-white border border-brand-300 shadow-[0_0_30px_rgba(124,58,237,0.5)]">
-                     <i class="fas fa-hubspot"></i>
-                   </div>
-                   <span class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-mono text-white font-bold">EVENT BUS</span>
+                  <div
+                    class="absolute inset-0 bg-brand-500/30 blur-2xl rounded-full animate-pulse"
+                  ></div>
+                  <div
+                    class="glass-card w-24 h-24 rounded-full flex items-center justify-center text-4xl text-white border border-brand-300 shadow-[0_0_30px_rgba(124,58,237,0.5)]"
+                  >
+                    <i class="fas fa-hubspot"></i>
+                  </div>
+                  <span
+                    class="absolute -bottom-8 left-1/2 transform -translate-x-1/2 text-xs font-mono text-white font-bold"
+                    >EVENT BUS</span
+                  >
                 </div>
                 <!-- Satellite Nodes (Orbiting) -->
-                <div class="absolute inset-0 animate-[spin_10s_linear_infinite]">
-                   <!-- Node 1 -->
-                   <div class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center text-brand-200 shadow-lg transform -rotate-0">
-                        <i class="fas fa-envelope"></i>
-                      </div>
-                   </div>
-                   <!-- Node 2 -->
-                   <div class="absolute bottom-8 right-8">
-                      <div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center text-brand-200 shadow-lg transform -rotate-0">
-                        <i class="fas fa-robot"></i>
-                      </div>
-                   </div>
-                   <!-- Node 3 -->
-                   <div class="absolute bottom-8 left-8">
-                      <div class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center text-brand-200 shadow-lg transform -rotate-0">
-                        <i class="fas fa-database"></i>
-                      </div>
-                   </div>
+                <div
+                  class="absolute inset-0 animate-[spin_10s_linear_infinite]"
+                >
+                  <!-- Node 1 -->
+                  <div
+                    class="absolute top-0 left-1/2 transform -translate-x-1/2 -translate-y-1/2"
+                  >
+                    <div
+                      class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center text-brand-200 shadow-lg transform -rotate-0"
+                    >
+                      <i class="fas fa-envelope"></i>
+                    </div>
+                  </div>
+                  <!-- Node 2 -->
+                  <div class="absolute bottom-8 right-8">
+                    <div
+                      class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center text-brand-200 shadow-lg transform -rotate-0"
+                    >
+                      <i class="fas fa-robot"></i>
+                    </div>
+                  </div>
+                  <!-- Node 3 -->
+                  <div class="absolute bottom-8 left-8">
+                    <div
+                      class="w-12 h-12 rounded-xl bg-white/10 backdrop-blur-md border border-white/30 flex items-center justify-center text-brand-200 shadow-lg transform -rotate-0"
+                    >
+                      <i class="fas fa-database"></i>
+                    </div>
+                  </div>
                 </div>
-
                 <!-- Connecting Lines (Static for visual anchor) -->
                 <div class="absolute inset-0 z-0 opacity-30">
-                   <svg class="w-full h-full" viewBox="0 0 100 100" preserveAspectRatio="none">
-                      <line x1="50" y1="50" x2="50" y2="10" stroke="white" stroke-width="0.5" stroke-dasharray="2 2" />
-                      <line x1="50" y1="50" x2="80" y2="80" stroke="white" stroke-width="0.5" stroke-dasharray="2 2" />
-                      <line x1="50" y1="50" x2="20" y2="80" stroke="white" stroke-width="0.5" stroke-dasharray="2 2" />
-                   </svg>
-                </div>
+                  <svg
+                    class="w-full h-full"
+                    preserveaspectratio="none"
+                    viewbox="0 0 100 100"
+                  >
+                    <line
+                      stroke="white"
+                      stroke-dasharray="2 2"
+                      stroke-width="0.5"
+                      x1="50"
+                      x2="50"
+                      y1="50"
+                      y2="10"
+                    ></line>
+                    <line
+                      stroke="white"
+                      stroke-dasharray="2 2"
+                      stroke-width="0.5"
+                      x1="50"
+                      x2="80"
+                      y1="50"
+                      y2="80"
+                    ></line>
+                    <line
+                      stroke="white"
+                      stroke-dasharray="2 2"
+                      stroke-width="0.5"
+                      x1="50"
+                      x2="20"
+                      y1="50"
+                      y2="80"
+                    ></line>
+                  </svg>
                 </div>
               </div>
             </div>
@@ -357,8 +398,8 @@
 
         <!-- 1. Contexto -->
         <section
-          id="intro"
           class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="intro"
         >
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
@@ -382,7 +423,6 @@
               Sistemas que usam Event-Driven Architecture (EDA) apenas deixaram
               de mostrar recomendações, mantendo o fluxo de vendas intacto.
             </p>
-
             <div class="overflow-x-auto mt-6 rounded-lg border border-gray-200">
               <table class="min-w-full text-sm text-left">
                 <thead class="bg-gray-100 text-gray-700 font-bold">
@@ -413,9 +453,8 @@
             </div>
           </div>
         </section>
-
         <!-- 2. Abordagem -->
-        <section id="approach" class="space-y-6">
+        <section class="space-y-6" id="approach">
           <div
             class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
           >
@@ -424,14 +463,12 @@
             >
               <span class="text-brand-600">2.</span> Abordagem: Fire-and-Forget
             </h2>
-
             <p class="text-gray-600 mb-8">
               A IA deve ser um <strong>observador ativo</strong>, nunca um
               gargalo bloqueante. O fluxo ideal é desacoplado: o app principal
               dispara um evento e segue a vida. Um worker dedicado processa a
               inteligência em background.
             </p>
-
             <!-- CSS Diagram: EDA Flow -->
             <div
               class="bg-slate-50 p-8 rounded-xl border border-dashed border-slate-300 relative min-h-[300px] flex items-center justify-center"
@@ -441,7 +478,6 @@
               >
                 <i class="fas fa-network-wired text-9xl"></i>
               </div>
-
               <!-- Nodes -->
               <div
                 class="flex flex-col md:flex-row items-start justify-between w-full max-w-4xl gap-8 relative z-10"
@@ -457,7 +493,6 @@
                     Publica Evento<br />(50ms)
                   </div>
                 </div>
-
                 <!-- Connection -->
                 <div
                   class="flex-1 h-1 bg-gray-300 self-center relative mx-2 hidden md:block"
@@ -470,7 +505,6 @@
                     >review.created</span
                   >
                 </div>
-
                 <!-- Bus -->
                 <div class="flex flex-col items-center w-32">
                   <div
@@ -482,7 +516,6 @@
                     Kafka / SQS
                   </div>
                 </div>
-
                 <!-- Connection -->
                 <div
                   class="flex-1 h-1 bg-gray-300 self-center relative mx-2 hidden md:block"
@@ -491,7 +524,6 @@
                     class="fas fa-chevron-right absolute right-0 -top-1.5 text-gray-300"
                   ></i>
                 </div>
-
                 <!-- Worker -->
                 <div class="flex flex-col items-center w-32">
                   <div
@@ -503,7 +535,6 @@
                     Processa Batch<br />(Assíncrono)
                   </div>
                 </div>
-
                 <!-- Connection -->
                 <div
                   class="flex-1 h-1 bg-gray-300 self-center relative mx-2 hidden md:block"
@@ -512,7 +543,6 @@
                     class="fas fa-chevron-right absolute right-0 -top-1.5 text-gray-300"
                   ></i>
                 </div>
-
                 <!-- DB -->
                 <div class="flex flex-col items-center w-32">
                   <div
@@ -528,18 +558,16 @@
             </div>
           </div>
         </section>
-
         <!-- 3. Conceitos -->
         <section
-          id="concepts"
           class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="concepts"
         >
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
             <span class="text-brand-600">3.</span> Conceitos Fundamentais
           </h2>
-
           <div class="grid md:grid-cols-2 gap-8">
             <div>
               <h3 class="font-bold text-brand-700 mb-2">
@@ -550,7 +578,6 @@
                 (IA) está online ou se está lento. Ele apenas entrega a mensagem
                 e esquece. Isso absorve picos de tráfego.
               </p>
-
               <h3 class="font-bold text-brand-700 mb-2">2. Idempotência</h3>
               <p class="text-sm text-gray-600 mb-4">
                 Em sistemas distribuídos, eventos podem ser entregues duas vezes
@@ -559,7 +586,6 @@
                 banco.
               </p>
             </div>
-
             <div class="bg-gray-50 p-6 rounded-xl border border-gray-200">
               <h3 class="font-bold text-gray-800 mb-4 flex items-center">
                 <i class="fas fa-skull text-gray-500 mr-2"></i> Dead Letter
@@ -578,15 +604,14 @@
                 <div>Retry 2: Falha (Timeout)</div>
                 <div>Retry 3: Falha (Timeout)</div>
                 <div class="text-red-600 font-bold">
-                  -> Movido para reviews.dlq
+                  -&gt; Movido para reviews.dlq
                 </div>
               </div>
             </div>
           </div>
         </section>
-
         <!-- 4. Hands On -->
-        <section id="hands-on" class="space-y-8">
+        <section class="space-y-8" id="hands-on">
           <div
             class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
           >
@@ -595,7 +620,6 @@
             >
               <span class="text-brand-600">4.</span> Mão na Massa: Implementação
             </h2>
-
             <div class="mb-6">
               <h3 class="font-bold text-gray-800 mb-2">O Schema do Evento</h3>
               <p class="text-sm text-gray-600 mb-2">
@@ -611,7 +635,6 @@
   <span class="token-string">"metadata"</span>: { <span class="token-string">"retries"</span>: <span class="token-string">0</span> }
 }</code></pre>
             </div>
-
             <div>
               <h3 class="font-bold text-gray-800 mb-2">
                 Worker com Batching (Python)
@@ -657,18 +680,16 @@ TIMEOUT = <span class="token-string">12</span>
             </div>
           </div>
         </section>
-
         <!-- 5. Métricas e Riscos -->
         <section
-          id="metrics"
           class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="metrics"
         >
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
             <span class="text-brand-600">5.</span> Métricas, Riscos e Mitigação
           </h2>
-
           <div class="overflow-x-auto mb-8">
             <table class="min-w-full text-sm text-left">
               <thead class="bg-gray-100 text-gray-700 font-bold">
@@ -682,22 +703,22 @@ TIMEOUT = <span class="token-string">12</span>
               <tbody class="divide-y divide-gray-200">
                 <tr>
                   <td class="px-6 py-4 font-mono text-xs">queue_depth</td>
-                  <td class="px-6 py-4 text-green-600">< 5k</td>
-                  <td class="px-6 py-4 text-red-600">> 20k</td>
+                  <td class="px-6 py-4 text-green-600">&lt; 5k</td>
+                  <td class="px-6 py-4 text-red-600">&gt; 20k</td>
                   <td class="px-6 py-4">
                     Indica se workers estão dando conta.
                   </td>
                 </tr>
                 <tr>
                   <td class="px-6 py-4 font-mono text-xs">processing_lag</td>
-                  <td class="px-6 py-4 text-green-600">< 8s</td>
-                  <td class="px-6 py-4 text-red-600">> 30s</td>
+                  <td class="px-6 py-4 text-green-600">&lt; 8s</td>
+                  <td class="px-6 py-4 text-red-600">&gt; 30s</td>
                   <td class="px-6 py-4">Impacto na percepção do usuário.</td>
                 </tr>
                 <tr>
                   <td class="px-6 py-4 font-mono text-xs">dlq_rate</td>
-                  <td class="px-6 py-4 text-green-600">< 0.2%</td>
-                  <td class="px-6 py-4 text-red-600">> 3%</td>
+                  <td class="px-6 py-4 text-green-600">&lt; 0.2%</td>
+                  <td class="px-6 py-4 text-red-600">&gt; 3%</td>
                   <td class="px-6 py-4">
                     Indica bugs sérios ou dados inválidos.
                   </td>
@@ -705,7 +726,6 @@ TIMEOUT = <span class="token-string">12</span>
               </tbody>
             </table>
           </div>
-
           <div class="grid md:grid-cols-2 gap-6">
             <div class="bg-violet-50 p-5 rounded-lg border border-violet-100">
               <h3 class="font-bold text-violet-900 mb-2">
@@ -718,7 +738,7 @@ TIMEOUT = <span class="token-string">12</span>
               <div
                 class="bg-white p-2 rounded text-xs border border-violet-200 font-semibold"
               >
-                Solução: UI Optimistic ou Estados (Pendente -> Processado).
+                Solução: UI Optimistic ou Estados (Pendente -&gt; Processado).
               </div>
             </div>
             <div class="bg-red-50 p-5 rounded-lg border border-red-100">
@@ -736,18 +756,16 @@ TIMEOUT = <span class="token-string">12</span>
             </div>
           </div>
         </section>
-
         <!-- 6. Evidências -->
         <section
-          id="evidence"
           class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="evidence"
         >
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
-            <span class="text-brand-600">6.</span> Evidence & Exploration
+            <span class="text-brand-600">6.</span> Evidence &amp; Exploration
           </h2>
-
           <div class="grid md:grid-cols-2 gap-8 mb-6">
             <div>
               <h3 class="font-bold text-gray-800 mb-3">
@@ -783,80 +801,85 @@ TIMEOUT = <span class="token-string">12</span>
               >
                 <p class="mb-2 text-green-400"># Antes (Síncrono)</p>
                 <p class="mb-4">2 Outages OpenAI = R$ 1.2M prejuízo</p>
-
                 <p class="mb-2 text-green-400"># Depois (Event-Driven)</p>
                 <p>DLQ recuperou 95% dos eventos.</p>
-                <p>Churn caiu 12% -> 4%.</p>
+                <p>Churn caiu 12% -&gt; 4%.</p>
                 <p>Zero impacto nas vendas.</p>
               </div>
             </div>
           </div>
         </section>
-
         <!-- 7. Reflexões -->
         <section
+          class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10"
           id="reflections"
-          class="bg-brand-900 text-white rounded-2xl shadow-lg p-8 relative overflow-hidden"
         >
-          <div
-            class="absolute -top-10 -right-10 w-48 h-48 bg-brand-500 rounded-full opacity-20 blur-3xl"
-          ></div>
-
-          <h2
-            class="text-2xl font-bold mb-6 border-b border-brand-700 pb-4 relative z-10"
-          >
-            7. Reflexões & Próximos Passos
+          <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
+            7. Reflexões &amp; Próximos Passos
           </h2>
-
-          <div class="relative z-10">
-            <p class="text-brand-100 mb-6 italic text-lg">
-              "EDA não é apenas uma 'moda': é a arquitetura natural da IA
-              moderna. Quando a IA deixa de bloquear o fluxo crítico, ela se
-              transforma de gargalo em multiplicadora de valor."
-            </p>
-            <p class="text-brand-100 mb-6 text-sm">
-              O futuro da IA é agêntico e autônomo. Agentes nada mais são do que
-              workers ouvindo eventos, tomando decisões e publicando novos
-              eventos (ações). Dominar EDA é o pré-requisito para construir
-              agentes que funcionam.
-            </p>
-          </div>
-
-          <div class="grid md:grid-cols-2 gap-8 relative z-10 mt-8">
-            <div>
+          <div class="w-full h-px bg-white/10 mb-8"></div>
+          <div class="grid lg:grid-cols-12 gap-10 md:gap-16">
+            <div
+              class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light"
+            >
+              <p>
+                "EDA não é apenas uma 'moda': é a arquitetura natural da IA
+                moderna. Quando a IA deixa de bloquear o fluxo crítico, ela se
+                transforma de gargalo em multiplicadora de valor."
+              </p>
+            </div>
+            <div class="lg:col-span-5">
               <h3
-                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
+                class="text-sm font-bold text-brand-400 uppercase tracking-widest mb-6 font-mono"
               >
-                Próximos Passos
+                Artigos Relacionados
               </h3>
-              <ul class="space-y-2 text-brand-100 text-sm">
-                <li>
-                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
-                  Implementar EDA em 1 fluxo (ex: reviews).
+              <ul class="space-y-4">
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="08-tratamento-erros-timeouts-llm.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-left"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400"
+                        >Anterior</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >Tratamento de Erros e Timeouts em LLMs</span
+                      >
+                    </div>
+                  </a>
                 </li>
-                <li>
-                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i> Criar
-                  biblioteca de Schemas.
-                </li>
-                <li>
-                  <i class="fas fa-arrow-right mr-2 text-brand-500"></i>
-                  Monitorar DLQ Rate.
+                <li class="flex items-start group">
+                  <a
+                    class="flex items-center w-full hover:bg-white/5 p-2 -ml-2 rounded transition-colors"
+                    href="10-testes-automatizados-sistemas-ia.html"
+                  >
+                    <span
+                      class="flex-shrink-0 w-8 h-8 flex items-center justify-center bg-white/10 rounded text-xs text-brand-400 mr-3"
+                    >
+                      <i class="fas fa-arrow-right"></i>
+                    </span>
+                    <div class="flex flex-col">
+                      <span
+                        class="text-[10px] uppercase tracking-widest opacity-50 text-brand-400"
+                        >Próximo</span
+                      >
+                      <span
+                        class="text-sm text-gray-300 group-hover:text-white font-medium leading-tight"
+                        >Testes Automatizados para Sistemas de IA</span
+                      >
+                    </div>
+                  </a>
                 </li>
               </ul>
-            </div>
-            <div>
-              <h3
-                class="font-bold text-brand-200 mb-3 uppercase tracking-wider text-sm"
-              >
-                Próximo Artigo
-              </h3>
-              <div class="bg-brand-800 p-3 rounded-lg text-xs">
-                <span class="font-bold text-white block mb-1"
-                  >Artigo 10: Testes Automatizados</span
-                >
-                Como testar o que não é determinístico? Unitários, Integração e
-                Regressão Semântica.
-              </div>
             </div>
           </div>
         </section>
@@ -865,7 +888,7 @@ TIMEOUT = <span class="token-string">12</span>
 
     <footer class="bg-white border-t border-gray-200 mt-12 py-8">
       <div class="max-w-7xl mx-auto px-4 text-center text-gray-500 text-sm">
-        <p>&copy; 2025 AI Architecture Series. Async by design.</p>
+        <p>© 2025 AI Architecture Series. Async by design.</p>
       </div>
     </footer>
   </body>
