@@ -20,6 +20,11 @@
       tailwind.config = {
         theme: {
           extend: {
+            animation: {
+                'spin-slow': 'spin 3s linear infinite',
+                'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+            }
+,
             fontFamily: {
               sans: ["Inter", "sans-serif"],
               mono: ["Fira Code", "monospace"],
@@ -363,22 +368,6 @@
                 ></div>
               </div>
             </div>
-          </div>
-          <div
-            class="flex flex-wrap gap-3 px-8 pb-8 pt-0 md:px-16 relative z-10"
-          >
-            <span
-              class="bg-white/15 px-3 py-1 rounded-full text-sm border border-white/30 font-mono"
-              >Self-Correction</span
-            >
-            <span
-              class="bg-white/15 px-3 py-1 rounded-full text-sm border border-white/30 font-mono"
-              >Guardrails AI</span
-            >
-            <span
-              class="bg-white/15 px-3 py-1 rounded-full text-sm border border-white/30 font-mono"
-              >RAG Grounding</span
-            >
           </div>
         </section>
 
