@@ -250,6 +250,7 @@
         }
       }
     </style>
+    
   </head>
   <body class="bg-gray-50 text-gray-800 antialiased">
     <!-- Header -->
@@ -265,10 +266,22 @@
             Human-AI Collaboration
           </h1>
         </a>
-        <div class="hidden md:block text-sm text-gray-500">
-          Módulo 4: Confiança, Ética e UX do Produto
-        </div>
-      </div>
+                          <div class="flex items-center gap-3">
+            <div class="hidden md:block text-sm text-gray-500">
+              Módulo 1: Fundamentos e Estratégias
+            </div>
+            <!-- Botões de Exportação DOCX/PDF Visual -->
+            <div class="flex items-center gap-2 md:gap-3">
+              <button id="export-pdf-btn" class="flex items-center gap-2 px-3 md:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm md:text-base font-medium shadow-sm" title="Exportar como PDF">
+                <i class="fas fa-file-pdf"></i>
+                <span class="hidden md:inline">PDF</span>
+              </button>
+              <button id="export-docx-btn" class="flex items-center gap-2 px-3 md:px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm md:text-base font-medium shadow-sm" title="Exportar como DOCX">
+                <i class="fas fa-file-word"></i>
+                <span class="hidden md:inline">DOCX</span>
+              </button>
+            </div>
+            
     </header>
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
@@ -908,5 +921,11 @@
         <p>© 2025 AI Ops Series. Empowering Humans.</p>
       </div>
     </footer>
-  </body>
+      <script src="scripts/export-visual.js"></script>
+    <!-- CDN Libraries for Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.js"></script>
+  
+  <script src="scripts/export-to-docx.js" defer></script>
+</body>
 </html>

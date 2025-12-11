@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teste de Exportação DOCX/PDF</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+  </head>
+  <body class="bg-gray-50 p-8">
+    <div class="max-w-4xl mx-auto">
+      <h1 class="text-3xl font-bold mb-4">🧪 Teste de Exportação DOCX/PDF</h1>
+
+      <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-xl font-bold mb-4">Status das Bibliotecas</h2>
+        <div id="status" class="space-y-2">
+          <p>
+            <span class="font-medium">html2pdf:</span>
+            <span id="html2pdf-status" class="text-gray-500"
+              >Carregando...</span
+            >
+          </p>
+          <p>
+            <span class="font-medium">docx:</span>
+            <span id="docx-status" class="text-gray-500">Carregando...</span>
+          </p>
+          <p>
+            <span class="font-medium">FileSaver:</span>
+            <span id="filesaver-status" class="text-gray-500"
+              >Carregando...</span
+            >
+          </p>
+        </div>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6 mb-8">
+        <h2 class="text-xl font-bold mb-4">Artigo de Teste</h2>
+
+        <main id="test-article" class="prose max-w-none">
+          <h1>Do Modelo ao Produto: Uma Jornada de Transformação</h1>
+
+          <h2>Introdução</h2>
+          <p>
+            Este é um artigo de teste para validar a funcionalidade de
+            exportação em DOCX e PDF com preservação de estilos visuais.
+          </p>
+
+          <h2>Seção 1: Conceitos Fundamentais</h2>
+          <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua.
+          </p>
+
+          <h3>Subsection 1.1</h3>
+          <p>
+            Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+            nisi ut aliquip ex ea commodo consequat.
+          </p>
+
+          <h2>Seção 2: Implementação Prática</h2>
+          <p>
+            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            cillum dolore eu fugiat nulla pariatur.
+          </p>
+
+          <h3>Código de Exemplo</h3>
+          <pre><code>const exporter = new ArticleExporter();
+exporter.exportPDF();
+exporter.exportDOCX();</code></pre>
+
+          <h2>Tabela de Dados</h2>
+          <table>
+            <tr>
+              <th>Formato</th>
+              <th>Vantagens</th>
+              <th>Desvantagens</th>
+            </tr>
+            <tr>
+              <td>PDF</td>
+              <td>Excelente preservação visual</td>
+              <td>Não editável</td>
+            </tr>
+            <tr>
+              <td>DOCX</td>
+              <td>Editável</td>
+              <td>Pode perder alguns estilos</td>
+            </tr>
+          </table>
+
+          <h2>Conclusão</h2>
+          <p>
+            Excepteur sint occaecat cupidatat non proident, sunt in culpa qui
+            officia deserunt mollit anim id est laborum.
+          </p>
+
+          <blockquote>
+            <p>
+              Esta é uma citação de exemplo para testar a formatação de
+              blockquotes na exportação.
+            </p>
+          </blockquote>
+        </main>
+
+        <!-- Botões de Exportação -->
+        <div class="flex items-center gap-3 mt-8 pt-6 border-t">
+          <button
+            id="export-pdf-btn"
+            class="flex items-center gap-2 px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors font-medium shadow-sm"
+          >
+            <i class="fas fa-file-pdf"></i>
+            <span>Exportar PDF</span>
+          </button>
+          <button
+            id="export-docx-btn"
+            class="flex items-center gap-2 px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors font-medium shadow-sm"
+          >
+            <i class="fas fa-file-word"></i>
+            <span>Exportar DOCX</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6">
+        <h3 class="text-lg font-bold mb-2">📝 Instruções de Teste:</h3>
+        <ol class="list-decimal list-inside space-y-1 text-sm">
+          <li>Abra este arquivo no navegador</li>
+          <li>Verifique o status das bibliotecas acima</li>
+          <li>Clique em "Exportar PDF" - deve baixar um PDF</li>
+          <li>Clique em "Exportar DOCX" - deve baixar um DOCX</li>
+          <li>Verifique que o layout e cores foram preservados</li>
+        </ol>
+      </div>
+    </div>
+
+    <script src="scripts/export-to-docx.js" defer></script>
+    <script>
+      // Verificar status das bibliotecas
+      function checkLibraries() {
+        setTimeout(() => {
+          document.getElementById("html2pdf-status").textContent =
+            window.html2pdf ? "✅ Carregado" : "❌ Não carregado";
+          document.getElementById("docx-status").textContent = window.docx
+            ? "✅ Carregado"
+            : "❌ Não carregado";
+          document.getElementById("filesaver-status").textContent =
+            window.saveAs ? "✅ Carregado" : "❌ Não carregado";
+        }, 2000);
+      }
+
+      checkLibraries();
+    </script>
+  </body>
+</html>

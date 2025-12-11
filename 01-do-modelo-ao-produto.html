@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-
 <html class="scroll-smooth" lang="pt-BR">
   <head>
     <meta charset="utf-8" />
@@ -88,41 +87,7 @@
         font-style: italic;
       }
 
-      .diagram-box {
-        background: white;
-        border: 2px solid #e5e7eb;
-        border-radius: 8px;
-        padding: 1rem;
-        text-align: center;
-        transition: all 0.3s ease;
-        position: relative;
-      }
-      .diagram-box:hover {
-        border-color: #7c3aed;
-        box-shadow: 0 4px 6px rgba(124, 58, 237, 0.1);
-        transform: translateY(-2px);
-      }
-      .arrow-right::after {
-        content: "→";
-        position: absolute;
-        right: -20px;
-        top: 50%;
-        transform: translateY(-50%);
-        color: #9ca3af;
-        font-weight: bold;
-      }
-      @media (max-width: 768px) {
-        .arrow-right::after {
-          content: "↓";
-          right: 50%;
-          top: auto;
-          bottom: -25px;
-          transform: translateX(50%);
-        }
-      }
-
-      /* Styles da Hero */
-      /* Styles da Hero */
+      /* Styles da Hero (Inalterados) */
       .glass-card {
         background: rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(12px);
@@ -161,16 +126,26 @@
           linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
         background-size: 40px 40px;
       }
+
+      .step-card {
+        transition: all 0.2s ease-in-out;
+      }
+      .step-card:hover {
+        transform: translateY(-2px);
+        border-color: #8b5cf6;
+      }
     </style>
   </head>
   <body class="bg-gray-50 text-gray-800 antialiased">
-    <!-- Header -->
     <!-- Header -->
     <header class="bg-white border-b border-gray-200 fixed w-full top-0 z-50">
       <div
         class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between"
       >
-        <a href="index.html" class="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer">
+        <a
+          href="index.html"
+          class="flex items-center space-x-3 hover:opacity-80 transition-opacity cursor-pointer"
+        >
           <div class="bg-brand-600 text-white p-2 rounded-lg">
             <i class="fas fa-cubes"></i>
           </div>
@@ -178,11 +153,25 @@
             LLM Product Engineering
           </h1>
         </a>
-        <div class="hidden md:block text-sm text-gray-500">
-          Módulo 1: Fundamentos e Estratégias de Customização
-        </div>
+                  <div class="flex items-center gap-3">
+            <div class="hidden md:block text-sm text-gray-500">
+              Módulo 1: Fundamentos e Estratégias
+            </div>
+            <!-- Botões de Exportação DOCX/PDF Visual -->
+            <div class="flex items-center gap-2 md:gap-3">
+              <button id="export-pdf-btn" class="flex items-center gap-2 px-3 md:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm md:text-base font-medium shadow-sm" title="Exportar como PDF">
+                <i class="fas fa-file-pdf"></i>
+                <span class="hidden md:inline">PDF</span>
+              </button>
+              <button id="export-docx-btn" class="flex items-center gap-2 px-3 md:px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm md:text-base font-medium shadow-sm" title="Exportar como DOCX">
+                <i class="fas fa-file-word"></i>
+                <span class="hidden md:inline">DOCX</span>
+              </button>
+            </div>
+            
       </div>
     </header>
+
     <div
       class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
     >
@@ -200,6 +189,12 @@
           </a>
           <a
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#journey"
+          >
+            <i class="fas fa-map-signs w-6 text-brand-600"></i> A Jornada
+          </a>
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
             href="#approach"
           >
             <i class="fas fa-utensils w-6 text-brand-600"></i> Abordagem
@@ -212,22 +207,28 @@
           </a>
           <a
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
+            href="#pipeline"
+          >
+            <i class="fas fa-project-diagram w-6 text-brand-600"></i> Pipeline
+          </a>
+          <a
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
             href="#hands-on"
           >
-            <i class="fas fa-code w-6 text-brand-600"></i> Mão na Massa
+            <i class="fas fa-code w-6 text-brand-600"></i> Implementação
           </a>
           <a
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
             href="#risks"
           >
-            <i class="fas fa-exclamation-triangle w-6 text-brand-600"></i>
-            Riscos &amp; Métricas
+            <i class="fas fa-chart-line w-6 text-brand-600"></i>
+            Métricas
           </a>
           <a
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 border-l-4 border-brand-600"
+            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
             href="#evidence"
           >
-            <i class="fas fa-chart-bar w-6 text-brand-600"></i> Evidências
+            <i class="fas fa-vial w-6 text-brand-600"></i> Experimentação
           </a>
           <a
             class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
@@ -237,9 +238,10 @@
           </a>
         </nav>
       </aside>
+
       <!-- Main Content -->
       <main class="flex-1 space-y-12">
-        <!-- Hero Section (igual à capa) -->
+        <!-- Hero Section (INALTERADO) -->
         <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
           <!-- Background Gradient & Grid -->
           <div
@@ -340,126 +342,204 @@
             </div>
           </div>
         </section>
-        <!-- 1. Contexto -->
+
+        <!-- 1. Contexto e Propósito -->
         <section
           class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
           id="intro"
         >
-          <div class="prose max-w-none text-gray-600">
-            <p class="mb-7">
-              Você já parou para pensar por que grandes apps de delivery parecem
-              “inteligentes” ao resumir avaliações de restaurantes? Não é mágica
-              — é engenharia sólida por trás de um LLM simples. Neste post, vou
-              desmistificar essa jornada: de um protótipo rápido em Jupyter para
-              uma feature robusta em produção, lidando com latência, custos e
-              escalabilidade. Como dev full stack e DevOps, vi isso na prática
-              em apps de alto tráfego.
-            </p>
-          </div>
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
-            <span class="text-brand-600">1.</span> Contexto e Propósito
+            <span class="text-brand-600">1.</span> Contexto e Propósito — explicado de verdade
+          </h2>
+          <div class="prose max-w-none text-gray-600">
+            <p class="mb-6 font-medium text-gray-800">
+              Nos últimos anos, integrar um LLM virou banal. Você pega uma chave
+              da OpenAI, escreve 10 linhas de código e pronto: tem “IA”
+              respondendo textos bonitos na sua tela.
+            </p>
+            <p class="mb-6">
+              Mas existe uma diferença abissal entre
+              <strong>um protótipo que funciona no Jupyter</strong> e uma
+              <strong>feature real</strong> que atende milhões de usuários sem
+              travar o app, sem explodir custos e sem inventar informações perigosas.
+            </p>
+            <p class="mb-6">
+              O propósito deste artigo é guiar você pela jornada completa — da
+              primeira chamada ao modelo até a operação em escala — mostrando
+              como transformar uma ideia em uma feature confiável, rápida,
+              escalável e observável.
+            </p>
+            <div
+              class="bg-brand-50 p-6 rounded-lg border-l-4 border-brand-500 mb-6"
+            >
+              <h4 class="text-brand-800 font-bold mb-2">
+                Ao final, você vai entender:
+              </h4>
+              <ul class="list-disc pl-5 space-y-2 text-brand-900">
+                <li>Como sair do protótipo (Playground, Colab, Jupyter).</li>
+                <li>Como criar um MVP funcional.</li>
+                <li>Como evoluir para uma feature robusta.</li>
+                <li>Como operar IA em produção com métricas, resiliência e custos sob controle.</li>
+                <li>Como montar um Pipeline de Produção de IA igual aos usados por grandes empresas.</li>
+              </ul>
+            </div>
+            <p class="text-sm text-gray-500 italic">
+              Esse é o mapa completo para transformar uma API de LLM em produto.
+            </p>
+          </div>
+        </section>
+
+        <!-- 2. A Jornada Completa -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="journey"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">2.</span> A Jornada Completa: do
+            protótipo à produção
+          </h2>
+          <p class="text-gray-600 mb-8">
+            A maior lacuna do artigo antigo era a ausência da jornada. Aqui ela
+            está, explícita, organizada e profunda.
+          </p>
+
+          <div class="space-y-6">
+            <!-- Etapa 1 -->
+            <div class="step-card bg-gray-50 p-6 rounded-xl border border-gray-200">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-bold uppercase">Etapa 1</span>
+                <h3 class="text-lg font-bold text-gray-900">
+                  Protótipo (o estado “romântico”)
+                </h3>
+              </div>
+              <p class="text-gray-600 mb-3">
+                O objetivo é apenas validar uma hipótese:
+                <em>“O LLM consegue fazer o que eu quero?”</em>.
+                Nenhuma preocupação com latência, custo, carga, quedas de API,
+                tokens, caching, logs ou resiliência. É a fase do “funciona?”.
+              </p>
+              <p class="text-gray-600 text-sm">
+                Essa etapa existe para provar viabilidade. O resto ainda precisa ser construído.
+              </p>
+            </div>
+
+            <!-- Etapa 2 -->
+            <div class="step-card bg-blue-50 p-6 rounded-xl border border-blue-100">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-xs font-bold uppercase">Etapa 2</span>
+                <h3 class="text-lg font-bold text-blue-900">
+                  MVP Técnico (primeiro endpoint real)
+                </h3>
+              </div>
+              <p class="text-blue-800 mb-3">
+                A pergunta agora é:
+                <em>“Funciona de ponta a ponta, com dados reais, dentro do meu backend?”</em>
+                Você cria uma função que busca dados no banco, um prompt que organiza as informações,
+                uma chamada ao modelo e um retorno estruturado.
+              </p>
+              <p class="text-blue-800 text-sm">
+                O MVP funciona, mas ainda é frágil: cai se a API cair, fica lento sob carga, custa caro,
+                não tem logs e não escala.
+              </p>
+            </div>
+
+            <!-- Etapa 3 -->
+            <div class="step-card bg-purple-50 p-6 rounded-xl border border-purple-100">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-xs font-bold uppercase">Etapa 3</span>
+                <h3 class="text-lg font-bold text-purple-900">
+                  Feature Robusta (nasce engenharia de verdade)
+                </h3>
+              </div>
+              <p class="text-purple-800 mb-4">
+                Os desafios reais aparecem: latência alta, custos imprevisíveis,
+                lógica frágil, erros silenciosos e escalabilidade limitada.
+              </p>
+              <ul class="list-disc pl-5 space-y-2 text-purple-900">
+                <li>circuit breaker</li>
+                <li>retry com backoff</li>
+                <li>caching inteligente</li>
+                <li>compressão de contexto</li>
+                <li>limitação de tokens</li>
+                <li>troca de modelo</li>
+                <li>abstração do provedor de LLM</li>
+              </ul>
+            </div>
+
+            <!-- Etapa 4 -->
+            <div class="step-card bg-amber-50 p-6 rounded-xl border border-amber-100">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="bg-amber-200 text-amber-800 px-3 py-1 rounded-full text-xs font-bold uppercase">Etapa 4</span>
+                <h3 class="text-lg font-bold text-amber-900">
+                  Produção Operacional (o sistema respira sozinho)
+                </h3>
+              </div>
+              <p class="text-amber-900 mb-3">
+                A IA deixa de ser experimento e vira parte do produto. Agora é essencial ter observabilidade e processos de confiabilidade.
+              </p>
+              <ul class="list-disc pl-5 space-y-2 text-amber-900">
+                <li>métricas de latência</li>
+                <li>dashboards de custo por endpoint</li>
+                <li>alarmes automáticos</li>
+                <li>logs estruturados e fallback padrão</li>
+                <li>testes A/B e versionamento de prompts</li>
+                <li>filas assíncronas</li>
+              </ul>
+            </div>
+
+            <!-- Etapa 5 -->
+            <div class="step-card bg-teal-50 p-6 rounded-xl border border-teal-100">
+              <div class="flex items-center gap-3 mb-3">
+                <span class="bg-teal-200 text-teal-800 px-3 py-1 rounded-full text-xs font-bold uppercase">Etapa 5</span>
+                <h3 class="text-lg font-bold text-teal-900">
+                  Evolução contínua
+                </h3>
+              </div>
+              <p class="text-teal-900 mb-3">
+                A equipe monitora continuamente mudanças nas respostas, variação de custos, degradação de modelos e necessidade de ajustes no prompt.
+              </p>
+              <p class="text-teal-900 text-sm">
+                IA é dinâmica. Modelos mudam. Custos variam. Comportamentos se alteram. O sistema precisa acompanhar.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. Abordagem Prática -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="approach"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
+          >
+            <span class="text-brand-600">3.</span> Abordagem Prática
           </h2>
           <div class="prose max-w-none text-gray-600">
             <p class="mb-4">
-              Integrar LLMs virou algo trivial: gere uma chave de API, escreva
-              poucas linhas de código e voilà. Mas em um app processando
-              milhares de pedidos por minuto, isso é só o começo. O grande
-              desafio é transformar essa capacidade bruta em valor real para o
-              usuário, sem quebrar o app com timeouts ou custos exorbitantes.
+              No artigo original, essa seção apenas pula para “vamos resumir
+              avaliações”. Agora vamos amarrar isso à jornada.
+              <strong>Resumir avaliações</strong> é o exemplo perfeito para
+              ilustrar:
             </p>
-            <p class="mb-4">
-              <strong>O que você vai dominar:</strong> Aqui, compartilho a
-              jornada de protótipo para produção, focando nos desafios de
-              engenharia que todo dev precisa dominar para usar LLMs em escala.
-            </p>
-            <ul class="mb-4 list-disc pl-6">
-              <li>Como garantir baixa latência em chamadas externas.</li>
-              <li>Estratégias para controlar custos de tokens.</li>
-              <li>A transição do notebook para o pipeline robusto.</li>
+            <ul class="list-disc pl-6 mb-4 space-y-1">
+              <li>Alto volume de dados não estruturados.</li>
+              <li>Diferentes janelas de contexto.</li>
+              <li>Risco de alucinação e alto custo se mal implementado.</li>
+              <li>Necessidade crítica de caching.</li>
             </ul>
-            <p class="mb-6">
-              <strong>Por que ler isso?</strong> Se você constrói features com
-              IA, vai evitar armadilhas comuns que eu já cometi — e escalar de
-              forma sustentável.
+            <p>
+              Esse cenário exige engenharia desde o início, não apenas um prompt
+              simples.
             </p>
-            <p class="mb-6 font-bold text-brand-700">Vamos mergulhar!</p>
-            <!-- CSS Diagram: Pipeline -->
-            <div
-              class="bg-gray-50 p-6 rounded-xl border border-dashed border-gray-300"
-            >
-              <p
-                class="text-center text-xs font-bold text-gray-400 uppercase tracking-widest mb-4"
-              >
-                Pipeline de Produção
-              </p>
-              <div
-                class="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-4"
-              >
-                <div class="diagram-box arrow-right md:w-32">
-                  <i class="fas fa-flask text-brand-500 mb-2"></i
-                  ><br />Protótipo<br /><span class="text-xs text-gray-500"
-                    >Jupyter</span
-                  >
-                </div>
-                <div class="diagram-box arrow-right md:w-32">
-                  <i class="fas fa-code-branch text-brand-500 mb-2"></i
-                  ><br />Engenharia<br /><span class="text-xs text-gray-500"
-                    >API &amp; Cache</span
-                  >
-                </div>
-                <div class="diagram-box md:w-32 border-brand-500 bg-brand-50">
-                  <i class="fas fa-box-open text-brand-600 mb-2"></i
-                  ><br />Produto<br /><span class="text-xs text-gray-500"
-                    >Feature Escalável</span
-                  >
-                </div>
-              </div>
-            </div>
           </div>
         </section>
-        <!-- 2. Abordagem -->
-        <section class="space-y-6" id="approach">
-          <div
-            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-          >
-            <h2
-              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-            >
-              <span class="text-brand-600">2.</span> Abordagem Prática
-            </h2>
-            <p class="text-gray-600 mb-6">
-              Para tornar concreto, vamos usar um exemplo clássico:
-              <strong>resumir avaliações de restaurantes</strong>. Em vez de
-              listar dezenas de reviews, o app gera um parágrafo imparcial
-              destacando prós e contras.
-            </p>
-            <div class="grid md:grid-cols-2 gap-4">
-              <div class="bg-gray-50 p-4 rounded-lg border border-gray-200">
-                <h3 class="font-bold text-gray-800 mb-2">
-                  <i class="fas fa-list-ul mr-2 text-brand-500"></i>Estrutura
-                </h3>
-                <ul class="text-sm text-gray-600 space-y-2">
-                  <li>• <strong>Conceitos:</strong> Modelo vs Feature.</li>
-                  <li>• <strong>Arquitetura:</strong> Fluxo de dados.</li>
-                  <li>• <strong>Código:</strong> Python/FastAPI.</li>
-                  <li>• <strong>Produção:</strong> Riscos reais.</li>
-                </ul>
-              </div>
-              <div class="bg-blue-50 p-4 rounded-lg border border-blue-100">
-                <h3 class="font-bold text-blue-900 mb-2">
-                  <i class="fas fa-bullseye mr-2"></i>Objetivo
-                </h3>
-                <p class="text-sm text-blue-800">
-                  Demonstrar como lidar com latência, custo e confiabilidade em
-                  um cenário de alto tráfego.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-        <!-- 3. Conceitos Fundamentais -->
+
+        <!-- 4. Conceitos Fundamentais -->
         <section
           class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
           id="concepts"
@@ -467,126 +547,176 @@
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
-            <span class="text-brand-600">3.</span> Conceitos Fundamentais
+            <span class="text-brand-600">4.</span> Conceitos Fundamentais
           </h2>
+          <p class="text-gray-600 mb-6">
+            Abaixo está a versão explicada com profundidade e implicação
+            prática.
+          </p>
           <div class="overflow-x-auto">
             <table class="min-w-full text-sm text-left border-collapse">
               <thead
                 class="bg-gray-100 text-gray-700 uppercase font-bold text-xs"
               >
                 <tr>
-                  <th class="px-6 py-3 rounded-tl-lg">Termo</th>
+                  <th class="px-6 py-3 rounded-tl-lg">Conceito</th>
                   <th class="px-6 py-3">Definição</th>
-                  <th class="px-6 py-3 rounded-tr-lg">
-                    Exemplo prático / Dica
-                  </th>
+                  <th class="px-6 py-3 rounded-tr-lg">Implicação Prática</th>
                 </tr>
               </thead>
               <tbody class="divide-y divide-gray-200">
                 <tr>
-                  <td class="px-6 py-4 font-semibold text-brand-700">
-                    LLM (Modelo)
-                  </td>
-                  <td class="px-6 py-4">
-                    O "cérebro" (ex: GPT-4, Llama 3). Processa texto, não
-                    armazena estado.
-                  </td>
+                  <td class="px-6 py-4 font-semibold text-brand-700">Prompt</td>
+                  <td class="px-6 py-4">É o “contrato verbal” com o modelo.</td>
                   <td class="px-6 py-4 text-gray-600">
-                    Recebe prompt e devolve resposta. Ex: "Resuma avaliações".
+                    Prompt mal escrito → modelo prolixo, caro e impreciso.
                   </td>
                 </tr>
                 <tr class="bg-gray-50">
-                  <td class="px-6 py-4 font-semibold text-brand-700">Prompt</td>
-                  <td class="px-6 py-4">Instrução/texto enviado ao LLM.</td>
+                  <td class="px-6 py-4 font-semibold text-brand-700">Token</td>
+                  <td class="px-6 py-4">
+                    Unidade de custo e unidade de latência.
+                  </td>
                   <td class="px-6 py-4 text-gray-600">
-                    "Resuma em 3 linhas: ...". Dica: seja específico!
+                    Dominar token é dominar custo.
                   </td>
                 </tr>
                 <tr>
-                  <td class="px-6 py-4 font-semibold text-brand-700">Token</td>
-                  <td class="px-6 py-4">
-                    Unidade de texto processada pelo modelo (palavra ou pedaço).
-                  </td>
-                  <td class="px-6 py-4 text-gray-600">
-                    Limite de tokens = limite de contexto. Cuidado com custos!
-                  </td>
-                </tr>
-                <tr class="bg-gray-50">
                   <td class="px-6 py-4 font-semibold text-brand-700">
                     Context Window
                   </td>
-                  <td class="px-6 py-4">
-                    Quantidade máxima de tokens que o modelo "enxerga" por vez.
-                  </td>
+                  <td class="px-6 py-4">É o “campo de visão” do modelo.</td>
                   <td class="px-6 py-4 text-gray-600">
-                    Foque nas últimas avaliações. Excedeu? Corte o texto.
-                  </td>
-                </tr>
-                <tr>
-                  <td class="px-6 py-4 font-semibold text-brand-700">
-                    Feature
-                  </td>
-                  <td class="px-6 py-4">
-                    Funcionalidade completa: código, API, cache, UI, etc.
-                  </td>
-                  <td class="px-6 py-4 text-gray-600">
-                    Busca no DB + prompt + chamada LLM + exibição no app.
+                    Se mandar dados demais fica caro, lento e o modelo ignora
+                    metade. Exige pré-filtragem.
                   </td>
                 </tr>
                 <tr class="bg-gray-50">
                   <td class="px-6 py-4 font-semibold text-brand-700">Cache</td>
-                  <td class="px-6 py-4">
-                    Armazena respostas para evitar chamadas repetidas ao LLM.
-                  </td>
+                  <td class="px-6 py-4">Seu melhor amigo.</td>
                   <td class="px-6 py-4 text-gray-600">
-                    Use Redis/Memcached. Dica: cacheie por restaurante/dia.
+                    A diferença entre pagar R$ 2.000 ou R$ 200 no final do mês.
                   </td>
                 </tr>
                 <tr>
                   <td class="px-6 py-4 font-semibold text-brand-700">
                     Circuit Breaker
                   </td>
-                  <td class="px-6 py-4">
-                    Mecanismo para evitar sobrecarga/erros em chamadas externas.
-                  </td>
+                  <td class="px-6 py-4">Proteção contra falhas externas.</td>
                   <td class="px-6 py-4 text-gray-600">
-                    Se o LLM falhar, devolva fallback (ex: reviews brutos).
+                    Sem ele, uma queda na OpenAI derruba seu app inteiro.
                   </td>
                 </tr>
                 <tr class="bg-gray-50">
                   <td class="px-6 py-4 font-semibold text-brand-700">
                     Rate Limiting
                   </td>
-                  <td class="px-6 py-4">
-                    Limita o número de requisições por tempo.
-                  </td>
+                  <td class="px-6 py-4">Controle de fluxo de requisições.</td>
                   <td class="px-6 py-4 text-gray-600">
-                    Evita custos altos e abuso. Ex: 1 resumo/minuto por user.
+                    Garante que um usuário (ou bot) não gere milhares de resumos
+                    em 5 segundos.
                   </td>
                 </tr>
                 <tr>
                   <td class="px-6 py-4 font-semibold text-brand-700">
                     Observabilidade
                   </td>
-                  <td class="px-6 py-4">
-                    Monitoramento de métricas, logs e erros.
-                  </td>
+                  <td class="px-6 py-4">Visibilidade do sistema.</td>
                   <td class="px-6 py-4 text-gray-600">
-                    Meça latência, custo, taxa de erro. Use dashboards!
+                    Sem logs, sem métricas → você está voando às cegas.
                   </td>
                 </tr>
               </tbody>
             </table>
           </div>
-          <div
-            class="mt-4 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-sm text-yellow-800"
+        </section>
+
+        <!-- 5. O Pipeline Completo -->
+        <section
+          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
+          id="pipeline"
+        >
+          <h2
+            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
-            <strong>Mudança de Mindset:</strong> Pare de tratar o LLM como
-            oráculo. Veja-o como um componente transformador de texto em um
-            pipeline clássico.
+            <span class="text-brand-600">5.</span> O Pipeline Completo — versão
+            REAL
+          </h2>
+          <p class="text-gray-600 mb-8">
+            Aqui está o que o artigo original não explicou. Agora está completo,
+            pedagógico e aplicável.
+          </p>
+
+          <!-- Flow Diagram Text -->
+          <div
+            class="bg-slate-900 text-slate-300 p-6 rounded-xl font-mono text-sm mb-8 overflow-x-auto whitespace-nowrap shadow-inner"
+          >
+            Usuário → Frontend → API Gateway → Serviço Orquestrador → Banco de
+            Dados → <br />
+            Processamento → Prompt Builder → LLM Provider → Resposta →
+            Pós-processamento → Devolução ao App
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="font-bold text-brand-700 mb-2">🔵 1) Frontend</h4>
+              <p class="text-sm text-gray-600 mb-4">
+                Responsável por UX de carregamento, timeouts locais e mensagens
+                de fallback.
+              </p>
+
+              <h4 class="font-bold text-brand-700 mb-2">🔵 2) API Gateway</h4>
+              <p class="text-sm text-gray-600 mb-4">
+                Filtra abuso e protege a infraestrutura (auth, rate limits,
+                verificação de payload).
+              </p>
+
+              <h4 class="font-bold text-brand-700 mb-2">
+                🔵 3) Serviço Orquestrador (backend da IA)
+              </h4>
+              <p class="text-sm text-gray-600 mb-4">
+                O cérebro do sistema. Controla busca de dados, prompt, chamadas
+                e erros. Deveria ser desacoplado do resto do backend.
+              </p>
+
+              <h4 class="font-bold text-brand-700 mb-2">
+                🔵 4) Banco de Dados
+              </h4>
+              <p class="text-sm text-gray-600 mb-4">
+                Não é só “buscar”. É filtrar por data, eliminar ruído e agrupar
+                dados para economizar tokens.
+              </p>
+            </div>
+            <div>
+              <h4 class="font-bold text-brand-700 mb-2">
+                🔵 5) Prompt Builder
+              </h4>
+              <p class="text-sm text-gray-600 mb-4">
+                Gera prompts previsíveis e estáveis. Um prompt é um artefato
+                versionado.
+              </p>
+
+              <h4 class="font-bold text-brand-700 mb-2">
+                🔵 6) LLM Provider (Abstração)
+              </h4>
+              <p class="text-sm text-gray-600 mb-4">
+                Nunca chame o modelo direto. Crie interfaces como
+                <code>generateSummary()</code> para permitir troca de modelos e
+                fallbacks.
+              </p>
+
+              <h4 class="font-bold text-brand-700 mb-2">
+                🔵 7, 8 & 9) Pós-processamento e Entrega
+              </h4>
+              <p class="text-sm text-gray-600 mb-4">
+                Corrige formatos, monitora métricas (custo/latência) e entrega
+                de forma segura ao usuário.
+              </p>
+            </div>
           </div>
         </section>
-        <!-- 4. Mão na Massa -->
+
+        <!-- 6. Mão na Massa -->
         <section
           class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
           id="hands-on"
@@ -594,195 +724,107 @@
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
-            <span class="text-brand-600">4.</span> Mão na Massa: Implementação
+            <span class="text-brand-600">6.</span> Mão na Massa: Implementação
           </h2>
           <div class="prose max-w-none text-gray-700 mb-8">
             <p>
-              Agora vamos colocar a teoria em prática! Aqui você vê o fluxo real
-              de uma feature de IA em um app de delivery: o cliente faz uma
-              requisição, a API busca avaliações no banco, monta o prompt e
-              chama o LLM para gerar o resumo. O diagrama abaixo mostra esse
-              pipeline, e o código exemplifica como implementar esse endpoint
-              usando FastAPI e OpenAI. Repare como cada etapa resolve um desafio
-              citado nas seções anteriores: latência, custo e confiabilidade.
+              Chegou o momento de transformar a arquitetura em código. Vamos
+              construir a feature de resumo de avaliações passo a passo,
+              mostrando o “porquê” de cada etapa.
             </p>
           </div>
-          <!-- Visual Flow -->
-          <div class="mb-8 p-6 bg-slate-50 rounded-xl border border-slate-200">
-            <div
-              class="flex flex-wrap justify-center items-center gap-4 text-sm font-semibold text-slate-600"
-            >
-              <div
-                class="bg-white p-3 rounded shadow-sm border border-slate-300"
-              >
-                App (Client)
-              </div>
-              <i class="fas fa-arrow-right text-slate-400"></i>
-              <div
-                class="bg-white p-3 rounded shadow-sm border border-slate-300"
-              >
-                Backend API
-              </div>
-              <i class="fas fa-arrow-right text-slate-400"></i>
-              <div class="flex flex-col gap-2">
-                <div
-                  class="bg-brand-100 text-brand-700 p-2 rounded border border-brand-200 text-center text-xs"
-                >
-                  DB (Reviews)
-                </div>
-                <div
-                  class="bg-green-100 text-green-700 p-2 rounded border border-green-200 text-center text-xs"
-                >
-                  OpenAI API
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="mt-6 prose max-w-none text-gray-700 text-sm">
-            <ul class="list-disc pl-6">
-              <li>
-                <strong>App (Client):</strong> O usuário faz a requisição para
-                ver o resumo das avaliações. Dica: garanta feedback visual
-                enquanto espera a resposta, evitando sensação de lentidão.
-              </li>
-              <li>
-                <strong>Backend API:</strong> Centraliza a lógica: busca dados,
-                monta o prompt e chama o LLM. Desafio: proteger contra
-                sobrecarga e garantir respostas rápidas. Boas práticas:
-                implemente cache e circuit breaker.
-              </li>
-              <li>
-                <strong>DB (Reviews):</strong> Fonte dos dados reais. Dica:
-                filtre avaliações recentes e relevantes para não ultrapassar o
-                limite de tokens do modelo.
-              </li>
-              <li>
-                <strong>OpenAI API:</strong> Onde o resumo é gerado. Desafio:
-                controlar custos e lidar com possíveis falhas. Boas práticas:
-                monitore latência, limite chamadas e trate erros com fallback.
-              </li>
-            </ul>
-          </div>
-          <div
-            class="mt-6 mb-8 p-4 bg-yellow-50 border-l-4 border-yellow-400 text-sm text-yellow-900 rounded"
-          >
-            <strong>Armadilhas &amp; Boas Práticas:</strong><br />
-            <ul class="list-disc pl-6">
-              <li>
-                <strong>Timeouts:</strong> Não trate o LLM como instantâneo.
-                Implemente timeouts e feedback visual para o usuário.
-              </li>
-              <li>
-                <strong>Excesso de tokens:</strong> Filtre e limite avaliações
-                para não ultrapassar o contexto do modelo e evitar custos altos.
-              </li>
-              <li>
-                <strong>Falhas de API:</strong> Sempre tenha um plano B: devolva
-                reviews brutos ou uma mensagem amigável se o LLM falhar.
-              </li>
-              <li>
-                <strong>Falta de cache:</strong> Sem cache, o app pode ficar
-                lento e caro. Use Redis/Memcached para respostas repetidas.
-              </li>
-              <li>
-                <strong>Monitoramento:</strong> Meça latência, taxa de erro e
-                custo. Dashboards simples ajudam a detectar problemas antes do
-                usuário.
-              </li>
-            </ul>
-            <span class="block mt-2"
-              >Essas práticas diferenciam um protótipo de uma feature robusta e
-              escalável.</span
-            >
-          </div>
-          <div class="space-y-4 mb-8">
-            <h3 class="font-bold text-gray-800">Código: Endpoint FastAPI</h3>
-            <div class="prose max-w-none text-gray-700 text-sm mb-4">
-              <p>
-                <strong>Como funciona esse endpoint?</strong><br />
-                O código abaixo simula o fluxo completo de uma feature de IA em
-                produção:
-              </p>
-              <ul class="list-disc pl-6">
-                <li>
-                  <strong>get_recent_reviews:</strong> Busca avaliações recentes
-                  no banco. Na prática, você pode filtrar por data, relevância
-                  ou quantidade para evitar excesso de tokens e garantir
-                  contexto útil.
-                </li>
-                <li>
-                  <strong>generate_summary_prompt:</strong> Monta o prompt para
-                  o LLM, organizando as avaliações de forma clara. Dica: seja
-                  específico no prompt para evitar respostas genéricas.
-                </li>
-                <li>
-                  <strong>get_review_summary:</strong> Endpoint principal.
-                  Orquestra todo o fluxo: busca dados, monta o prompt, chama o
-                  LLM e trata erros. Note o uso de fallback (“Sem avaliações
-                  suficientes”) e tratamento de exceções para garantir
-                  confiabilidade.
-                </li>
-                <li>
-                  <strong>client.chat.completions.create:</strong> Chama o LLM
-                  via API. Controle o modelo, max_tokens e temperature para
-                  ajustar custo, latência e criatividade da resposta.
-                </li>
-              </ul>
-              <p>
-                <strong>Dica de engenharia:</strong> Adapte esse endpoint para
-                incluir cache, circuit breaker e monitoramento. Cada ajuste
-                torna a feature mais robusta e pronta para escala.
-              </p>
-            </div>
-            <pre class="code-block"><code><span class="keyword">import</span> os
-<span class="keyword">from</span> typing <span class="keyword">import</span> List
-<span class="keyword">from</span> fastapi <span class="keyword">import</span> FastAPI, HTTPException
-<span class="keyword">from</span> openai <span class="keyword">import</span> OpenAI
 
-app = FastAPI()
-client = OpenAI(api_key=os.getenv(<span class="string">"OPENAI_API_KEY"</span>))
+          <!-- Code Section 1 -->
+          <div class="mb-8">
+            <h3 class="font-bold text-gray-800 mb-2">
+              6.1. Busca de Avaliações com Filtro Inteligente
+            </h3>
+            <p class="text-sm text-gray-600 mb-3">
+              A filtragem controla a quantidade de tokens, melhora o foco do
+              modelo e reduz custos.
+            </p>
+            <pre
+              class="code-block"
+            ><code><span class="keyword">def</span> <span class="function">get_recent_reviews</span>(restaurant_id: str, limit: int = 20) -&gt; List[str]:
+    reviews = query_db(
+        <span class="string">"""
+        SELECT text
+        FROM reviews
+        WHERE restaurant_id = :id
+        ORDER BY created_at DESC
+        LIMIT :limit
+        """</span>,
+        {<span class="string">"id"</span>: restaurant_id, <span class="string">"limit"</span>: limit}
+    )
+    <span class="keyword">return</span> [r[<span class="string">"text"</span>] <span class="keyword">for</span> r <span class="keyword">in</span> reviews]</code></pre>
+          </div>
 
-<span class="comment"># Simulação de busca no banco</span>
-<span class="keyword">def</span> <span class="function">get_recent_reviews</span>(restaurant_id: str) -&gt; List[str]:
-    <span class="keyword">return</span> [
-        <span class="string">"A comida chegou fria, mas estava saborosa."</span>,
-        <span class="string">"Entrega super rápida! O sushi estava fresco."</span>
-    ]
+          <!-- Code Section 2 -->
+          <div class="mb-8">
+            <h3 class="font-bold text-gray-800 mb-2">
+              6.2. Construção do Prompt
+            </h3>
+            <p class="text-sm text-gray-600 mb-3">
+              Prompts estruturados garantem respostas mais consistentes e
+              previsíveis.
+            </p>
+            <pre
+              class="code-block"
+            ><code><span class="keyword">def</span> <span class="function">build_summary_prompt</span>(reviews: List[str]) -&gt; str:
+    joined = <span class="string">"\n- "</span>.join(reviews)
 
-<span class="keyword">def</span> <span class="function">generate_summary_prompt</span>(reviews: List[str]) -&gt; str:
-    reviews_text = <span class="string">"\n"</span>.join([<span class="string">f"- {r}"</span> <span class="keyword">for</span> r <span class="keyword">in</span> reviews])
     <span class="keyword">return</span> <span class="string">f"""
-    Você é um assistente de delivery. Resuma em 3 linhas:
-    Avaliações: {reviews_text}
-    """</span>
+Você é um assistente de delivery especializado em análises de clientes.
 
-<span class="keyword">@app.get</span>(<span class="string">"/restaurants/{restaurant_id}/reviews/summary"</span>)
-<span class="keyword">async def</span> <span class="function">get_review_summary</span>(restaurant_id: str):
+Resuma as avaliações abaixo em até 4 linhas, destacando:
+- pontos positivos,
+- pontos negativos,
+- tom geral das experiências.
+
+Avaliações:
+- {joined}
+"""</span>.strip()</code></pre>
+          </div>
+
+          <!-- Code Section 3 -->
+          <div class="mb-8">
+            <h3 class="font-bold text-gray-800 mb-2">
+              6.3. Chamada ao Modelo com Resiliência
+            </h3>
+            <p class="text-sm text-gray-600 mb-3">
+              Timeout, tratamento de erro e encapsulamento garantem
+              estabilidade.
+            </p>
+            <pre
+              class="code-block"
+            ><code><span class="keyword">async def</span> <span class="function">call_llm</span>(prompt: str):
     <span class="keyword">try</span>:
-        reviews = get_recent_reviews(restaurant_id)
-        <span class="keyword">if not</span> reviews:
-            <span class="keyword">return</span> {<span class="string">"summary"</span>: <span class="string">"Sem avaliações suficientes."</span>}
-
-        prompt = generate_summary_prompt(reviews)
-
-        <span class="comment"># Chamada ao LLM</span>
         response = client.chat.completions.create(
             model=<span class="string">"gpt-3.5-turbo"</span>,
             messages=[{<span class="string">"role"</span>: <span class="string">"user"</span>, <span class="string">"content"</span>: prompt}],
             max_tokens=150,
-            temperature=0.5
+            temperature=0.4,
+            timeout=4
         )
+        <span class="keyword">return</span> response.choices[0].message.content.strip()
 
-        <span class="keyword">return</span> {
-            <span class="string">"restaurant_id"</span>: restaurant_id,
-            <span class="string">"summary"</span>: response.choices[0].message.content.strip()
-        }
+    <span class="keyword">except</span> TimeoutError:
+        <span class="keyword">raise</span> HTTPException(503, <span class="string">"LLM demorou demais"</span>)
 
-    <span class="keyword">except</span> Exception <span class="keyword">as</span> e:
-        <span class="keyword">raise</span> HTTPException(status_code=503, detail=<span class="string">"Indisponível"</span>)</code></pre>
+    <span class="keyword">except</span> Exception:
+        <span class="keyword">raise</span> HTTPException(503, <span class="string">"Serviço indisponível"</span>)</code></pre>
+          </div>
+
+          <div
+            class="p-4 bg-brand-50 border-l-4 border-brand-500 rounded text-sm text-brand-900"
+          >
+            <strong>O que completa a feature em produção:</strong> Cache
+            distribuído (Redis), Circuit Breaker, logs estruturados e métricas
+            de latência.
           </div>
         </section>
-        <!-- 5. Métricas e Riscos -->
+
+        <!-- 7. Métricas, Riscos e Boas Práticas -->
         <section
           class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
           id="risks"
@@ -790,124 +832,120 @@ client = OpenAI(api_key=os.getenv(<span class="string">"OPENAI_API_KEY"</span>))
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
-            <span class="text-brand-600">5.</span> Métricas, Riscos e Boas
+            <span class="text-brand-600">7.</span> Métricas, Riscos e Boas
             Práticas
           </h2>
           <div class="prose max-w-none text-gray-700 mb-6">
             <p>
-              Toda feature de IA em produção precisa ser acompanhada de perto:
-              latência alta faz o usuário desistir, custos descontrolados podem
-              inviabilizar o projeto e falhas de confiabilidade minam a
-              confiança no app. Por isso, medir, monitorar e aplicar boas
-              práticas não é luxo — é pré-requisito para escalar com segurança.
-              Abaixo, veja os principais riscos e como mitigá-los na prática.
+              Operar IA sem métricas é como dirigir no escuro. A seguir estão os
+              indicadores essenciais.
             </p>
           </div>
-          <div class="grid md:grid-cols-3 gap-6 mb-8">
-            <!-- Card 1 -->
-            <div class="border-l-4 border-red-500 bg-red-50 p-4 rounded-r-lg">
-              <div class="flex items-center gap-2 mb-2 text-red-700 font-bold">
-                <i class="fas fa-stopwatch"></i> Latência
-              </div>
-              <p class="text-xs text-red-800 mb-2">
-                Chamadas acima de 2 segundos já fazem o usuário abandonar a tela
-                ou perder confiança. LLMs podem variar muito em tempo de
-                resposta, principalmente sob carga.
-              </p>
-              <div
-                class="text-xs bg-white p-2 rounded font-mono border border-red-200 mb-1"
+
+          <div class="grid md:grid-cols-2 gap-8 mb-8">
+            <div>
+              <h3
+                class="font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4"
               >
-                Solução: Cache (Redis) 24h.
-              </div>
-              <p class="text-xs text-red-700">
-                <strong>Dica:</strong> Sempre meça o tempo de resposta e
-                implemente feedback visual (ex: loading) no app. Use cache para
-                respostas repetidas e reduza chamadas desnecessárias.
-              </p>
+                Métricas Essenciais
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start">
+                  <i class="fas fa-chart-line mt-1 text-brand-500 w-6"></i>
+                  <div>
+                    <span class="font-bold text-gray-900"
+                      >Latência (p95 e p99)</span
+                    >
+                    <p class="text-sm text-gray-600">
+                      Um pequeno aumento no p95 pode derrubar a satisfação.
+                      Meta: p95 < 1200ms.
+                    </p>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-coins mt-1 text-yellow-500 w-6"></i>
+                  <div>
+                    <span class="font-bold text-gray-900">Custo por Token</span>
+                    <p class="text-sm text-gray-600">
+                      Monitore gasto total e variação por endpoint. Otimização
+                      pode reduzir 80% do custo.
+                    </p>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <i
+                    class="fas fa-exclamation-triangle mt-1 text-red-500 w-6"
+                  ></i>
+                  <div>
+                    <span class="font-bold text-gray-900"
+                      >Taxa de Erro e Fallback</span
+                    >
+                    <p class="text-sm text-gray-600">
+                      Se subir repentinamente, o prompt pode estar instável ou a
+                      janela de contexto estourando.
+                    </p>
+                  </div>
+                </li>
+              </ul>
             </div>
-            <!-- Card 2 -->
-            <div
-              class="border-l-4 border-yellow-500 bg-yellow-50 p-4 rounded-r-lg"
-            >
-              <div
-                class="flex items-center gap-2 mb-2 text-yellow-700 font-bold"
+            <div>
+              <h3
+                class="font-bold text-gray-800 border-b border-gray-200 pb-2 mb-4"
               >
-                <i class="fas fa-dollar-sign"></i> Custos
-              </div>
-              <p class="text-xs text-yellow-800 mb-2">
-                Cada chamada ao LLM tem custo por token. Em apps de alto
-                tráfego, milhares de requisições podem gerar despesas
-                inesperadas rapidamente.
-              </p>
-              <div
-                class="text-xs bg-white p-2 rounded font-mono border border-yellow-200 mb-1"
-              >
-                Solução: Rate Limiting &amp; GPT-3.5
-              </div>
-              <p class="text-xs text-yellow-700">
-                <strong>Dica:</strong> Implemente limites de uso por usuário e
-                monitore o consumo. Prefira modelos mais baratos (ex: GPT-3.5)
-                para tarefas simples e só use modelos avançados quando
-                necessário.
-              </p>
-            </div>
-            <!-- Card 3 -->
-            <div
-              class="border-l-4 border-green-500 bg-green-50 p-4 rounded-r-lg"
-            >
-              <div
-                class="flex items-center gap-2 mb-2 text-green-700 font-bold"
-              >
-                <i class="fas fa-shield-alt"></i> Confiabilidade
-              </div>
-              <p class="text-xs text-green-800 mb-2">
-                APIs externas podem ficar indisponíveis ou retornar respostas
-                "alucinadas" (sem sentido). Isso afeta diretamente a experiência
-                do usuário e a reputação do app.
-              </p>
-              <div
-                class="text-xs bg-white p-2 rounded font-mono border border-green-200 mb-1"
-              >
-                Solução: Circuit Breaker
-              </div>
-              <p class="text-xs text-green-700">
-                <strong>Dica:</strong> Sempre trate exceções e implemente
-                fallback (ex: mostrar reviews brutos). Use circuit breaker para
-                evitar sobrecarga e monitore erros para agir rápido.
-              </p>
+                Boas Práticas de Engenharia
+              </h3>
+              <ul class="space-y-4">
+                <li class="flex items-start">
+                  <i class="fas fa-check-circle mt-1 text-green-500 w-6"></i>
+                  <div>
+                    <span class="font-bold text-gray-900"
+                      >Sempre use Cache</span
+                    >
+                    <p class="text-sm text-gray-600">
+                      Chaveie por restaurante, expire em janelas previsíveis. É
+                      a operação sustentável.
+                    </p>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-bolt mt-1 text-blue-500 w-6"></i>
+                  <div>
+                    <span class="font-bold text-gray-900"
+                      >Circuit Breaker & Timeouts</span
+                    >
+                    <p class="text-sm text-gray-600">
+                      Se o provedor falhar, pause chamadas. Use timeouts
+                      agressivos (curtos).
+                    </p>
+                  </div>
+                </li>
+                <li class="flex items-start">
+                  <i class="fas fa-history mt-1 text-purple-500 w-6"></i>
+                  <div>
+                    <span class="font-bold text-gray-900"
+                      >Versione seus Prompts</span
+                    >
+                    <p class="text-sm text-gray-600">
+                      Facilita debugging, testes A/B e rollback de
+                      comportamento.
+                    </p>
+                  </div>
+                </li>
+              </ul>
             </div>
           </div>
-          <div class="mt-4">
-            <div
-              class="mb-4 p-4 bg-brand-50 border-l-4 border-brand-400 text-sm text-brand-900 rounded"
-            >
-              <strong>Resumo e convite:</strong> Métricas e boas práticas não
-              são burocracia — são o que diferencia um protótipo de uma feature
-              confiável e escalável. Monitore, ajuste e evolua sempre. Que tal
-              revisar sua própria stack e identificar onde pode aplicar essas
-              melhorias hoje mesmo?
-            </div>
-            <div
-              class="mb-4 p-4 bg-blue-50 border-l-4 border-blue-400 text-sm text-blue-900 rounded"
-            >
-              <strong>Exemplo prático:</strong> Imagine que seu app de delivery
-              começa a crescer e, de repente, o custo com LLM dispara. Ao
-              analisar as métricas, você percebe que 80% das chamadas são para
-              os mesmos restaurantes. Ao implementar cache com Redis, o tempo de
-              resposta cai de 3s para 200ms e o custo mensal reduz em 70%.
-            </div>
-            <div
-              class="p-4 bg-green-50 border-l-4 border-green-400 text-sm text-green-900 rounded"
-            >
-              <strong>Dica de engenharia:</strong> Sempre monitore as principais
-              métricas (latência, custo, taxa de erro) com dashboards simples.
-              Automatize alertas para detectar picos e aja rápido. Pequenas
-              otimizações, como limitar tokens ou usar modelos mais baratos,
-              fazem grande diferença em escala.
-            </div>
+
+          <div class="bg-red-50 p-4 rounded-lg border border-red-100">
+            <h4 class="text-red-800 font-bold mb-2">Principais Riscos</h4>
+            <p class="text-sm text-red-700">
+              Latência excessiva, Custos imprevisíveis, Alucinações (inventar
+              dados), Dependência do provedor e Prompt Drift (mudanças
+              silenciosas no modelo).
+            </p>
           </div>
         </section>
-        <!-- 6. Evidências (FORMATAÇÃO CORRIGIDA) -->
+
+        <!-- 8. Evidências & Experimentação -->
         <section
           class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
           id="evidence"
@@ -915,146 +953,82 @@ client = OpenAI(api_key=os.getenv(<span class="string">"OPENAI_API_KEY"</span>))
           <h2
             class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
           >
-            <span class="text-brand-600">6.</span> Evidências &amp;
-            Experimentação
+            <span class="text-brand-600">8.</span> Evidências & Experimentação
           </h2>
-          <div class="prose max-w-none text-gray-700 mb-8">
+          <div class="prose max-w-none text-gray-700 mb-6">
             <p>
-              Não basta implementar uma feature de IA — é fundamental provar que
-              ela realmente gera valor. Testes controlados, feedback dos
-              usuários e monitoramento de métricas são o caminho para separar
-              hype de resultado real. Aqui, mostramos como evidenciar impacto e
-              aprender rápido com experimentação.
+              Uma feature de IA só se justifica quando gera impacto real.
+              Experimentação elimina achismo.
             </p>
           </div>
-          <div class="space-y-8">
-            <!-- Teste 1: A/B Testing -->
-            <div class="bg-blue-50 rounded-xl p-6 border-l-4 border-blue-400">
-              <h3
-                class="font-bold text-lg mb-2 text-blue-900 flex items-center"
-              >
-                <i class="fas fa-vial mr-2"></i> Experimento 1: A/B Test na
-                prática
+
+          <div class="space-y-6">
+            <div class="bg-blue-50 p-6 rounded-xl border-l-4 border-blue-500">
+              <h3 class="font-bold text-blue-900 mb-2">
+                O Ciclo de Experimentação
               </h3>
-              <p class="text-sm text-blue-800 mb-4">
-                Compare o impacto da feature de IA (resumo automático) com a
-                versão tradicional (lista bruta de reviews). Separe usuários em
-                dois grupos e meça resultados reais.
-              </p>
-              <div class="grid md:grid-cols-2 gap-6">
-                <div>
-                  <h4 class="text-xs font-bold uppercase text-blue-700 mb-2">
-                    Métricas para comparar
-                  </h4>
-                  <ul class="text-sm space-y-2 text-blue-900">
-                    <li>
-                      <i class="fas fa-check text-green-500 mr-2"></i>CTR na
-                      página
-                    </li>
-                    <li>
-                      <i class="fas fa-check text-green-500 mr-2"></i>Tempo
-                      médio gasto
-                    </li>
-                    <li>
-                      <i class="fas fa-check text-green-500 mr-2"></i>Taxa de
-                      conversão (+15-25% esperado)
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  <h4 class="text-xs font-bold uppercase text-blue-700 mb-2">
-                    Como analisar (SQL)
-                  </h4>
-                  <div class="code-block p-3 text-xs shadow-inner">
-                    <pre><span class="keyword">SELECT</span> 
-  variant, 
-  <span class="function">COUNT</span>(*) <span class="keyword">AS</span> views,
-  <span class="function">SUM</span>(converted) <span class="keyword">AS</span> conversions,
-  (<span class="function">SUM</span>(converted) / <span class="function">COUNT</span>(*) * 100) <span class="keyword">AS</span> conv_rate
-<span class="keyword">FROM</span> experiments
-<span class="keyword">WHERE</span> feature = <span class="string">'ai_summary'</span>
-<span class="keyword">GROUP BY</span> variant;</pre>
-                  </div>
-                </div>
-              </div>
+              <ol class="list-decimal pl-5 space-y-2 text-sm text-blue-800">
+                <li>
+                  <strong>Hipótese:</strong> "Um resumo mais curto aumenta a
+                  taxa de leitura."
+                </li>
+                <li>
+                  <strong>Implementação Controlada:</strong> Novo prompt
+                  isolado.
+                </li>
+                <li>
+                  <strong>Teste A/B:</strong> Controle vs Tratamento (ex:
+                  90/10).
+                </li>
+                <li>
+                  <strong>Coleta de Métricas:</strong> Latência, custo,
+                  conversão.
+                </li>
+                <li><strong>Decisão:</strong> Promover, reverter ou iterar.</li>
+              </ol>
             </div>
-            <!-- Teste 2: Feedback do Usuário -->
-            <div class="bg-green-50 rounded-xl p-6 border-l-4 border-green-400">
-              <h3
-                class="font-bold text-lg mb-2 text-green-900 flex items-center"
-              >
-                <i class="fas fa-comments mr-2"></i> Experimento 2: Feedback
-                direto
-              </h3>
-              <p class="text-sm text-green-800 mb-4">
-                Implemente botões de "Útil" e "Não útil" para coletar feedback
-                sobre o resumo gerado pela IA. Use esse dado para ajustar
-                prompts ou ativar fallback automático.
-              </p>
-              <div class="flex gap-3 mb-3">
-                <button
-                  class="bg-white px-4 py-2 rounded text-sm hover:bg-green-100 border border-green-200 text-green-700 font-medium transition-colors"
-                >
-                  <i class="fas fa-thumbs-up mr-1"></i> Útil
-                </button>
-                <button
-                  class="bg-white px-4 py-2 rounded text-sm hover:bg-red-50 border border-red-200 text-red-600 font-medium transition-colors"
-                >
-                  <i class="fas fa-thumbs-down mr-1"></i> Não útil
-                </button>
+
+            <div class="grid md:grid-cols-2 gap-6">
+              <div class="p-4 border border-gray-200 rounded-lg">
+                <h4 class="font-bold text-gray-800 mb-2">
+                  Como medir qualidade?
+                </h4>
+                <ul class="text-sm text-gray-600 space-y-1 list-disc pl-4">
+                  <li>
+                    <strong>Avaliação Humana:</strong> Clareza, tom,
+                    imparcialidade.
+                  </li>
+                  <li>
+                    <strong>Avaliação Automática (QA):</strong> Usar LLM para
+                    verificar contradições.
+                  </li>
+                  <li>
+                    <strong>Métricas Quantitativas:</strong> Tamanho,
+                    diversidade lexical.
+                  </li>
+                </ul>
               </div>
-              <p class="text-xs text-green-700 font-medium mt-3">
-                <i class="fas fa-lightbulb text-yellow-500 mr-1"></i> Insight:
-                Se a taxa de "Não útil" passar de 10%, ative fallback para
-                reviews brutos e revise o prompt.
-              </p>
-            </div>
-            <!-- Teste 3: Monitoramento -->
-            <div
-              class="bg-yellow-50 rounded-xl p-6 border-l-4 border-yellow-400"
-            >
-              <h3
-                class="font-bold text-lg mb-2 text-yellow-900 flex items-center"
-              >
-                <i class="fas fa-chart-line mr-2"></i> Experimento 3:
-                Performance &amp; Custo
-              </h3>
-              <p class="text-sm text-yellow-800 mb-4">
-                Acompanhe diariamente o custo, a latência e a taxa de erro. Use
-                dashboards simples para identificar gargalos.
-              </p>
-              <div class="grid grid-cols-3 gap-2 text-center">
-                <div class="bg-white p-3 rounded border border-yellow-200">
-                  <div class="text-xs text-gray-500 uppercase">Custo/Dia</div>
-                  <div class="font-mono font-bold text-gray-800">$5.00</div>
-                </div>
-                <div class="bg-white p-3 rounded border border-yellow-200">
-                  <div class="text-xs text-gray-500 uppercase">
-                    Latência P95
-                  </div>
-                  <div class="font-mono font-bold text-red-500">2.3s</div>
-                </div>
-                <div class="bg-white p-3 rounded border border-yellow-200">
-                  <div class="text-xs text-gray-500 uppercase">Erro Rate</div>
-                  <div class="font-mono font-bold text-green-600">0.2%</div>
-                </div>
+              <div class="p-4 border border-gray-200 rounded-lg">
+                <h4 class="font-bold text-gray-800 mb-2">
+                  Impacto Real (KPIs)
+                </h4>
+                <ul class="text-sm text-gray-600 space-y-1 list-disc pl-4">
+                  <li>Redução de 20-40% na taxa de abandono.</li>
+                  <li>Aumento de cliques na seção.</li>
+                  <li>Diminuição de tickets de suporte.</li>
+                </ul>
               </div>
-            </div>
-            <div
-              class="mt-4 p-4 bg-gray-50 border-l-4 border-gray-400 text-sm text-gray-600 rounded"
-            >
-              <strong>Conclusão:</strong> Não existe feature de IA perfeita sem
-              experimentação. Teste, meça, ajuste e repita.
             </div>
           </div>
         </section>
-        <!-- 7. Reflexões & Próximos Passos (FORMATAÇÃO CORRIGIDA & ESTILIZADA) -->
+
+        <!-- 9. Reflexões & Próximos Passos -->
         <section
           class="bg-brand-900 rounded-2xl p-8 md:p-10 shadow-xl text-gray-200 border border-white/10"
           id="reflections"
         >
           <h2 class="text-2xl md:text-3xl font-bold text-white mb-6">
-            7. Reflexões &amp; Próximos Passos
+            9. Reflexões &amp; Próximos Passos
           </h2>
           <div class="w-full h-px bg-white/10 mb-8"></div>
           <div class="grid lg:grid-cols-12 gap-10 md:gap-16">
@@ -1062,18 +1036,30 @@ client = OpenAI(api_key=os.getenv(<span class="string">"OPENAI_API_KEY"</span>))
               class="lg:col-span-7 space-y-6 text-lg leading-relaxed font-light"
             >
               <p>
-                Como dev, aprendi que 90% do sucesso com IA é
-                <strong class="text-brand-300 font-semibold"
-                  >engenharia clássica</strong
-                >: cache, monitoramento, resiliência. O prompt é o tempero. Sem
-                base sólida, não escala.
+                Ao longo deste artigo, percorremos a jornada completa de
+                transformar uma simples chamada de LLM em uma feature real,
+                confiável e escalável.
+              </p>
+              <p>
+                A principal verdade é:
+                <strong
+                  >O sucesso de uma feature de IA depende muito mais de
+                  engenharia, observabilidade e resiliência do que do modelo em
+                  si.</strong
+                >
+              </p>
+              <p class="text-brand-200">
+                O prompt é importante. O modelo é importante. Mas o que torna
+                essa feature pronta para milhões de usuários é tudo aquilo que
+                existe ao redor: infraestrutura, design, monitoramento e
+                disciplina.
               </p>
             </div>
             <div class="lg:col-span-5">
               <h3
                 class="text-sm font-bold text-brand-300 uppercase tracking-widest mb-6 font-mono"
               >
-                Artigos Relacionados
+                Próximos Passos
               </h3>
               <ul class="space-y-4">
                 <li class="flex items-start group">
@@ -1112,5 +1098,11 @@ client = OpenAI(api_key=os.getenv(<span class="string">"OPENAI_API_KEY"</span>))
         </p>
       </div>
     </footer>
-  </body>
+      <script src="scripts/export-visual.js"></script>
+    <!-- CDN Libraries for Export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/docx@8.5.0/build/index.js"></script>
+  
+  <script src="scripts/export-to-docx.js" defer></script>
+</body>
 </html>
