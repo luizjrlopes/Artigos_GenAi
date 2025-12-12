@@ -2,97 +2,73 @@
 
 <html class="scroll-smooth" lang="pt-BR">
   <head>
-    <meta charset="utf-8" />
-    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
-    <title>RAG: Retrieval-Augmented Generation</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
-      rel="stylesheet"
-    />
-    <link href="https://fonts.googleapis.com" rel="preconnect" />
-    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&amp;family=Fira+Code:wght@400;500&amp;display=swap"
-      rel="stylesheet"
-    />
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              sans: ["Inter", "sans-serif"],
-              mono: ["Fira Code", "monospace"],
-            },
-            colors: {
-              brand: {
-                50: "#fffbeb",
-                100: "#fef3c7",
-                200: "#fde68a",
-                300: "#fcd34d",
-                400: "#fbbf24",
-                500: "#f59e0b", // Amber 500
-                600: "#d97706", // Amber 600 - Database/Storage theme
-                700: "#b45309",
-                800: "#92400e",
-                900: "#78350f",
-              },
-              tech: {
-                50: "#f0f9ff",
-                600: "#0284c7",
-              },
-            },
-            animation: {
-              "pulse-slow": "pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite",
-            },
-          },
-        },
-      };
-    </script>
-    <style>
-      /* Custom scrollbar */
-      ::-webkit-scrollbar {
-        width: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: #f1f1f1;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: #cbd5e1;
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: #94a3b8;
-      }
-
-      .code-block {
-        background-color: #171717; /* Neutral 900 */
-        color: #d4d4d4;
-        padding: 1.5rem;
-        border-radius: 0.5rem;
-        font-family: "Fira Code", monospace;
-        overflow-x: auto;
-        font-size: 0.85rem;
-        line-height: 1.6;
-        border: 1px solid #404040;
-      }
-
-      /* Syntax Highlighting Mock */
-      .token-keyword {
-        color: #c084fc;
-      } /* Purple */
-      .token-string {
-        color: #a3e635;
-      } /* Lime */
-      .token-comment {
-        color: #737373;
-        font-style: italic;
-      } /* Neutral 500 */
-      .token-function {
-        color: #60a5fa;
-      } /* Blue */
-
-      .diagram-box {
+        <section class="space-y-6" id="approach">
+          <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+              <span class="text-brand-600">2.</span> Abordagem: Fluxo RAG como Pipeline de Engenharia
+            </h2>
+            <div class="prose max-w-none text-gray-700 space-y-4">
+              <p>
+                RAG não é uma funcionalidade isolada, nem um “truque” para melhorar respostas. Ele é um pipeline de dados e geração, onde cada etapa existe para resolver uma limitação estrutural dos LLMs.
+              </p>
+              <p>
+                A ideia central é simples, mas não trivial de implementar corretamente:
+                <strong>Nenhuma resposta deve ser gerada antes que o sistema tenha recuperado dados relevantes e confiáveis.</strong>
+              </p>
+              <p>Isso impõe uma ordem obrigatória de execução:</p>
+              <ul class="list-disc ml-6">
+                <li><strong>Retrieve</strong> — buscar dados relevantes a partir de uma fonte controlada</li>
+                <li><strong>Augment</strong> — injetar esses dados de forma estruturada no contexto</li>
+                <li><strong>Generate</strong> — gerar a resposta sob regras explícitas</li>
+              </ul>
+              <p>
+                Essa separação não é estética. Ela cria contratos claros entre etapas e permite observar, medir e corrigir falhas de forma localizada.
+              </p>
+              <h3 class="text-xl font-bold text-gray-900">O fluxo RAG, em termos de sistema</h3>
+              <p>Em um app de delivery, o fluxo correto é:</p>
+              <ol class="list-decimal ml-6">
+                <li>o usuário faz uma pergunta;</li>
+                <li>o sistema interpreta a intenção;</li>
+                <li>o pipeline busca dados atualizados no banco (cardápio, preços, disponibilidade);</li>
+                <li>apenas esses dados entram no prompt;</li>
+                <li>o modelo gera uma resposta restrita ao contexto fornecido.</li>
+              </ol>
+              <div class="bg-white border border-gray-200 p-4 rounded-lg">
+                <ul class="list-disc ml-6">
+                  <li><strong>O modelo não decide o que buscar</strong></li>
+                  <li><strong>O modelo não escolhe a fonte de verdade</strong></li>
+                  <li><strong>O modelo não infere dados ausentes</strong></li>
+                </ul>
+                <p class="mt-2 text-sm">Ele apenas redige uma resposta com base em informações já validadas.</p>
+              </div>
+              <h3 class="text-xl font-bold text-gray-900">Por que esse fluxo é essencial</h3>
+              <div class="grid md:grid-cols-2 gap-4">
+                <div class="bg-red-50 border border-red-200 p-4 rounded-lg">
+                  <p class="font-semibold text-red-900 mb-2">Sem esse pipeline:</p>
+                  <ul class="list-disc ml-6 text-sm text-red-800">
+                    <li>o modelo usa conhecimento desatualizado;</li>
+                    <li>respostas variam de forma imprevisível;</li>
+                    <li>erros não são rastreáveis;</li>
+                    <li>custo cresce sem controle;</li>
+                    <li>regras de negócio são violadas silenciosamente.</li>
+                  </ul>
+                </div>
+                <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                  <p class="font-semibold text-green-900 mb-2">Com esse pipeline:</p>
+                  <ul class="list-disc ml-6 text-sm text-green-800">
+                    <li>erros de busca e erros de geração ficam separados;</li>
+                    <li>métricas podem ser atribuídas por etapa;</li>
+                    <li>falhas podem gerar fallback seguro;</li>
+                    <li>o sistema se torna auditável.</li>
+                  </ul>
+                </div>
+              </div>
+              <div class="bg-brand-50 border-l-4 border-brand-500 p-4 rounded-r-lg">
+                <p class="text-sm text-gray-800"><strong>RAG não melhora o LLM.</strong><br/>RAG protege o sistema do LLM.</p>
+              </div>
+            </div>
+          </div>
+        </section>
         background: white;
         border: 2px solid #e5e7eb;
         border-radius: 8px;
@@ -185,124 +161,79 @@
             <div class="hidden md:block text-sm text-gray-500">
               Módulo 1: Fundamentos e Estratégias
             </div>
-            <!-- Botões de Exportação DOCX/PDF Visual -->
-            <div class="flex items-center gap-2 md:gap-3">
-              <button id="export-pdf-btn" class="flex items-center gap-2 px-3 md:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg transition-colors text-sm md:text-base font-medium shadow-sm" title="Exportar como PDF">
-                <i class="fas fa-file-pdf"></i>
-                <span class="hidden md:inline">PDF</span>
-              </button>
-              <button id="export-docx-btn" class="flex items-center gap-2 px-3 md:px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition-colors text-sm md:text-base font-medium shadow-sm" title="Exportar como DOCX">
-                <i class="fas fa-file-word"></i>
-                <span class="hidden md:inline">DOCX</span>
-              </button>
-            </div>
-            
-    </header>
-    <div
-      class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-24 pb-12 flex flex-col lg:flex-row gap-8"
-    >
-      <!-- Sidebar Navigation -->
-      <aside
-        aria-label="Navegação lateral"
-        class="lg:w-64 flex-shrink-0 hidden lg:block"
-      >
-        <nav class="sticky top-24 space-y-1">
-          <a
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-900 bg-brand-50 hover:bg-brand-100"
-            href="#intro"
-          >
-            <i class="fas fa-search w-6 text-brand-600"></i> Contexto
-          </a>
-          <a
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-            href="#approach"
-          >
-            <i class="fas fa-project-diagram w-6 text-brand-600"></i> Abordagem
-            RAG
-          </a>
-          <a
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-            href="#comparison"
-          >
-            <i class="fas fa-balance-scale w-6 text-brand-600"></i> RAG vs
-            Fine-Tuning
-          </a>
-          <a
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-            href="#concepts"
-          >
-            <i class="fas fa-shapes w-6 text-brand-600"></i> Embeddings
-          </a>
-          <a
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-            href="#hands-on"
-          >
-            <i class="fas fa-code w-6 text-brand-600"></i> Código Prático
-          </a>
-          <a
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-            href="#metrics"
-          >
-            <i class="fas fa-chart-line w-6 text-brand-600"></i> Métricas
-          </a>
-          <a
-            class="group flex items-center px-3 py-2 text-sm font-medium rounded-md text-gray-600 hover:bg-gray-50 hover:text-gray-900"
-            href="#reflections"
-          >
-            <i class="fas fa-lightbulb w-6 text-brand-600"></i> Reflexões
-          </a>
-        </nav>
-      </aside>
-      <!-- Main Content -->
-      <main class="flex-1 space-y-12">
-        <!-- Hero Section (Atualizada para Padrão Visual) -->
-        <section class="relative rounded-3xl overflow-hidden mb-12 shadow-2xl">
-          <!-- Background Gradient & Grid (Tema Amber/Laranja) -->
-          <div
-            class="absolute inset-0 bg-gradient-to-br from-[#78350f] via-[#b45309] to-[#f59e0b]"
-          ></div>
-          <div
-            class="absolute inset-0 grid-bg opacity-30 pointer-events-none"
-          ></div>
-          <!-- Ambient Lighting (Decorativo) -->
-          <div
-            class="absolute top-[-20%] left-[-20%] w-[60%] h-[60%] bg-brand-400 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
-          ></div>
-          <div
-            class="absolute bottom-[-20%] right-[-20%] w-[60%] h-[60%] bg-brand-300 rounded-full mix-blend-overlay filter blur-[100px] opacity-20 animate-pulse-slow"
-            style="animation-delay: 3s"
-          ></div>
-          <div
-            class="flex flex-col lg:flex-row items-center justify-between px-8 py-16 md:px-16 md:py-20 relative z-10 gap-12"
-          >
-            <!-- Coluna Esquerda: Texto -->
-            <div class="lg:w-1/2 w-full text-white">
-              <div
-                class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/20 backdrop-blur-sm mb-6"
-              >
-                <i class="fas fa-network-wired text-brand-200 text-xs"></i>
-                <span
-                  class="text-xs font-semibold tracking-wider uppercase text-brand-100"
-                  >Data Engineering</span
-                >
+            <section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="concepts">
+              <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+                <span class="text-brand-600">3.</span> Conceitos Fundamentais: Embeddings e Busca Vetorial sem Misticismo
+              </h2>
+              <div class="prose max-w-none text-gray-700 space-y-4">
+                <p>Para entender RAG, é necessário remover qualquer ideia de “mágica”. Busca vetorial é apenas engenharia matemática aplicada a texto.</p>
+                <h3 class="text-xl font-bold text-gray-900">3.1 O que é um embedding (na prática)</h3>
+                <p>Um embedding é uma representação numérica de um texto em um espaço vetorial de alta dimensão. Textos semanticamente semelhantes produzem vetores próximos entre si.</p>
+                <p>Na prática, isso permite responder perguntas como:</p>
+                <ul class="list-disc ml-6">
+                  <li>“algo sem carne” → itens vegetarianos</li>
+                  <li>“opção leve” → saladas, wraps, bowls</li>
+                  <li>“mais barato” → itens de menor preço (quando combinado com filtros)</li>
+                </ul>
+                <p>O embedding não entende regras de negócio, nem contexto temporal. Ele apenas mede similaridade semântica.</p>
+                <h3 class="text-xl font-bold text-gray-900">3.2 O papel do banco vetorial</h3>
+                <p>Bancos vetoriais (Pinecone, Qdrant, Chroma, etc.) resolvem um problema específico: <strong>Encontrar vetores semanticamente próximos</strong> em grandes volumes de dados, em milissegundos.</p>
+                <p>Eles utilizam algoritmos de vizinhança aproximada (ANN), priorizando velocidade sobre exatidão perfeita — uma escolha consciente de engenharia.</p>
+                <p>Isso traz duas consequências importantes:</p>
+                <ul class="list-disc ml-6">
+                  <li>resultados são probabilísticos;</li>
+                  <li>nem sempre o item mais “correto” vem em primeiro lugar.</li>
+                </ul>
+                <p>Por isso, <strong>ranking e filtros adicionais</strong> são obrigatórios em produção.</p>
+                <h3 class="text-xl font-bold text-gray-900">3.3 Onde a busca vetorial falha</h3>
+                <p>Busca vetorial não sabe:</p>
+                <ul class="list-disc ml-6">
+                  <li>se o item está disponível;</li>
+                  <li>se o preço mudou;</li>
+                  <li>se o restaurante está aberto;</li>
+                  <li>se existe restrição regional;</li>
+                  <li>se a informação é sensível ou privada.</li>
+                </ul>
+                <p>Ela pode retornar algo semanticamente correto, mas operacionalmente inválido.</p>
+                <p><strong>Exemplo clássico:</strong></p>
+                <ul class="list-disc ml-6">
+                  <li>item semanticamente relevante;</li>
+                  <li>preço desatualizado;</li>
+                  <li>indisponível no momento.</li>
+                </ul>
+                <p>Sem controle, isso vira erro de negócio.</p>
+                <h3 class="text-xl font-bold text-gray-900">3.4 Retrieval não é só “buscar”</h3>
+                <p>No contexto de RAG, retrieval significa:</p>
+                <ul class="list-disc ml-6">
+                  <li>buscar poucos itens (top-K pequeno);</li>
+                  <li>aplicar filtros determinísticos antes ou depois da busca;</li>
+                  <li>eliminar ruído;</li>
+                  <li>aceitar que, às vezes, não há resultado confiável.</li>
+                </ul>
+                <p>Um bom retrieval:</p>
+                <ul class="list-disc ml-6">
+                  <li>reduz tokens;</li>
+                  <li>reduz latência;</li>
+                  <li>reduz alucinação;</li>
+                  <li>aumenta previsibilidade.</li>
+                </ul>
+                <p>Um retrieval ruim:</p>
+                <ul class="list-disc ml-6">
+                  <li>empurra problemas para o prompt;</li>
+                  <li>aumenta custo;</li>
+                  <li>faz o modelo improvisar.</li>
+                </ul>
+                <h3 class="text-xl font-bold text-gray-900">3.5 A consequência arquitetural</h3>
+                <p>Embeddings são uma ferramenta, não uma solução completa. Em produção, eles precisam ser combinados com:</p>
+                <ul class="list-disc ml-6">
+                  <li>filtros de negócio;</li>
+                  <li>limites de contexto;</li>
+                  <li>contratos explícitos de prompt;</li>
+                  <li>fallback quando a confiança é baixa.</li>
+                </ul>
+                <p>RAG funciona não porque embeddings são inteligentes, mas porque o sistema controla rigorosamente como eles são usados.</p>
               </div>
-              <h1
-                class="text-4xl md:text-5xl lg:text-6xl font-extrabold tracking-tight leading-tight mb-6"
-              >
-                Retrieval <br />
-                <span
-                  class="text-transparent bg-clip-text bg-gradient-to-r from-brand-200 to-white"
-                  >Augmented Generation</span
-                >
-              </h1>
-              <p
-                class="text-lg md:text-xl text-brand-100 font-light leading-relaxed mb-8 border-l-4 border-brand-400 pl-6"
-              >
-                Conectando LLMs a dados privados e dinâmicos (preços, estoque)
-                sem alucinações.
-              </p>
-            </div>
-            <!-- Coluna Direita: Diagrama Visual (RAG Search) -->
+            </section>
             <div class="lg:w-1/2 w-full flex items-center justify-center">
               <div class="relative w-full max-w-md">
                 <div class="flex items-center justify-center gap-4 relative">
@@ -364,39 +295,31 @@
           >
             <span class="text-brand-600">1.</span> Contexto e Propósito
           </h2>
-          <div class="prose max-w-none text-gray-600">
-            <p class="mb-4">
-              Imagine perguntar ao ChatGPT:
-              <em>"Quanto custa o X-Bacon no 'Lanches do Zé' em São Paulo?"</em
-              >. O modelo provavelmente vai alucinar um preço ou dizer que não
-              sabe. Por quê? Porque o LLM foi treinado com dados da internet até
-              uma data de corte (Knowledge Cutoff), e ele não tem acesso em
-              tempo real ao banco de dados proprietário do seu aplicativo de
-              delivery.
+          <div class="prose max-w-none text-gray-700 space-y-4">
+            <p>
+              Modelos de linguagem não possuem acesso nativo a dados proprietários nem a informações que mudam em tempo real. Eles operam a partir de um conjunto fixo de parâmetros treinados até um determinado ponto no tempo (<em>knowledge cutoff</em>).
+              Isso os torna inadequados, por definição, para responder perguntas sobre dados operacionais dinâmicos, como preços, disponibilidade e promoções em um aplicativo de delivery.
             </p>
-            <p class="mb-4">
-              Em um cenário de app de entrega, isso é crítico. Cardápios mudam
-              diariamente. Preços sobem, ingredientes acabam e promoções
-              relâmpago surgem. Não faz o menor sentido financeiro ou técnico
-              re-treinar (Fine-Tuning) um modelo gigante de bilhões de
-              parâmetros toda vez que o "Zé" decide aumentar o preço do
-              hambúrguer em 50 centavos.
+            <p>
+              Em um sistema desse tipo, cardápios mudam constantemente: itens entram e saem, preços variam por região, horários e campanhas, e a disponibilidade de produtos é altamente volátil. Qualquer tentativa de tratar esse problema com <strong>fine-tuning</strong> é tecnicamente ineficiente e financeiramente inviável. Re-treinar um modelo de bilhões de parâmetros para refletir mudanças operacionais de minutos ou horas <strong>não escala</strong>.
             </p>
-            <p class="mb-6">
-              Além disso, a <strong>alucinação</strong> aqui não é apenas um
-              erro engraçado; é um passivo financeiro. Se o bot promete ao
-              cliente que o combo custa R$ 20,00 quando na verdade custa R$
-              30,00, a empresa precisa arcar com a diferença ou frustrar o
-              usuário, gerando tickets de suporte e churn. A confiança na marca
-              é corroída quando a IA fornece informações desatualizadas com
-              total convicção.
+            <p>
+              O impacto desse descompasso não é apenas técnico. Quando uma IA fornece informações incorretas com alto grau de confiança — como preços desatualizados ou itens inexistentes — o erro se traduz diretamente em <strong>prejuízo financeiro</strong>, aumento de tickets de suporte, quebra de expectativa do usuário e erosão da confiança na plataforma.
             </p>
-            <div class="bg-brand-50 border-l-4 border-brand-500 p-4">
-              <strong class="text-brand-900">O Propósito:</strong> Apresentar o
-              padrão arquitetural RAG (Retrieval-Augmented Generation). Esta é a
-              técnica padrão de mercado para conectar a capacidade linguística
-              da IA com os dados proprietários, privados e dinâmicos do seu
-              negócio.
+            <p>
+              O problema central não é a capacidade linguística do modelo, mas a desconexão entre <strong>geração de texto</strong> e a <strong>fonte de verdade</strong> do negócio.
+            </p>
+            <div class="bg-brand-50 border-l-4 border-brand-500 p-4 rounded-r-lg">
+              <p class="mb-2"><strong class="text-brand-900">Propósito do artigo</strong></p>
+              <p>
+                Apresentar o padrão arquitetural <strong>RAG (Retrieval-Augmented Generation)</strong>, a abordagem adotada pelo mercado para integrar modelos de linguagem a dados proprietários, privados e dinâmicos, mantendo controle sobre <strong>custo</strong>, <strong>latência</strong>, <strong>confiabilidade</strong> e <strong>regras de negócio</strong>.
+              </p>
+            </div>
+            <div class="bg-white border border-gray-200 p-4 rounded-lg">
+              <p class="text-sm text-gray-800">
+                <strong>RAG não é um truque para “melhorar respostas”.</strong><br/>
+                É uma decisão de engenharia para tornar sistemas baseados em LLM operáveis em produção.
+              </p>
             </div>
           </div>
         </section>
@@ -680,127 +603,615 @@
             </div>
           </div>
         </section>
-        <!-- 4. Hands On -->
-        <section
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-          id="hands-on"
-        >
-          <h2
-            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-          >
-            <span class="text-brand-600">4.</span> Mão na Massa: Código Python
+        <!-- 4. Mão na Massa — Projetando um Pipeline RAG para Produção -->
+        <section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="hands-on">
+          <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+            <span class="text-brand-600">4.</span> Mão na Massa — Projetando um Pipeline RAG para Produção
           </h2>
-          <div
-            class="mb-4 text-sm text-gray-600 bg-gray-50 p-3 rounded border border-gray-200"
-          >
+          
+          <div class="prose max-w-none text-gray-600 space-y-6">
             <p>
-              <i class="fas fa-info-circle text-brand-500 mr-2"></i>
-              <strong>Atenção à Engenharia:</strong> O código abaixo simula um
-              pipeline completo. Em produção, a função
-              <code>search_menu</code> seria uma chamada assíncrona a um
-              VectorDB real e o <code>answer_user</code> gerenciaria histórico
-              de chat e tratamento de erros. Note como o prompt é construído
-              dinamicamente: injetamos apenas o texto relevante (Context) para
-              evitar estourar o limite de tokens do modelo.
+              Até aqui entendemos por que o RAG é necessário. Agora vamos ver como ele se materializa em um sistema real — e, principalmente, quais decisões de engenharia evitam falhas silenciosas.
             </p>
+            <p>
+              O cenário é concreto: um app de delivery consultando cardápios dinâmicos, onde respostas erradas geram impacto financeiro direto.
+            </p>
+
+            <!-- 4.1 O erro clássico -->
+            <div class="bg-red-50 border-l-4 border-red-500 p-6 my-6 rounded-r-lg">
+              <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-exclamation-triangle text-red-600"></i>
+                4.1 O erro clássico: "jogar contexto no prompt"
+              </h3>
+              
+              <p class="text-sm text-gray-700 mb-4">
+                Uma implementação ingênua de RAG costuma seguir este caminho:
+              </p>
+              <ol class="text-sm space-y-2 ml-6 list-decimal text-red-800 mb-4">
+                <li>Buscar alguns itens do cardápio</li>
+                <li>Colar tudo no prompt</li>
+                <li>Pedir para o modelo responder</li>
+              </ol>
+              
+              <div class="bg-white border border-red-200 p-4 rounded-lg mb-4">
+                <p class="font-semibold text-red-900 text-sm mb-2">Por que isso falha em produção:</p>
+                <ul class="text-xs space-y-1 ml-6 list-disc text-red-800">
+                  <li>o contexto cresce sem controle</li>
+                  <li>a latência aumenta rapidamente</li>
+                  <li>o custo escala de forma imprevisível</li>
+                  <li>informações irrelevantes entram no prompt</li>
+                  <li>respostas se tornam inconsistentes</li>
+                  <li>não existe fallback quando a busca falha</li>
+                </ul>
+              </div>
+
+              <div class="bg-brand-50 border border-brand-200 p-4 rounded-lg">
+                <p class="text-sm font-bold text-brand-900">
+                  💡 Lição fundamental:
+                </p>
+                <p class="text-xs text-brand-800 mt-2">
+                  <strong>RAG não é "prompt grande".</strong> RAG é um pipeline com contratos claros.
+                </p>
+              </div>
+            </div>
+
+            <!-- 4.2 O objetivo de um RAG profissional -->
+            <div class="bg-blue-50 border-l-4 border-blue-500 p-6 my-6 rounded-r-lg">
+              <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-target text-blue-600"></i>
+                4.2 O objetivo de um RAG profissional
+              </h3>
+              
+              <p class="text-sm text-gray-700 mb-4">
+                Um pipeline RAG de produção precisa garantir que:
+              </p>
+              <ul class="text-sm space-y-2 ml-6 list-disc text-blue-800">
+                <li>apenas dados realmente relevantes entram no prompt</li>
+                <li>o tamanho do contexto seja limitado e previsível</li>
+                <li>o modelo não invente informações</li>
+                <li>o sistema saiba quando não responder</li>
+                <li>custo e latência permaneçam sob controle</li>
+                <li>falhas de busca não quebrem a experiência do usuário</li>
+              </ul>
+
+              <div class="bg-white border border-blue-200 p-4 rounded-lg mt-4">
+                <p class="text-sm text-blue-900">
+                  Assim como no Prompt Engineering (Artigo 2), aqui o foco não é <strong>criatividade</strong> — é <strong class="text-brand-600">previsibilidade</strong>.
+                </p>
+              </div>
+            </div>
+
+            <!-- 4.3 Pipeline RAG - visão de engenharia -->
+            <div class="bg-purple-50 border-l-4 border-purple-500 p-6 my-6 rounded-r-lg">
+              <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-project-diagram text-purple-600"></i>
+                4.3 Pipeline RAG — visão de engenharia
+              </h3>
+              
+              <p class="text-sm text-gray-700 mb-4">
+                Um RAG robusto segue um fluxo bem definido:
+              </p>
+              
+              <div class="space-y-2 mb-4">
+                <div class="flex items-start gap-3 text-sm">
+                  <div class="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold min-w-fit">1</div>
+                  <div><strong>Query do usuário</strong></div>
+                </div>
+                <div class="flex items-start gap-3 text-sm">
+                  <div class="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold min-w-fit">2</div>
+                  <div><strong>Normalização da intenção</strong></div>
+                </div>
+                <div class="flex items-start gap-3 text-sm">
+                  <div class="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold min-w-fit">3</div>
+                  <div><strong>Retrieval controlado</strong> (busca vetorial + filtros de negócio)</div>
+                </div>
+                <div class="flex items-start gap-3 text-sm">
+                  <div class="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold min-w-fit">4</div>
+                  <div><strong>Validação e corte de contexto</strong></div>
+                </div>
+                <div class="flex items-start gap-3 text-sm">
+                  <div class="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold min-w-fit">5</div>
+                  <div><strong>Augmentation estruturada</strong></div>
+                </div>
+                <div class="flex items-start gap-3 text-sm">
+                  <div class="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold min-w-fit">6</div>
+                  <div><strong>Geração com prompt contratual</strong></div>
+                </div>
+                <div class="flex items-start gap-3 text-sm">
+                  <div class="bg-purple-600 text-white px-2 py-1 rounded text-xs font-bold min-w-fit">7</div>
+                  <div><strong>Pós-processamento e fallback</strong></div>
+                </div>
+              </div>
+
+              <div class="bg-white border border-purple-200 p-4 rounded-lg">
+                <p class="text-xs text-purple-900">
+                  <i class="fas fa-info-circle mr-2"></i>
+                  Cada etapa existe para evitar um tipo específico de falha.
+                </p>
+              </div>
+            </div>
+
+            <!-- 4.4 Retrieval controlado -->
+            <div class="bg-orange-50 border-l-4 border-orange-500 p-6 my-6 rounded-r-lg">
+              <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-search text-orange-600"></i>
+                4.4 Retrieval: buscar menos é buscar melhor
+              </h3>
+              
+              <p class="text-sm text-gray-700 mb-4">
+                No caso de cardápios, o erro mais comum é buscar "tudo que parece relacionado".
+              </p>
+
+              <div class="bg-white border border-orange-200 p-4 rounded-lg mb-4">
+                <p class="font-semibold text-orange-900 text-sm mb-2">Em produção, o retrieval deve:</p>
+                <ul class="text-xs space-y-1 ml-6 list-disc text-orange-800">
+                  <li>limitar a quantidade de documentos (top-K pequeno)</li>
+                  <li>aplicar filtros de negócio (disponibilidade, horário, cidade)</li>
+                  <li>eliminar itens irrelevantes antes do prompt</li>
+                  <li>retornar nenhum resultado quando a confiança é baixa</li>
+                </ul>
+              </div>
+
+              <div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-sm text-yellow-900 font-semibold">
+                <i class="fas fa-lightbulb text-yellow-600 mr-2"></i>
+                Regra prática: Se o retrieval falhar, o modelo não deve improvisar.
+              </div>
+            </div>
+
+            <!-- 4.5 Augmentation estruturada -->
+            <div class="bg-green-50 border-l-4 border-green-500 p-6 my-6 rounded-r-lg">
+              <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-layer-group text-green-600"></i>
+                4.5 Augmentation: contexto não é texto solto
+              </h3>
+              
+              <p class="text-sm text-gray-700 mb-4">
+                O contexto não deve ser colado no prompt como parágrafo livre.
+              </p>
+
+              <div class="bg-white border border-green-200 p-4 rounded-lg mb-4">
+                <p class="font-semibold text-green-900 text-sm mb-2">Forma correta:</p>
+                <ul class="text-xs space-y-1 ml-6 list-disc text-green-800">
+                  <li>dados estruturados</li>
+                  <li>campos explícitos (nome, preço, disponibilidade)</li>
+                  <li>separação clara entre instrução e contexto</li>
+                  <li>tamanho máximo controlado</li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-900 rounded-lg p-4 mb-4 font-mono text-xs text-gray-300">
+                <div class="text-green-400 mb-2"># Exemplo conceitual:</div>
+                <div class="space-y-1">
+                  <div><span class="text-yellow-400">### CONTEXTO_CARDAPIO ###</span></div>
+                  <div class="ml-4">- <span class="text-cyan-400">Item</span>: Pizza Margherita</div>
+                  <div class="ml-6"><span class="text-cyan-400">Preço</span>: R$ 42,00</div>
+                  <div class="ml-6"><span class="text-cyan-400">Disponível</span>: sim</div>
+                  <div class="ml-6"><span class="text-cyan-400">Categoria</span>: vegetariano</div>
+                  <div class="mt-2"></div>
+                  <div class="ml-4">- <span class="text-cyan-400">Item</span>: Pizza Calabresa</div>
+                  <div class="ml-6"><span class="text-cyan-400">Preço</span>: R$ 45,00</div>
+                  <div class="ml-6"><span class="text-cyan-400">Disponível</span>: sim</div>
+                  <div class="ml-6"><span class="text-cyan-400">Categoria</span>: carne</div>
+                </div>
+              </div>
+
+              <p class="text-xs text-green-900">
+                Aqui o modelo <strong>consulta dados</strong>, não interpreta narrativas.
+              </p>
+            </div>
+
+            <!-- 4.6 Prompt de geração com PACE -->
+            <div class="bg-indigo-50 border-l-4 border-indigo-500 p-6 my-6 rounded-r-lg">
+              <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-pen text-indigo-600"></i>
+                4.6 Prompt de geração: RAG também precisa de PACE
+              </h3>
+              
+              <p class="text-sm text-gray-700 mb-4">
+                RAG não substitui Prompt Engineering — ele <strong>depende</strong> dele.
+              </p>
+
+              <div class="bg-white border border-indigo-200 p-4 rounded-lg mb-4">
+                <p class="font-semibold text-indigo-900 text-sm mb-2">O prompt de geração deve:</p>
+                <ul class="text-xs space-y-1 ml-6 list-disc text-indigo-800">
+                  <li>proibir explicitamente invenções</li>
+                  <li>obrigar o uso exclusivo do contexto fornecido</li>
+                  <li>definir o que fazer quando a informação não existe</li>
+                  <li>retornar saída estruturada</li>
+                </ul>
+              </div>
+
+              <div class="bg-gray-900 rounded-lg p-4 font-mono text-xs text-gray-300 mb-4">
+                <div class="text-indigo-400 mb-2"># Exemplo conceitual:</div>
+                <div class="space-y-1">
+                  <div><span class="text-yellow-400">"""</span></div>
+                  <div>Você deve responder usando apenas os dados presentes</div>
+                  <div>em ###CONTEXTO_CARDAPIO###.</div>
+                  <div class="mt-1">Se a informação solicitada não estiver no contexto,</div>
+                  <div>informe claramente que não há dados disponíveis.</div>
+                  <div class="mt-1">Nunca invente preços, itens ou disponibilidade.</div>
+                  <div><span class="text-yellow-400">"""</span></div>
+                </div>
+              </div>
+
+              <p class="text-xs text-indigo-900">
+                <i class="fas fa-warning text-red-600 mr-2"></i>
+                Sem esse contrato, o modelo completa lacunas por padrão estatístico.
+              </p>
+            </div>
+
+            <!-- 4.7 Quando o RAG deve falhar -->
+            <div class="bg-red-50 border-l-4 border-red-500 p-6 my-6 rounded-r-lg">
+              <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-hand-paper text-red-600"></i>
+                4.7 Quando o RAG deve falhar (e é ok!)
+              </h3>
+              
+              <p class="text-sm text-gray-700 mb-4">
+                Um pipeline maduro <strong>sabe não responder</strong>.
+              </p>
+
+              <div class="bg-white border border-red-200 p-4 rounded-lg mb-4">
+                <p class="font-semibold text-red-900 text-sm mb-2">Casos comuns:</p>
+                <ul class="text-xs space-y-1 ml-6 list-disc text-red-800">
+                  <li>nenhum item relevante encontrado</li>
+                  <li>contexto insuficiente</li>
+                  <li>informações conflitantes</li>
+                  <li>dados possivelmente desatualizados</li>
+                </ul>
+              </div>
+
+              <div class="bg-white border border-red-200 p-4 rounded-lg mb-4">
+                <p class="font-semibold text-red-900 text-sm mb-2">Nessas situações, a resposta correta é:</p>
+                <ul class="text-xs space-y-1 ml-6 list-disc text-red-800">
+                  <li>uma mensagem neutra ao usuário</li>
+                  <li>escalonamento humano</li>
+                  <li>ou fallback para busca tradicional</li>
+                </ul>
+              </div>
+
+              <div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-sm text-yellow-900 font-semibold">
+                <i class="fas fa-exclamation-circle text-red-600 mr-2"></i>
+                Inventar resposta é sempre o pior caminho.
+              </div>
+            </div>
+
+            <!-- 4.8 Impacto direto em produção -->
+            <div class="bg-brand-50 border-l-4 border-brand-500 p-6 my-6 rounded-r-lg">
+              <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-chart-line text-brand-600"></i>
+                4.8 Impacto direto em produção
+              </h3>
+              
+              <p class="text-sm text-gray-700 mb-4">
+                Esse design controla diretamente:
+              </p>
+
+              <div class="grid md:grid-cols-2 gap-3">
+                <div class="bg-white border border-brand-200 p-3 rounded-lg">
+                  <p class="text-xs font-bold text-brand-900 mb-1">💰 Custo</p>
+                  <p class="text-xs text-gray-700">menos contexto → menos tokens</p>
+                </div>
+                <div class="bg-white border border-brand-200 p-3 rounded-lg">
+                  <p class="text-xs font-bold text-brand-900 mb-1">⚡ Latência</p>
+                  <p class="text-xs text-gray-700">retrieval limitado → respostas previsíveis</p>
+                </div>
+                <div class="bg-white border border-brand-200 p-3 rounded-lg">
+                  <p class="text-xs font-bold text-brand-900 mb-1">🛡️ Confiabilidade</p>
+                  <p class="text-xs text-gray-700">redução drástica de alucinação</p>
+                </div>
+                <div class="bg-white border border-brand-200 p-3 rounded-lg">
+                  <p class="text-xs font-bold text-brand-900 mb-1">📊 Observabilidade</p>
+                  <p class="text-xs text-gray-700">métricas por etapa do pipeline</p>
+                </div>
+                <div class="bg-white border border-brand-200 p-3 rounded-lg md:col-span-2">
+                  <p class="text-xs font-bold text-brand-900 mb-1">🔐 Segurança</p>
+                  <p class="text-xs text-gray-700">nenhuma informação fora da base autorizada</p>
+                </div>
+              </div>
+
+              <div class="bg-white border border-brand-200 p-4 rounded-lg mt-4">
+                <p class="text-sm text-brand-900 font-bold">
+                  RAG bem projetado reduz <strong class="text-red-600">risco sistêmico</strong>, não apenas melhora respostas.
+                </p>
+              </div>
+            </div>
+
+            <!-- 4.9 Conexão com artigos anteriores -->
+            <div class="bg-gradient-to-r from-brand-50 to-purple-50 border border-brand-200 p-6 rounded-lg">
+              <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                <i class="fas fa-link text-brand-600"></i>
+                4.9 Conexão com os Artigos 1 e 2
+              </h3>
+              
+              <div class="space-y-3">
+                <div class="flex gap-3">
+                  <div class="bg-blue-600 text-white px-3 py-1 rounded text-xs font-bold h-fit">Artigo 1</div>
+                  <p class="text-sm text-gray-700">
+                    vêm <strong>métricas, fallback e resiliência</strong>.
+                  </p>
+                </div>
+                <div class="flex gap-3">
+                  <div class="bg-purple-600 text-white px-3 py-1 rounded text-xs font-bold h-fit">Artigo 2</div>
+                  <p class="text-sm text-gray-700">
+                    vêm <strong>prompts como contratos (PACE)</strong>.
+                  </p>
+                </div>
+                <div class="flex gap-3">
+                  <div class="bg-brand-600 text-white px-3 py-1 rounded text-xs font-bold h-fit">Aqui</div>
+                  <p class="text-sm text-gray-700">
+                    ambos se unem para <strong>lidar com dados dinâmicos</strong>.
+                  </p>
+                </div>
+              </div>
+
+              <div class="border-t border-brand-200 mt-4 pt-4 text-sm text-gray-800 font-semibold">
+                RAG não é um recurso isolado — é a junção de <strong class="text-brand-600">engenharia de dados + engenharia de prompts + engenharia de sistemas</strong>.
+              </div>
+            </div>
           </div>
-          <pre
-            class="code-block"
-          ><code><span class="token-keyword">import</span> openai
-
-<span class="token-comment"># 1. Simulação do Retrieval (Busca Vetorial)</span>
-<span class="token-comment"># Em um app real, aqui você converteria a query em embeddings</span>
-<span class="token-comment"># e faria uma busca por similaridade de cosseno no VectorDB.</span>
-<span class="token-keyword">def</span> <span class="token-function">search_menu</span>(query: str):
-    <span class="token-comment"># Simulando o retorno da busca para "vegetariano barato"</span>
-    <span class="token-keyword">return</span> [
-        {<span class="token-string">"name"</span>: <span class="token-string">"Salada Caesar"</span>, <span class="token-string">"price"</span>: 22.00, <span class="token-string">"desc"</span>: <span class="token-string">"Alface, croutons, molho..."</span>},
-        {<span class="token-string">"name"</span>: <span class="token-string">"Wrap de Cogumelos"</span>, <span class="token-string">"price"</span>: 28.00, <span class="token-string">"desc"</span>: <span class="token-string">"Tortilla, shimeji, cream cheese..."</span>}
-    ]
-
-<span class="token-keyword">def</span> <span class="token-function">answer_user</span>(user_query: str):
-    <span class="token-comment"># PASSO 2: Retrieval - Recupera dados brutos relevantes</span>
-    relevant_items = search_menu(user_query)
-
-    <span class="token-comment"># PASSO 3: Augmentation - Monta o Contexto (String)</span>
-    <span class="token-comment"># Formatamos os dados em texto claro para o LLM entender</span>
-    context_text = <span class="token-string">"\n"</span>.join([<span class="token-string">f"- {item['name']} (R$ {item['price']}): {item['desc']}"</span> <span class="token-keyword">for</span> item <span class="token-keyword">in</span> relevant_items])
-
-    <span class="token-comment"># Construção do Prompt com System Role e Contexto Injetado</span>
-    prompt = <span class="token-string">f"""
-    Você é um garçom digital experiente e prestativo.
-    Use APENAS as informações de cardápio fornecidas abaixo para responder.
-    Se o item não estiver na lista, diga que não temos.
-    
-    ### Cardápio Disponível (Contexto Recuperado):
-    {context_text}
-    
-    ### Pergunta do cliente:
-    {user_query}
-    """</span>
-
-    <span class="token-comment"># PASSO 4: Generation - Chama o LLM com o prompt enriquecido</span>
-    response = openai.ChatCompletion.create(
-        model=<span class="token-string">"gpt-3.5-turbo"</span>,
-        messages=[{<span class="token-string">"role"</span>: <span class="token-string">"user"</span>, <span class="token-string">"content"</span>: prompt}],
-        temperature=0  <span class="token-comment"># Zero para reduzir criatividade/alucinação</span>
-    )
-
-    <span class="token-keyword">return</span> response.choices[0].message.content
-
-<span class="token-comment"># Teste de execução</span>
-<span class="token-keyword">print</span>(answer_user(<span class="token-string">"Tem algo vegetariano por menos de 30 reais?"</span>))</code></pre>
         </section>
-        <!-- 5. Métricas e Evidências -->
+        <!-- 5. Métricas e Riscos no RAG -->
         <section class="space-y-6" id="metrics">
-          <div
-            class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-          >
-            <h2
-              class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-            >
-              <span class="text-brand-600">5.</span> Métricas e Riscos: A Tríade
-              do RAG
+          <div class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100">
+            <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+              <span class="text-brand-600">5.</span> Métricas e Riscos no RAG — Quando Contexto Vira Custo e Falha Sistêmica
             </h2>
-            <p class="text-gray-600 mb-6">
-              Como saber se o bot está funcionando? "Parece bom" não é métrica
-              de engenharia. Além da precisão, precisamos vigiar de perto a
-              <strong>Latência</strong>. Um pipeline RAG adiciona passos
-              (Embedding + Busca + LLM), e cada milissegundo conta. Se sua busca
-              vetorial levar 2 segundos, o usuário desiste antes de ver a
-              resposta.
-            </p>
-            <div class="grid md:grid-cols-3 gap-6">
-              <div class="p-6 bg-blue-50 rounded-xl border border-blue-100">
-                <h3 class="font-bold text-blue-900 mb-2">
-                  1. Context Relevance
+            
+            <div class="prose max-w-none text-gray-600 space-y-6">
+              <p>
+                Em um sistema RAG, os erros não vêm apenas do modelo. Eles surgem antes da geração: na busca, no corte de contexto e na forma como os dados são injetados no prompt.
+              </p>
+              <p>
+                Por isso, RAG exige <strong>métricas próprias</strong>. Monitorar apenas latência ou custo do LLM é insuficiente — o problema pode estar no retrieval.
+              </p>
+
+              <!-- 5.1 Métricas Essenciais -->
+              <div class="bg-blue-50 border-l-4 border-blue-500 p-6 my-6 rounded-r-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <i class="fas fa-tachometer-alt text-blue-600"></i>
+                  5.1 Métricas Essenciais em um Pipeline RAG
                 </h3>
-                <p class="text-sm text-blue-800">
-                  A busca trouxe lixo? <br /><em
-                    >Se o usuário pede "vegano" e o retrieval traz "Picanha", o
-                    modelo vai ficar confuso. O contexto deve ser limpo.</em
-                  >
-                </p>
+
+                <!-- 5.1.1 Context Relevance -->
+                <div class="bg-white border border-blue-200 p-4 rounded-lg mb-4">
+                  <h4 class="font-bold text-blue-900 text-sm mb-2">5.1.1 Relevância do Contexto (Context Relevance)</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p><strong class="text-blue-900">O que mede:</strong> Quão relevantes são os documentos recuperados para a pergunta do usuário.</p>
+                    <p><strong class="text-blue-900">Por que importa:</strong> Contexto irrelevante aumenta tokens, confunde o modelo, eleva risco de alucinação e piora latência.</p>
+                    <p><strong class="text-blue-900">Como medir na prática:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>Avaliação humana em amostras</li>
+                      <li>Similaridade média dos embeddings retornados</li>
+                      <li>Taxa de respostas que usam efetivamente o contexto</li>
+                    </ul>
+                    <p><strong class="text-red-600">⚠️ Sinal de alerta:</strong> O modelo responde corretamente, mas ignora parte do contexto → retrieval ruidoso.</p>
+                  </div>
+                </div>
+
+                <!-- 5.1.2 Context Coverage -->
+                <div class="bg-white border border-blue-200 p-4 rounded-lg mb-4">
+                  <h4 class="font-bold text-blue-900 text-sm mb-2">5.1.2 Cobertura do Contexto (Context Coverage)</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p><strong class="text-blue-900">O que mede:</strong> Se o contexto recuperado contém informação suficiente para responder à pergunta.</p>
+                    <p><strong class="text-blue-900">Por que importa:</strong> Baixa cobertura força o modelo a inventar respostas, generalizar ou responder errado com confiança.</p>
+                    <p><strong class="text-blue-900">Mitigação:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>fallback explícito ("não há dados suficientes")</li>
+                      <li>ajuste do top-K</li>
+                      <li>busca híbrida (vetorial + filtros)</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 5.1.3 Groundedness -->
+                <div class="bg-white border border-blue-200 p-4 rounded-lg mb-4">
+                  <h4 class="font-bold text-blue-900 text-sm mb-2">5.1.3 Groundedness (Aderência ao Contexto)</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p><strong class="text-blue-900">O que mede:</strong> Se a resposta foi gerada exclusivamente a partir do contexto fornecido.</p>
+                    <p><strong class="text-blue-900">Por que importa:</strong> Violação de groundedness = alucinação operacional.</p>
+                    <p><strong class="text-blue-900">Como detectar:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>QA automático: "Essa afirmação aparece no contexto?"</li>
+                      <li>uso de citações internas</li>
+                      <li>regras explícitas no prompt proibindo inferências externas</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 5.1.4 Latência por Etapa -->
+                <div class="bg-white border border-blue-200 p-4 rounded-lg mb-4">
+                  <h4 class="font-bold text-blue-900 text-sm mb-2">5.1.4 Latência por Etapa</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p><strong class="text-blue-900">Em RAG, a latência não é única — ela se distribui.</strong></p>
+                    <p><strong class="text-blue-900">Etapas a medir:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>embedding da query</li>
+                      <li>busca vetorial</li>
+                      <li>filtros de negócio</li>
+                      <li>montagem do contexto</li>
+                      <li>chamada ao LLM</li>
+                    </ul>
+                    <p class="mt-2 bg-yellow-50 p-2 rounded border border-yellow-200 text-yellow-900 font-semibold">
+                      <i class="fas fa-lightbulb mr-1"></i>
+                      Regra prática: Se a latência cresce, o problema geralmente está no retrieval, não no modelo.
+                    </p>
+                  </div>
+                </div>
+
+                <!-- 5.1.5 Custo por Resposta -->
+                <div class="bg-white border border-blue-200 p-4 rounded-lg">
+                  <h4 class="font-bold text-blue-900 text-sm mb-2">5.1.5 Custo por Resposta</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p><strong class="text-blue-900">RAG mal projetado aumenta custo, não reduz.</strong></p>
+                    <p><strong class="text-blue-900">Monitorar:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>tokens de contexto</li>
+                      <li>tokens de resposta</li>
+                      <li>custo médio por query</li>
+                      <li>variação por tipo de pergunta</li>
+                    </ul>
+                    <p class="mt-2 text-red-600 font-semibold">
+                      Contexto grande e irrelevante é o principal vilão.
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div class="p-6 bg-green-50 rounded-xl border border-green-100">
-                <h3 class="font-bold text-green-900 mb-2">2. Groundedness</h3>
-                <p class="text-sm text-green-800">
-                  Fidelidade aos dados. <br /><em
-                    >A resposta da IA está 100% ancorada no texto recuperado?
-                    Medimos se não houve adição de informação externa.</em
-                  >
-                </p>
-              </div>
-              <div class="p-6 bg-purple-50 rounded-xl border border-purple-100">
-                <h3 class="font-bold text-purple-900 mb-2">
-                  3. Answer Relevance
+
+              <!-- 5.2 Principais Riscos -->
+              <div class="bg-red-50 border-l-4 border-red-500 p-6 my-6 rounded-r-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <i class="fas fa-exclamation-circle text-red-600"></i>
+                  5.2 Principais Riscos em Sistemas RAG
                 </h3>
-                <p class="text-sm text-purple-800">
-                  Utilidade final. <br /><em
-                    >A IA respondeu à dúvida original? Uma resposta fiel mas
-                    evasiva ("Não sei") tem baixa relevância.</em
-                  >
+
+                <!-- 5.2.1 Alucinação -->
+                <div class="bg-white border border-red-200 p-4 rounded-lg mb-4">
+                  <h4 class="font-bold text-red-900 text-sm mb-2">5.2.1 Alucinação com Aparência de Verdade</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p>Mesmo com RAG, o modelo pode: completar lacunas, inferir preços, assumir disponibilidade.</p>
+                    <p><strong class="text-red-900">Mitigação:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>prompt proibindo inferência</li>
+                      <li>groundedness checks</li>
+                      <li>fallback quando cobertura é baixa</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 5.2.2 Context Overflow -->
+                <div class="bg-white border border-red-200 p-4 rounded-lg mb-4">
+                  <h4 class="font-bold text-red-900 text-sm mb-2">5.2.2 Context Overflow</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p>Quando o contexto cresce demais: estoura a janela do modelo, força truncamento, elimina itens relevantes, gera respostas erradas silenciosamente.</p>
+                    <p><strong class="text-red-900">Mitigação:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>limite rígido de tokens</li>
+                      <li>ranking e corte agressivo</li>
+                      <li>sumarização prévia (com cuidado)</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 5.2.3 Dados Desatualizados -->
+                <div class="bg-white border border-red-200 p-4 rounded-lg mb-4">
+                  <h4 class="font-bold text-red-900 text-sm mb-2">5.2.3 Dados Desatualizados</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p>Em cardápios, dados mudam constantemente. Riscos: preço errado, item indisponível apresentado como ativo, quebra de confiança.</p>
+                    <p><strong class="text-red-900">Mitigação:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>TTL nos documentos</li>
+                      <li>invalidação de cache</li>
+                      <li>filtros por timestamp</li>
+                      <li>versionamento de dados</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 5.2.4 Falha de Retrieval -->
+                <div class="bg-white border border-red-200 p-4 rounded-lg mb-4">
+                  <h4 class="font-bold text-red-900 text-sm mb-2">5.2.4 Falha de Retrieval (Nenhum Resultado Relevante)</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p>Quando a busca retorna pouco ou nada útil.</p>
+                    <p><strong class="text-red-900">Erro comum:</strong> Deixar o modelo "se virar".</p>
+                    <p><strong class="text-red-900">Comportamento correto:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>resposta neutra</li>
+                      <li>mensagem clara de indisponibilidade</li>
+                      <li>fallback para busca tradicional</li>
+                      <li>escalonamento humano, se necessário</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <!-- 5.2.5 Acoplamento ao Modelo -->
+                <div class="bg-white border border-red-200 p-4 rounded-lg">
+                  <h4 class="font-bold text-red-900 text-sm mb-2">5.2.5 Acoplamento Excessivo ao Modelo</h4>
+                  <div class="space-y-2 text-xs text-gray-700">
+                    <p>Trocar o modelo muda: custo, janela de contexto, comportamento. RAG mal projetado quebra com qualquer troca.</p>
+                    <p><strong class="text-red-900">Mitigação:</strong></p>
+                    <ul class="ml-4 list-disc space-y-1">
+                      <li>abstração do provedor</li>
+                      <li>contratos claros de prompt</li>
+                      <li>testes de regressão com Golden Dataset</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 5.3 O custo invisível -->
+              <div class="bg-orange-50 border-l-4 border-orange-500 p-6 my-6 rounded-r-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <i class="fas fa-eye-slash text-orange-600"></i>
+                  5.3 O custo invisível de um RAG mal monitorado
+                </h3>
+                
+                <p class="text-sm text-gray-700 mb-4">
+                  Sem métricas adequadas, RAG gera:
                 </p>
+                <ul class="text-sm space-y-2 ml-6 list-disc text-orange-800 mb-4">
+                  <li>mais tokens por resposta</li>
+                  <li>mais latência</li>
+                  <li>mais fallback</li>
+                  <li>mais retrabalho humano</li>
+                  <li>mais risco jurídico</li>
+                </ul>
+
+                <div class="bg-white border border-orange-200 p-4 rounded-lg mb-4">
+                  <p class="text-xs font-bold text-orange-900 mb-2">
+                    <i class="fas fa-arrow-up text-red-600 mr-2"></i>
+                    Resultado: o custo explode silenciosamente.
+                  </p>
+                </div>
+
+                <div class="bg-green-50 border border-green-200 p-4 rounded-lg">
+                  <p class="font-bold text-green-900 text-sm mb-2">
+                    <i class="fas fa-check text-green-600 mr-2"></i>
+                    RAG bem monitorado:
+                  </p>
+                  <ul class="text-xs space-y-1 ml-6 list-disc text-green-800">
+                    <li>reduz chamadas desnecessárias</li>
+                    <li>mantém respostas previsíveis</li>
+                    <li>protege regras de negócio</li>
+                    <li>melhora a experiência do usuário</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- 5.4 A mudança de paradigma -->
+              <div class="bg-gradient-to-r from-brand-50 to-purple-50 border border-brand-200 p-6 rounded-lg">
+                <h3 class="text-lg font-bold text-gray-900 mb-4 flex items-center gap-2">
+                  <i class="fas fa-diagram-project text-brand-600"></i>
+                  5.4 RAG não elimina riscos — ele os desloca
+                </h3>
+                
+                <p class="text-sm text-gray-700 mb-4">
+                  Eles saem do modelo e passam para o retrieval e o contexto.
+                </p>
+
+                <div class="grid md:grid-cols-2 gap-4 mb-4">
+                  <div class="bg-white border border-red-200 p-4 rounded-lg">
+                    <p class="text-xs font-bold text-red-900 mb-2">❌ Sem métricas:</p>
+                    <ul class="text-xs space-y-1 ml-4 list-disc text-red-800">
+                      <li>não sabe se o contexto é bom</li>
+                      <li>não sabe se o modelo está inventando</li>
+                      <li>não sabe onde o custo cresce</li>
+                    </ul>
+                  </div>
+                  <div class="bg-white border border-green-200 p-4 rounded-lg">
+                    <p class="text-xs font-bold text-green-900 mb-2">✓ Com métricas:</p>
+                    <ul class="text-xs space-y-1 ml-4 list-disc text-green-800">
+                      <li>RAG deixa de ser aposta</li>
+                      <li>vira engenharia controlada</li>
+                      <li>risco se torna gerenciável</li>
+                    </ul>
+                  </div>
+                </div>
+
+                <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg text-sm text-blue-900 font-semibold">
+                  <i class="fas fa-graduation-cap text-blue-600 mr-2"></i>
+                  Conclusão: Métricas não são overhead — são o fundamento de RAG em produção.
+                </div>
               </div>
             </div>
           </div>
@@ -810,41 +1221,177 @@
             <h2
               class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
             >
-              <span class="text-brand-600">6.</span> Evidence &amp; Exploration:
-              Busca Híbrida
+              <span class="text-brand-600">6.</span> Evidências &amp; Experimentação — Provando que o RAG Funciona (ou Não)
             </h2>
-            <p class="text-gray-600 mb-6">
-              Em aplicações reais como e-commerce e delivery, a busca puramente
-              vetorial pode falhar em filtros rígidos. Por exemplo, um produto
-              pode ser "semanticamente similar" (ex: Cerveja sem álcool) mas
-              violar uma restrição binária (ex: filtro "contém álcool").
-            </p>
-            <p class="text-gray-600 mb-6">
-              A solução de engenharia robusta é a
-              <strong>Busca Híbrida</strong>: combinar o poder de entendimento
-              da IA com a precisão dos filtros de banco de dados (Metadata
-              Filtering).
-            </p>
-            <div
-              class="flex flex-col md:flex-row gap-4 items-center justify-center bg-gray-50 p-6 rounded-lg border border-dashed border-gray-300"
-            >
-              <div class="text-center p-4 bg-white rounded shadow-sm w-48">
-                <div class="text-brand-500 font-bold mb-1">Busca Vetorial</div>
-                <div class="text-xs text-gray-500">"Algo leve para jantar"</div>
-              </div>
-              <div class="text-2xl text-gray-400">+</div>
-              <div class="text-center p-4 bg-white rounded shadow-sm w-48">
-                <div class="text-blue-500 font-bold mb-1">Filtro Metadata</div>
-                <div class="text-xs text-gray-500">
-                  price &lt; 30 AND category='veg'
+            <div class="prose max-w-none text-gray-700 space-y-6">
+              <p>
+                RAG não se valida por intuição nem por exemplos isolados. Ele só se justifica quando melhora métricas reais sem introduzir novos riscos.
+              </p>
+              <p>
+                Nesta seção, mostramos como tratar um pipeline RAG como um sistema experimental, com hipóteses claras, métricas observáveis e decisões explícitas.
+              </p>
+
+              <!-- 6.1 Golden Dataset para RAG -->
+              <div class="bg-brand-50 border-l-4 border-brand-500 p-6 rounded-r-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  <i class="fas fa-database text-brand-600"></i>
+                  6.1 Golden Dataset para RAG — A Base da Comparação
+                </h3>
+                <p class="text-sm mb-4">
+                  Assim como em Prompt Engineering, o RAG precisa de um Golden Dataset, mas com uma diferença importante: aqui ele valida busca + contexto + geração, não apenas o texto final.
+                </p>
+                <p class="text-sm font-semibold text-gray-800">Um Golden Dataset de RAG contém:</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>pergunta real do usuário;</li>
+                  <li>contexto esperado (ou tipo de contexto);</li>
+                  <li>resposta correta baseada exclusivamente nos dados;</li>
+                  <li>casos onde a resposta correta é “não há informação”.</li>
+                </ul>
+                <p class="text-sm font-semibold text-gray-800 mt-4">Exemplos de cobertura obrigatória</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>itens disponíveis vs indisponíveis;</li>
+                  <li>perguntas ambíguas;</li>
+                  <li>filtros por categoria (ex.: vegetariano);</li>
+                  <li>preços e variações;</li>
+                  <li>casos sem resultado relevante.</li>
+                </ul>
+                <div class="bg-yellow-50 border border-yellow-200 p-3 rounded-lg text-sm text-yellow-900 font-semibold mt-4">
+                  <i class="fas fa-lightbulb mr-2"></i>
+                  Regra prática: Se o seu Golden Dataset não contém casos “sem resposta”, seu RAG vai alucinar.
                 </div>
               </div>
-              <div class="text-2xl text-gray-400">=</div>
-              <div
-                class="text-center p-4 bg-green-50 rounded shadow-sm border border-green-200 w-48"
-              >
-                <div class="text-green-700 font-bold mb-1">
-                  Resultado Perfeito
+
+              <!-- 6.2 Avaliação Humana -->
+              <div class="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  <i class="fas fa-user-check text-blue-600"></i>
+                  6.2 Avaliação Humana: Contexto Antes da Resposta
+                </h3>
+                <p class="text-sm mb-2">Diferente de prompts puros, no RAG a avaliação humana precisa responder duas perguntas:</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>O contexto recuperado é relevante?</li>
+                  <li>A resposta respeita estritamente esse contexto?</li>
+                </ul>
+                <p class="text-sm font-semibold text-gray-800 mt-3">Critérios comuns:</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>Relevância do contexto (bom / aceitável / ruim)</li>
+                  <li>Cobertura da pergunta</li>
+                  <li>Correção factual</li>
+                  <li>Uso indevido de inferência</li>
+                  <li>Clareza da resposta final</li>
+                </ul>
+                <p class="text-xs text-blue-900 mt-3">
+                  Isso separa falha de retrieval de falha de geração, algo crítico para debug.
+                </p>
+              </div>
+
+              <!-- 6.3 Avaliação Automatizada -->
+              <div class="bg-purple-50 border-l-4 border-purple-500 p-6 rounded-r-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  <i class="fas fa-robot text-purple-600"></i>
+                  6.3 Avaliação Automatizada: Detectando Alucinação Silenciosa
+                </h3>
+                <p class="text-sm mb-2">LLMs podem ser usadas como avaliadores auxiliares para checagens objetivas:</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>“Essa afirmação aparece no contexto fornecido?”</li>
+                  <li>“Existe algum dado citado que não está no contexto?”</li>
+                  <li>“A resposta contém inferências não suportadas?”</li>
+                </ul>
+                <p class="text-sm font-semibold text-gray-800 mt-3">Esse tipo de QA automático:</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>escala avaliação;</li>
+                  <li>detecta regressões rapidamente;</li>
+                  <li>reduz custo humano.</li>
+                </ul>
+                <div class="bg-white border border-purple-200 p-3 rounded-lg text-sm text-purple-900">
+                  <strong>Importante:</strong> Ele não substitui avaliação humana, mas elimina ruído.
+                </div>
+              </div>
+
+              <!-- 6.4 Testes A/B -->
+              <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  <i class="fas fa-flask text-orange-600"></i>
+                  6.4 Testes A/B: RAG também compete consigo mesmo
+                </h3>
+                <p class="text-sm font-semibold text-gray-800">Mudanças comuns a testar:</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>top-K maior vs menor;</li>
+                  <li>busca vetorial pura vs híbrida;</li>
+                  <li>contexto estruturado vs texto livre;</li>
+                  <li>prompt mais restritivo vs mais flexível.</li>
+                </ul>
+                <p class="text-sm font-semibold text-gray-800 mt-3">Processo padrão:</p>
+                <ol class="text-sm space-y-2 ml-6 list-decimal">
+                  <li><strong>Hipótese clara</strong> — “Reduzir top-K melhora groundedness sem piorar cobertura.”</li>
+                  <li><strong>Implementação controlada</strong></li>
+                  <li><strong>Divisão de tráfego</strong> (ex.: 90/10)</li>
+                  <li><strong>Coleta de métricas</strong></li>
+                  <li><strong>Decisão baseada em dados</strong></li>
+                </ol>
+                <p class="text-sm font-semibold text-gray-800 mt-3">Métricas observadas</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>groundedness</li>
+                  <li>taxa de fallback</li>
+                  <li>latência p95</li>
+                  <li>custo médio</li>
+                  <li>taxa de respostas “sem dados”</li>
+                </ul>
+              </div>
+
+              <!-- 6.5 Evidência de que RAG puro não basta -->
+              <div class="bg-red-50 border-l-4 border-red-500 p-6 rounded-r-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  <i class="fas fa-triangle-exclamation text-red-600"></i>
+                  6.5 Evidência de que RAG puro não basta
+                </h3>
+                <p class="text-sm mb-2">Na prática, muitos sistemas descobrem algo importante: <strong>busca puramente vetorial não respeita regras de negócio.</strong></p>
+                <p class="text-sm font-semibold text-gray-800">Exemplos clássicos:</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>item semanticamente relevante, mas indisponível;</li>
+                  <li>produto fora do horário;</li>
+                  <li>cardápio de outra cidade;</li>
+                  <li>variação sazonal ignorada.</li>
+                </ul>
+                <p class="text-sm font-semibold text-gray-800 mt-3">A evidência costuma mostrar:</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li>boa relevância semântica,</li>
+                  <li>mas baixa precisão operacional.</li>
+                </ul>
+                <div class="bg-white border border-red-200 p-3 rounded-lg text-sm text-red-900">
+                  É aqui que surge a busca híbrida: <strong>filtros determinísticos primeiro, embeddings depois</strong>. Não como “feature extra”, mas como necessidade comprovada por dados.
+                </div>
+              </div>
+
+              <!-- 6.6 Decisão de promover/ajustar/reverter -->
+              <div class="bg-green-50 border-l-4 border-green-500 p-6 rounded-r-lg">
+                <h3 class="text-xl font-bold text-gray-900 mb-3 flex items-center gap-2">
+                  <i class="fas fa-traffic-light text-green-600"></i>
+                  6.6 Quando promover, ajustar ou reverter um RAG
+                </h3>
+                <p class="text-sm">Toda alteração no pipeline precisa levar a uma decisão explícita:</p>
+                <ul class="text-sm space-y-2 ml-6 list-disc">
+                  <li><strong>Promover</strong> — Melhora groundedness e reduz custo/latência.</li>
+                  <li><strong>Iterar</strong> — Melhora parcial ou comportamento instável.</li>
+                  <li><strong>Reverter</strong> — Aumenta alucinação, custo ou risco.</li>
+                </ul>
+                <div class="bg-white border border-green-200 p-3 rounded-lg text-sm text-green-900 mt-3">
+                  <strong>Regra de ouro:</strong> Pipeline sem decisão é experimento abandonado.
+                </div>
+                <div class="bg-gray-50 border border-gray-200 p-4 rounded-lg mt-4">
+                  <p class="text-sm">
+                    RAG não se valida pelo quão “inteligente” parece. Ele se valida por:
+                  </p>
+                  <ul class="text-sm space-y-2 ml-6 list-disc">
+                    <li>contexto relevante,</li>
+                    <li>ausência de invenção,</li>
+                    <li>custo previsível,</li>
+                    <li>falhas explícitas,</li>
+                    <li>decisões orientadas por dados.</li>
+                  </ul>
+                  <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg text-sm text-blue-900 mt-3 font-semibold">
+                    Sem evidência, RAG é só promessa. Com evidência, ele vira engenharia confiável para dados dinâmicos.
+                  </div>
                 </div>
               </div>
             </div>

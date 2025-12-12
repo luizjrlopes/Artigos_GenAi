@@ -5,6 +5,7 @@
 ### 1. Script de Exportação Melhorado (`scripts/export-to-docx.js`)
 
 **Funcionalidades:**
+
 - ✅ **Exportação para PDF** com preservação de estilos visuais
 - ✅ **Exportação para DOCX** com formatação estruturada
 - ✅ Carregamento automático de bibliotecas CDN:
@@ -13,10 +14,11 @@
   - `file-saver` - Para salvar arquivos
 
 **Classe: `ArticleExporter`**
+
 ```javascript
 const exporter = new ArticleExporter();
-exporter.exportPDF();   // Exporta para PDF
-exporter.exportDOCX();  // Exporta para DOCX
+exporter.exportPDF(); // Exporta para PDF
+exporter.exportDOCX(); // Exporta para DOCX
 ```
 
 ### 2. Botões de Exportação Atualizados
@@ -26,11 +28,17 @@ exporter.exportDOCX();  // Exporta para DOCX
 ```html
 <!-- Botões de Exportação DOCX/PDF Visual -->
 <div class="flex items-center gap-2 md:gap-3">
-  <button id="export-pdf-btn" class="flex items-center gap-2 px-3 md:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg...">
+  <button
+    id="export-pdf-btn"
+    class="flex items-center gap-2 px-3 md:px-4 py-2 bg-red-500 hover:bg-red-600 text-white rounded-lg..."
+  >
     <i class="fas fa-file-pdf"></i>
     <span class="hidden md:inline">PDF</span>
   </button>
-  <button id="export-docx-btn" class="flex items-center gap-2 px-3 md:px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg...">
+  <button
+    id="export-docx-btn"
+    class="flex items-center gap-2 px-3 md:px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg..."
+  >
     <i class="fas fa-file-word"></i>
     <span class="hidden md:inline">DOCX</span>
   </button>
@@ -38,6 +46,7 @@ exporter.exportDOCX();  // Exporta para DOCX
 ```
 
 **Estilos:**
+
 - 🎨 Cores vibrantes: Red (#ef4444) para PDF, Blue (#3b82f6) para DOCX
 - 📱 Responsivo: Hidden no mobile, visible no desktop
 - ✨ Hover effects com transição suave
@@ -46,6 +55,7 @@ exporter.exportDOCX();  // Exporta para DOCX
 ### 3. Preservação Visual na Exportação
 
 #### PDF
+
 - Mantém layout exato da página
 - Preserva cores, fontes e espaçamento
 - Configuração de qualidade: 0.98 (máxima)
@@ -53,6 +63,7 @@ exporter.exportDOCX();  // Exporta para DOCX
 - Suporte a paginação automática
 
 #### DOCX
+
 - Converte HTML para estrutura DOCX nativa
 - Mantém hierarquia de títulos (H1, H2, H3)
 - Suporta: listas, tabelas, código, blockquotes
@@ -63,25 +74,27 @@ exporter.exportDOCX();  // Exporta para DOCX
 
 Todos os 20 artigos agora possuem:
 
-| Artigo | Status | Botões | Script |
-|--------|--------|--------|--------|
-| 01-do-modelo-ao-produto.html | ✅ | PDF + DOCX | ✅ |
-| 02-prompt-engineering-pace.html | ✅ | PDF + DOCX | ✅ |
-| 03-rag-cardapios.html | ✅ | PDF + DOCX | ✅ |
-| ... | ✅ | PDF + DOCX | ✅ |
-| 20-jornada-genai-produtos-digitais.html | ✅ | PDF + DOCX | ✅ |
+| Artigo                                  | Status | Botões     | Script |
+| --------------------------------------- | ------ | ---------- | ------ |
+| 01-do-modelo-ao-produto.html            | ✅     | PDF + DOCX | ✅     |
+| 02-prompt-engineering-pace.html         | ✅     | PDF + DOCX | ✅     |
+| 03-rag-cardapios.html                   | ✅     | PDF + DOCX | ✅     |
+| ...                                     | ✅     | PDF + DOCX | ✅     |
+| 20-jornada-genai-produtos-digitais.html | ✅     | PDF + DOCX | ✅     |
 
 **Total: 20/20 artigos atualizados** ✅
 
 ## 🎯 Como Usar
 
 ### Para o Usuário
+
 1. Abra qualquer artigo (01 a 20)
 2. Procure pelos botões **"PDF"** e **"DOCX"** no header
 3. Clique para exportar
 4. Arquivo baixará automaticamente
 
 ### Para o Desenvolvedor
+
 ```javascript
 // Arquivo: scripts/export-to-docx.js
 
@@ -108,17 +121,19 @@ const exporter = new ArticleExporter();
 ## 🔍 Detalhes Técnicos
 
 ### Exportação PDF
+
 ```javascript
 const opt = {
-  margin: [15, 15, 15, 15],           // 15mm margens
-  filename: 'artigo-nome.pdf',
-  image: { type: 'jpeg', quality: 0.98 },
+  margin: [15, 15, 15, 15], // 15mm margens
+  filename: "artigo-nome.pdf",
+  image: { type: "jpeg", quality: 0.98 },
   html2canvas: { scale: 2, useCORS: true },
-  jsPDF: { orientation: 'portrait', format: 'a4' }
+  jsPDF: { orientation: "portrait", format: "a4" },
 };
 ```
 
 ### Exportação DOCX
+
 ```javascript
 // Converte elementos HTML para estrutura DOCX
 // H1 → Heading 1

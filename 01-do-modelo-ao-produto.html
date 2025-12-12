@@ -408,88 +408,215 @@
           </p>
 
           <div class="space-y-6">
-            <!-- Etapa 1 -->
-            <div class="step-card bg-gray-50 p-6 rounded-xl border border-gray-200">
-              <div class="flex items-center gap-3 mb-3">
-                <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-bold uppercase">Etapa 1</span>
-                <h3 class="text-lg font-bold text-gray-900">
-                  Protótipo (o estado “romântico”)
-                </h3>
-              </div>
-              <p class="text-gray-600 mb-3">
-                O objetivo é apenas validar uma hipótese:
-                <em>“O LLM consegue fazer o que eu quero?”</em>.
-                Nenhuma preocupação com latência, custo, carga, quedas de API,
-                tokens, caching, logs ou resiliência. É a fase do “funciona?”.
-              </p>
-              <p class="text-gray-600 text-sm">
-                Essa etapa existe para provar viabilidade. O resto ainda precisa ser construído.
-              </p>
-            </div>
+     
+        <!-- Etapa 1 -->
+<div class="step-card bg-gray-50 p-6 rounded-xl border border-gray-200">
+  <div class="flex items-center gap-3 mb-3">
+    <span class="bg-gray-200 text-gray-700 px-3 py-1 rounded-full text-xs font-bold uppercase">
+      Etapa 1
+    </span>
+    <h3 class="text-lg font-bold text-gray-900">
+      Protótipo (o estado “romântico”)
+    </h3>
+  </div>
+
+  <p class="text-gray-600 mb-3">
+    Aqui o objetivo é **puro e simples**: responder a pergunta
+    <em>“O LLM consegue fazer o que eu quero?”</em>.
+    Nada mais importa — não existe preocupação com custo, latência, tokens,
+    quedas de API, variabilidade, logs ou resiliência. O foco é validar
+    rapidamente a ideia.
+  </p>
+
+  <p class="text-gray-600 mb-3">
+    Normalmente isso acontece no Playground, Jupyter, Colab ou em um script isolado.
+    É onde você testa prompts, entende o comportamento do modelo e valida se a tarefa
+    é viável com IA.
+  </p>
+
+  <p class="text-gray-600 text-sm">
+    <strong>O que esta etapa entrega:</strong> viabilidade técnica.  
+    <strong>O que ela NÃO entrega:</strong> nada que possa ser usado em um produto real.
+  </p>
+</div>
+
 
             <!-- Etapa 2 -->
-            <div class="step-card bg-blue-50 p-6 rounded-xl border border-blue-100">
-              <div class="flex items-center gap-3 mb-3">
-                <span class="bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-xs font-bold uppercase">Etapa 2</span>
-                <h3 class="text-lg font-bold text-blue-900">
-                  MVP Técnico (primeiro endpoint real)
-                </h3>
-              </div>
-              <p class="text-blue-800 mb-3">
-                A pergunta agora é:
-                <em>“Funciona de ponta a ponta, com dados reais, dentro do meu backend?”</em>
-                Você cria uma função que busca dados no banco, um prompt que organiza as informações,
-                uma chamada ao modelo e um retorno estruturado.
-              </p>
-              <p class="text-blue-800 text-sm">
-                O MVP funciona, mas ainda é frágil: cai se a API cair, fica lento sob carga, custa caro,
-                não tem logs e não escala.
-              </p>
-            </div>
+         <!-- Etapa 2 -->
+<div class="step-card bg-blue-50 p-6 rounded-xl border border-blue-100">
+  <div class="flex items-center gap-3 mb-3">
+    <span class="bg-blue-200 text-blue-800 px-3 py-1 rounded-full text-xs font-bold uppercase">
+      Etapa 2
+    </span>
+    <h3 class="text-lg font-bold text-blue-900">
+      MVP Técnico (primeiro endpoint real)
+    </h3>
+  </div>
+
+  <p class="text-blue-800 mb-3">
+    Agora surge uma nova pergunta:
+    <em>“Funciona de ponta a ponta dentro do meu backend, com dados reais?”</em>
+    Aqui você sai do protótipo isolado e cria o primeiro endpoint funcional:
+    busca dados no banco, monta um prompt, chama o modelo e retorna algo útil
+    para o frontend.
+  </p>
+
+  <p class="text-blue-800 mb-3">
+    Esse MVP já é integrado ao sistema, mas ainda é <strong>frágil</strong>.
+    Ele funciona em condições normais, porém falha com facilidade: é lento sob carga,
+    depende totalmente do provedor, não possui logs estruturados, não controla custos
+    e não escala.
+  </p>
+
+  <p class="text-blue-800 text-sm">
+    <strong>O que esta etapa entrega:</strong> funcionalidade básica operando no produto.  
+    <strong>O que ela NÃO entrega:</strong> robustez, estabilidade ou previsibilidade.
+  </p>
+</div>
+
 
             <!-- Etapa 3 -->
-            <div class="step-card bg-purple-50 p-6 rounded-xl border border-purple-100">
-              <div class="flex items-center gap-3 mb-3">
-                <span class="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-xs font-bold uppercase">Etapa 3</span>
-                <h3 class="text-lg font-bold text-purple-900">
-                  Feature Robusta (nasce engenharia de verdade)
-                </h3>
-              </div>
-              <p class="text-purple-800 mb-4">
-                Os desafios reais aparecem: latência alta, custos imprevisíveis,
-                lógica frágil, erros silenciosos e escalabilidade limitada.
-              </p>
-              <ul class="list-disc pl-5 space-y-2 text-purple-900">
-                <li>circuit breaker</li>
-                <li>retry com backoff</li>
-                <li>caching inteligente</li>
-                <li>compressão de contexto</li>
-                <li>limitação de tokens</li>
-                <li>troca de modelo</li>
-                <li>abstração do provedor de LLM</li>
-              </ul>
-            </div>
+         <!-- Etapa 3 -->
+<div class="step-card bg-purple-50 p-6 rounded-xl border border-purple-100">
+  <div class="flex items-center gap-3 mb-3">
+    <span
+      class="bg-purple-200 text-purple-800 px-3 py-1 rounded-full text-xs font-bold uppercase"
+      >Etapa 3</span
+    >
+    <h3 class="text-lg font-bold text-purple-900">
+      Feature Robusta (nasce engenharia de verdade)
+    </h3>
+  </div>
 
-            <!-- Etapa 4 -->
-            <div class="step-card bg-amber-50 p-6 rounded-xl border border-amber-100">
-              <div class="flex items-center gap-3 mb-3">
-                <span class="bg-amber-200 text-amber-800 px-3 py-1 rounded-full text-xs font-bold uppercase">Etapa 4</span>
-                <h3 class="text-lg font-bold text-amber-900">
-                  Produção Operacional (o sistema respira sozinho)
-                </h3>
-              </div>
-              <p class="text-amber-900 mb-3">
-                A IA deixa de ser experimento e vira parte do produto. Agora é essencial ter observabilidade e processos de confiabilidade.
-              </p>
-              <ul class="list-disc pl-5 space-y-2 text-amber-900">
-                <li>métricas de latência</li>
-                <li>dashboards de custo por endpoint</li>
-                <li>alarmes automáticos</li>
-                <li>logs estruturados e fallback padrão</li>
-                <li>testes A/B e versionamento de prompts</li>
-                <li>filas assíncronas</li>
-              </ul>
-            </div>
+  <p class="text-purple-800 mb-4">
+    Aqui o protótipo deixa de ser um experimento frágil e começa a virar um
+    pedaço confiável do produto. É quando aparecem os problemas reais:
+    <strong>latência alta</strong>, <strong>custos imprevisíveis</strong>,
+    <strong>erros silenciosos</strong> e <strong>comportamento instável</strong>
+    do modelo. Para sobreviver, a feature precisa de mecanismos de resiliência.
+  </p>
+
+  <div class="space-y-3 text-sm text-purple-900">
+    
+    <div>
+      <span class="font-bold">• Circuit Breaker</span> — desliga temporariamente
+      as chamadas ao modelo quando ele começa a falhar, impedindo que o sistema
+      inteiro entre em colapso.
+    </div>
+
+    <div>
+      <span class="font-bold">• Retry com Backoff</span> — repete a chamada em
+      caso de falhas transitórias, esperando intervalos progressivos para evitar
+      sobrecarga.
+    </div>
+
+    <div>
+      <span class="font-bold">• Caching Inteligente</span> — guarda respostas já
+      geradas para economizar tokens, reduzir latência e evitar chamadas
+      repetidas ao modelo.
+    </div>
+
+    <div>
+      <span class="font-bold">• Compressão de Contexto</span> — filtra e reduz
+      dados antes de enviar ao modelo para não extrapolar a janela de contexto
+      e evitar custos absurdos.
+    </div>
+
+    <div>
+      <span class="font-bold">• Limitação de Tokens</span> — controla o tamanho
+      máximo do prompt e da resposta para impedir que o custo e a latência
+      cresçam sem controle.
+    </div>
+
+    <div>
+      <span class="font-bold">• Troca de Modelo</span> — permite alternar entre
+      modelos (GPT-4, GPT-3.5, local, fallback) conforme custo, qualidade ou
+      disponibilidade.
+    </div>
+
+    <div>
+      <span class="font-bold">• Abstração do Provedor de LLM</span> — evita
+      acoplamento direto com a API da OpenAI. Em vez de chamar o modelo
+      diretamente, você chama funções como <code>generateSummary()</code>,
+      facilitando evolução e troca de provedores.
+    </div>
+
+  </div>
+
+  <p class="text-purple-800 mt-4">
+    É aqui que a IA finalmente se comporta como parte do produto — não como um
+    “script improvisado”. Sem esses mecanismos, qualquer pico de uso ou
+    instabilidade derruba sua aplicação.
+  </p>
+</div>
+
+
+         <!-- Etapa 4 -->
+      <div class="step-card bg-green-50 p-6 rounded-xl border border-green-100">
+  <div class="flex items-center gap-3 mb-3">
+    <span
+      class="bg-green-200 text-green-800 px-3 py-1 rounded-full text-xs font-bold uppercase"
+      >Etapa 4</span
+    >
+    <h3 class="text-lg font-bold text-green-900">
+      Produção Operacional (o sistema respira sozinho)
+    </h3>
+  </div>
+
+  <p class="text-green-800 mb-4">
+    Aqui a feature deixa de ser um experimento controlado e passa a operar
+    como parte viva do produto. A pergunta muda de “funciona?” para 
+    <strong>“funciona sempre, de forma previsível e com custo sustentável?”</strong>.
+    É o momento de implementar observabilidade, automação e processos de 
+    confiabilidade contínua.
+  </p>
+
+  <div class="space-y-3 text-sm text-green-900">
+
+    <div>
+      <span class="font-bold">• Métricas de Latência</span> — monitoramento de p95 e p99 
+      para garantir que a IA não degrade a experiência do usuário, mesmo sob carga.
+    </div>
+
+    <div>
+      <span class="font-bold">• Dashboards de Custo por Endpoint</span> — visualização clara
+      de quais rotas consomem mais tokens, permitindo decisões informadas sobre 
+      otimização ou troca de modelo.
+    </div>
+
+    <div>
+      <span class="font-bold">• Alarmes Automáticos</span> — alertas quando a latência sobe,
+      o custo explode, o provedor falha ou o número de timeouts aumenta.
+    </div>
+
+    <div>
+      <span class="font-bold">• Logs Estruturados + Fallback Padrão</span> — cada requisição
+      deve registrar dados completos (latência, tokens, modelo, erro). Em caso de falha,
+      a aplicação retorna uma resposta segura e previsível.
+    </div>
+
+    <div>
+      <span class="font-bold">• Testes A/B e Versionamento de Prompts</span> — permite comparar
+      comportamentos diferentes da IA, validar hipóteses de melhoria e reverter mudanças 
+      perigosas rapidamente.
+    </div>
+
+    <div>
+      <span class="font-bold">• Filas Assíncronas</span> — processamento em background
+      para tarefas pesadas ou que não precisam bloquear a resposta ao usuário,
+      garantindo fluidez e resiliência.
+    </div>
+
+  </div>
+
+  <p class="text-green-800 mt-4">
+    Este é o estágio em que a IA finalmente “respira sozinha”: monitora seu próprio
+    desempenho, se protege de falhas, revela custos escondidos e se integra ao produto
+    com maturidade operacional. É quando a engenharia realmente garante que a IA não
+    seja apenas poderosa — mas também confiável.
+  </p>
+      </div>
+
 
             <!-- Etapa 5 -->
             <div class="step-card bg-teal-50 p-6 rounded-xl border border-teal-100">
@@ -510,34 +637,41 @@
         </section>
 
         <!-- 3. Abordagem Prática -->
-        <section
-          class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100"
-          id="approach"
-        >
-          <h2
-            class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2"
-          >
-            <span class="text-brand-600">3.</span> Abordagem Prática
-          </h2>
-          <div class="prose max-w-none text-gray-600">
-            <p class="mb-4">
-              No artigo original, essa seção apenas pula para “vamos resumir
-              avaliações”. Agora vamos amarrar isso à jornada.
-              <strong>Resumir avaliações</strong> é o exemplo perfeito para
-              ilustrar:
-            </p>
-            <ul class="list-disc pl-6 mb-4 space-y-1">
-              <li>Alto volume de dados não estruturados.</li>
-              <li>Diferentes janelas de contexto.</li>
-              <li>Risco de alucinação e alto custo se mal implementado.</li>
-              <li>Necessidade crítica de caching.</li>
-            </ul>
-            <p>
-              Esse cenário exige engenharia desde o início, não apenas um prompt
-              simples.
-            </p>
-          </div>
-        </section>
+     <section class="bg-white rounded-2xl shadow-sm p-8 border border-gray-100" id="approach">
+  <h2 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-4 flex items-center gap-2">
+    <span class="text-brand-600">3.</span> Abordagem Prática — com contexto real
+  </h2>
+
+  <div class="prose max-w-none text-gray-600">
+    <p class="mb-4">
+      O exemplo de <strong>resumir avaliações</strong> é perfeito para explicar como um problema 
+      aparentemente simples exige engenharia de verdade quando chega perto da realidade 
+      de um app de delivery. Esse é um cenário onde surgem limitações concretas:
+    </p>
+
+    <ul class="list-disc pl-6 mb-6 space-y-1">
+      <li><strong>Alto volume de dados:</strong> restaurantes recebem dezenas ou centenas de avaliações por dia.</li>
+      <li><strong>Informações não estruturadas:</strong> textos longos, gírias, ironias, emojis e ruídos.</li>
+      <li><strong>Risco de alucinação:</strong> o modelo pode inventar conclusões se o prompt estiver mal definido.</li>
+      <li><strong>Limites reais de contexto:</strong> não é possível enviar tudo; é necessário filtrar antes.</li>
+      <li><strong>Potencial explosão de custos:</strong> muitos tokens → muitos reais.</li>
+      <li><strong>Necessidade de caching agressivo:</strong> para evitar chamadas repetidas e reduzir gastos.</li>
+    </ul>
+
+    <p class="text-gray-700">
+      Em um protótipo, um simples <em>“manda tudo pro modelo e vê no que dá”</em> pode até funcionar.  
+      Mas em produção, é diferente: você precisa <strong>orquestrar dados, controlar janelas de contexto,
+      supervisionar custos, evitar alucinações e garantir previsibilidade do sistema</strong>.
+    </p>
+
+    <p class="text-gray-700 mt-4">
+      Não basta chamar a API — é preciso montar uma cadeia de engenharia que sustente esse fluxo:
+      <strong>filtragem → construção de prompt → chamada resiliente → pós-processamento → caching 
+      → métricas → fallback</strong>.
+    </p>
+  </div>
+</section>
+
 
         <!-- 4. Conceitos Fundamentais -->
         <section
@@ -659,20 +793,20 @@
 
           <div class="grid md:grid-cols-2 gap-6">
             <div>
-              <h4 class="font-bold text-brand-700 mb-2">🔵 1) Frontend</h4>
+              <h4 class="font-bold text-brand-700 mb-2">  1) Frontend</h4>
               <p class="text-sm text-gray-600 mb-4">
                 Responsável por UX de carregamento, timeouts locais e mensagens
                 de fallback.
               </p>
 
-              <h4 class="font-bold text-brand-700 mb-2">🔵 2) API Gateway</h4>
+              <h4 class="font-bold text-brand-700 mb-2">  2) API Gateway</h4>
               <p class="text-sm text-gray-600 mb-4">
                 Filtra abuso e protege a infraestrutura (auth, rate limits,
                 verificação de payload).
               </p>
 
               <h4 class="font-bold text-brand-700 mb-2">
-                🔵 3) Serviço Orquestrador (backend da IA)
+                  3) Serviço Orquestrador (backend da IA)
               </h4>
               <p class="text-sm text-gray-600 mb-4">
                 O cérebro do sistema. Controla busca de dados, prompt, chamadas
@@ -680,7 +814,7 @@
               </p>
 
               <h4 class="font-bold text-brand-700 mb-2">
-                🔵 4) Banco de Dados
+                  4) Banco de Dados
               </h4>
               <p class="text-sm text-gray-600 mb-4">
                 Não é só “buscar”. É filtrar por data, eliminar ruído e agrupar
@@ -689,7 +823,7 @@
             </div>
             <div>
               <h4 class="font-bold text-brand-700 mb-2">
-                🔵 5) Prompt Builder
+                  5) Prompt Builder
               </h4>
               <p class="text-sm text-gray-600 mb-4">
                 Gera prompts previsíveis e estáveis. Um prompt é um artefato
@@ -697,7 +831,7 @@
               </p>
 
               <h4 class="font-bold text-brand-700 mb-2">
-                🔵 6) LLM Provider (Abstração)
+                  6) LLM Provider (Abstração)
               </h4>
               <p class="text-sm text-gray-600 mb-4">
                 Nunca chame o modelo direto. Crie interfaces como
@@ -706,7 +840,7 @@
               </p>
 
               <h4 class="font-bold text-brand-700 mb-2">
-                🔵 7, 8 & 9) Pós-processamento e Entrega
+                  7, 8 & 9) Pós-processamento e Entrega
               </h4>
               <p class="text-sm text-gray-600 mb-4">
                 Corrige formatos, monitora métricas (custo/latência) e entrega
